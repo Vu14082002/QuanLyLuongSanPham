@@ -8,8 +8,6 @@ import java.awt.Color;
 import java.util.Random;
 import java.util.prefs.Preferences;
 
-
-
 /**
  *
  * @author December
@@ -24,29 +22,30 @@ public class LoginView extends javax.swing.JFrame {
         gui();
         getDataRemember();
     }
-    
-    public void getDataRemember(){
-        String userName="";
-        userName =pref.get("userName",userName);
-        String passWord="";
-        passWord =pref.get("password",passWord);
+
+    public void getDataRemember() {
+        String userName = "";
+        userName = pref.get("userName", userName);
+        String passWord = "";
+        passWord = pref.get("password", passWord);
         this.txtUserName.setText(userName);
         this.txtPassWord.setText(passWord);
     }
-    public void gui(){
-        this.txtUserName.setBackground(new Color(0,0,0,1));
-        this.txtPassWord.setBackground(new Color(0,0,0,1));
-        this.txtOTP.setBackground(new Color(0,0,0,1));
+
+    public void gui() {
+        this.txtUserName.setBackground(new Color(0, 0, 0, 1));
+        this.txtPassWord.setBackground(new Color(0, 0, 0, 1));
+        this.txtOTP.setBackground(new Color(0, 0, 0, 1));
     }
-    public void sendEmail(){
-       String fromName="Nguyen Van Vu";
-       String fromEmail="sherlockvufullsnack20020814@gmail.com";
-       String toEmail="nguyenvanvu20020814@gmail.com";
-       Random rand = new Random();
-       int content =rand.nextInt(99999+1-10000)+10000;
+
+    public void sendEmail() {
+        String fromName = "Nguyen Van Vu";
+        String fromEmail = "sherlockvufullsnack20020814@gmail.com";
+        String toEmail = "nguyenvanvu20020814@gmail.com";
+        Random rand = new Random();
+        int content = rand.nextInt(99999 + 1 - 10000) + 10000;
     }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -257,11 +256,16 @@ public class LoginView extends javax.swing.JFrame {
     }//GEN-LAST:event_chkRemerberPasswordActionPerformed
 
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
-        // TODO add your handling code here:
+        System.out.println(this.txtUserName.getText());
+        System.out.println(new String(this.txtPassWord.getPassword()));
+        if ("admin".equals(this.txtUserName.getText()) && "admin".equals(new String(this.txtPassWord.getPassword()))) {
+            this.dispose();
+            new MainView().setVisible(true);
+        }
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
     private void showMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showMouseClicked
-        this.txtPassWord.setEchoChar((char)8226);
+        this.txtPassWord.setEchoChar((char) 8226);
         this.disable.setVisible(true);
         this.disable.setEnabled(true);
         this.show.setVisible(false);
@@ -269,7 +273,7 @@ public class LoginView extends javax.swing.JFrame {
     }//GEN-LAST:event_showMouseClicked
 
     private void disableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_disableMouseClicked
-        this.txtPassWord.setEchoChar((char)0);
+        this.txtPassWord.setEchoChar((char) 0);
         this.disable.setVisible(false);
         this.disable.setEnabled(false);
         this.show.setVisible(true);
@@ -293,16 +297,17 @@ public class LoginView extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_lbExitMouseClicked
     public Preferences pref = Preferences.userRoot().node("Rememberme");
-    public void saveAccount(String userName, String password){
-        if(userName!=null || password != null){
+
+    public void saveAccount(String userName, String password) {
+        if (userName != null || password != null) {
             pref.put("userName", userName);
             pref.put("password", password);
         }
     }
     private void chkRemerberPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chkRemerberPasswordMouseClicked
-       if(chkRemerberPassword.isSelected()){
-           saveAccount(this.txtUserName.getText(), new String(this.txtPassWord.getPassword()));
-       }
+        if (chkRemerberPassword.isSelected()) {
+            saveAccount(this.txtUserName.getText(), new String(this.txtPassWord.getPassword()));
+        }
     }//GEN-LAST:event_chkRemerberPasswordMouseClicked
 
     /**

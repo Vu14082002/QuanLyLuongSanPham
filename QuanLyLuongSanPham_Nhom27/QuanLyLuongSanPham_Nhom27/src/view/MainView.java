@@ -6,6 +6,7 @@ package view;
 
 import CustomView.MenuItem;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -24,12 +25,14 @@ public class MainView extends javax.swing.JFrame {
      */
     public MainView() {
         initComponents();
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+//        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+           
 //        this.setResizable(false);
         execute();
     }
 
     private void execute() {
+//        this.pnMenu.setSize(200,725);
         ImageIcon iconHomePage = new ImageIcon(getClass().getResource("/image/icon/homepage.png"));
         ImageIcon iconEmployee = new ImageIcon(getClass().getResource("/image/icon/employee.png"));
         ImageIcon iconWorker = new ImageIcon(getClass().getResource("/image/icon/worker.png"));
@@ -37,15 +40,23 @@ public class MainView extends javax.swing.JFrame {
         ImageIcon iconFee = new ImageIcon(getClass().getResource("/image/icon/fee.png"));
         ImageIcon iconMoney = new ImageIcon(getClass().getResource("/image/icon/money.png"));
         ImageIcon iconLogout = new ImageIcon(getClass().getResource("/image/icon/logout.png"));
+        ImageIcon iconThongKe = new ImageIcon(getClass().getResource("/image/icon/thongke.png"));
         ImageIcon iconSubMenu = new ImageIcon(getClass().getResource("/image/icon/moon.png"));
+        ImageIcon iconProduct = new ImageIcon(getClass().getResource("/image/icon/sanpham.png"));
+        ImageIcon iconPhanCong = new ImageIcon(getClass().getResource("/image/icon/phancong.png"));
 
         // create subMenu
         MenuItem chamCongCongNhan = new MenuItem(iconSubMenu, "Công nhân", null);
         MenuItem chamCongNhanVien = new MenuItem(iconSubMenu, "Nhân viên", null);
         MenuItem tinhLuongCongNhan = new MenuItem(iconSubMenu, "Nhân viên", null);
         MenuItem tinhLuongNhanVien = new MenuItem(iconSubMenu, "Nhân viên", null);
+        // add trang chu
+        pnBody.removeAll();
+        pnBody.add(new TrangChuView(), BorderLayout.CENTER);
+        pnBody.repaint();
+        pnBody.revalidate();
         // menu
-        MenuItem menuHomepage = new MenuItem(iconHomePage, "Trang chủ", new ActionListener() {
+        MenuItem menuTrangChu = new MenuItem(iconHomePage, "Trang chủ", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 pnBody.removeAll();
@@ -54,7 +65,7 @@ public class MainView extends javax.swing.JFrame {
                 pnBody.revalidate();
             }
         });
-        MenuItem menuDepartment = new MenuItem(iconDepartment, "Phòng ban", new ActionListener() {
+        MenuItem menuPhongBan = new MenuItem(iconDepartment, "Phòng ban", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 pnBody.removeAll();
@@ -63,13 +74,15 @@ public class MainView extends javax.swing.JFrame {
                 pnBody.revalidate();
             }
         });
-        MenuItem menuEmployee = new MenuItem(iconEmployee, "Nhân viên", null);
-        MenuItem menuWorker = new MenuItem(iconWorker, "Công nhân", null);
-
-        MenuItem menuFee = new MenuItem(iconFee, "Chấm công", null, chamCongNhanVien, chamCongCongNhan);
-        MenuItem menuMoney = new MenuItem(iconMoney, "Tính lương", null, tinhLuongNhanVien, tinhLuongCongNhan);
+        MenuItem menuNhanVien = new MenuItem(iconEmployee, "Nhân viên", null);
+        MenuItem menuCongNhan = new MenuItem(iconWorker, "Công nhân", null);
+        MenuItem menuSanPham = new MenuItem(iconProduct, "Sản phẩm", null);
+        MenuItem menuPhanCong = new MenuItem(iconPhanCong, "Phân công", null);
+        MenuItem menuChamCong = new MenuItem(iconFee, "Chấm công", null, chamCongNhanVien, chamCongCongNhan);
+        MenuItem menuTinhLuong = new MenuItem(iconMoney, "Tính lương", null, tinhLuongNhanVien, tinhLuongCongNhan);
+        MenuItem menuThongKe = new MenuItem(iconThongKe, "Thống kê", null);
         MenuItem menuLogout = new MenuItem(iconLogout, "Đăng xuất", null);
-        addMenu(menuHomepage, menuDepartment, menuEmployee, menuWorker, menuFee, menuMoney, menuLogout);
+        addMenu(menuTrangChu, menuPhongBan, menuNhanVien, menuNhanVien, menuCongNhan, menuSanPham, menuPhanCong, menuChamCong, menuTinhLuong, menuThongKe, menuLogout);
     }
 
     private void addMenu(MenuItem... menu) {
@@ -94,25 +107,37 @@ public class MainView extends javax.swing.JFrame {
     private void initComponents() {
 
         pnHeader = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         pnMenu = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         menus = new javax.swing.JPanel();
         pnBody = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
-        pnHeader.setBackground(new java.awt.Color(153, 153, 255));
+        pnHeader.setBackground(new java.awt.Color(248, 194, 145));
         pnHeader.setForeground(new java.awt.Color(153, 153, 255));
+        pnHeader.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        pnHeader.setPreferredSize(new java.awt.Dimension(1500, 75));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 26)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("QUẢN LÝ LƯƠNG CÔNG TY THVT_SHOES");
 
         javax.swing.GroupLayout pnHeaderLayout = new javax.swing.GroupLayout(pnHeader);
         pnHeader.setLayout(pnHeaderLayout);
         pnHeaderLayout.setHorizontalGroup(
             pnHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1000, Short.MAX_VALUE)
+            .addGroup(pnHeaderLayout.createSequentialGroup()
+                .addGap(254, 254, 254)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 974, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(272, Short.MAX_VALUE))
         );
         pnHeaderLayout.setVerticalGroup(
             pnHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
         );
 
         getContentPane().add(pnHeader, java.awt.BorderLayout.PAGE_START);
@@ -122,7 +147,8 @@ public class MainView extends javax.swing.JFrame {
 
         jScrollPane1.setBorder(null);
 
-        menus.setBackground(new java.awt.Color(0, 0, 0));
+        menus.setBackground(new java.awt.Color(60, 99, 130));
+        menus.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         menus.setLayout(new javax.swing.BoxLayout(menus, javax.swing.BoxLayout.Y_AXIS));
         jScrollPane1.setViewportView(menus);
 
@@ -134,7 +160,7 @@ public class MainView extends javax.swing.JFrame {
         );
         pnMenuLayout.setVerticalGroup(
             pnMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 725, Short.MAX_VALUE)
         );
 
         getContentPane().add(pnMenu, java.awt.BorderLayout.LINE_START);
@@ -143,7 +169,7 @@ public class MainView extends javax.swing.JFrame {
         pnBody.setLayout(new java.awt.BorderLayout());
         getContentPane().add(pnBody, java.awt.BorderLayout.CENTER);
 
-        setSize(new java.awt.Dimension(1018, 847));
+        setSize(new java.awt.Dimension(1518, 847));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -184,6 +210,7 @@ public class MainView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel menus;
     private javax.swing.JPanel pnBody;

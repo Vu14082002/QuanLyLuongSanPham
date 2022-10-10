@@ -38,8 +38,6 @@ public class ModalThemNhanVienView extends javax.swing.JFrame {
         this.txtSoDienThoaiNhanVien.setText("");
         this.lbErrSoDienThoaiNhanVien.setText("");
         this.lbErrSoCCCDNhanVien.setText("");
-        this.txtMatKhauNhanVien.setText("");
-        this.lbErrMatKhauNhanVien.setText("");
         this.txtDiaChiThuongChuNhanVien.setText("");
         this.lbErrDiaChiThuongChuNhanVien.setText("");
         this.rdNam.setSelected(true);
@@ -52,7 +50,6 @@ public class ModalThemNhanVienView extends javax.swing.JFrame {
         this.txtSoCCCDNhanVien.setBackground(new Color(0, 0, 0, 1));
         this.txtEmailNhanVien.setBackground(new Color(0, 0, 0, 1));
         this.txtSoDienThoaiNhanVien.setBackground(new Color(0, 0, 0, 1));
-        this.txtMatKhauNhanVien.setBackground(new Color(0, 0, 0, 1));
         this.txtDiaChiThuongChuNhanVien.setBackground(new Color(0, 0, 0, 1));
         this.txtLuongNhanVien.setBackground(new Color(0,0,0,1));
         
@@ -99,9 +96,6 @@ public class ModalThemNhanVienView extends javax.swing.JFrame {
         txtSoDienThoaiNhanVien = new javax.swing.JTextField();
         lbGachChanSoDienThoaiNhanVien = new javax.swing.JLabel();
         lbErrSoDienThoaiNhanVien = new javax.swing.JLabel();
-        lbMatKhauNhanVien = new javax.swing.JLabel();
-        txtMatKhauNhanVien = new javax.swing.JTextField();
-        lbErrMatKhauNhanVien = new javax.swing.JLabel();
         lbDiaChiThuongChuNhanVien = new javax.swing.JLabel();
         txtDiaChiThuongChuNhanVien = new javax.swing.JTextField();
         lbErrDiaChiThuongChuNhanVien = new javax.swing.JLabel();
@@ -123,9 +117,9 @@ public class ModalThemNhanVienView extends javax.swing.JFrame {
         jDateNgayVaoLam = new com.toedter.calendar.JDateChooser();
         btnLuuNhanVien = new javax.swing.JButton();
         btnThoatNhanVien = new javax.swing.JButton();
-        lbGachChanMatKhauNhanVien = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
         setUndecorated(true);
 
         panelBorder1.setBackground(new java.awt.Color(204, 102, 255));
@@ -292,32 +286,10 @@ public class ModalThemNhanVienView extends javax.swing.JFrame {
         panelBorder1.add(lbErrSoDienThoaiNhanVien);
         lbErrSoDienThoaiNhanVien.setBounds(200, 420, 230, 18);
 
-        lbMatKhauNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lbMatKhauNhanVien.setText("Mật khẩu:");
-        panelBorder1.add(lbMatKhauNhanVien);
-        lbMatKhauNhanVien.setBounds(200, 440, 230, 18);
-
-        txtMatKhauNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        txtMatKhauNhanVien.setText("jTextField1");
-        txtMatKhauNhanVien.setBorder(null);
-        txtMatKhauNhanVien.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMatKhauNhanVienActionPerformed(evt);
-            }
-        });
-        panelBorder1.add(txtMatKhauNhanVien);
-        txtMatKhauNhanVien.setBounds(200, 460, 270, 20);
-
-        lbErrMatKhauNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lbErrMatKhauNhanVien.setForeground(new java.awt.Color(204, 0, 0));
-        lbErrMatKhauNhanVien.setText("đây là dòng thông báo lỗi");
-        panelBorder1.add(lbErrMatKhauNhanVien);
-        lbErrMatKhauNhanVien.setBounds(200, 490, 230, 18);
-
         lbDiaChiThuongChuNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lbDiaChiThuongChuNhanVien.setText("Địa chỉ thường chú:");
         panelBorder1.add(lbDiaChiThuongChuNhanVien);
-        lbDiaChiThuongChuNhanVien.setBounds(200, 510, 230, 18);
+        lbDiaChiThuongChuNhanVien.setBounds(200, 440, 230, 18);
 
         txtDiaChiThuongChuNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         txtDiaChiThuongChuNhanVien.setText("jTextField1");
@@ -328,22 +300,22 @@ public class ModalThemNhanVienView extends javax.swing.JFrame {
             }
         });
         panelBorder1.add(txtDiaChiThuongChuNhanVien);
-        txtDiaChiThuongChuNhanVien.setBounds(200, 530, 270, 20);
+        txtDiaChiThuongChuNhanVien.setBounds(200, 460, 270, 20);
 
         lbErrDiaChiThuongChuNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lbErrDiaChiThuongChuNhanVien.setForeground(new java.awt.Color(204, 0, 0));
         lbErrDiaChiThuongChuNhanVien.setText("đây là dòng thông báo lỗi");
         panelBorder1.add(lbErrDiaChiThuongChuNhanVien);
-        lbErrDiaChiThuongChuNhanVien.setBounds(200, 560, 230, 18);
+        lbErrDiaChiThuongChuNhanVien.setBounds(200, 490, 230, 18);
 
         lbGachChanDiaChiNhanVien1.setText("_______________________________________");
         panelBorder1.add(lbGachChanDiaChiNhanVien1);
-        lbGachChanDiaChiNhanVien1.setBounds(200, 540, 273, 16);
+        lbGachChanDiaChiNhanVien1.setBounds(200, 470, 273, 16);
 
         lbLuongNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lbLuongNhanVien.setText("Lương thỏa thuận:");
         panelBorder1.add(lbLuongNhanVien);
-        lbLuongNhanVien.setBounds(200, 590, 230, 18);
+        lbLuongNhanVien.setBounds(200, 520, 230, 18);
 
         txtLuongNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         txtLuongNhanVien.setText("jTextField1");
@@ -354,22 +326,22 @@ public class ModalThemNhanVienView extends javax.swing.JFrame {
             }
         });
         panelBorder1.add(txtLuongNhanVien);
-        txtLuongNhanVien.setBounds(200, 610, 270, 20);
+        txtLuongNhanVien.setBounds(200, 540, 270, 20);
 
         lbErrLuongNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lbErrLuongNhanVien.setForeground(new java.awt.Color(204, 0, 0));
         lbErrLuongNhanVien.setText("đây là dòng thông báo lỗi");
         panelBorder1.add(lbErrLuongNhanVien);
-        lbErrLuongNhanVien.setBounds(200, 640, 230, 18);
+        lbErrLuongNhanVien.setBounds(200, 570, 230, 18);
 
         lbGachChanDiaChiNhanVien.setText("_______________________________________");
         panelBorder1.add(lbGachChanDiaChiNhanVien);
-        lbGachChanDiaChiNhanVien.setBounds(200, 620, 273, 16);
+        lbGachChanDiaChiNhanVien.setBounds(200, 550, 273, 16);
 
         lbGioiTinh.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lbGioiTinh.setText("Giới tính:");
         panelBorder1.add(lbGioiTinh);
-        lbGioiTinh.setBounds(200, 670, 80, 20);
+        lbGioiTinh.setBounds(200, 600, 80, 20);
 
         rdNam.setText("Nam");
         rdNam.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -379,7 +351,7 @@ public class ModalThemNhanVienView extends javax.swing.JFrame {
             }
         });
         panelBorder1.add(rdNam);
-        rdNam.setBounds(330, 670, 60, 25);
+        rdNam.setBounds(330, 600, 60, 25);
 
         rdNu.setText("Nữ");
         rdNu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -389,26 +361,26 @@ public class ModalThemNhanVienView extends javax.swing.JFrame {
             }
         });
         panelBorder1.add(rdNu);
-        rdNu.setBounds(420, 670, 60, 25);
+        rdNu.setBounds(420, 600, 60, 25);
 
         jdateNgaySinh.setDateFormatString("yyyy-MM-dd");
         panelBorder1.add(jdateNgaySinh);
-        jdateNgaySinh.setBounds(330, 710, 160, 30);
+        jdateNgaySinh.setBounds(330, 640, 160, 30);
 
         lbNgaySinhNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lbNgaySinhNhanVien.setText("Ngày sinh:");
         panelBorder1.add(lbNgaySinhNhanVien);
-        lbNgaySinhNhanVien.setBounds(200, 720, 120, 18);
+        lbNgaySinhNhanVien.setBounds(200, 650, 120, 18);
 
         lbPhongBanNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lbPhongBanNhanVien.setText("Phòng ban:");
         panelBorder1.add(lbPhongBanNhanVien);
-        lbPhongBanNhanVien.setBounds(200, 750, 130, 30);
+        lbPhongBanNhanVien.setBounds(200, 680, 130, 30);
 
         cbPhongBanNhanVien.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Phòng tài chính", "Phòng kinh doanh", "Phòng nhân sự" }));
         cbPhongBanNhanVien.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         panelBorder1.add(cbPhongBanNhanVien);
-        cbPhongBanNhanVien.setBounds(330, 750, 160, 30);
+        cbPhongBanNhanVien.setBounds(330, 680, 160, 30);
 
         cbChucVuNhanVien.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quản lý", "Nhân viên" }));
         cbChucVuNhanVien.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -418,21 +390,21 @@ public class ModalThemNhanVienView extends javax.swing.JFrame {
             }
         });
         panelBorder1.add(cbChucVuNhanVien);
-        cbChucVuNhanVien.setBounds(330, 790, 160, 30);
+        cbChucVuNhanVien.setBounds(330, 720, 160, 30);
 
         lbChucVuNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lbChucVuNhanVien.setText("Chức vụ:");
         panelBorder1.add(lbChucVuNhanVien);
-        lbChucVuNhanVien.setBounds(200, 790, 120, 30);
+        lbChucVuNhanVien.setBounds(200, 720, 120, 30);
 
         lbNgayVaoLamNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lbNgayVaoLamNhanVien.setText("Ngày vào làm:");
         panelBorder1.add(lbNgayVaoLamNhanVien);
-        lbNgayVaoLamNhanVien.setBounds(200, 830, 130, 30);
+        lbNgayVaoLamNhanVien.setBounds(200, 760, 130, 30);
 
         jDateNgayVaoLam.setDateFormatString("yyyy-MM-dd");
         panelBorder1.add(jDateNgayVaoLam);
-        jDateNgayVaoLam.setBounds(330, 830, 160, 30);
+        jDateNgayVaoLam.setBounds(330, 760, 160, 30);
 
         btnLuuNhanVien.setBackground(new java.awt.Color(39, 174, 96));
         btnLuuNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -440,7 +412,7 @@ public class ModalThemNhanVienView extends javax.swing.JFrame {
         btnLuuNhanVien.setBorder(null);
         btnLuuNhanVien.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         panelBorder1.add(btnLuuNhanVien);
-        btnLuuNhanVien.setBounds(130, 900, 130, 40);
+        btnLuuNhanVien.setBounds(130, 830, 130, 40);
 
         btnThoatNhanVien.setBackground(new java.awt.Color(231, 76, 60));
         btnThoatNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -453,54 +425,33 @@ public class ModalThemNhanVienView extends javax.swing.JFrame {
             }
         });
         panelBorder1.add(btnThoatNhanVien);
-        btnThoatNhanVien.setBounds(310, 900, 130, 40);
-
-        lbGachChanMatKhauNhanVien.setText("_______________________________________");
-        panelBorder1.add(lbGachChanMatKhauNhanVien);
-        lbGachChanMatKhauNhanVien.setBounds(200, 470, 273, 16);
+        btnThoatNhanVien.setBounds(310, 830, 130, 40);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(panelBorder1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, 950, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, 889, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(600, 950));
+        setSize(new java.awt.Dimension(600, 900));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtMaNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaNhanVienActionPerformed
+    private void btnThoatNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoatNhanVienActionPerformed
+        if(evt.getSource()==this.btnThoatNhanVien)
+        this.dispose();
+    }//GEN-LAST:event_btnThoatNhanVienActionPerformed
 
-    }//GEN-LAST:event_txtMaNhanVienActionPerformed
-
-    private void txtHoVaTenNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHoVaTenNhanVienActionPerformed
+    private void cbChucVuNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbChucVuNhanVienActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtHoVaTenNhanVienActionPerformed
-
-    private void txtSoCCCDNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSoCCCDNhanVienActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSoCCCDNhanVienActionPerformed
-
-    private void txtEmailNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailNhanVienActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEmailNhanVienActionPerformed
-
-    private void txtSoDienThoaiNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSoDienThoaiNhanVienActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSoDienThoaiNhanVienActionPerformed
-
-    private void txtMatKhauNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMatKhauNhanVienActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMatKhauNhanVienActionPerformed
-
-    private void txtDiaChiThuongChuNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDiaChiThuongChuNhanVienActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDiaChiThuongChuNhanVienActionPerformed
+    }//GEN-LAST:event_cbChucVuNhanVienActionPerformed
 
     private void rdNuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdNuActionPerformed
         // TODO add your handling code here:
@@ -510,17 +461,25 @@ public class ModalThemNhanVienView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_rdNamActionPerformed
 
-    private void cbChucVuNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbChucVuNhanVienActionPerformed
+    private void txtLuongNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLuongNhanVienActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cbChucVuNhanVienActionPerformed
+    }//GEN-LAST:event_txtLuongNhanVienActionPerformed
 
-    private void lbExitModalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbExitModalMouseClicked
-        this.dispose();
-    }//GEN-LAST:event_lbExitModalMouseClicked
+    private void txtDiaChiThuongChuNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDiaChiThuongChuNhanVienActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDiaChiThuongChuNhanVienActionPerformed
+
+    private void txtSoDienThoaiNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSoDienThoaiNhanVienActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSoDienThoaiNhanVienActionPerformed
+
+    private void txtEmailNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailNhanVienActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEmailNhanVienActionPerformed
 
     private void btnAnhDaiDienNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnhDaiDienNhanVienActionPerformed
         JFileChooser fileChooser = new JFileChooser("d:");
-//        int respone=fileChooser.showOpenDialog(null);
+        //        int respone=fileChooser.showOpenDialog(null);
         fileChooser.setCurrentDirectory(new File(".\\src\\image"));
         int respone=fileChooser.showSaveDialog(null);
         if(respone== JFileChooser.APPROVE_OPTION ){
@@ -533,14 +492,21 @@ public class ModalThemNhanVienView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAnhDaiDienNhanVienActionPerformed
 
-    private void txtLuongNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLuongNhanVienActionPerformed
+    private void txtSoCCCDNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSoCCCDNhanVienActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtLuongNhanVienActionPerformed
+    }//GEN-LAST:event_txtSoCCCDNhanVienActionPerformed
 
-    private void btnThoatNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoatNhanVienActionPerformed
-        if(evt.getSource()==this.btnThoatNhanVien)
-            this.dispose();
-    }//GEN-LAST:event_btnThoatNhanVienActionPerformed
+    private void txtHoVaTenNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHoVaTenNhanVienActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtHoVaTenNhanVienActionPerformed
+
+    private void txtMaNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaNhanVienActionPerformed
+
+    }//GEN-LAST:event_txtMaNhanVienActionPerformed
+
+    private void lbExitModalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbExitModalMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_lbExitModalMouseClicked
 
     /**
      * @param args the command line arguments
@@ -610,7 +576,6 @@ public class ModalThemNhanVienView extends javax.swing.JFrame {
     private javax.swing.JLabel lbErrHoVaTenNhanVien;
     private javax.swing.JLabel lbErrLuongNhanVien;
     private javax.swing.JLabel lbErrMaNhanVien;
-    private javax.swing.JLabel lbErrMatKhauNhanVien;
     private javax.swing.JLabel lbErrSoCCCDNhanVien;
     private javax.swing.JLabel lbErrSoDienThoaiNhanVien;
     private javax.swing.JLabel lbExitModal;
@@ -619,14 +584,12 @@ public class ModalThemNhanVienView extends javax.swing.JFrame {
     private javax.swing.JLabel lbGachChanEmailNhanVien;
     private javax.swing.JLabel lbGachChanHoVaTenNhanVien;
     private javax.swing.JLabel lbGachChanMaNhanVien;
-    private javax.swing.JLabel lbGachChanMatKhauNhanVien;
     private javax.swing.JLabel lbGachChanSoCCCDNhanVien;
     private javax.swing.JLabel lbGachChanSoDienThoaiNhanVien;
     private javax.swing.JLabel lbGioiTinh;
     private javax.swing.JLabel lbHoVatenNhanVien;
     private javax.swing.JLabel lbLuongNhanVien;
     private javax.swing.JLabel lbMaNhanVien;
-    private javax.swing.JLabel lbMatKhauNhanVien;
     private javax.swing.JLabel lbNgaySinhNhanVien;
     private javax.swing.JLabel lbNgayVaoLamNhanVien;
     private javax.swing.JLabel lbPhongBanNhanVien;
@@ -641,7 +604,6 @@ public class ModalThemNhanVienView extends javax.swing.JFrame {
     private javax.swing.JTextField txtHoVaTenNhanVien;
     private javax.swing.JTextField txtLuongNhanVien;
     private javax.swing.JTextField txtMaNhanVien;
-    private javax.swing.JTextField txtMatKhauNhanVien;
     private javax.swing.JTextField txtSoCCCDNhanVien;
     private javax.swing.JTextField txtSoDienThoaiNhanVien;
     // End of variables declaration//GEN-END:variables

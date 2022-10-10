@@ -4,6 +4,12 @@
  */
 package view;
 
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableModel;
+
 /**
  *
  * @author December
@@ -15,6 +21,13 @@ public class TrangChuView extends javax.swing.JPanel {
      */
     public TrangChuView() {
         initComponents();
+        tbTrangChu.getTableHeader().setFont(new Font("Segoe UI",Font.BOLD,12));
+        tbTrangChu.getTableHeader().setOpaque(false);
+        ((DefaultTableCellRenderer)tbTrangChu.getTableHeader().getDefaultRenderer())
+                .setHorizontalAlignment(JLabel.CENTER);
+//        tbTrangChu.getTableHeader().setForeground(new Color(255,255,255));
+        tbTrangChu.setRowHeight(25);
+        
     }
 
     /**
@@ -26,28 +39,163 @@ public class TrangChuView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        panelBorder5 = new CustomView.PanelBorder();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        panelBorder6 = new CustomView.PanelBorder();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        panelBorder7 = new CustomView.PanelBorder();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tbTrangChu = new javax.swing.JTable();
 
-        jLabel1.setBackground(new java.awt.Color(102, 102, 255));
-        jLabel1.setText("Trang chu");
-        jLabel1.setOpaque(true);
+        setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 773, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 526, Short.MAX_VALUE))
-        );
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1250, 300));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        panelBorder5.setBackground(new java.awt.Color(132, 129, 122));
+        panelBorder5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/TrangChu/human.png"))); // NOI18N
+        panelBorder5.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 300, 70));
+
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 26)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel18.setText("1000");
+        panelBorder5.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 130, 60));
+
+        jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel19.setText("Công nhân");
+        panelBorder5.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 60));
+
+        jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 26)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel20.setText("Số lượng:");
+        panelBorder5.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 150, 60));
+
+        jPanel1.add(panelBorder5, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 40, 300, 210));
+
+        panelBorder6.setBackground(new java.awt.Color(71, 71, 135));
+        panelBorder6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/TrangChu/human.png"))); // NOI18N
+        panelBorder6.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 300, 70));
+
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 26)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel22.setText("1000");
+        panelBorder6.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 130, 60));
+
+        jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel23.setText("Công nhân");
+        panelBorder6.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 60));
+
+        jLabel24.setFont(new java.awt.Font("Segoe UI", 1, 26)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel24.setText("Số lượng:");
+        panelBorder6.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 150, 60));
+
+        jPanel1.add(panelBorder6, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 40, 300, 210));
+
+        panelBorder7.setBackground(new java.awt.Color(255, 177, 66));
+        panelBorder7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/TrangChu/human.png"))); // NOI18N
+        panelBorder7.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 300, 70));
+
+        jLabel26.setFont(new java.awt.Font("Segoe UI", 1, 26)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel26.setText("1000");
+        panelBorder7.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 130, 60));
+
+        jLabel27.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel27.setText("Công nhân");
+        panelBorder7.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 60));
+
+        jLabel28.setFont(new java.awt.Font("Segoe UI", 1, 26)); // NOI18N
+        jLabel28.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel28.setText("Số lượng:");
+        panelBorder7.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 150, 60));
+
+        jPanel1.add(panelBorder7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 300, 210));
+
+        add(jPanel1, java.awt.BorderLayout.PAGE_START);
+
+        jScrollPane1.setBackground(new java.awt.Color(255, 102, 102));
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jScrollPane1.setViewportBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jScrollPane1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        add(jScrollPane1, java.awt.BorderLayout.PAGE_END);
+
+        tbTrangChu.getTableHeader().setBackground(new Color(32,136,203));
+        tbTrangChu.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "STT", "Mã nhân viên", "Họ trên", "Số điện thoai", "Email", "Giới tính", "Phòng ban", "Chức vụ"
+            }
+        ));
+        tbTrangChu.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        tbTrangChu.setRowHeight(25);
+        tbTrangChu.setSelectionBackground(new java.awt.Color(232, 57, 95));
+        tbTrangChu.setShowVerticalLines(false);
+        tbTrangChu.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setViewportView(tbTrangChu);
+
+        add(jScrollPane3, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private CustomView.PanelBorder panelBorder5;
+    private CustomView.PanelBorder panelBorder6;
+    private CustomView.PanelBorder panelBorder7;
+    private javax.swing.JTable tbTrangChu;
     // End of variables declaration//GEN-END:variables
 }
