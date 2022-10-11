@@ -69,7 +69,7 @@ public class MainView extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 pnBody.removeAll();
-                pnBody.add(new PhongBan(), BorderLayout.CENTER);
+                pnBody.add(new PhongBanView(), BorderLayout.CENTER);
                 pnBody.repaint();
                 pnBody.revalidate();
             }
@@ -108,6 +108,8 @@ public class MainView extends javax.swing.JFrame {
 
         pnHeader = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
         pnMenu = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         menus = new javax.swing.JPanel();
@@ -116,29 +118,30 @@ public class MainView extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        pnHeader.setBackground(new java.awt.Color(248, 194, 145));
-        pnHeader.setForeground(new java.awt.Color(153, 153, 255));
+        pnHeader.setBackground(new java.awt.Color(41, 128, 185));
+        pnHeader.setForeground(new java.awt.Color(41, 128, 185));
         pnHeader.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         pnHeader.setPreferredSize(new java.awt.Dimension(1500, 75));
+        pnHeader.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 26)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("QUẢN LÝ LƯƠNG CÔNG TY THVT_SHOES");
+        pnHeader.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 974, 75));
 
-        javax.swing.GroupLayout pnHeaderLayout = new javax.swing.GroupLayout(pnHeader);
-        pnHeader.setLayout(pnHeaderLayout);
-        pnHeaderLayout.setHorizontalGroup(
-            pnHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnHeaderLayout.createSequentialGroup()
-                .addGap(254, 254, 254)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 974, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(272, Short.MAX_VALUE))
-        );
-        pnHeaderLayout.setVerticalGroup(
-            pnHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
-        );
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Hello, Admin");
+        pnHeader.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 4, 244, 70));
+
+        jComboBox1.setBackground(new java.awt.Color(248, 194, 145));
+        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tiếng Việt", "Tiếng Anh" }));
+        jComboBox1.setBorder(null);
+        jComboBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnHeader.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1370, 18, 130, 51));
 
         getContentPane().add(pnHeader, java.awt.BorderLayout.PAGE_START);
 
@@ -210,7 +213,9 @@ public class MainView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel menus;
     private javax.swing.JPanel pnBody;

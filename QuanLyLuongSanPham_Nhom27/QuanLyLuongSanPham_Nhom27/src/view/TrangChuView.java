@@ -41,17 +41,14 @@ public class TrangChuView extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         panelBorder5 = new CustomView.PanelBorder();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
         panelBorder6 = new CustomView.PanelBorder();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
         panelBorder7 = new CustomView.PanelBorder();
-        jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
@@ -65,84 +62,72 @@ public class TrangChuView extends javax.swing.JPanel {
         jPanel1.setPreferredSize(new java.awt.Dimension(1250, 300));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        panelBorder5.setBackground(new java.awt.Color(132, 129, 122));
+        panelBorder5.setBackground(new java.awt.Color(0, 102, 102));
         panelBorder5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/TrangChu/human.png"))); // NOI18N
-        panelBorder5.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 300, 70));
-
-        jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 26)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel18.setText("1000");
-        panelBorder5.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 130, 60));
 
         jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel19.setText("Công nhân");
+        jLabel19.setText("Tổng phòng ban");
         panelBorder5.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 60));
 
-        jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 26)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel20.setText("Số lượng:");
-        panelBorder5.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 150, 60));
+        jLabel30.setFont(new java.awt.Font("Segoe UI", 1, 26)); // NOI18N
+        jLabel30.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/TrangChu/phongban.png"))); // NOI18N
+        panelBorder5.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 120, 120));
+
+        jLabel32.setFont(new java.awt.Font("Segoe UI", 1, 32)); // NOI18N
+        jLabel32.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel32.setText("1000");
+        panelBorder5.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 120, 60));
 
         jPanel1.add(panelBorder5, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 40, 300, 210));
 
-        panelBorder6.setBackground(new java.awt.Color(71, 71, 135));
+        panelBorder6.setBackground(new java.awt.Color(0, 255, 204));
         panelBorder6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/TrangChu/human.png"))); // NOI18N
-        panelBorder6.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 300, 70));
-
-        jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 26)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel22.setText("1000");
-        panelBorder6.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 130, 60));
 
         jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(255, 255, 255));
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel23.setText("Công nhân");
+        jLabel23.setText("Tổng công nhân");
         panelBorder6.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 60));
 
-        jLabel24.setFont(new java.awt.Font("Segoe UI", 1, 26)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel24.setText("Số lượng:");
-        panelBorder6.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 150, 60));
+        jLabel29.setFont(new java.awt.Font("Segoe UI", 1, 26)); // NOI18N
+        jLabel29.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/TrangChu/congnhan.png"))); // NOI18N
+        panelBorder6.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 120, 120));
+
+        jLabel31.setFont(new java.awt.Font("Segoe UI", 1, 32)); // NOI18N
+        jLabel31.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel31.setText("1000");
+        panelBorder6.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 120, 60));
 
         jPanel1.add(panelBorder6, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 40, 300, 210));
 
         panelBorder7.setBackground(new java.awt.Color(255, 177, 66));
         panelBorder7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/TrangChu/human.png"))); // NOI18N
-        panelBorder7.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 300, 70));
-
-        jLabel26.setFont(new java.awt.Font("Segoe UI", 1, 26)); // NOI18N
+        jLabel26.setFont(new java.awt.Font("Segoe UI", 1, 32)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(255, 255, 255));
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel26.setText("1000");
-        panelBorder7.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 130, 60));
+        panelBorder7.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 120, 60));
 
         jLabel27.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(255, 255, 255));
         jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel27.setText("Công nhân");
+        jLabel27.setText("Tổng nhân viên");
         panelBorder7.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 60));
 
         jLabel28.setFont(new java.awt.Font("Segoe UI", 1, 26)); // NOI18N
         jLabel28.setForeground(new java.awt.Color(255, 255, 255));
         jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel28.setText("Số lượng:");
-        panelBorder7.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 150, 60));
+        jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/TrangChu/nhanvien.png"))); // NOI18N
+        panelBorder7.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 120, 120));
 
         jPanel1.add(panelBorder7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 300, 210));
 
@@ -178,18 +163,15 @@ public class TrangChuView extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
