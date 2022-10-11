@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
+// 1500 - 250 anf 800-75
 /**
  *
  * @author December
@@ -74,7 +74,16 @@ public class MainView extends javax.swing.JFrame {
                 pnBody.revalidate();
             }
         });
-        MenuItem menuNhanVien = new MenuItem(iconEmployee, "Nhân viên", null);
+        MenuItem menuNhanVien = new MenuItem(iconEmployee, "Nhân viên", new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pnBody.removeAll();
+                pnBody.add(new NhanVienView(), BorderLayout.CENTER);
+                pnBody.repaint();
+                pnBody.revalidate();
+            }
+            
+        });
         MenuItem menuCongNhan = new MenuItem(iconWorker, "Công nhân", null);
         MenuItem menuSanPham = new MenuItem(iconProduct, "Sản phẩm", null);
         MenuItem menuPhanCong = new MenuItem(iconPhanCong, "Phân công", null);

@@ -26,12 +26,12 @@ public class PhongBanView extends javax.swing.JPanel {
      */
     public PhongBanView() {
         initComponents();
-        tbTrangChu.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
-        tbTrangChu.getTableHeader().setOpaque(false);
-        ((DefaultTableCellRenderer) tbTrangChu.getTableHeader().getDefaultRenderer())
+        tbPhongBan.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        tbPhongBan.getTableHeader().setOpaque(false);
+        ((DefaultTableCellRenderer) tbPhongBan.getTableHeader().getDefaultRenderer())
                 .setHorizontalAlignment(JLabel.CENTER);
 //        tbTrangChu.getTableHeader().setForeground(new Color(255,255,255));
-        tbTrangChu.setRowHeight(25);
+        tbPhongBan.setRowHeight(25);
         execute();
 
     }
@@ -44,7 +44,7 @@ public class PhongBanView extends javax.swing.JPanel {
         this.lbErrTenPhongBan.setText("");
 
 //        this.pnPhaiHeader.setBorder(new TitledBorder(BorderFactory.createLineBorder(Color.BLACK), "Tìm kiếm nhân viên"));
-        this.pnPhaiHeader.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK), "Tìm kiếm nhân viên"));
+        this.pnPhaiHeader.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK), "Tìm kiếm phòng ban "));
     }
 
     /**
@@ -79,7 +79,7 @@ public class PhongBanView extends javax.swing.JPanel {
         lbErrTenPhongBan = new javax.swing.JLabel();
         lbMaPhongBan1 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tbTrangChu = new javax.swing.JTable();
+        tbPhongBan = new javax.swing.JTable();
 
         setPreferredSize(new java.awt.Dimension(1200, 700));
         setLayout(new java.awt.BorderLayout());
@@ -125,7 +125,7 @@ public class PhongBanView extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 230, 130, 40));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 240, 130, 40));
 
         jButton2.setBackground(new java.awt.Color(46, 204, 113));
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -137,7 +137,7 @@ public class PhongBanView extends javax.swing.JPanel {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 230, 140, 40));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 240, 140, 40));
 
         jButton3.setBackground(new java.awt.Color(41, 128, 185));
         jButton3.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -148,7 +148,7 @@ public class PhongBanView extends javax.swing.JPanel {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 230, 130, 40));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 240, 130, 40));
 
         jButton4.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/update.png"))); // NOI18N
@@ -158,7 +158,7 @@ public class PhongBanView extends javax.swing.JPanel {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 230, 130, 40));
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 240, 130, 40));
 
         pnPhaiHeader.setBackground(new java.awt.Color(204, 204, 255));
         pnPhaiHeader.setBorder(javax.swing.BorderFactory.createTitledBorder("Tìm kiếm phòng ban"));
@@ -189,24 +189,24 @@ public class PhongBanView extends javax.swing.JPanel {
 
         lbMaPhongBan.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lbMaPhongBan.setText("Mã phòng ban:");
-        pnPhaiHeader.add(lbMaPhongBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 230, 40));
+        pnPhaiHeader.add(lbMaPhongBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 180, 40));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nhiều nhất", "Ít nhất", "Tất cả" }));
-        pnPhaiHeader.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 90, 120, 40));
+        pnPhaiHeader.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 90, 140, 40));
 
         lbMaPhongBan2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lbMaPhongBan2.setText("Sô lương nhân viên");
-        pnPhaiHeader.add(lbMaPhongBan2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 230, 40));
+        pnPhaiHeader.add(lbMaPhongBan2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 190, 40));
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nhiều nhất", "Ít nhất", "Tất cả" }));
-        pnPhaiHeader.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, 120, 40));
+        pnPhaiHeader.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 20, 140, 40));
 
         lbMaPhongBan3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lbMaPhongBan3.setText("Tên phòng ban:");
-        pnPhaiHeader.add(lbMaPhongBan3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 230, 40));
+        pnPhaiHeader.add(lbMaPhongBan3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 190, 40));
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nhiều nhất", "Ít nhất", "Tất cả" }));
-        pnPhaiHeader.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, 120, 40));
+        pnPhaiHeader.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, 140, 40));
 
         jPanel1.add(pnPhaiHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 10, 380, 290));
 
@@ -223,8 +223,8 @@ public class PhongBanView extends javax.swing.JPanel {
 
         jScrollPane3.setBackground(new java.awt.Color(0, 0, 0));
 
-        tbTrangChu.getTableHeader().setBackground(new Color(32,136,203));
-        tbTrangChu.setModel(new javax.swing.table.DefaultTableModel(
+        tbPhongBan.getTableHeader().setBackground(new Color(32,136,203));
+        tbPhongBan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -234,13 +234,21 @@ public class PhongBanView extends javax.swing.JPanel {
             new String [] {
                 "STT", "Mã phòng bàn", "Tên phòng ban", "Số lương nhân viên"
             }
-        ));
-        tbTrangChu.setIntercellSpacing(new java.awt.Dimension(0, 0));
-        tbTrangChu.setRowHeight(25);
-        tbTrangChu.setSelectionBackground(new java.awt.Color(232, 57, 95));
-        tbTrangChu.setShowVerticalLines(false);
-        tbTrangChu.getTableHeader().setReorderingAllowed(false);
-        jScrollPane3.setViewportView(tbTrangChu);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbPhongBan.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        tbPhongBan.setRowHeight(25);
+        tbPhongBan.setSelectionBackground(new java.awt.Color(232, 57, 95));
+        tbPhongBan.setShowVerticalLines(false);
+        tbPhongBan.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setViewportView(tbPhongBan);
 
         add(jScrollPane3, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
@@ -300,7 +308,7 @@ public class PhongBanView extends javax.swing.JPanel {
     private javax.swing.JLabel lbMaPhongBan3;
     private javax.swing.JLabel lbTenPhongBan;
     private javax.swing.JPanel pnPhaiHeader;
-    private javax.swing.JTable tbTrangChu;
+    private javax.swing.JTable tbPhongBan;
     private javax.swing.JTextField txtManPhongBan;
     private javax.swing.JTextField txtTenPhongBan;
     // End of variables declaration//GEN-END:variables

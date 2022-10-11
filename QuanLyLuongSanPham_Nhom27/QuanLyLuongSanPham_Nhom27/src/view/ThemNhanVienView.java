@@ -16,12 +16,12 @@ import javax.swing.JFileChooser;
  *
  * @author Student
  */
-public class ModalCapNhatNhanVien extends javax.swing.JFrame {
+public class ThemNhanVienView extends javax.swing.JFrame {
 
     /**
      * Creates new form modalThemNhanSuView
      */
-    public ModalCapNhatNhanVien() {
+    public ThemNhanVienView() {
         initComponents();
         init();
     }
@@ -125,7 +125,7 @@ public class ModalCapNhatNhanVien extends javax.swing.JFrame {
 
         lbTieuDeCapNhatNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
         lbTieuDeCapNhatNhanVien.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbTieuDeCapNhatNhanVien.setText("Cập nhật nhân viên");
+        lbTieuDeCapNhatNhanVien.setText("Thêm nhân viên");
         panelBorder1.add(lbTieuDeCapNhatNhanVien);
         lbTieuDeCapNhatNhanVien.setBounds(40, 10, 620, 50);
 
@@ -225,7 +225,7 @@ public class ModalCapNhatNhanVien extends javax.swing.JFrame {
             }
         });
         panelBorder1.add(btnAnhDaiDienNhanVien);
-        btnAnhDaiDienNhanVien.setBounds(40, 290, 103, 25);
+        btnAnhDaiDienNhanVien.setBounds(30, 300, 103, 25);
 
         lbErrSoCCCDNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lbErrSoCCCDNhanVien.setForeground(new java.awt.Color(204, 0, 0));
@@ -434,13 +434,10 @@ public class ModalCapNhatNhanVien extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, 796, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(104, 104, 104))
+            .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, 796, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setSize(new java.awt.Dimension(719, 806));
+        setSize(new java.awt.Dimension(719, 796));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -525,14 +522,46 @@ public class ModalCapNhatNhanVien extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ModalCapNhatNhanVien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ThemNhanVienView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ModalCapNhatNhanVien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ThemNhanVienView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ModalCapNhatNhanVien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ThemNhanVienView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ModalCapNhatNhanVien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ThemNhanVienView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -569,7 +598,7 @@ public class ModalCapNhatNhanVien extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ModalCapNhatNhanVien().setVisible(true);
+                new ThemNhanVienView().setVisible(true);
             }
         });
     }
