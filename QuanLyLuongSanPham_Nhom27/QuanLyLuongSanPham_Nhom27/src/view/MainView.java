@@ -14,19 +14,28 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 // 1500 - 250 anf 800-75
+
 /**
  *
  * @author December
  */
 public class MainView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MainUI
-     */
+    private MenuItem quanLyCongNhan = null;
+    private MenuItem chamCongCongNhan = null;
+    private MenuItem tinhLuongCongNhan = null;
+    private MenuItem quanLyNhanVien = null;
+    private MenuItem chamCongNhanVien = null;
+    private MenuItem tinhLuongNhanVien = null;
+    private MenuItem quanLySanPham = null;
+    private MenuItem phanCongSanPham = null;
+    private ImageIcon iconSubMenuNonSelect =null;
+    private ImageIcon iconSubMenuSelect =null;
+
     public MainView() {
         initComponents();
 //        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-           
+
 //        this.setResizable(false);
         execute();
     }
@@ -41,15 +50,54 @@ public class MainView extends javax.swing.JFrame {
         ImageIcon iconMoney = new ImageIcon(getClass().getResource("/image/icon/money.png"));
         ImageIcon iconLogout = new ImageIcon(getClass().getResource("/image/icon/logout.png"));
         ImageIcon iconThongKe = new ImageIcon(getClass().getResource("/image/icon/thongke.png"));
-        ImageIcon iconSubMenu = new ImageIcon(getClass().getResource("/image/icon/moon.png"));
+        iconSubMenuNonSelect = new ImageIcon(getClass().getResource("/image/icon/moon.png"));
+        iconSubMenuSelect = new ImageIcon(getClass().getResource("/image/icon/moonSelect.png"));
         ImageIcon iconProduct = new ImageIcon(getClass().getResource("/image/icon/sanpham.png"));
         ImageIcon iconPhanCong = new ImageIcon(getClass().getResource("/image/icon/phancong.png"));
 
         // create subMenu
-        MenuItem chamCongCongNhan = new MenuItem(iconSubMenu, "Công nhân", null);
-        MenuItem chamCongNhanVien = new MenuItem(iconSubMenu, "Nhân viên", null);
-        MenuItem tinhLuongCongNhan = new MenuItem(iconSubMenu, "Nhân viên", null);
-        MenuItem tinhLuongNhanVien = new MenuItem(iconSubMenu, "Nhân viên", null);
+        //sub menuCongNhan
+        quanLyCongNhan = new MenuItem(iconSubMenuNonSelect, "Quản lý", null);
+        chamCongCongNhan = new MenuItem(iconSubMenuNonSelect, "Chấm công", null);
+        tinhLuongCongNhan = new MenuItem(iconSubMenuNonSelect, "Tính lương", null);
+
+        // submenu nhan vien
+        quanLyNhanVien = new MenuItem(iconSubMenuNonSelect, "Quản lý", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pnBody.removeAll();
+                pnBody.add(new QuanLyNhanVienView(), BorderLayout.CENTER);
+                pnBody.repaint();
+                pnBody.revalidate();
+                macDinh((quanLyNhanVien));
+            }
+
+        });
+        chamCongNhanVien = new MenuItem(iconSubMenuNonSelect, "Chấm công", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pnBody.removeAll();
+                pnBody.add(new QuanLyNhanVienView(), BorderLayout.CENTER);
+                pnBody.repaint();
+                pnBody.revalidate();
+                macDinh((chamCongNhanVien));
+            }
+
+        });
+        tinhLuongNhanVien = new MenuItem(iconSubMenuNonSelect, "Tính lương", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pnBody.removeAll();
+                pnBody.add(new QuanLyNhanVienView(), BorderLayout.CENTER);
+                pnBody.repaint();
+                pnBody.revalidate();
+                macDinh(tinhLuongNhanVien);
+            }
+
+        });
+        // San pham
+        quanLySanPham = new MenuItem(iconSubMenuNonSelect, "Quán lý", null);
+        phanCongSanPham = new MenuItem(iconSubMenuNonSelect, "Phân công", null);
         // add trang chu
         pnBody.removeAll();
         pnBody.add(new TrangChuView(), BorderLayout.CENTER);
@@ -74,24 +122,15 @@ public class MainView extends javax.swing.JFrame {
                 pnBody.revalidate();
             }
         });
-        MenuItem menuNhanVien = new MenuItem(iconEmployee, "Nhân viên", new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pnBody.removeAll();
-                pnBody.add(new NhanVienView(), BorderLayout.CENTER);
-                pnBody.repaint();
-                pnBody.revalidate();
-            }
-            
-        });
-        MenuItem menuCongNhan = new MenuItem(iconWorker, "Công nhân", null);
-        MenuItem menuSanPham = new MenuItem(iconProduct, "Sản phẩm", null);
+        MenuItem menuNhanVien = new MenuItem(iconEmployee, "Nhân viên", null, quanLyNhanVien, tinhLuongNhanVien, chamCongNhanVien);
+        MenuItem menuCongNhan = new MenuItem(iconWorker, "Công nhân", null, quanLyCongNhan, chamCongCongNhan, tinhLuongCongNhan);
+        MenuItem menuSanPham = new MenuItem(iconProduct, "Sản phẩm", null, quanLySanPham, phanCongSanPham);
         MenuItem menuPhanCong = new MenuItem(iconPhanCong, "Phân công", null);
-        MenuItem menuChamCong = new MenuItem(iconFee, "Chấm công", null, chamCongNhanVien, chamCongCongNhan);
-        MenuItem menuTinhLuong = new MenuItem(iconMoney, "Tính lương", null, tinhLuongNhanVien, tinhLuongCongNhan);
+//        MenuItem menuChamCong = new MenuItem(iconFee, "Chấm công", null, chamCongNhanVien, chamCongCongNhan);
+//        MenuItem menuTinhLuong = new MenuItem(iconMoney, "Tính lương", null, tinhLuongNhanVien, tinhLuongCongNhan);
         MenuItem menuThongKe = new MenuItem(iconThongKe, "Thống kê", null);
         MenuItem menuLogout = new MenuItem(iconLogout, "Đăng xuất", null);
-        addMenu(menuTrangChu, menuPhongBan, menuNhanVien, menuNhanVien, menuCongNhan, menuSanPham, menuPhanCong, menuChamCong, menuTinhLuong, menuThongKe, menuLogout);
+        addMenu(menuTrangChu, menuPhongBan, menuNhanVien, menuCongNhan, menuSanPham, menuThongKe, menuLogout);
     }
 
     private void addMenu(MenuItem... menu) {
@@ -104,6 +143,19 @@ public class MainView extends javax.swing.JFrame {
             }
         }
         menus.revalidate();
+    }
+
+    public void macDinh(MenuItem menu) {
+        quanLyCongNhan.setIcon(iconSubMenuNonSelect);
+        chamCongCongNhan.setIcon(this.iconSubMenuNonSelect);
+        tinhLuongCongNhan.setIcon(this.iconSubMenuNonSelect);
+        quanLyNhanVien.setIcon(this.iconSubMenuNonSelect);
+        chamCongNhanVien.setIcon(this.iconSubMenuNonSelect);
+        tinhLuongNhanVien.setIcon(this.iconSubMenuNonSelect);
+        quanLySanPham.setIcon(this.iconSubMenuNonSelect);
+        phanCongSanPham.setIcon(this.iconSubMenuNonSelect);
+        // select 
+        menu.setIcon(iconSubMenuSelect);
     }
 
     /**

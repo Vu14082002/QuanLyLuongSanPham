@@ -25,7 +25,7 @@ public class MenuItem extends javax.swing.JPanel {
     }
     private final ArrayList<MenuItem> subMenu = new ArrayList<>();
     private ActionListener act;
-
+    
     public MenuItem(Icon icon, String menuName, ActionListener act, MenuItem... subMenu) {
         initComponents();
         lbIcon.setIcon(icon);
@@ -42,7 +42,9 @@ public class MenuItem extends javax.swing.JPanel {
             subMenu[i].setVisible(false);
         }
     }
-
+    public void setIcon(Icon icon){
+        lbIcon.setIcon(icon);
+    }
     private void showMenu() {
         new Thread(new Runnable() {
             @Override
@@ -113,7 +115,7 @@ public class MenuItem extends javax.swing.JPanel {
         lbName.setText("Menu name here....");
         lbName.setPreferredSize(new java.awt.Dimension(113, 50));
         add(lbName, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 170, -1));
-        add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 250, -1));
+        add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 250, -1));
     }// </editor-fold>//GEN-END:initComponents
     private boolean showing = false;
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed

@@ -13,12 +13,12 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author December
  */
-public class NhanVienView extends javax.swing.JPanel {
+public class QuanLyNhanVienView extends javax.swing.JPanel {
 
     /**
      * Creates new form NhanVienView
      */
-    public NhanVienView() {
+    public QuanLyNhanVienView() {
         initComponents();
         excute();
     }
