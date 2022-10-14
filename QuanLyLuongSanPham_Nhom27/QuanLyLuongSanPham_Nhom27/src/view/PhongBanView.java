@@ -33,6 +33,7 @@ public class PhongBanView extends javax.swing.JPanel {
 //        tbTrangChu.getTableHeader().setForeground(new Color(255,255,255));
         tbPhongBan.setRowHeight(25);
         execute();
+      
 
     }
 

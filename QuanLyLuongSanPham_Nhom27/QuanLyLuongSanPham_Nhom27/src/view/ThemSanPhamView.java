@@ -107,7 +107,7 @@ public class ThemSanPhamView extends javax.swing.JFrame {
 
         lbGachChanMaNhanVien.setText("_______________________________________");
         panelBorder1.add(lbGachChanMaNhanVien);
-        lbGachChanMaNhanVien.setBounds(200, 120, 273, 16);
+        lbGachChanMaNhanVien.setBounds(200, 120, 234, 14);
 
         txtMaSanPham.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         txtMaSanPham.setText("jTextField1");
@@ -138,7 +138,7 @@ public class ThemSanPhamView extends javax.swing.JFrame {
 
         lbGachChanHoVaTenNhanVien.setText("_______________________________________");
         panelBorder1.add(lbGachChanHoVaTenNhanVien);
-        lbGachChanHoVaTenNhanVien.setBounds(200, 190, 273, 16);
+        lbGachChanHoVaTenNhanVien.setBounds(200, 190, 234, 14);
 
         lbAnhSanPham.setBackground(new java.awt.Color(153, 0, 0));
         lbAnhSanPham.setForeground(new java.awt.Color(255, 0, 51));
@@ -170,7 +170,7 @@ public class ThemSanPhamView extends javax.swing.JFrame {
 
         lbGachChanSoCCCDNhanVien.setText("_______________________________________");
         panelBorder1.add(lbGachChanSoCCCDNhanVien);
-        lbGachChanSoCCCDNhanVien.setBounds(200, 260, 273, 16);
+        lbGachChanSoCCCDNhanVien.setBounds(200, 260, 234, 14);
 
         lbErrSoLuongSanPham.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lbErrSoLuongSanPham.setForeground(new java.awt.Color(204, 0, 0));
@@ -220,7 +220,7 @@ public class ThemSanPhamView extends javax.swing.JFrame {
         panelBorder1.add(cbChatLieu);
         cbChatLieu.setBounds(200, 420, 270, 40);
 
-        cbKichThuocSanPham.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "37", "38", "39", "40", "41", "421", "43", "44", "45" }));
+        cbKichThuocSanPham.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46" }));
         panelBorder1.add(cbKichThuocSanPham);
         cbKichThuocSanPham.setBounds(340, 480, 70, 30);
 
@@ -249,6 +249,11 @@ public class ThemSanPhamView extends javax.swing.JFrame {
 
         lbAnhSanPhamOfbtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbAnhSanPhamOfbtn.setText("Ảnh sản phẩm");
+        lbAnhSanPhamOfbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbAnhSanPhamOfbtnMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout btnAnhSanPhamLayout = new javax.swing.GroupLayout(btnAnhSanPham);
         btnAnhSanPham.setLayout(btnAnhSanPhamLayout);
@@ -318,6 +323,21 @@ public class ThemSanPhamView extends javax.swing.JFrame {
         else
             this.btnMauSac.setBackground(colordefault);
     }//GEN-LAST:event_lbMauSacOfBtnMouseClicked
+
+    private void lbAnhSanPhamOfbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbAnhSanPhamOfbtnMouseClicked
+        JFileChooser fileChooser = new JFileChooser("d:");
+//        int respone=fileChooser.showOpenDialog(null);
+        fileChooser.setCurrentDirectory(new File(".\\src\\image"));
+        int respone=fileChooser.showSaveDialog(null);
+        if(respone== JFileChooser.APPROVE_OPTION ){
+            File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
+            System.out.println(file);
+            String path = file.toString().split("src")[1].replace('\\', '/');
+            System.out.println("path file split: "+file.toString().split("src")[1]);
+            this.lbAnhSanPhamOfbtn.setIcon(new ImageIcon(this.getClass().getResource(path)));
+            System.out.println(this.lbAnhSanPham.getIcon().toString());
+        }
+    }//GEN-LAST:event_lbAnhSanPhamOfbtnMouseClicked
 
     /**
      * @param args the command line arguments
