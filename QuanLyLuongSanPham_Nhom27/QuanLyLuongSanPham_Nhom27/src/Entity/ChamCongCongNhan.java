@@ -6,8 +6,6 @@
 package Entity;
 
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -20,21 +18,20 @@ public class ChamCongCongNhan {
     private Date ngayChamCong;
     private int soLuongLam;
     private PhanCongCongNhan phanCong;
-    private boolean diLam;
-    private boolean phepNghi;
+    private String trangThaiDiLam;
+    private String gioDiLam;
 
-    public ChamCongCongNhan(String maChamCong, Date ngayChamCong, int soLuongLam, PhanCongCongNhan phanCong, boolean diLam, boolean phepNghi) {
+    public ChamCongCongNhan(String maChamCong, Date ngayChamCong, int soLuongLam, PhanCongCongNhan phanCong, String trangThaiDiLam, String gioDiLam) {
         try {
             setMaChamCong(maChamCong);
             setNgayChamCong(ngayChamCong);
             setSoLuongLam(soLuongLam);
             setPhanCong(phanCong);
-            setDiLam(diLam);
-            setPhepNghi(phepNghi);
+            setTrangThaiDiLam(trangThaiDiLam);
+            setGioDiLam(gioDiLam);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
-
     }
 
     public String getMaChamCong() {
@@ -56,11 +53,11 @@ public class ChamCongCongNhan {
     }
 
     public void setNgayChamCong(Date ngayChamCong) throws Exception {
-       if (ngayChamCong.after(new Date())){
-           throw new Exception("Ngày chấm công công nhân phải trước hoặc bằng ngày hiện tại");
-       } else {
-           this.ngayChamCong = ngayChamCong;
-       }
+        if (ngayChamCong.after(new Date())) {
+            throw new Exception("Ngày chấm công công nhân phải trước hoặc bằng ngày hiện tại");
+        } else {
+            this.ngayChamCong = ngayChamCong;
+        }
     }
 
     public int getSoLuongLam() {
@@ -68,9 +65,9 @@ public class ChamCongCongNhan {
     }
 
     public void setSoLuongLam(int soLuongLam) throws Exception {
-        if (soLuongLam < 0){
-            throw new Exception("Số lượng làm không được < 0"); 
-        } else{
+        if (soLuongLam < 0) {
+            throw new Exception("Số lượng làm không được < 0");
+        } else {
             this.soLuongLam = soLuongLam;
         }
     }
@@ -83,25 +80,32 @@ public class ChamCongCongNhan {
         this.phanCong = phanCong;
     }
 
-    public boolean isDiLam() {
-        return diLam;
+    private void setTrangThaiDiLam(String trangThaiDiLam) throws Exception {
+        if (trangThaiDiLam.equalsIgnoreCase("Đi làm")
+                || trangThaiDiLam.equalsIgnoreCase("Đi trễ")
+                || trangThaiDiLam.equalsIgnoreCase("Nghỉ Không phép")
+                || trangThaiDiLam.equalsIgnoreCase("Nghỉ có phép")) {
+            this.trangThaiDiLam = trangThaiDiLam;
+        } else {
+            throw new Exception("Trạng thái đi làm phải là 1 trong 3: Đi làm, Đi trễ, Nghỉ");
+        }
     }
 
-    public void setDiLam(boolean diLam) {
-        this.diLam = diLam;
+    public String getTrangThaiDiLam() {
+        return trangThaiDiLam;
     }
 
-    public boolean isPhepNghi() {
-        return phepNghi;
+    public void setGioDiLam(String gioDiLam) {
+        this.gioDiLam = gioDiLam;
     }
 
-    public void setPhepNghi(boolean phepNghi) {
-        this.phepNghi = phepNghi;
+    public String getGioDiLam() {
+        return gioDiLam;
     }
 
     @Override
     public String toString() {
-        return "ChamCongCongNhan{" + "maChamCong=" + maChamCong + ", ngayChamCong=" + ngayChamCong + ", soLuongLam=" + soLuongLam + ", phanCong=" + phanCong + ", diLam=" + diLam + ", phepNghi=" + phepNghi + '}';
+        return "ChamCongCongNhan{" + "maChamCong=" + maChamCong + ", ngayChamCong=" + ngayChamCong + ", soLuongLam=" + soLuongLam + ", phanCong=" + phanCong + ", trangThaiDiLam=" + trangThaiDiLam + ", gioDiLam=" + gioDiLam + '}';
     }
 
 }

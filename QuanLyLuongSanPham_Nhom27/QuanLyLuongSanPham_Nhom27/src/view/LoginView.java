@@ -35,7 +35,7 @@ public class LoginView extends javax.swing.JFrame {
     public void gui() {
         this.txtUserName.setBackground(new Color(0, 0, 0, 1));
         this.txtPassWord.setBackground(new Color(0, 0, 0, 1));
-        this.txtOTP.setBackground(new Color(0, 0, 0, 1));
+    //    this.txtOTP.setBackground(new Color(0, 0, 0, 1));
     }
 
     public void sendEmail() {
@@ -71,16 +71,12 @@ public class LoginView extends javax.swing.JFrame {
         lbUserName2 = new javax.swing.JLabel();
         disable = new javax.swing.JLabel();
         show = new javax.swing.JLabel();
-        lbOTP01 = new javax.swing.JLabel();
-        lbOTP02 = new javax.swing.JLabel();
         chkRemerberPassword = new javax.swing.JCheckBox();
         lbQuenMatKhau = new javax.swing.JLabel();
         btnDangNhap = new javax.swing.JButton();
-        txtOTP = new javax.swing.JTextField();
         txtUserName = new javax.swing.JTextField();
         lbPassword02 = new javax.swing.JLabel();
         txtPassWord = new javax.swing.JPasswordField();
-        jLabel3 = new javax.swing.JLabel();
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -95,18 +91,22 @@ public class LoginView extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(1000, 500));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(124, 137, 251));
         jPanel1.setPreferredSize(new java.awt.Dimension(500, 500));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/bg-login.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 95, 461, 329));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/loginImage.png"))); // NOI18N
+        jLabel1.setPreferredSize(new java.awt.Dimension(400, 400));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 60, 520, 380));
 
-        lbPhanMemQuanLy.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lbPhanMemQuanLy.setBackground(new java.awt.Color(255, 255, 255));
+        lbPhanMemQuanLy.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lbPhanMemQuanLy.setForeground(new java.awt.Color(255, 255, 255));
+        lbPhanMemQuanLy.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbPhanMemQuanLy.setText("PHẦN MỀM QUẢN LÝ LƯƠNG THVT_SHOES");
-        jPanel1.add(lbPhanMemQuanLy, new org.netbeans.lib.awtextra.AbsoluteConstraints(84, 19, -1, 40));
+        jPanel1.add(lbPhanMemQuanLy, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 60));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 520));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 500));
 
         jPanel2.setBackground(new java.awt.Color(52, 152, 219));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -136,22 +136,22 @@ public class LoginView extends javax.swing.JFrame {
         lbUserName01.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lbUserName01.setForeground(new java.awt.Color(255, 255, 255));
         lbUserName01.setText("Tên đăng nhập");
-        jPanel2.add(lbUserName01, new org.netbeans.lib.awtextra.AbsoluteConstraints(56, 105, 360, -1));
+        jPanel2.add(lbUserName01, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, 360, -1));
 
         lbIcon.setForeground(new java.awt.Color(255, 255, 255));
         lbIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/icons8_user_20px_1.png"))); // NOI18N
         lbIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel2.add(lbIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 130, -1, 36));
+        jPanel2.add(lbIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 160, -1, 36));
 
         lbPassWord01.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lbPassWord01.setForeground(new java.awt.Color(255, 255, 255));
         lbPassWord01.setText("Mật khẩu");
-        jPanel2.add(lbPassWord01, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 360, -1));
+        jPanel2.add(lbPassWord01, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 360, -1));
 
         lbUserName2.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         lbUserName2.setForeground(new java.awt.Color(255, 255, 255));
         lbUserName2.setText("______________________________________________");
-        jPanel2.add(lbUserName2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, 378, -1));
+        jPanel2.add(lbUserName2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, 378, -1));
 
         disable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/icons8_invisible_20px_1.png"))); // NOI18N
         disable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -160,7 +160,7 @@ public class LoginView extends javax.swing.JFrame {
                 disableMouseClicked(evt);
             }
         });
-        jPanel2.add(disable, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 230, 31, -1));
+        jPanel2.add(disable, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 260, 30, -1));
 
         show.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/icons8_eye_20px_1.png"))); // NOI18N
         show.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -169,19 +169,9 @@ public class LoginView extends javax.swing.JFrame {
                 showMouseClicked(evt);
             }
         });
-        jPanel2.add(show, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 230, 31, -1));
+        jPanel2.add(show, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 260, 31, -1));
 
-        lbOTP01.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lbOTP01.setForeground(new java.awt.Color(255, 255, 255));
-        lbOTP01.setText("OTP");
-        jPanel2.add(lbOTP01, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, 360, -1));
-
-        lbOTP02.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        lbOTP02.setForeground(new java.awt.Color(255, 255, 255));
-        lbOTP02.setText("_____________________________________________________");
-        jPanel2.add(lbOTP02, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, -1, -1));
-
-        chkRemerberPassword.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        chkRemerberPassword.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         chkRemerberPassword.setForeground(new java.awt.Color(255, 255, 255));
         chkRemerberPassword.setText("Remember passwrod?");
         chkRemerberPassword.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -196,13 +186,13 @@ public class LoginView extends javax.swing.JFrame {
                 chkRemerberPasswordActionPerformed(evt);
             }
         });
-        jPanel2.add(chkRemerberPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, -1, -1));
+        jPanel2.add(chkRemerberPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, -1));
 
-        lbQuenMatKhau.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lbQuenMatKhau.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lbQuenMatKhau.setForeground(new java.awt.Color(255, 255, 255));
         lbQuenMatKhau.setText("Quên mật khẩu?");
         lbQuenMatKhau.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel2.add(lbQuenMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 390, 190, -1));
+        jPanel2.add(lbQuenMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 340, 190, -1));
 
         btnDangNhap.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnDangNhap.setForeground(new java.awt.Color(52, 152, 219));
@@ -213,12 +203,7 @@ public class LoginView extends javax.swing.JFrame {
                 btnDangNhapActionPerformed(evt);
             }
         });
-        jPanel2.add(btnDangNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 440, 405, 47));
-
-        txtOTP.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtOTP.setForeground(new java.awt.Color(255, 255, 255));
-        txtOTP.setBorder(null);
-        jPanel2.add(txtOTP, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 360, 30));
+        jPanel2.add(btnDangNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, 405, 47));
 
         txtUserName.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtUserName.setForeground(new java.awt.Color(255, 255, 255));
@@ -228,31 +213,20 @@ public class LoginView extends javax.swing.JFrame {
                 txtUserNameActionPerformed(evt);
             }
         });
-        jPanel2.add(txtUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, 360, 30));
+        jPanel2.add(txtUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 360, 30));
 
         lbPassword02.setForeground(new java.awt.Color(255, 255, 255));
         lbPassword02.setText("_____________________________________________________");
-        jPanel2.add(lbPassword02, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, 378, -1));
+        jPanel2.add(lbPassword02, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, 378, -1));
 
         txtPassWord.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtPassWord.setForeground(new java.awt.Color(255, 255, 255));
         txtPassWord.setBorder(null);
-        jPanel2.add(txtPassWord, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 222, 360, 30));
+        jPanel2.add(txtPassWord, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 360, 30));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 2, 16)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Gửi mã OTP");
-        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
-            }
-        });
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, 360, -1));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 0, 550, 500));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 560, 520));
-
-        setSize(new java.awt.Dimension(1058, 517));
+        setSize(new java.awt.Dimension(1058, 496));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -315,12 +289,6 @@ public class LoginView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_chkRemerberPasswordMouseClicked
 
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        Random rand = new Random();
-        System.out.println(rand.nextInt(99999+1-10000)+10000);
-        
-    }//GEN-LAST:event_jLabel3MouseClicked
-
     /**
      * @param args the command line arguments
      */
@@ -362,7 +330,6 @@ public class LoginView extends javax.swing.JFrame {
     private javax.swing.JLabel disable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -370,8 +337,6 @@ public class LoginView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lbExit;
     private javax.swing.JLabel lbIcon;
-    private javax.swing.JLabel lbOTP01;
-    private javax.swing.JLabel lbOTP02;
     private javax.swing.JLabel lbPassWord01;
     private javax.swing.JLabel lbPassword02;
     private javax.swing.JLabel lbPhanMemQuanLy;
@@ -380,7 +345,6 @@ public class LoginView extends javax.swing.JFrame {
     private javax.swing.JLabel lbUserName01;
     private javax.swing.JLabel lbUserName2;
     private javax.swing.JLabel show;
-    private javax.swing.JTextField txtOTP;
     private javax.swing.JPasswordField txtPassWord;
     private javax.swing.JTextField txtUserName;
     // End of variables declaration//GEN-END:variables

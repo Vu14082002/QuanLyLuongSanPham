@@ -6,8 +6,6 @@
 package Entity;
 
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -18,18 +16,18 @@ public class ChamCongNhanVien {
     private String maChamCong;
     private Date ngayChamCong;
     private String caLam;
-    private boolean diLam;
-    private boolean phepNghi;
+    private String trangThaiDiLam;
+    private String gioDiLam;
     private NhanVien nhanVien;
     private NhanVien nguoiChamCong;
 
-    public ChamCongNhanVien(String maChamCong, Date ngayChamCong, String caLam, boolean diLam, boolean phepNghi, NhanVien nhanVien, NhanVien nguoiChamCong) {
+    public ChamCongNhanVien(String maChamCong, Date ngayChamCong, String caLam, String trangThaiDiLam, String gioDiLam, NhanVien nhanVien, NhanVien nguoiChamCong) {
         try {
             setMaChamCong(maChamCong);
             setNgayChamCong(ngayChamCong);
             setCaLam(caLam);
-            setDiLam(diLam);
-            setPhepNghi(phepNghi);
+            setTrangThaiDiLam(trangThaiDiLam);
+            setGioDiLam(gioDiLam);
             setNhanVien(nhanVien);
             setNguoiChamCong(nguoiChamCong);
         } catch (Exception ex) {
@@ -74,20 +72,27 @@ public class ChamCongNhanVien {
         this.caLam = caLam;
     }
 
-    public boolean isDiLam() {
-        return diLam;
+    private void setTrangThaiDiLam(String trangThaiDiLam) throws Exception {
+        if (trangThaiDiLam.equalsIgnoreCase("Đi làm")
+                || trangThaiDiLam.equalsIgnoreCase("Đi trễ")
+                || trangThaiDiLam.equalsIgnoreCase("Nghỉ Không phép")
+                || trangThaiDiLam.equalsIgnoreCase("Nghỉ có phép")) {
+            this.trangThaiDiLam = trangThaiDiLam;
+        } else {
+            throw new Exception("Trạng thái đi làm phải là 1 trong 3: Đi làm, Đi trễ, Nghỉ");
+        }
     }
 
-    public void setDiLam(boolean diLam) {
-        this.diLam = diLam;
+    public String getTrangThaiDiLam() {
+        return trangThaiDiLam;
     }
 
-    public boolean isPhepNghi() {
-        return phepNghi;
+    public void setGioDiLam(String gioDiLam) {
+        this.gioDiLam = gioDiLam;
     }
 
-    public void setPhepNghi(boolean phepNghi) {
-        this.phepNghi = phepNghi;
+    public String getGioDiLam() {
+        return gioDiLam;
     }
 
     public NhanVien getNhanVien() {
@@ -108,7 +113,7 @@ public class ChamCongNhanVien {
 
     @Override
     public String toString() {
-        return "ChamCongNhanVien{" + "maChamCong=" + maChamCong + ", ngayChamCong=" + ngayChamCong + ", caLam=" + caLam + ", diLam=" + diLam + ", phepNghi=" + phepNghi + ", nhanVien=" + nhanVien + ", nguoiChamCong=" + nguoiChamCong + '}';
+        return "ChamCongNhanVien{" + "maChamCong=" + maChamCong + ", ngayChamCong=" + ngayChamCong + ", caLam=" + caLam + ", trangThaiDiLam=" + trangThaiDiLam + ", gioDiLam=" + gioDiLam + ", nhanVien=" + nhanVien + ", nguoiChamCong=" + nguoiChamCong + '}';
     }
 
 }

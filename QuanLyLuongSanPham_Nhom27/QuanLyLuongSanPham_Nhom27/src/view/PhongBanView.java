@@ -89,6 +89,7 @@ public class PhongBanView extends javax.swing.JPanel {
         jPanel1.setPreferredSize(new java.awt.Dimension(1250, 300));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        txtManPhongBan.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtManPhongBan.setText("jTextField1");
         txtManPhongBan.setBorder(null);
         txtManPhongBan.addActionListener(new java.awt.event.ActionListener() {
@@ -103,6 +104,7 @@ public class PhongBanView extends javax.swing.JPanel {
         lbTenPhongBan.setText("Tên phòng ban:");
         jPanel1.add(lbTenPhongBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, 170, 20));
 
+        txtTenPhongBan.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtTenPhongBan.setText("jTextField1");
         txtTenPhongBan.setBorder(null);
         txtTenPhongBan.addActionListener(new java.awt.event.ActionListener() {
@@ -117,7 +119,7 @@ public class PhongBanView extends javax.swing.JPanel {
         jLabel1.setText("jLabel1");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 200, 200));
 
-        jButton1.setBackground(new java.awt.Color(241, 196, 15));
+        jButton1.setBackground(new java.awt.Color(156, 136, 255));
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/save.png"))); // NOI18N
         jButton1.setText("Lưu");
@@ -165,7 +167,7 @@ public class PhongBanView extends javax.swing.JPanel {
         pnPhaiHeader.setBorder(javax.swing.BorderFactory.createTitledBorder("Tìm kiếm phòng ban"));
         pnPhaiHeader.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton5.setBackground(new java.awt.Color(46, 204, 113));
+        jButton5.setBackground(new java.awt.Color(85, 239, 196));
         jButton5.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/search.png"))); // NOI18N
         jButton5.setText("Tìm kiếm");

@@ -90,7 +90,7 @@ public class MainView extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 pnBody.removeAll();
-                pnBody.add(new ChamCongNhanVien(), BorderLayout.CENTER);
+                pnBody.add(new ChamCongNhanVienView(), BorderLayout.CENTER);
                 pnBody.repaint();
                 pnBody.revalidate();
                 macDinh((chamCongNhanVien));
@@ -208,7 +208,6 @@ public class MainView extends javax.swing.JFrame {
         pnBody = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
 
         pnHeader.setBackground(new java.awt.Color(41, 128, 185));
         pnHeader.setForeground(new java.awt.Color(41, 128, 185));
