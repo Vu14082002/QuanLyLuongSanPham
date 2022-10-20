@@ -180,7 +180,7 @@ public class QuanLySanPham extends javax.swing.JPanel {
 
         jButton5.setBackground(new java.awt.Color(46, 204, 113));
         jButton5.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/search.png"))); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/xoaTrang.png"))); // NOI18N
         jButton5.setText("Xóa trắng");
         jButton5.setBorder(null);
         jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 240, 140, 40));

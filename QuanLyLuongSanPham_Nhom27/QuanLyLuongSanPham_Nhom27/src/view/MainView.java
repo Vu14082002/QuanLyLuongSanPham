@@ -246,7 +246,7 @@ public class MainView extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("QUẢN LÝ LƯƠNG CÔNG TY THVT_SHOES");
-        pnHeader.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 974, 75));
+        pnHeader.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 1250, 75));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
