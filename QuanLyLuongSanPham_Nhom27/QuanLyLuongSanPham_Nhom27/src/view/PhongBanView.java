@@ -68,11 +68,11 @@ public class PhongBanView extends javax.swing.JPanel {
         lbTenPhongBan1 = new javax.swing.JLabel();
         txtTenPhongBan1 = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btnLuu = new javax.swing.JButton();
+        btnXoaTrang = new javax.swing.JButton();
+        btnCapNhat = new javax.swing.JButton();
+        btnXoa = new javax.swing.JButton();
+        btnThem = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tbPhongBan = new javax.swing.JTable();
 
@@ -80,10 +80,10 @@ public class PhongBanView extends javax.swing.JPanel {
         setLayout(new java.awt.BorderLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1250, 300));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1250, 400));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtManPhongBan.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtManPhongBan.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         txtManPhongBan.setText("jTextField1");
         txtManPhongBan.setBorder(null);
         txtManPhongBan.addActionListener(new java.awt.event.ActionListener() {
@@ -91,14 +91,14 @@ public class PhongBanView extends javax.swing.JPanel {
                 txtManPhongBanActionPerformed(evt);
             }
         });
-        jPanel1.add(txtManPhongBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, 280, 30));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 60, 290, 10));
+        jPanel1.add(txtManPhongBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 80, 280, 30));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 110, 290, 10));
 
-        lbTenPhongBan.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lbTenPhongBan.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lbTenPhongBan.setText("Tên phòng ban:");
-        jPanel1.add(lbTenPhongBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 100, 170, 20));
+        jPanel1.add(lbTenPhongBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 150, 170, 20));
 
-        txtTenPhongBan.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtTenPhongBan.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         txtTenPhongBan.setText("jTextField1");
         txtTenPhongBan.setBorder(null);
         txtTenPhongBan.addActionListener(new java.awt.event.ActionListener() {
@@ -106,25 +106,25 @@ public class PhongBanView extends javax.swing.JPanel {
                 txtTenPhongBanActionPerformed(evt);
             }
         });
-        jPanel1.add(txtTenPhongBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 90, 290, 30));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 120, 290, 10));
+        jPanel1.add(txtTenPhongBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 140, 290, 30));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 170, 290, 10));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/PhongBan/PhongBanView.png"))); // NOI18N
         jLabel1.setText("jLabel1");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 200, 200));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 60, 200, 200));
 
         lbErrTenPhongBan.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lbErrTenPhongBan.setForeground(new java.awt.Color(204, 0, 0));
         lbErrTenPhongBan.setText("đây là dòng thông báo lỗi");
-        jPanel1.add(lbErrTenPhongBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 130, 290, -1));
+        jPanel1.add(lbErrTenPhongBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 180, 290, -1));
 
-        lbMaPhongBan1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lbMaPhongBan1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lbMaPhongBan1.setText("Mã phòng ban:");
-        jPanel1.add(lbMaPhongBan1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 40, 170, 20));
+        jPanel1.add(lbMaPhongBan1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 90, 170, 20));
 
-        lbTenPhongBan1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lbTenPhongBan1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lbTenPhongBan1.setText("Số lượng nhân viên:");
-        jPanel1.add(lbTenPhongBan1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 160, 170, 20));
+        jPanel1.add(lbTenPhongBan1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 210, 170, 20));
 
         txtTenPhongBan1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtTenPhongBan1.setBorder(null);
@@ -134,48 +134,48 @@ public class PhongBanView extends javax.swing.JPanel {
             }
         });
         jPanel1.add(txtTenPhongBan1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 150, 290, 30));
-        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 180, 290, 10));
+        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 230, 290, 10));
 
-        jButton2.setBackground(new java.awt.Color(46, 204, 113));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/add.png"))); // NOI18N
-        jButton2.setText("Thêm");
-        jButton2.setBorder(null);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnLuu.setBackground(new java.awt.Color(246, 229, 141));
+        btnLuu.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        btnLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/save.png"))); // NOI18N
+        btnLuu.setText("Lưu");
+        jPanel1.add(btnLuu, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 330, 130, 40));
+
+        btnXoaTrang.setBackground(new java.awt.Color(255, 121, 121));
+        btnXoaTrang.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        btnXoaTrang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/xoaTrang.png"))); // NOI18N
+        btnXoaTrang.setText("Xóa trắng");
+        btnXoaTrang.setBorder(null);
+        jPanel1.add(btnXoaTrang, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 330, 140, 40));
+
+        btnCapNhat.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        btnCapNhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/update.png"))); // NOI18N
+        btnCapNhat.setText("Cập nhật");
+        btnCapNhat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnCapNhatActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 240, 140, 40));
+        jPanel1.add(btnCapNhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 330, 130, 40));
 
-        jButton3.setBackground(new java.awt.Color(41, 128, 185));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/close.png"))); // NOI18N
-        jButton3.setText("Xóa");
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 240, 130, 40));
+        btnXoa.setBackground(new java.awt.Color(41, 128, 185));
+        btnXoa.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/close.png"))); // NOI18N
+        btnXoa.setText("Xóa");
+        jPanel1.add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 330, 130, 40));
 
-        jButton4.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/update.png"))); // NOI18N
-        jButton4.setText("Cập nhật");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnThem.setBackground(new java.awt.Color(46, 204, 113));
+        btnThem.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/add.png"))); // NOI18N
+        btnThem.setText("Thêm");
+        btnThem.setBorder(null);
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnThemActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 240, 130, 40));
-
-        jButton5.setBackground(new java.awt.Color(46, 204, 113));
-        jButton5.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/xoaTrang.png"))); // NOI18N
-        jButton5.setText("Xóa trắng");
-        jButton5.setBorder(null);
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 240, 140, 40));
-
-        jButton6.setBackground(new java.awt.Color(41, 128, 185));
-        jButton6.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/reset.png"))); // NOI18N
-        jButton6.setText("Lưu");
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 240, 130, 40));
+        jPanel1.add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 330, 140, 40));
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
@@ -223,22 +223,21 @@ public class PhongBanView extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTenPhongBan1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
-        new ThemSanPhamView().setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
         new CapNhatSanPhamView().setVisible(true);
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnCapNhatActionPerformed
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnThemActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JButton btnCapNhat;
+    private javax.swing.JButton btnLuu;
+    private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnXoa;
+    private javax.swing.JButton btnXoaTrang;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane3;

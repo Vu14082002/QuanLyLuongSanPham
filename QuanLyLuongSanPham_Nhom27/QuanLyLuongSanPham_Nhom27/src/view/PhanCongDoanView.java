@@ -93,7 +93,7 @@ public class PhanCongDoanView extends javax.swing.JPanel {
         jSeparator4 = new javax.swing.JSeparator();
         jLabel28 = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jButton2 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
@@ -109,13 +109,13 @@ public class PhanCongDoanView extends javax.swing.JPanel {
         jPanel3.setLayout(new java.awt.BorderLayout());
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel5.setPreferredSize(new java.awt.Dimension(1250, 450));
+        jPanel5.setPreferredSize(new java.awt.Dimension(1250, 400));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         aaaa.setBackground(new java.awt.Color(255, 255, 255));
         aaaa.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách sản phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
 
-        tbDanhSachCanChamCong.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        tbDanhSachCanChamCong.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         tbDanhSachCanChamCong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -138,31 +138,32 @@ public class PhanCongDoanView extends javax.swing.JPanel {
         tbDanhSachCanChamCong.setSelectionBackground(new java.awt.Color(232, 57, 95));
         aaaa.setViewportView(tbDanhSachCanChamCong);
 
-        jPanel5.add(aaaa, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 660, 280));
+        jPanel5.add(aaaa, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 770, 230));
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel10.setText("Tên công đoạn:");
         jPanel5.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 170, 170, 40));
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel11.setText("SP001");
         jPanel5.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 20, 180, 40));
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel12.setText("Giày loại 1");
         jPanel5.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 70, 180, 40));
 
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel14.setText("Mã sản phẩm:");
         jPanel5.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 20, 190, 40));
 
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel15.setText("Tên sản phẩm:");
         jPanel5.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 70, 190, 40));
 
+        txtSoLuongLamDuoc.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         txtSoLuongLamDuoc.setText("0");
         txtSoLuongLamDuoc.setBorder(null);
         txtSoLuongLamDuoc.addActionListener(new java.awt.event.ActionListener() {
@@ -177,6 +178,7 @@ public class PhanCongDoanView extends javax.swing.JPanel {
         lbErrMaNhanVien.setText("đây là dòng thông báo lỗi");
         jPanel5.add(lbErrMaNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 200, 190, -1));
 
+        txtSoLuongLamDuoc1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         txtSoLuongLamDuoc1.setText("0");
         txtSoLuongLamDuoc1.setBorder(null);
         jPanel5.add(txtSoLuongLamDuoc1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 230, 150, 30));
@@ -187,26 +189,27 @@ public class PhanCongDoanView extends javax.swing.JPanel {
         lbErrMaNhanVien1.setText("đây là dòng thông báo lỗi");
         jPanel5.add(lbErrMaNhanVien1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 270, 190, -1));
 
-        jLabel24.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel24.setText("Mã công đoạn:");
         jPanel5.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 120, 190, 40));
 
-        jLabel25.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel25.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         jLabel25.setText("CD001");
         jPanel5.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 120, 180, 40));
         jPanel5.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 190, 180, 10));
 
-        jLabel26.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel26.setText("Số lượng cần:");
         jPanel5.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 220, 170, 40));
 
-        jLabel27.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel27.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel27.setText("Thời hạn:");
         jPanel5.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 340, 170, 40));
 
+        txtSoLuongLamDuoc2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         txtSoLuongLamDuoc2.setText("0");
         txtSoLuongLamDuoc2.setBorder(null);
         jPanel5.add(txtSoLuongLamDuoc2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 290, 150, 30));
@@ -217,36 +220,31 @@ public class PhanCongDoanView extends javax.swing.JPanel {
         jPanel5.add(lbErrMaNhanVien2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 320, 190, -1));
         jPanel5.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 320, 180, 10));
 
-        jLabel28.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel28.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel28.setText("Giá tiền:");
         jPanel5.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 280, 170, 40));
         jPanel5.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 350, 190, 30));
 
-        jButton2.setBackground(new java.awt.Color(46, 204, 113));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/add.png"))); // NOI18N
-        jButton2.setText("Thêm");
-        jButton2.setBorder(null);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButton7.setBackground(new java.awt.Color(46, 204, 113));
+        jButton7.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/add.png"))); // NOI18N
+        jButton7.setText("Thêm");
+        jButton7.setBorder(null);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButton7ActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 140, 40));
+        jPanel5.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 140, 40));
 
         jButton3.setBackground(new java.awt.Color(41, 128, 185));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jButton3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/close.png"))); // NOI18N
         jButton3.setText("Xóa");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        jPanel5.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 370, 130, 40));
+        jPanel5.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 290, 130, 40));
 
-        jButton4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jButton4.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/update.png"))); // NOI18N
         jButton4.setText("Cập nhật");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -254,36 +252,25 @@ public class PhanCongDoanView extends javax.swing.JPanel {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 370, 130, 40));
+        jPanel5.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 290, 130, 40));
 
-        jButton5.setBackground(new java.awt.Color(85, 239, 196));
-        jButton5.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/save.png"))); // NOI18N
-        jButton5.setText("Lưu");
+        jButton5.setBackground(new java.awt.Color(255, 121, 121));
+        jButton5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/xoaTrang.png"))); // NOI18N
+        jButton5.setText("Xóa trắng");
         jButton5.setBorder(null);
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-        jPanel5.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 370, 140, 40));
+        jPanel5.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 290, 140, 40));
 
-        jButton6.setBackground(new java.awt.Color(46, 204, 113));
-        jButton6.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/search.png"))); // NOI18N
-        jButton6.setText("Xóa trắng");
-        jButton6.setBorder(null);
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-        jPanel5.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 370, 140, 40));
+        jButton6.setBackground(new java.awt.Color(246, 229, 141));
+        jButton6.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/save.png"))); // NOI18N
+        jButton6.setText("Lưu");
+        jPanel5.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 290, 130, 40));
 
         jPanel3.add(jPanel5, java.awt.BorderLayout.PAGE_START);
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách sản phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách công đoạn sản phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 16))); // NOI18N
 
         tbNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         tbNhanVien.setModel(new javax.swing.table.DefaultTableModel(
@@ -328,34 +315,22 @@ public class PhanCongDoanView extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSoLuongLamDuocActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        new ThemNhanVienView().setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        new CapNhatNhanVien().setVisible(true);        // TODO add your handling code here:
+        new CapNhatSanPhamView().setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane aaaa;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
