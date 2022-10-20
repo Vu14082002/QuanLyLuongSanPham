@@ -30,6 +30,7 @@ public class MainView extends javax.swing.JFrame {
     private MenuItem tinhLuongNhanVien = null;
     private MenuItem quanLySanPham = null;
     private MenuItem phanCongDoanSanPham = null;
+    private MenuItem timKiemCongNhan = null;
     private MenuItem dangXuat = null;
     private MenuItem thongTinCaNhan = null;
     private ImageIcon iconSubMenuNonSelect = null;
@@ -57,7 +58,7 @@ public class MainView extends javax.swing.JFrame {
 
         // create subMenu
         //sub menuCongNhan
-        quanLyCongNhan = new MenuItem(iconSubMenuNonSelect, "Quản lý", ((e) -> {
+        quanLyCongNhan = new MenuItem(iconSubMenuNonSelect, "Cập nhật", ((e) -> {
             pnBody.removeAll();
             pnBody.add(new QuanLyCongNhanView(), BorderLayout.CENTER);
             pnBody.repaint();
@@ -72,33 +73,23 @@ public class MainView extends javax.swing.JFrame {
             pnBody.revalidate();
             macDinh(chamCongCongNhan);
         }));
-        tinhLuongCongNhan = new MenuItem(iconSubMenuNonSelect, "Tính lương", ((e) -> {
-            pnBody.removeAll();
-            pnBody.add(new QuanLyNhanVienView(), BorderLayout.CENTER);
-            pnBody.repaint();
-            pnBody.revalidate();
-            macDinh((tinhLuongCongNhan));
-        }));
-
+        
         // submenu nhan vien
-        quanLyNhanVien = new MenuItem(iconSubMenuNonSelect, "Quản lý", (ActionEvent e) -> {
+        quanLyNhanVien = new MenuItem(iconSubMenuNonSelect, "Cập nhật", (ActionEvent e) -> {
             pnBody.removeAll();
             pnBody.add(new QuanLyNhanVienView(), BorderLayout.CENTER);
             pnBody.repaint();
             pnBody.revalidate();
             macDinh((quanLyNhanVien));
         });
-        chamCongNhanVien = new MenuItem(iconSubMenuNonSelect, "Chấm công", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pnBody.removeAll();
-                pnBody.add(new ChamCongNhanVienView(), BorderLayout.CENTER);
-                pnBody.repaint();
-                pnBody.revalidate();
-                macDinh((chamCongNhanVien));
-            }
+        chamCongNhanVien = new MenuItem(iconSubMenuNonSelect, "Chấm công", (ActionEvent e) -> {
+            pnBody.removeAll();
+            pnBody.add(new ChamCongNhanVienView(), BorderLayout.CENTER);
+            pnBody.repaint();
+            pnBody.revalidate();
+            macDinh((chamCongNhanVien));
         });
-        tinhLuongNhanVien = new MenuItem(iconSubMenuNonSelect, "Tính lương", new ActionListener() {
+        tinhLuongNhanVien = new MenuItem(iconSubMenuNonSelect, "Lương", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 pnBody.removeAll();
@@ -109,8 +100,16 @@ public class MainView extends javax.swing.JFrame {
             }
 
         });
+        tinhLuongCongNhan = new MenuItem(iconSubMenuNonSelect, "Lương", ((e) -> {
+            pnBody.removeAll();
+            pnBody.add(new QuanLyNhanVienView(), BorderLayout.CENTER);
+            pnBody.repaint();
+            pnBody.revalidate();
+            macDinh((tinhLuongCongNhan));
+        }));
+
         // San pham
-        quanLySanPham = new MenuItem(iconSubMenuNonSelect, "Quản lý", new ActionListener() {
+        quanLySanPham = new MenuItem(iconSubMenuNonSelect, "Cập nhật", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 pnBody.removeAll();
@@ -135,7 +134,7 @@ public class MainView extends javax.swing.JFrame {
             macDinh(phanCongCongNhan);
         }));
         // he thong
-        thongTinCaNhan = new MenuItem(iconSubMenuNonSelect, "Quản lý", ((e) -> {
+        thongTinCaNhan = new MenuItem(iconSubMenuNonSelect, "Thông tin cá nhân", ((e) -> {
             pnBody.removeAll();
             pnBody.add(new QuanLyCongNhanView(), BorderLayout.CENTER);
             pnBody.repaint();
@@ -171,10 +170,10 @@ public class MainView extends javax.swing.JFrame {
         });
         MenuItem menuNhanVien = new MenuItem(iconEmployee, "Nhân viên", (ActionEvent e) -> {
             resetSelect();
-        }, quanLyNhanVien, chamCongNhanVien, tinhLuongNhanVien,phanCongCongNhan);
+        }, quanLyNhanVien, chamCongNhanVien,phanCongCongNhan, tinhLuongNhanVien);
         MenuItem menuCongNhan = new MenuItem(iconWorker, "Công nhân", (ActionEvent e) -> {
             resetSelect();
-        }, quanLyCongNhan, chamCongCongNhan, tinhLuongCongNhan);
+        }, quanLyCongNhan, chamCongCongNhan,tinhLuongCongNhan);
         MenuItem menuSanPham = new MenuItem(iconProduct, "Sản phẩm", null, quanLySanPham, phanCongDoanSanPham);
         MenuItem menuThongKe = new MenuItem(iconThongKe, "Thống kê", null);
         MenuItem menuHeThong = new MenuItem(iconHeThong, "Hệ thống", null,thongTinCaNhan,dangXuat);

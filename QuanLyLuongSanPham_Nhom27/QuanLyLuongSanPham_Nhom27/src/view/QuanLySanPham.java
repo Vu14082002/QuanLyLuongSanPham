@@ -94,7 +94,7 @@ public class QuanLySanPham extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "Mã nhân viên", "Họ và tên", "Sô CCCd", "Giới tính", "Ngày sinh", "Số điện thoại", "Địa chỉ", "Ảnh đại diện", "Email", "Phòng Ban", "Chức vụ", "Ngày vào làm"
+                "STT", "Mã sản phẩm", "Tên sản phẩm", "Chát liệu", "Kích thước", "Só lượng", "Ảnh sảnh phẩm", "Địa chỉ", "Ảnh đại diện", "Email", "Phòng Ban", "Chức vụ", "Ngày vào làm"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -160,13 +160,13 @@ public class QuanLySanPham extends javax.swing.JPanel {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 140, 40));
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 240, 140, 40));
 
         jButton3.setBackground(new java.awt.Color(41, 128, 185));
         jButton3.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/close.png"))); // NOI18N
         jButton3.setText("Xóa");
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 240, 130, 40));
+        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 240, 130, 40));
 
         jButton4.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/update.png"))); // NOI18N
@@ -176,20 +176,20 @@ public class QuanLySanPham extends javax.swing.JPanel {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 240, 130, 40));
+        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 240, 130, 40));
 
         jButton5.setBackground(new java.awt.Color(46, 204, 113));
         jButton5.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/search.png"))); // NOI18N
-        jButton5.setText("Tìm kiếm");
+        jButton5.setText("Xóa trắng");
         jButton5.setBorder(null);
-        jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 240, 140, 40));
+        jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 240, 140, 40));
 
         jButton6.setBackground(new java.awt.Color(41, 128, 185));
         jButton6.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/reset.png"))); // NOI18N
-        jButton6.setText("Đặt lại");
-        jPanel2.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 240, 130, 40));
+        jButton6.setText("Lưu");
+        jPanel2.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 240, 130, 40));
 
         jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46" }));

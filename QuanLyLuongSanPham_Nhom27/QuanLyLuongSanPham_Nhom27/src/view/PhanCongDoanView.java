@@ -97,6 +97,7 @@ public class PhanCongDoanView extends javax.swing.JPanel {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbNhanVien = new javax.swing.JTable();
 
@@ -232,7 +233,7 @@ public class PhanCongDoanView extends javax.swing.JPanel {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 370, 140, 40));
+        jPanel5.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 140, 40));
 
         jButton3.setBackground(new java.awt.Color(41, 128, 185));
         jButton3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -243,7 +244,7 @@ public class PhanCongDoanView extends javax.swing.JPanel {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 370, 130, 40));
+        jPanel5.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 370, 130, 40));
 
         jButton4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/update.png"))); // NOI18N
@@ -253,7 +254,7 @@ public class PhanCongDoanView extends javax.swing.JPanel {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 370, 130, 40));
+        jPanel5.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 370, 130, 40));
 
         jButton5.setBackground(new java.awt.Color(85, 239, 196));
         jButton5.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -265,7 +266,19 @@ public class PhanCongDoanView extends javax.swing.JPanel {
                 jButton5ActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 370, 140, 40));
+        jPanel5.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 370, 140, 40));
+
+        jButton6.setBackground(new java.awt.Color(46, 204, 113));
+        jButton6.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/search.png"))); // NOI18N
+        jButton6.setText("Xóa trắng");
+        jButton6.setBorder(null);
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 370, 140, 40));
 
         jPanel3.add(jPanel5, java.awt.BorderLayout.PAGE_START);
 
@@ -331,6 +344,10 @@ public class PhanCongDoanView extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane aaaa;
@@ -338,6 +355,7 @@ public class PhanCongDoanView extends javax.swing.JPanel {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
