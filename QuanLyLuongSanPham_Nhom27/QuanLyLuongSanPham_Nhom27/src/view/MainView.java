@@ -97,7 +97,6 @@ public class MainView extends javax.swing.JFrame {
                 pnBody.revalidate();
                 macDinh((chamCongNhanVien));
             }
-
         });
         tinhLuongNhanVien = new MenuItem(iconSubMenuNonSelect, "Tính lương", new ActionListener() {
             @Override
@@ -172,14 +171,11 @@ public class MainView extends javax.swing.JFrame {
         });
         MenuItem menuNhanVien = new MenuItem(iconEmployee, "Nhân viên", (ActionEvent e) -> {
             resetSelect();
-        }, quanLyNhanVien, chamCongNhanVien, tinhLuongNhanVien);
+        }, quanLyNhanVien, chamCongNhanVien, tinhLuongNhanVien,phanCongCongNhan);
         MenuItem menuCongNhan = new MenuItem(iconWorker, "Công nhân", (ActionEvent e) -> {
             resetSelect();
         }, quanLyCongNhan, chamCongCongNhan, tinhLuongCongNhan);
-        MenuItem menuSanPham = new MenuItem(iconProduct, "Sản phẩm", null, quanLySanPham, phanCongDoanSanPham, phanCongCongNhan);
-//        MenuItem menuPhanCong = new MenuItem(iconPhanCong, "Phân công", null);
-//        MenuItem menuChamCong = new MenuItem(iconFee, "Chấm công", null, chamCongNhanVien, chamCongCongNhan);
-//        MenuItem menuTinhLuong = new MenuItem(iconMoney, "Tính lương", null, tinhLuongNhanVien, tinhLuongCongNhan);
+        MenuItem menuSanPham = new MenuItem(iconProduct, "Sản phẩm", null, quanLySanPham, phanCongDoanSanPham);
         MenuItem menuThongKe = new MenuItem(iconThongKe, "Thống kê", null);
         MenuItem menuHeThong = new MenuItem(iconHeThong, "Hệ thống", null,thongTinCaNhan,dangXuat);
         addMenu(menuTrangChu, menuPhongBan, menuSanPham, menuNhanVien, menuCongNhan, menuThongKe, menuHeThong);
