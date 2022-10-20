@@ -79,8 +79,8 @@ public class PhanCongCongNhan {
     }
 
     public void setNgayPhanCong(Date ngayPhanCong) throws Exception {
-        if (ngayPhanCong.compareTo(new Date()) != 0){
-            throw new Exception("Ngày phân công phải là ngày hiện tại!");
+        if (ngayPhanCong.after(new Date())){
+            throw new Exception("Ngày phân công phải là ngày hiện tại hoặc trước hiện tại!");
         } else {
             this.ngayPhanCong = ngayPhanCong;
         }

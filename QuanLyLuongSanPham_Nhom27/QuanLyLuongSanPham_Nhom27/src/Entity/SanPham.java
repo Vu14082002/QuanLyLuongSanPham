@@ -18,10 +18,10 @@ public class SanPham {
     private int soLuongSanPham;
     private String mauSac;
     private String chatLieu;
-    private byte kichThuoc;
+    private int kichThuoc;
     private String anhSanPham;
 
-    public SanPham(String maSanPham, String tenSanPham, int soLuongSanPham, String mauSac, String chatLieu, byte kichThuoc, String anhSanPham) {
+    public SanPham(String maSanPham, String tenSanPham, int soLuongSanPham, String mauSac, String chatLieu, int kichThuoc, String anhSanPham) {
         try {
             setMaSanPham(maSanPham);
             setTenSanPham(tenSanPham);
@@ -90,11 +90,11 @@ public class SanPham {
         this.chatLieu = chatLieu;
     }
 
-    public byte getKichThuoc() {
+    public int getKichThuoc() {
         return kichThuoc;
     }
 
-    public void setKichThuoc(byte kichThuoc) throws Exception {
+    public void setKichThuoc(int kichThuoc) throws Exception {
         if (kichThuoc <= 0){
             throw new Exception("Kích thước không được <= 0");
         } else {
@@ -109,7 +109,7 @@ public class SanPham {
     public void setAnhSanPham(String anhSanPham) throws Exception {
         if (anhSanPham.equals("")){
             throw new Exception("Ảnh sản phẩm không được để trống!");
-        } else if (!anhSanPham.matches("\\.(png|PNG|jpg|JPG|raw|RAW|JPEG|jpeg)$")){
+        } else if (!anhSanPham.matches(".+\\.(png|PNG|jpg|JPG|raw|RAW|JPEG|jpeg)$")){
             throw new Exception("Chỉ chấp nhận các ảnh có định dạng png, jpg, raw, jpeg");
         } else {
             this.anhSanPham = anhSanPham;

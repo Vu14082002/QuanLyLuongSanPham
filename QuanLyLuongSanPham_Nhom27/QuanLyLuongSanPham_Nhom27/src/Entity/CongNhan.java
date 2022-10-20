@@ -82,6 +82,7 @@ public class CongNhan {
     }
 
     public void setNgaySinh(Date ngaySinh) throws Exception {
+        
         if (ngaySinh.after(new Date())) {
             throw new Exception("Ngày sinh phải trước ngày hiện tại");
         }else if (calculateAgeWithJava7(ngaySinh, new Date()) < 18) {
@@ -174,7 +175,7 @@ public class CongNhan {
     public void setAnhDaiDien(String anhDaiDien) throws Exception {
         if (anhDaiDien.equals("")){
             throw new Exception("Ảnh sản phẩm không được để trống!");
-        } else if (!anhDaiDien.matches("\\.(png|PNG|jpg|JPG|raw|RAW|JPEG|jpeg)$")){
+        } else if (!anhDaiDien.matches("^.{1,}\\.(png|PNG|jpg|JPG|raw|RAW|JPEG|jpeg)$")){
             throw new Exception("Chỉ chấp nhận các ảnh có định dạng png, jpg, raw, jpeg");
         } else {
             this.anhDaiDien = anhDaiDien;

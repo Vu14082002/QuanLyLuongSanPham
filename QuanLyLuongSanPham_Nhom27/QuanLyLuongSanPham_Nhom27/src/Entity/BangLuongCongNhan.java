@@ -150,5 +150,5 @@ public class BangLuongCongNhan {
     public String toString() {
         return "BangLuongCongNhan{" + "maBangLuong=" + maBangLuong + ", congNhan=" + congNhan + ", soLuongSanPhamLam=" + soLuongSanPhamLam + ", soNgayDiLam=" + soNgayDiLam + ", soNgayNghi=" + soNgayNghi + ", soPhepNghi=" + soPhepNghi + ", ngayTinh=" + ngayTinh + ", tongLuong=" + tongLuong + ", donViTien=" + donViTien + '}';
     }
-
+    
 }

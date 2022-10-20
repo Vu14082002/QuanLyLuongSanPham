@@ -84,11 +84,7 @@ public class CongDoan {
     }
 
     public void setThoiHan(Date thoiHan) throws Exception {
-        if (thoiHan.before(new Date()) || thoiHan.compareTo(new Date()) == 0) {
-            throw new Exception("Thời hạn phải sau ngày hiện tại!");
-        } else {
-            this.thoiHan = thoiHan;
-        }
+        this.thoiHan = thoiHan;
     }
 
     public SanPham getSanPham() {

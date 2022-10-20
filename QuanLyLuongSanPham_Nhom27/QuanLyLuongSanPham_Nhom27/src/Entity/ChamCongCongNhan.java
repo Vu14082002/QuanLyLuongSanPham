@@ -41,7 +41,7 @@ public class ChamCongCongNhan {
     private void setMaChamCong(String maChamCong) throws Exception {
         if (maChamCong.equals("")) {
             throw new Exception("Mã chấm công công nhân không được để trống!");
-        } else if (!maChamCong.matches("^CCN[1-9][0-9]{5}$")) {
+        } else if (!maChamCong.matches("^CCN[1-9][0-9]{4}$")) {
             throw new Exception("Mã chấm công nhân viên phải theo dạng CCNxxxxx với x là các kí tự số x đầu tiền từ [1-9] x sau từ [0-9]");
         } else {
             this.maChamCong = maChamCong;
