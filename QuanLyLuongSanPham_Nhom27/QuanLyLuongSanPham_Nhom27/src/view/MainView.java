@@ -77,7 +77,7 @@ public class MainView extends javax.swing.JFrame {
         // submenu nhan vien
         quanLyNhanVien = new MenuItem(iconSubMenuNonSelect, "Cập nhật", (ActionEvent e) -> {
             pnBody.removeAll();
-            pnBody.add(new QuanLyNhanVienView(), BorderLayout.CENTER);
+            pnBody.add(new CapNhatNhanVienView(), BorderLayout.CENTER);
             pnBody.repaint();
             pnBody.revalidate();
             macDinh((quanLyNhanVien));
@@ -93,7 +93,7 @@ public class MainView extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 pnBody.removeAll();
-                pnBody.add(new QuanLyNhanVienView(), BorderLayout.CENTER);
+                pnBody.add(new CapNhatNhanVienView(), BorderLayout.CENTER);
                 pnBody.repaint();
                 pnBody.revalidate();
                 macDinh(tinhLuongNhanVien);
@@ -102,7 +102,7 @@ public class MainView extends javax.swing.JFrame {
         });
         tinhLuongCongNhan = new MenuItem(iconSubMenuNonSelect, "Lương", ((e) -> {
             pnBody.removeAll();
-            pnBody.add(new QuanLyNhanVienView(), BorderLayout.CENTER);
+            pnBody.add(new CapNhatNhanVienView(), BorderLayout.CENTER);
             pnBody.repaint();
             pnBody.revalidate();
             macDinh((tinhLuongCongNhan));
@@ -113,7 +113,7 @@ public class MainView extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 pnBody.removeAll();
-                pnBody.add(new QuanLySanPham(), BorderLayout.CENTER);
+                pnBody.add(new SanPham(), BorderLayout.CENTER);
                 pnBody.repaint();
                 pnBody.revalidate();
                 macDinh(quanLySanPham);
@@ -121,7 +121,7 @@ public class MainView extends javax.swing.JFrame {
         });
         phanCongDoanSanPham = new MenuItem(iconSubMenuNonSelect, "Phân công đoạn", ((e) -> {
             pnBody.removeAll();
-            pnBody.add(new PhanCongDoanView(), BorderLayout.CENTER);
+            pnBody.add(new PhanCongDoanSanPham(), BorderLayout.CENTER);
             pnBody.repaint();
             pnBody.revalidate();
             macDinh(phanCongDoanSanPham);
@@ -164,7 +164,7 @@ public class MainView extends javax.swing.JFrame {
         });
         MenuItem menuPhongBan = new MenuItem(iconDepartment, "Phòng ban", (ActionEvent e) -> {
             pnBody.removeAll();
-            pnBody.add(new PhongBanView(), BorderLayout.CENTER);
+            pnBody.add(new PhongBan(), BorderLayout.CENTER);
             pnBody.repaint();
             pnBody.revalidate();
         });

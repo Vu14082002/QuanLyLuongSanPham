@@ -6,6 +6,9 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.io.File;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -13,12 +16,12 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author December
  */
-public class QuanLyNhanVienView extends javax.swing.JPanel {
+public class CapNhatNhanVienView extends javax.swing.JPanel {
 
     /**
      * Creates new form NhanVienView
      */
-    public QuanLyNhanVienView() {
+    public CapNhatNhanVienView() {
         initComponents();
         excute();
         
@@ -54,6 +57,16 @@ public class QuanLyNhanVienView extends javax.swing.JPanel {
         btnCapNhat = new javax.swing.JButton();
         btnXoaTrang = new javax.swing.JButton();
         btnLuu = new javax.swing.JButton();
+        lbAnhDaiDien = new javax.swing.JLabel();
+        btnAnhSanPham = new javax.swing.JPanel();
+        lbAnhSanPhamOfbtn = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtTenSanPham = new javax.swing.JTextField();
+        lbTenSanPham = new javax.swing.JLabel();
+        lbErrTenSanPham = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtTenSanPham1 = new javax.swing.JTextField();
+        lbTenSanPham1 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1200, 700));
 
@@ -133,6 +146,67 @@ public class QuanLyNhanVienView extends javax.swing.JPanel {
         btnLuu.setText("Lưu");
         jPanel5.add(btnLuu, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 380, 130, 40));
 
+        lbAnhDaiDien.setBackground(new java.awt.Color(153, 0, 0));
+        lbAnhDaiDien.setForeground(new java.awt.Color(255, 0, 51));
+        lbAnhDaiDien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Anh/male.png"))); // NOI18N
+        jPanel5.add(lbAnhDaiDien, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, -1, -1));
+
+        lbAnhSanPhamOfbtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbAnhSanPhamOfbtn.setText("Ảnh sản phẩm");
+        lbAnhSanPhamOfbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbAnhSanPhamOfbtnMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btnAnhSanPhamLayout = new javax.swing.GroupLayout(btnAnhSanPham);
+        btnAnhSanPham.setLayout(btnAnhSanPhamLayout);
+        btnAnhSanPhamLayout.setHorizontalGroup(
+            btnAnhSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnAnhSanPhamLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lbAnhSanPhamOfbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        btnAnhSanPhamLayout.setVerticalGroup(
+            btnAnhSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnAnhSanPhamLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lbAnhSanPhamOfbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel5.add(btnAnhSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel2.setText("______________________");
+        jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 50, 220, 20));
+
+        txtTenSanPham.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtTenSanPham.setText("jTextField1");
+        txtTenSanPham.setBorder(null);
+        jPanel5.add(txtTenSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 190, 40));
+
+        lbTenSanPham.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbTenSanPham.setText("Mã nhân viên");
+        jPanel5.add(lbTenSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, 140, 40));
+
+        lbErrTenSanPham.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lbErrTenSanPham.setForeground(new java.awt.Color(204, 0, 0));
+        lbErrTenSanPham.setText("đây là dòng thông báo lỗi");
+        jPanel5.add(lbErrTenSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 80, 200, -1));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel3.setText("______________________");
+        jPanel5.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 60, 220, 20));
+
+        txtTenSanPham1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtTenSanPham1.setText("jTextField1");
+        txtTenSanPham1.setBorder(null);
+        jPanel5.add(txtTenSanPham1, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 40, 190, 40));
+
+        lbTenSanPham1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbTenSanPham1.setText("Họ và tên:");
+        jPanel5.add(lbTenSanPham1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 40, 140, 40));
+
         jPanel1.add(jPanel5, java.awt.BorderLayout.PAGE_START);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -159,17 +233,42 @@ public class QuanLyNhanVienView extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnThemActionPerformed
 
+    private void lbAnhSanPhamOfbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbAnhSanPhamOfbtnMouseClicked
+        JFileChooser fileChooser = new JFileChooser("d:");
+        //        int respone=fileChooser.showOpenDialog(null);
+        fileChooser.setCurrentDirectory(new File(".\\src\\image\\Anh"));
+        int respone=fileChooser.showSaveDialog(null);
+        if(respone== JFileChooser.APPROVE_OPTION ){
+            File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
+            System.out.println(file);
+            String path = file.toString().split("src")[1].replace('\\', '/');
+            System.out.println("path file split: "+file.toString().split("src")[1]);
+            this.lbAnhDaiDien.setIcon(new ImageIcon(this.getClass().getResource(path)));
+            System.out.println(this.lbAnhDaiDien.getIcon().toString());
+        }
+    }//GEN-LAST:event_lbAnhSanPhamOfbtnMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel btnAnhSanPham;
     private javax.swing.JButton btnCapNhat;
     private javax.swing.JButton btnLuu;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnXoa;
     private javax.swing.JButton btnXoaTrang;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbAnhDaiDien;
+    private javax.swing.JLabel lbAnhSanPhamOfbtn;
+    private javax.swing.JLabel lbErrTenSanPham;
+    private javax.swing.JLabel lbTenSanPham;
+    private javax.swing.JLabel lbTenSanPham1;
     private javax.swing.JTable tbNhanVien;
+    private javax.swing.JTextField txtTenSanPham;
+    private javax.swing.JTextField txtTenSanPham1;
     // End of variables declaration//GEN-END:variables
 }

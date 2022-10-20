@@ -17,12 +17,12 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author December
  */
-public class QuanLySanPham extends javax.swing.JPanel {
+public class SanPham extends javax.swing.JPanel {
 
     /**
      * Creates new form NhanVienView
      */
-    public QuanLySanPham() {
+    public SanPham() {
         initComponents();
         excute();
         
@@ -304,7 +304,7 @@ public class QuanLySanPham extends javax.swing.JPanel {
     private void lbAnhSanPhamOfbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbAnhSanPhamOfbtnMouseClicked
         JFileChooser fileChooser = new JFileChooser("d:");
         //        int respone=fileChooser.showOpenDialog(null);
-        fileChooser.setCurrentDirectory(new File(".\\src\\image"));
+        fileChooser.setCurrentDirectory(new File(".\\src\\image\\sanPham"));
         int respone=fileChooser.showSaveDialog(null);
         if(respone== JFileChooser.APPROVE_OPTION ){
             File file = new File(fileChooser.getSelectedFile().getAbsolutePath());

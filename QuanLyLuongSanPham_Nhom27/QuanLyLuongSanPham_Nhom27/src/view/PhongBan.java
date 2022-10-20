@@ -19,12 +19,12 @@ import javax.swing.table.TableModel;
  *
  * @author December
  */
-public class PhongBanView extends javax.swing.JPanel {
+public class PhongBan extends javax.swing.JPanel {
 
     /**
      * Creates new form TrangChuView
      */
-    public PhongBanView() {
+    public PhongBan() {
         initComponents();
         tbPhongBan.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
         tbPhongBan.getTableHeader().setOpaque(false);
