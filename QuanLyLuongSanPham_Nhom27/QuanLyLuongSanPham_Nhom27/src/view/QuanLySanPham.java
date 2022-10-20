@@ -6,6 +6,10 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.io.File;
+import javax.swing.ImageIcon;
+import javax.swing.JColorChooser;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -32,8 +36,11 @@ public class QuanLySanPham extends javax.swing.JPanel {
         ((DefaultTableCellRenderer) tbNhanVien.getTableHeader().getDefaultRenderer())
                 .setHorizontalAlignment(JLabel.CENTER);
         tbNhanVien.setRowHeight(25);
+        this.txtTenSanPham.setBackground(new Color(0,0,0,1));
+        this.txtMaSanPham.setBackground(new Color(0,0,0,1));
         //
-        this.lbCoLor.setBackground(new Color(105,186,0));
+//        this.lbCoLor.setBackground(new Color(105,186,0));
+
     }
 
     /**
@@ -49,33 +56,32 @@ public class QuanLySanPham extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbNhanVien = new javax.swing.JTable();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        pnHead = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jTextField2 = new javax.swing.JTextField();
-        jSeparator3 = new javax.swing.JSeparator();
-        jTextField1 = new javax.swing.JTextField();
-        jSeparator2 = new javax.swing.JSeparator();
+        lbAnhSanPham = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtTenSanPham = new javax.swing.JTextField();
+        lbTenSanPham = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txtMaSanPham = new javax.swing.JTextField();
+        lbMaSanPham = new javax.swing.JLabel();
+        lbErrTenSanPham = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        lbCoLor = new javax.swing.JPanel();
+        txtTenSanPham1 = new javax.swing.JTextField();
+        lbTenSanPham1 = new javax.swing.JLabel();
+        lbErrTenSanPham1 = new javax.swing.JLabel();
+        lbTenSanPham2 = new javax.swing.JLabel();
+        pnMauSacSanPham = new javax.swing.JPanel();
+        lbTenSanPham3 = new javax.swing.JLabel();
+        cbChatLieu = new javax.swing.JComboBox<>();
+        lbTenSanPham4 = new javax.swing.JLabel();
+        cbChatLieu1 = new javax.swing.JComboBox<>();
+        jButton7 = new javax.swing.JButton();
+        btnAnhSanPham = new javax.swing.JPanel();
+        lbAnhSanPhamOfbtn = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1200, 700));
 
@@ -88,17 +94,17 @@ public class QuanLySanPham extends javax.swing.JPanel {
 
         tbNhanVien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "Mã sản phẩm", "Tên sản phẩm", "Chát liệu", "Kích thước", "Só lượng", "Ảnh sảnh phẩm", "Địa chỉ", "Ảnh đại diện", "Email", "Phòng Ban", "Chức vụ", "Ngày vào làm"
+                "STT", "Mã sản phẩm", "Tên sản phẩm", "Só lượng", "Màu sắc", "Chất liệu", "Kích thước", "Ảnh sảnh phẩm"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, true
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -110,65 +116,17 @@ public class QuanLySanPham extends javax.swing.JPanel {
 
         jPanel3.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setPreferredSize(new java.awt.Dimension(1250, 300));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel16.setText("Sản phẩm loại 1");
-        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 70, 120, 20));
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel4.setText("SP001");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 40, 140, 20));
-
-        jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel20.setText("Vải hạng 1");
-        jPanel2.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 130, 120, 20));
-
-        jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel22.setText("39");
-        jPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 160, 120, 20));
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jLabel2.setText("Mã sản phẩm:");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 140, -1));
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jLabel7.setText("Tên sản phẩm:");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 70, 140, -1));
-
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jLabel9.setText("Chất liệu:");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, 140, 30));
-
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jLabel10.setText("Kích thước:");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 140, -1));
-
-        jButton2.setBackground(new java.awt.Color(46, 204, 113));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/add.png"))); // NOI18N
-        jButton2.setText("Thêm");
-        jButton2.setBorder(null);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 240, 140, 40));
+        pnHead.setBackground(new java.awt.Color(255, 255, 255));
+        pnHead.setPreferredSize(new java.awt.Dimension(1250, 400));
+        pnHead.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton3.setBackground(new java.awt.Color(41, 128, 185));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jButton3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/close.png"))); // NOI18N
         jButton3.setText("Xóa");
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 240, 130, 40));
+        pnHead.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 340, 130, 40));
 
-        jButton4.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jButton4.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/update.png"))); // NOI18N
         jButton4.setText("Cập nhật");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -176,83 +134,154 @@ public class QuanLySanPham extends javax.swing.JPanel {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 240, 130, 40));
+        pnHead.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 340, 130, 40));
 
-        jButton5.setBackground(new java.awt.Color(46, 204, 113));
-        jButton5.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jButton5.setBackground(new java.awt.Color(255, 121, 121));
+        jButton5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/xoaTrang.png"))); // NOI18N
         jButton5.setText("Xóa trắng");
         jButton5.setBorder(null);
-        jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 240, 140, 40));
+        pnHead.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 340, 140, 40));
 
-        jButton6.setBackground(new java.awt.Color(41, 128, 185));
-        jButton6.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/reset.png"))); // NOI18N
+        jButton6.setBackground(new java.awt.Color(246, 229, 141));
+        jButton6.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/save.png"))); // NOI18N
         jButton6.setText("Lưu");
-        jPanel2.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 240, 130, 40));
+        pnHead.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 340, 130, 40));
 
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+        lbAnhSanPham.setBackground(new java.awt.Color(153, 0, 0));
+        lbAnhSanPham.setForeground(new java.awt.Color(255, 0, 51));
+        lbAnhSanPham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/sanPham/icons8-shoes-64 (2).png"))); // NOI18N
+        pnHead.add(lbAnhSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 170, 170));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel2.setText("______________________");
+        pnHead.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 60, 220, 20));
+
+        txtTenSanPham.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtTenSanPham.setText("jTextField1");
+        txtTenSanPham.setBorder(null);
+        pnHead.add(txtTenSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 40, 190, 40));
+
+        lbTenSanPham.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbTenSanPham.setText("Tên sản phẩm:");
+        pnHead.add(lbTenSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 40, 140, 40));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel4.setText("______________________");
+        pnHead.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 60, 220, 20));
+
+        txtMaSanPham.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtMaSanPham.setText("jTextField1");
+        txtMaSanPham.setBorder(null);
+        pnHead.add(txtMaSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 40, 190, 40));
+
+        lbMaSanPham.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbMaSanPham.setText("Mã sản phẩm:");
+        pnHead.add(lbMaSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 40, 140, 40));
+
+        lbErrTenSanPham.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lbErrTenSanPham.setForeground(new java.awt.Color(204, 0, 0));
+        lbErrTenSanPham.setText("đây là dòng thông báo lỗi");
+        pnHead.add(lbErrTenSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 80, 200, -1));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel3.setText("______________________");
+        pnHead.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 150, 220, 20));
+
+        txtTenSanPham1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtTenSanPham1.setText("jTextField1");
+        txtTenSanPham1.setBorder(null);
+        pnHead.add(txtTenSanPham1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 130, 190, 40));
+
+        lbTenSanPham1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbTenSanPham1.setText("Chọn màu sắc:");
+        pnHead.add(lbTenSanPham1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 130, 140, 40));
+
+        lbErrTenSanPham1.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lbErrTenSanPham1.setForeground(new java.awt.Color(204, 0, 0));
+        lbErrTenSanPham1.setText("đây là dòng thông báo lỗi");
+        pnHead.add(lbErrTenSanPham1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 170, 200, -1));
+
+        lbTenSanPham2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbTenSanPham2.setText("Kích thước");
+        pnHead.add(lbTenSanPham2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 220, 140, 40));
+
+        pnMauSacSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnMauSacSanPhamMouseClicked(evt);
             }
         });
-        jPanel2.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 170, 230, 30));
 
-        jComboBox2.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vải Polyester", "Nylon", "Vải 210D", "Vải 420D", "Vải 600D", "Vải 900D", "Vải canvas", "Vải nỉ", "Vải Siminli", "Vải cotton", "Vải kaki", "Vải jeans", "Vải kate", "Vải len" }));
-        jPanel2.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 110, 230, 30));
-
-        jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jTextField2.setText("aaaaaaaaaa");
-        jTextField2.setBorder(null);
-        jPanel2.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, 220, 20));
-        jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 90, 230, 10));
-
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jTextField1.setText("aaaaaaaaaa");
-        jTextField1.setBorder(null);
-        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 30, 220, 20));
-        jPanel2.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 50, 230, 10));
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/sanPham/giay1.png"))); // NOI18N
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 30, 140, 160));
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jLabel5.setText("Mã sản phẩm");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 40, 140, 20));
-
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jLabel15.setText("Tên sản phẩm");
-        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 70, 140, 20));
-
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jLabel17.setText("Màu sắc");
-        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 100, 140, 20));
-
-        jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jLabel19.setText("Chất liệu");
-        jPanel2.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 130, 140, 20));
-
-        jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jLabel21.setText("Kích thước");
-        jPanel2.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 160, 140, 20));
-
-        javax.swing.GroupLayout lbCoLorLayout = new javax.swing.GroupLayout(lbCoLor);
-        lbCoLor.setLayout(lbCoLorLayout);
-        lbCoLorLayout.setHorizontalGroup(
-            lbCoLorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        javax.swing.GroupLayout pnMauSacSanPhamLayout = new javax.swing.GroupLayout(pnMauSacSanPham);
+        pnMauSacSanPham.setLayout(pnMauSacSanPhamLayout);
+        pnMauSacSanPhamLayout.setHorizontalGroup(
+            pnMauSacSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 200, Short.MAX_VALUE)
         );
-        lbCoLorLayout.setVerticalGroup(
-            lbCoLorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        pnMauSacSanPhamLayout.setVerticalGroup(
+            pnMauSacSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
         );
 
-        jPanel2.add(lbCoLor, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 100, 100, 20));
+        pnHead.add(pnMauSacSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 130, 200, 40));
 
-        jPanel3.add(jPanel2, java.awt.BorderLayout.PAGE_START);
+        lbTenSanPham3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbTenSanPham3.setText("Số lượng:");
+        pnHead.add(lbTenSanPham3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 130, 140, 40));
+
+        cbChatLieu.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        cbChatLieu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", " " }));
+        cbChatLieu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnHead.add(cbChatLieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 220, 200, 40));
+
+        lbTenSanPham4.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbTenSanPham4.setText("Chât liệu:");
+        pnHead.add(lbTenSanPham4, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 220, 140, 40));
+
+        cbChatLieu1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        cbChatLieu1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vải Polyester", "Nylon", "Vải 210D", "Vải 420D", "Vải 600D", "Vải 900D", "Vải canvas", "Vải nỉ", "Vải Siminli", "Vải cotton", "Vải kaki", "Vải jeans", "Vải kate", "Vải len", " " }));
+        cbChatLieu1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnHead.add(cbChatLieu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 220, 200, 40));
+
+        jButton7.setBackground(new java.awt.Color(46, 204, 113));
+        jButton7.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/add.png"))); // NOI18N
+        jButton7.setText("Thêm");
+        jButton7.setBorder(null);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        pnHead.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 340, 140, 40));
+
+        lbAnhSanPhamOfbtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbAnhSanPhamOfbtn.setText("Ảnh sản phẩm");
+        lbAnhSanPhamOfbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbAnhSanPhamOfbtnMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btnAnhSanPhamLayout = new javax.swing.GroupLayout(btnAnhSanPham);
+        btnAnhSanPham.setLayout(btnAnhSanPhamLayout);
+        btnAnhSanPhamLayout.setHorizontalGroup(
+            btnAnhSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnAnhSanPhamLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lbAnhSanPhamOfbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        btnAnhSanPhamLayout.setVerticalGroup(
+            btnAnhSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnAnhSanPhamLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lbAnhSanPhamOfbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        pnHead.add(btnAnhSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 250, -1, -1));
+
+        jPanel3.add(pnHead, java.awt.BorderLayout.PAGE_START);
 
         jPanel1.add(jPanel3, java.awt.BorderLayout.CENTER);
 
@@ -272,51 +301,71 @@ public class QuanLySanPham extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
-
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-       new CapNhatSanPhamView().setVisible(true);
+        new CapNhatSanPhamView().setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       
-        new ThemSanPhamView().setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void lbAnhSanPhamOfbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbAnhSanPhamOfbtnMouseClicked
+        JFileChooser fileChooser = new JFileChooser("d:");
+        //        int respone=fileChooser.showOpenDialog(null);
+        fileChooser.setCurrentDirectory(new File(".\\src\\image"));
+        int respone=fileChooser.showSaveDialog(null);
+        if(respone== JFileChooser.APPROVE_OPTION ){
+            File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
+            System.out.println(file);
+            String path = file.toString().split("src")[1].replace('\\', '/');
+            System.out.println("path file split: "+file.toString().split("src")[1]);
+            this.lbAnhSanPham.setIcon(new ImageIcon(this.getClass().getResource(path)));
+            System.out.println(this.lbAnhSanPham.getIcon().toString());
+        }
+    }//GEN-LAST:event_lbAnhSanPhamOfbtnMouseClicked
+
+    private void pnMauSacSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnMauSacSanPhamMouseClicked
+        Color colordefault = new Color(this.pnMauSacSanPham.getBackground().getRGB());
+        JColorChooser jchooserColor = new JColorChooser();
+        Color color = jchooserColor.showDialog(this, "Chọn màu sắc cho sản phẩm", this.getBackground());
+//        System.out.println(panelBorder1.getColorModel());
+        if(color!= null && color.getRGB()!= pnHead.getBackground().getRGB())
+            this.pnMauSacSanPham.setBackground(color);
+        else
+            this.pnMauSacSanPham.setBackground(colordefault);        // TODO add your handling code here:
+    }//GEN-LAST:event_pnMauSacSanPhamMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
+    private javax.swing.JPanel btnAnhSanPham;
+    private javax.swing.JComboBox<String> cbChatLieu;
+    private javax.swing.JComboBox<String> cbChatLieu1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel19;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JPanel lbCoLor;
+    private javax.swing.JLabel lbAnhSanPham;
+    private javax.swing.JLabel lbAnhSanPhamOfbtn;
+    private javax.swing.JLabel lbErrTenSanPham;
+    private javax.swing.JLabel lbErrTenSanPham1;
+    private javax.swing.JLabel lbMaSanPham;
+    private javax.swing.JLabel lbTenSanPham;
+    private javax.swing.JLabel lbTenSanPham1;
+    private javax.swing.JLabel lbTenSanPham2;
+    private javax.swing.JLabel lbTenSanPham3;
+    private javax.swing.JLabel lbTenSanPham4;
+    private javax.swing.JPanel pnHead;
+    private javax.swing.JPanel pnMauSacSanPham;
     private javax.swing.JTable tbNhanVien;
+    private javax.swing.JTextField txtMaSanPham;
+    private javax.swing.JTextField txtTenSanPham;
+    private javax.swing.JTextField txtTenSanPham1;
     // End of variables declaration//GEN-END:variables
 }
