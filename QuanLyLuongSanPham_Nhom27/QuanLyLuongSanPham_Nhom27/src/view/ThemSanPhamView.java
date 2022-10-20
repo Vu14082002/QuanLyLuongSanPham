@@ -334,7 +334,7 @@ public class ThemSanPhamView extends javax.swing.JFrame {
             System.out.println(file);
             String path = file.toString().split("src")[1].replace('\\', '/');
             System.out.println("path file split: "+file.toString().split("src")[1]);
-            this.lbAnhSanPhamOfbtn.setIcon(new ImageIcon(this.getClass().getResource(path)));
+            this.lbAnhSanPham.setIcon(new ImageIcon(this.getClass().getResource(path)));
             System.out.println(this.lbAnhSanPham.getIcon().toString());
         }
     }//GEN-LAST:event_lbAnhSanPhamOfbtnMouseClicked

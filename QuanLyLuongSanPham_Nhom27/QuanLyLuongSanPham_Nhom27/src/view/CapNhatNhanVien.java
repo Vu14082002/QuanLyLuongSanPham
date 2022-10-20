@@ -29,28 +29,28 @@ public class CapNhatNhanVien extends javax.swing.JFrame {
     public void init() {
         this.txtMaNhanVien.setText("");
         this.lbErrMaNhanVien.setText("");
-        this.txtHoVaTenNhanVien.setText("");
-        this.lbErrHoVaTenNhanVien.setText("");
-        this.txtSoCCCDNhanVien.setText("");
-        this.lbErrSoCCCDNhanVien.setText("");
-        this.txtEmailNhanVien.setText("");
-        this.lbErrEmailNhanVien.setText("");
-        this.txtSoDienThoaiNhanVien.setText("");
-        this.lbErrSoDienThoaiNhanVien.setText("");
-        this.lbErrSoCCCDNhanVien.setText("");
-        this.txtDiaChiThuongChuNhanVien.setText("");
-        this.lbErrDiaChiThuongChuNhanVien.setText("");
+        this.txtHoVaTen.setText("");
+        this.lbErrHoVaTen.setText("");
+        this.txtSoCCCD.setText("");
+        this.lbErrSoCCCD.setText("");
+        this.txtEmail.setText("");
+        this.lbErrEmail.setText("");
+        this.txtSoDienThoai.setText("");
+        this.lbErrSoDienThoai.setText("");
+        this.lbErrSoCCCD.setText("");
+        this.txtDiaChi.setText("");
+        this.lbErrDiaChi.setText("");
         this.rdNam.setSelected(true);
-        this.txtDiaChiThuongChuNhanVien.setText("");
+        this.txtDiaChi.setText("");
         this.txtLuongNhanVien.setText("");
         this.lbErrLuongNhanVien.setText("");
 
         this.txtMaNhanVien.setBackground(new Color(0, 0, 0, 1));
-        this.txtHoVaTenNhanVien.setBackground(new Color(0, 0, 0, 1));
-        this.txtSoCCCDNhanVien.setBackground(new Color(0, 0, 0, 1));
-        this.txtEmailNhanVien.setBackground(new Color(0, 0, 0, 1));
-        this.txtSoDienThoaiNhanVien.setBackground(new Color(0, 0, 0, 1));
-        this.txtDiaChiThuongChuNhanVien.setBackground(new Color(0, 0, 0, 1));
+        this.txtHoVaTen.setBackground(new Color(0, 0, 0, 1));
+        this.txtSoCCCD.setBackground(new Color(0, 0, 0, 1));
+        this.txtEmail.setBackground(new Color(0, 0, 0, 1));
+        this.txtSoDienThoai.setBackground(new Color(0, 0, 0, 1));
+        this.txtDiaChi.setBackground(new Color(0, 0, 0, 1));
         this.txtLuongNhanVien.setBackground(new Color(0,0,0,1));
         
         ButtonGroup btngroup = new ButtonGroup();
@@ -72,33 +72,33 @@ public class CapNhatNhanVien extends javax.swing.JFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         panelBorder1 = new CustomView.PanelBorder();
-        lbTieuDeCapNhatNhanVien = new javax.swing.JLabel();
+        lbCapNhatNhanVien = new javax.swing.JLabel();
         lbExitModal = new javax.swing.JLabel();
         lbMaNhanVien = new javax.swing.JLabel();
         lbGachChanMaNhanVien = new javax.swing.JLabel();
         txtMaNhanVien = new javax.swing.JTextField();
         lbErrMaNhanVien = new javax.swing.JLabel();
-        lbHoVatenNhanVien = new javax.swing.JLabel();
-        txtHoVaTenNhanVien = new javax.swing.JTextField();
+        lbHoVaten = new javax.swing.JLabel();
+        txtHoVaTen = new javax.swing.JTextField();
         lbGachChanHoVaTenNhanVien = new javax.swing.JLabel();
         lbAnhDaiDienNhanVien = new javax.swing.JLabel();
-        lbErrHoVaTenNhanVien = new javax.swing.JLabel();
-        lbSoCCCDNhanVien = new javax.swing.JLabel();
-        txtSoCCCDNhanVien = new javax.swing.JTextField();
+        lbErrHoVaTen = new javax.swing.JLabel();
+        lbSoCCCD = new javax.swing.JLabel();
+        txtSoCCCD = new javax.swing.JTextField();
         lbGachChanSoCCCDNhanVien = new javax.swing.JLabel();
         btnAnhDaiDienNhanVien = new javax.swing.JButton();
-        lbErrSoCCCDNhanVien = new javax.swing.JLabel();
-        lbEmailNhanVien = new javax.swing.JLabel();
+        lbErrSoCCCD = new javax.swing.JLabel();
+        lbEmail = new javax.swing.JLabel();
         lbGachChanEmailNhanVien = new javax.swing.JLabel();
-        txtEmailNhanVien = new javax.swing.JTextField();
-        lbSoDienThoaiNhanVien = new javax.swing.JLabel();
-        lbErrEmailNhanVien = new javax.swing.JLabel();
-        txtSoDienThoaiNhanVien = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
+        lbSoDienThoai = new javax.swing.JLabel();
+        lbErrEmail = new javax.swing.JLabel();
+        txtSoDienThoai = new javax.swing.JTextField();
         lbGachChanSoDienThoaiNhanVien = new javax.swing.JLabel();
-        lbErrSoDienThoaiNhanVien = new javax.swing.JLabel();
-        lbDiaChiThuongChuNhanVien = new javax.swing.JLabel();
-        txtDiaChiThuongChuNhanVien = new javax.swing.JTextField();
-        lbErrDiaChiThuongChuNhanVien = new javax.swing.JLabel();
+        lbErrSoDienThoai = new javax.swing.JLabel();
+        lbDiaChi = new javax.swing.JLabel();
+        txtDiaChi = new javax.swing.JTextField();
+        lbErrDiaChi = new javax.swing.JLabel();
         lbGachChanDiaChiNhanVien1 = new javax.swing.JLabel();
         lbLuongNhanVien = new javax.swing.JLabel();
         txtLuongNhanVien = new javax.swing.JTextField();
@@ -108,26 +108,26 @@ public class CapNhatNhanVien extends javax.swing.JFrame {
         rdNam = new javax.swing.JRadioButton();
         rdNu = new javax.swing.JRadioButton();
         jdateNgaySinh = new com.toedter.calendar.JDateChooser();
-        lbNgaySinhNhanVien = new javax.swing.JLabel();
-        lbPhongBanNhanVien = new javax.swing.JLabel();
+        lbNgaySinh = new javax.swing.JLabel();
+        lbPhongBan = new javax.swing.JLabel();
         cbPhongBanNhanVien = new javax.swing.JComboBox<>();
         cbChucVuNhanVien = new javax.swing.JComboBox<>();
-        lbChucVuNhanVien = new javax.swing.JLabel();
-        lbNgayVaoLamNhanVien = new javax.swing.JLabel();
+        lbChucVu = new javax.swing.JLabel();
+        lbNgayVaoLam = new javax.swing.JLabel();
         jDateNgayVaoLam = new com.toedter.calendar.JDateChooser();
-        btnLuuNhanVien = new javax.swing.JButton();
-        btnThoatNhanVien = new javax.swing.JButton();
+        btnLuu = new javax.swing.JButton();
+        btnThoat = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
         panelBorder1.setBackground(new java.awt.Color(204, 102, 255));
 
-        lbTieuDeCapNhatNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
-        lbTieuDeCapNhatNhanVien.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbTieuDeCapNhatNhanVien.setText("Cập nhật nhân viên");
-        panelBorder1.add(lbTieuDeCapNhatNhanVien);
-        lbTieuDeCapNhatNhanVien.setBounds(40, 10, 620, 50);
+        lbCapNhatNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
+        lbCapNhatNhanVien.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbCapNhatNhanVien.setText("Cập nhật nhân viên");
+        panelBorder1.add(lbCapNhatNhanVien);
+        lbCapNhatNhanVien.setBounds(40, 10, 620, 50);
 
         lbExitModal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/close.png"))); // NOI18N
         lbExitModal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -165,21 +165,21 @@ public class CapNhatNhanVien extends javax.swing.JFrame {
         panelBorder1.add(lbErrMaNhanVien);
         lbErrMaNhanVien.setBounds(380, 120, 230, 20);
 
-        lbHoVatenNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lbHoVatenNhanVien.setText("Họ và tên:");
-        panelBorder1.add(lbHoVatenNhanVien);
-        lbHoVatenNhanVien.setBounds(200, 150, 180, 20);
+        lbHoVaten.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lbHoVaten.setText("Họ và tên:");
+        panelBorder1.add(lbHoVaten);
+        lbHoVaten.setBounds(200, 150, 180, 20);
 
-        txtHoVaTenNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        txtHoVaTenNhanVien.setText("jTextField1");
-        txtHoVaTenNhanVien.setBorder(null);
-        txtHoVaTenNhanVien.addActionListener(new java.awt.event.ActionListener() {
+        txtHoVaTen.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        txtHoVaTen.setText("jTextField1");
+        txtHoVaTen.setBorder(null);
+        txtHoVaTen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtHoVaTenNhanVienActionPerformed(evt);
+                txtHoVaTenActionPerformed(evt);
             }
         });
-        panelBorder1.add(txtHoVaTenNhanVien);
-        txtHoVaTenNhanVien.setBounds(380, 150, 270, 20);
+        panelBorder1.add(txtHoVaTen);
+        txtHoVaTen.setBounds(380, 150, 270, 20);
 
         lbGachChanHoVaTenNhanVien.setText("_______________________________________");
         panelBorder1.add(lbGachChanHoVaTenNhanVien);
@@ -191,27 +191,27 @@ public class CapNhatNhanVien extends javax.swing.JFrame {
         panelBorder1.add(lbAnhDaiDienNhanVien);
         lbAnhDaiDienNhanVien.setBounds(20, 130, 140, 160);
 
-        lbErrHoVaTenNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lbErrHoVaTenNhanVien.setForeground(new java.awt.Color(204, 0, 0));
-        lbErrHoVaTenNhanVien.setText("đây là dòng thông báo lỗi");
-        panelBorder1.add(lbErrHoVaTenNhanVien);
-        lbErrHoVaTenNhanVien.setBounds(380, 180, 230, 18);
+        lbErrHoVaTen.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lbErrHoVaTen.setForeground(new java.awt.Color(204, 0, 0));
+        lbErrHoVaTen.setText("đây là dòng thông báo lỗi");
+        panelBorder1.add(lbErrHoVaTen);
+        lbErrHoVaTen.setBounds(380, 180, 230, 18);
 
-        lbSoCCCDNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lbSoCCCDNhanVien.setText("Số CCCD:");
-        panelBorder1.add(lbSoCCCDNhanVien);
-        lbSoCCCDNhanVien.setBounds(200, 210, 170, 18);
+        lbSoCCCD.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lbSoCCCD.setText("Số CCCD:");
+        panelBorder1.add(lbSoCCCD);
+        lbSoCCCD.setBounds(200, 210, 170, 18);
 
-        txtSoCCCDNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        txtSoCCCDNhanVien.setText("jTextField1");
-        txtSoCCCDNhanVien.setBorder(null);
-        txtSoCCCDNhanVien.addActionListener(new java.awt.event.ActionListener() {
+        txtSoCCCD.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        txtSoCCCD.setText("jTextField1");
+        txtSoCCCD.setBorder(null);
+        txtSoCCCD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSoCCCDNhanVienActionPerformed(evt);
+                txtSoCCCDActionPerformed(evt);
             }
         });
-        panelBorder1.add(txtSoCCCDNhanVien);
-        txtSoCCCDNhanVien.setBounds(380, 210, 270, 20);
+        panelBorder1.add(txtSoCCCD);
+        txtSoCCCD.setBounds(380, 210, 270, 20);
 
         lbGachChanSoCCCDNhanVien.setText("_______________________________________");
         panelBorder1.add(lbGachChanSoCCCDNhanVien);
@@ -227,85 +227,85 @@ public class CapNhatNhanVien extends javax.swing.JFrame {
         panelBorder1.add(btnAnhDaiDienNhanVien);
         btnAnhDaiDienNhanVien.setBounds(30, 290, 103, 25);
 
-        lbErrSoCCCDNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lbErrSoCCCDNhanVien.setForeground(new java.awt.Color(204, 0, 0));
-        lbErrSoCCCDNhanVien.setText("đây là dòng thông báo lỗi");
-        panelBorder1.add(lbErrSoCCCDNhanVien);
-        lbErrSoCCCDNhanVien.setBounds(380, 240, 230, 18);
+        lbErrSoCCCD.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lbErrSoCCCD.setForeground(new java.awt.Color(204, 0, 0));
+        lbErrSoCCCD.setText("đây là dòng thông báo lỗi");
+        panelBorder1.add(lbErrSoCCCD);
+        lbErrSoCCCD.setBounds(380, 240, 230, 18);
 
-        lbEmailNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lbEmailNhanVien.setText("Email:");
-        panelBorder1.add(lbEmailNhanVien);
-        lbEmailNhanVien.setBounds(200, 270, 180, 18);
+        lbEmail.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lbEmail.setText("Email:");
+        panelBorder1.add(lbEmail);
+        lbEmail.setBounds(200, 270, 180, 18);
 
         lbGachChanEmailNhanVien.setText("_______________________________________");
         panelBorder1.add(lbGachChanEmailNhanVien);
         lbGachChanEmailNhanVien.setBounds(380, 280, 273, 16);
 
-        txtEmailNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        txtEmailNhanVien.setText("jTextField1");
-        txtEmailNhanVien.setBorder(null);
-        txtEmailNhanVien.addActionListener(new java.awt.event.ActionListener() {
+        txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        txtEmail.setText("jTextField1");
+        txtEmail.setBorder(null);
+        txtEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEmailNhanVienActionPerformed(evt);
+                txtEmailActionPerformed(evt);
             }
         });
-        panelBorder1.add(txtEmailNhanVien);
-        txtEmailNhanVien.setBounds(380, 270, 270, 20);
+        panelBorder1.add(txtEmail);
+        txtEmail.setBounds(380, 270, 270, 20);
 
-        lbSoDienThoaiNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lbSoDienThoaiNhanVien.setText("Số điện thoại");
-        panelBorder1.add(lbSoDienThoaiNhanVien);
-        lbSoDienThoaiNhanVien.setBounds(200, 330, 180, 18);
+        lbSoDienThoai.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lbSoDienThoai.setText("Số điện thoại");
+        panelBorder1.add(lbSoDienThoai);
+        lbSoDienThoai.setBounds(200, 330, 180, 18);
 
-        lbErrEmailNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lbErrEmailNhanVien.setForeground(new java.awt.Color(204, 0, 0));
-        lbErrEmailNhanVien.setText("đây là dòng thông báo lỗi");
-        panelBorder1.add(lbErrEmailNhanVien);
-        lbErrEmailNhanVien.setBounds(380, 300, 230, 18);
+        lbErrEmail.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lbErrEmail.setForeground(new java.awt.Color(204, 0, 0));
+        lbErrEmail.setText("đây là dòng thông báo lỗi");
+        panelBorder1.add(lbErrEmail);
+        lbErrEmail.setBounds(380, 300, 230, 18);
 
-        txtSoDienThoaiNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        txtSoDienThoaiNhanVien.setText("jTextField1");
-        txtSoDienThoaiNhanVien.setBorder(null);
-        txtSoDienThoaiNhanVien.addActionListener(new java.awt.event.ActionListener() {
+        txtSoDienThoai.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        txtSoDienThoai.setText("jTextField1");
+        txtSoDienThoai.setBorder(null);
+        txtSoDienThoai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSoDienThoaiNhanVienActionPerformed(evt);
+                txtSoDienThoaiActionPerformed(evt);
             }
         });
-        panelBorder1.add(txtSoDienThoaiNhanVien);
-        txtSoDienThoaiNhanVien.setBounds(380, 330, 270, 20);
+        panelBorder1.add(txtSoDienThoai);
+        txtSoDienThoai.setBounds(380, 330, 270, 20);
 
         lbGachChanSoDienThoaiNhanVien.setText("_______________________________________");
         panelBorder1.add(lbGachChanSoDienThoaiNhanVien);
         lbGachChanSoDienThoaiNhanVien.setBounds(380, 340, 273, 16);
 
-        lbErrSoDienThoaiNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lbErrSoDienThoaiNhanVien.setForeground(new java.awt.Color(204, 0, 0));
-        lbErrSoDienThoaiNhanVien.setText("đây là dòng thông báo lỗi");
-        panelBorder1.add(lbErrSoDienThoaiNhanVien);
-        lbErrSoDienThoaiNhanVien.setBounds(380, 360, 230, 18);
+        lbErrSoDienThoai.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lbErrSoDienThoai.setForeground(new java.awt.Color(204, 0, 0));
+        lbErrSoDienThoai.setText("đây là dòng thông báo lỗi");
+        panelBorder1.add(lbErrSoDienThoai);
+        lbErrSoDienThoai.setBounds(380, 360, 230, 18);
 
-        lbDiaChiThuongChuNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lbDiaChiThuongChuNhanVien.setText("Địa chỉ thường chú:");
-        panelBorder1.add(lbDiaChiThuongChuNhanVien);
-        lbDiaChiThuongChuNhanVien.setBounds(200, 390, 180, 18);
+        lbDiaChi.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lbDiaChi.setText("Địa chỉ thường chú:");
+        panelBorder1.add(lbDiaChi);
+        lbDiaChi.setBounds(200, 390, 180, 18);
 
-        txtDiaChiThuongChuNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        txtDiaChiThuongChuNhanVien.setText("jTextField1");
-        txtDiaChiThuongChuNhanVien.setBorder(null);
-        txtDiaChiThuongChuNhanVien.addActionListener(new java.awt.event.ActionListener() {
+        txtDiaChi.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        txtDiaChi.setText("jTextField1");
+        txtDiaChi.setBorder(null);
+        txtDiaChi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDiaChiThuongChuNhanVienActionPerformed(evt);
+                txtDiaChiActionPerformed(evt);
             }
         });
-        panelBorder1.add(txtDiaChiThuongChuNhanVien);
-        txtDiaChiThuongChuNhanVien.setBounds(380, 390, 270, 20);
+        panelBorder1.add(txtDiaChi);
+        txtDiaChi.setBounds(380, 390, 270, 20);
 
-        lbErrDiaChiThuongChuNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lbErrDiaChiThuongChuNhanVien.setForeground(new java.awt.Color(204, 0, 0));
-        lbErrDiaChiThuongChuNhanVien.setText("đây là dòng thông báo lỗi");
-        panelBorder1.add(lbErrDiaChiThuongChuNhanVien);
-        lbErrDiaChiThuongChuNhanVien.setBounds(380, 420, 230, 18);
+        lbErrDiaChi.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lbErrDiaChi.setForeground(new java.awt.Color(204, 0, 0));
+        lbErrDiaChi.setText("đây là dòng thông báo lỗi");
+        panelBorder1.add(lbErrDiaChi);
+        lbErrDiaChi.setBounds(380, 420, 230, 18);
 
         lbGachChanDiaChiNhanVien1.setText("_______________________________________");
         panelBorder1.add(lbGachChanDiaChiNhanVien1);
@@ -366,15 +366,15 @@ public class CapNhatNhanVien extends javax.swing.JFrame {
         panelBorder1.add(jdateNgaySinh);
         jdateNgaySinh.setBounds(380, 550, 270, 30);
 
-        lbNgaySinhNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lbNgaySinhNhanVien.setText("Ngày sinh:");
-        panelBorder1.add(lbNgaySinhNhanVien);
-        lbNgaySinhNhanVien.setBounds(200, 560, 120, 18);
+        lbNgaySinh.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lbNgaySinh.setText("Ngày sinh:");
+        panelBorder1.add(lbNgaySinh);
+        lbNgaySinh.setBounds(200, 560, 120, 18);
 
-        lbPhongBanNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lbPhongBanNhanVien.setText("Phòng ban:");
-        panelBorder1.add(lbPhongBanNhanVien);
-        lbPhongBanNhanVien.setBounds(200, 590, 130, 30);
+        lbPhongBan.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lbPhongBan.setText("Phòng ban:");
+        panelBorder1.add(lbPhongBan);
+        lbPhongBan.setBounds(200, 590, 130, 30);
 
         cbPhongBanNhanVien.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Phòng tài chính", "Phòng kinh doanh", "Phòng nhân sự" }));
         cbPhongBanNhanVien.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -391,40 +391,40 @@ public class CapNhatNhanVien extends javax.swing.JFrame {
         panelBorder1.add(cbChucVuNhanVien);
         cbChucVuNhanVien.setBounds(380, 630, 270, 30);
 
-        lbChucVuNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lbChucVuNhanVien.setText("Chức vụ:");
-        panelBorder1.add(lbChucVuNhanVien);
-        lbChucVuNhanVien.setBounds(200, 630, 120, 30);
+        lbChucVu.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lbChucVu.setText("Chức vụ:");
+        panelBorder1.add(lbChucVu);
+        lbChucVu.setBounds(200, 630, 120, 30);
 
-        lbNgayVaoLamNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lbNgayVaoLamNhanVien.setText("Ngày vào làm:");
-        panelBorder1.add(lbNgayVaoLamNhanVien);
-        lbNgayVaoLamNhanVien.setBounds(200, 670, 130, 30);
+        lbNgayVaoLam.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lbNgayVaoLam.setText("Ngày vào làm:");
+        panelBorder1.add(lbNgayVaoLam);
+        lbNgayVaoLam.setBounds(200, 670, 130, 30);
 
         jDateNgayVaoLam.setDateFormatString("yyyy-MM-dd");
         panelBorder1.add(jDateNgayVaoLam);
         jDateNgayVaoLam.setBounds(380, 670, 270, 30);
 
-        btnLuuNhanVien.setBackground(new java.awt.Color(39, 174, 96));
-        btnLuuNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        btnLuuNhanVien.setText("Lưu");
-        btnLuuNhanVien.setBorder(null);
-        btnLuuNhanVien.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        panelBorder1.add(btnLuuNhanVien);
-        btnLuuNhanVien.setBounds(190, 730, 130, 40);
+        btnLuu.setBackground(new java.awt.Color(39, 174, 96));
+        btnLuu.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnLuu.setText("Lưu");
+        btnLuu.setBorder(null);
+        btnLuu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        panelBorder1.add(btnLuu);
+        btnLuu.setBounds(190, 730, 130, 40);
 
-        btnThoatNhanVien.setBackground(new java.awt.Color(231, 76, 60));
-        btnThoatNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        btnThoatNhanVien.setText("Thoát");
-        btnThoatNhanVien.setBorder(null);
-        btnThoatNhanVien.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnThoatNhanVien.addActionListener(new java.awt.event.ActionListener() {
+        btnThoat.setBackground(new java.awt.Color(231, 76, 60));
+        btnThoat.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnThoat.setText("Thoát");
+        btnThoat.setBorder(null);
+        btnThoat.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnThoat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThoatNhanVienActionPerformed(evt);
+                btnThoatActionPerformed(evt);
             }
         });
-        panelBorder1.add(btnThoatNhanVien);
-        btnThoatNhanVien.setBounds(410, 730, 130, 40);
+        panelBorder1.add(btnThoat);
+        btnThoat.setBounds(410, 730, 130, 40);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -445,25 +445,25 @@ public class CapNhatNhanVien extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txtMaNhanVienActionPerformed
 
-    private void txtHoVaTenNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHoVaTenNhanVienActionPerformed
+    private void txtHoVaTenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHoVaTenActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtHoVaTenNhanVienActionPerformed
+    }//GEN-LAST:event_txtHoVaTenActionPerformed
 
-    private void txtSoCCCDNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSoCCCDNhanVienActionPerformed
+    private void txtSoCCCDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSoCCCDActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtSoCCCDNhanVienActionPerformed
+    }//GEN-LAST:event_txtSoCCCDActionPerformed
 
-    private void txtEmailNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailNhanVienActionPerformed
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtEmailNhanVienActionPerformed
+    }//GEN-LAST:event_txtEmailActionPerformed
 
-    private void txtSoDienThoaiNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSoDienThoaiNhanVienActionPerformed
+    private void txtSoDienThoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSoDienThoaiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtSoDienThoaiNhanVienActionPerformed
+    }//GEN-LAST:event_txtSoDienThoaiActionPerformed
 
-    private void txtDiaChiThuongChuNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDiaChiThuongChuNhanVienActionPerformed
+    private void txtDiaChiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDiaChiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtDiaChiThuongChuNhanVienActionPerformed
+    }//GEN-LAST:event_txtDiaChiActionPerformed
 
     private void rdNuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdNuActionPerformed
         // TODO add your handling code here:
@@ -500,10 +500,10 @@ public class CapNhatNhanVien extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtLuongNhanVienActionPerformed
 
-    private void btnThoatNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoatNhanVienActionPerformed
-        if(evt.getSource()==this.btnThoatNhanVien)
+    private void btnThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoatActionPerformed
+        if(evt.getSource()==this.btnThoat)
             this.dispose();
-    }//GEN-LAST:event_btnThoatNhanVienActionPerformed
+    }//GEN-LAST:event_btnThoatActionPerformed
 
     /**
      * @param args the command line arguments
@@ -669,24 +669,25 @@ public class CapNhatNhanVien extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAnhDaiDienNhanVien;
-    private javax.swing.JButton btnLuuNhanVien;
-    private javax.swing.JButton btnThoatNhanVien;
+    private javax.swing.JButton btnLuu;
+    private javax.swing.JButton btnThoat;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cbChucVuNhanVien;
     private javax.swing.JComboBox<String> cbPhongBanNhanVien;
     private com.toedter.calendar.JDateChooser jDateNgayVaoLam;
     private com.toedter.calendar.JDateChooser jdateNgaySinh;
     private javax.swing.JLabel lbAnhDaiDienNhanVien;
-    private javax.swing.JLabel lbChucVuNhanVien;
-    private javax.swing.JLabel lbDiaChiThuongChuNhanVien;
-    private javax.swing.JLabel lbEmailNhanVien;
-    private javax.swing.JLabel lbErrDiaChiThuongChuNhanVien;
-    private javax.swing.JLabel lbErrEmailNhanVien;
-    private javax.swing.JLabel lbErrHoVaTenNhanVien;
+    private javax.swing.JLabel lbCapNhatNhanVien;
+    private javax.swing.JLabel lbChucVu;
+    private javax.swing.JLabel lbDiaChi;
+    private javax.swing.JLabel lbEmail;
+    private javax.swing.JLabel lbErrDiaChi;
+    private javax.swing.JLabel lbErrEmail;
+    private javax.swing.JLabel lbErrHoVaTen;
     private javax.swing.JLabel lbErrLuongNhanVien;
     private javax.swing.JLabel lbErrMaNhanVien;
-    private javax.swing.JLabel lbErrSoCCCDNhanVien;
-    private javax.swing.JLabel lbErrSoDienThoaiNhanVien;
+    private javax.swing.JLabel lbErrSoCCCD;
+    private javax.swing.JLabel lbErrSoDienThoai;
     private javax.swing.JLabel lbExitModal;
     private javax.swing.JLabel lbGachChanDiaChiNhanVien;
     private javax.swing.JLabel lbGachChanDiaChiNhanVien1;
@@ -696,24 +697,23 @@ public class CapNhatNhanVien extends javax.swing.JFrame {
     private javax.swing.JLabel lbGachChanSoCCCDNhanVien;
     private javax.swing.JLabel lbGachChanSoDienThoaiNhanVien;
     private javax.swing.JLabel lbGioiTinh;
-    private javax.swing.JLabel lbHoVatenNhanVien;
+    private javax.swing.JLabel lbHoVaten;
     private javax.swing.JLabel lbLuongNhanVien;
     private javax.swing.JLabel lbMaNhanVien;
-    private javax.swing.JLabel lbNgaySinhNhanVien;
-    private javax.swing.JLabel lbNgayVaoLamNhanVien;
-    private javax.swing.JLabel lbPhongBanNhanVien;
-    private javax.swing.JLabel lbSoCCCDNhanVien;
-    private javax.swing.JLabel lbSoDienThoaiNhanVien;
-    private javax.swing.JLabel lbTieuDeCapNhatNhanVien;
+    private javax.swing.JLabel lbNgaySinh;
+    private javax.swing.JLabel lbNgayVaoLam;
+    private javax.swing.JLabel lbPhongBan;
+    private javax.swing.JLabel lbSoCCCD;
+    private javax.swing.JLabel lbSoDienThoai;
     private CustomView.PanelBorder panelBorder1;
     private javax.swing.JRadioButton rdNam;
     private javax.swing.JRadioButton rdNu;
-    private javax.swing.JTextField txtDiaChiThuongChuNhanVien;
-    private javax.swing.JTextField txtEmailNhanVien;
-    private javax.swing.JTextField txtHoVaTenNhanVien;
+    private javax.swing.JTextField txtDiaChi;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtHoVaTen;
     private javax.swing.JTextField txtLuongNhanVien;
     private javax.swing.JTextField txtMaNhanVien;
-    private javax.swing.JTextField txtSoCCCDNhanVien;
-    private javax.swing.JTextField txtSoDienThoaiNhanVien;
+    private javax.swing.JTextField txtSoCCCD;
+    private javax.swing.JTextField txtSoDienThoai;
     // End of variables declaration//GEN-END:variables
 }

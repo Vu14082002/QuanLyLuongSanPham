@@ -301,7 +301,7 @@ public class ChamCongCongNhanView extends javax.swing.JPanel {
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách công nhân", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
 
-        tbNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        tbNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         tbNhanVien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null, null},
