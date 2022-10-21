@@ -85,13 +85,13 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
         jComboBox2 = new javax.swing.JComboBox<>();
         jComboBox3 = new javax.swing.JComboBox<>();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
         jLabel18 = new javax.swing.JLabel();
         jComboBox5 = new javax.swing.JComboBox<>();
+        btnThem = new javax.swing.JButton();
+        btnXoa = new javax.swing.JButton();
+        btnCapNhat = new javax.swing.JButton();
+        btnLuu = new javax.swing.JButton();
+        btnXoaTrang = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbNhanVien = new javax.swing.JTable();
 
@@ -107,7 +107,7 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jDateChooser1.setDateFormatString("yyyy-MM-dd");
-        jPanel5.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, 190, 40));
+        jPanel5.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 50, 190, 40));
 
         aaaa.setBackground(new java.awt.Color(255, 255, 255));
         aaaa.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách nhân viên cần chấm công", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
@@ -135,11 +135,11 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
         tbDanhSachCanChamCong.setSelectionBackground(new java.awt.Color(232, 57, 95));
         aaaa.setViewportView(tbDanhSachCanChamCong);
 
-        jPanel5.add(aaaa, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 580, 210));
+        jPanel5.add(aaaa, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, 710, 210));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel6.setText("Ngày chấm công:");
-        jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 160, 40));
+        jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 190, 40));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -194,62 +194,7 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, 200, 40));
-
-        jButton4.setBackground(new java.awt.Color(41, 128, 185));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/close.png"))); // NOI18N
-        jButton4.setText("Xóa");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-        jPanel5.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 40, 140, 40));
-
-        jButton5.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/update.png"))); // NOI18N
-        jButton5.setText("Cập nhật");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-        jPanel5.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 110, 140, 40));
-
-        jButton6.setBackground(new java.awt.Color(85, 239, 196));
-        jButton6.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/search.png"))); // NOI18N
-        jButton6.setText("Tìm kiếm");
-        jButton6.setBorder(null);
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-        jPanel5.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 180, 140, 40));
-
-        jButton7.setBackground(new java.awt.Color(41, 128, 185));
-        jButton7.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/reset.png"))); // NOI18N
-        jButton7.setText("Đặt lại");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
-        jPanel5.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 320, 140, 40));
-
-        jButton8.setBackground(new java.awt.Color(156, 136, 255));
-        jButton8.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/save.png"))); // NOI18N
-        jButton8.setText("Lưu");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
-            }
-        });
-        jPanel5.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 250, 140, 40));
+        jPanel5.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 50, 200, 40));
 
         jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -259,6 +204,57 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
         jComboBox5.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "15", "30", "45" }));
         jPanel5.add(jComboBox5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 270, 60, 40));
+
+        btnThem.setBackground(new java.awt.Color(46, 204, 113));
+        btnThem.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/add.png"))); // NOI18N
+        btnThem.setText("Thêm");
+        btnThem.setBorder(null);
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 340, 170, 40));
+
+        btnXoa.setBackground(new java.awt.Color(41, 128, 185));
+        btnXoa.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/close.png"))); // NOI18N
+        btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 160, 40));
+
+        btnCapNhat.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnCapNhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/update.png"))); // NOI18N
+        btnCapNhat.setText("Cập nhật");
+        btnCapNhat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCapNhatActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnCapNhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 340, 160, 40));
+
+        btnLuu.setBackground(new java.awt.Color(156, 136, 255));
+        btnLuu.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/save.png"))); // NOI18N
+        btnLuu.setText("Lưu");
+        btnLuu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLuuActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnLuu, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 340, 160, 40));
+
+        btnXoaTrang.setBackground(new java.awt.Color(255, 121, 121));
+        btnXoaTrang.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        btnXoaTrang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/xoaTrang.png"))); // NOI18N
+        btnXoaTrang.setText("Xóa trắng");
+        btnXoaTrang.setBorder(null);
+        jPanel5.add(btnXoaTrang, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 340, 170, 40));
 
         jPanel3.add(jPanel5, java.awt.BorderLayout.PAGE_START);
 
@@ -307,35 +303,31 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnThemActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        new CapNhatNhanVien().setVisible(true);        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_btnXoaActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_btnCapNhatActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }//GEN-LAST:event_btnLuuActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane aaaa;
+    private javax.swing.JButton btnCapNhat;
+    private javax.swing.JButton btnLuu;
+    private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnXoa;
+    private javax.swing.JButton btnXoaTrang;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;

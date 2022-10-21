@@ -183,7 +183,7 @@ public class CapNhatCongNhanView extends javax.swing.JFrame {
 
         lbAnhDaiDienNhanVien.setBackground(new java.awt.Color(153, 0, 0));
         lbAnhDaiDienNhanVien.setForeground(new java.awt.Color(255, 0, 51));
-        lbAnhDaiDienNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/female.png"))); // NOI18N
+        lbAnhDaiDienNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Anh/male.png"))); // NOI18N
         panelBorder1.add(lbAnhDaiDienNhanVien);
         lbAnhDaiDienNhanVien.setBounds(20, 130, 140, 160);
 

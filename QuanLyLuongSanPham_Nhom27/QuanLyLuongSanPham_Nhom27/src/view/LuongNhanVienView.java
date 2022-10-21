@@ -15,13 +15,13 @@ import javax.swing.table.TableModel;
  *
  * @author December
  */
-public class PhanCongCongViecView extends javax.swing.JPanel {
+public class LuongNhanVienView extends javax.swing.JPanel {
 
     /**
      * Creates new form NhanVienView
      */
     private DefaultTableModel modelDanhSachNhanVienCanChamCong;
-    public PhanCongCongViecView() {
+    public LuongNhanVienView() {
         initComponents();
         excute();
         insertTable();

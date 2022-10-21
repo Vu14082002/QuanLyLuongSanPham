@@ -6,6 +6,8 @@ package view;
 
 import DAO.PhongBan_DAO;
 import Entity.PhongBan;
+
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -125,6 +127,7 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
         lblSoLuongNhanVien = new javax.swing.JLabel();
         txtSoLuongNhanVien = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
+        btnXoaTrang = new javax.swing.JButton();
         scrPhongBan = new javax.swing.JScrollPane();
         tblPhongBan = new javax.swing.JTable();
 
@@ -174,7 +177,7 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
                 btnLuuActionPerformed(evt);
             }
         });
-        pnlPhongBan.add(btnLuu, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 230, 160, 40));
+        pnlPhongBan.add(btnLuu, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 240, 160, 40));
 
         btnThem.setBackground(new java.awt.Color(46, 204, 113));
         btnThem.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -186,7 +189,7 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
                 btnThemActionPerformed(evt);
             }
         });
-        pnlPhongBan.add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 230, 170, 40));
+        pnlPhongBan.add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 240, 170, 40));
 
         btnXoa.setBackground(new java.awt.Color(41, 128, 185));
         btnXoa.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -197,7 +200,7 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
                 btnXoaActionPerformed(evt);
             }
         });
-        pnlPhongBan.add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 230, 160, 40));
+        pnlPhongBan.add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 240, 160, 40));
 
         btnCapNhat.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         btnCapNhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/update.png"))); // NOI18N
@@ -207,7 +210,7 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
                 btnCapNhatActionPerformed(evt);
             }
         });
-        pnlPhongBan.add(btnCapNhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 230, 160, 40));
+        pnlPhongBan.add(btnCapNhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 240, 160, 40));
 
         lbErrTenPhongBan.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lbErrTenPhongBan.setForeground(new java.awt.Color(204, 0, 0));
@@ -232,6 +235,13 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
         });
         pnlPhongBan.add(txtSoLuongNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 150, 200, 30));
         pnlPhongBan.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 180, 290, 10));
+
+        btnXoaTrang.setBackground(new java.awt.Color(255, 121, 121));
+        btnXoaTrang.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        btnXoaTrang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/xoaTrang.png"))); // NOI18N
+        btnXoaTrang.setText("Xóa trắng");
+        btnXoaTrang.setBorder(null);
+        pnlPhongBan.add(btnXoaTrang, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 240, 170, 40));
 
         add(pnlPhongBan, java.awt.BorderLayout.PAGE_START);
 
@@ -302,6 +312,7 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
     private javax.swing.JButton btnLuu;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnXoa;
+    private javax.swing.JButton btnXoaTrang;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -385,7 +396,7 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
         } else if (o.equals(btnLuu)) {
             // Xử lý sự kiện lưu
             // Xử lý Thêm phòng ban
-            if (btnThem.getText().equalsIgnoreCase("Hủy Thêm")) {
+            if (btnThem.getText().equalsIgnoreCase("Hủy cập nhật")) {
                 String maPhongBan = txtMaPhongBan.getText();
                 if (txtTenPhongBan.getText().equals("")) {
                     lbErrTenPhongBan.setText("Tên phòng không được trống!");
@@ -406,7 +417,7 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
                 } else {
                     JOptionPane.showMessageDialog(null, "Thêm thất bại!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 }
-            } else if (btnCapNhat.getText().equalsIgnoreCase("Hủy cập nhật")){
+            } else if (btnCapNhat.getText().equalsIgnoreCase("Hủy Sửa")){
                 String maPhongBan = txtMaPhongBan.getText();
                 if (txtTenPhongBan.getText().equals("")) {
                     lbErrTenPhongBan.setText("Tên phòng không được trống!");

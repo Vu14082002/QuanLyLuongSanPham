@@ -56,11 +56,6 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbNhanVien = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
-        btnThem = new javax.swing.JButton();
-        btnXoa = new javax.swing.JButton();
-        btnCapNhat = new javax.swing.JButton();
-        btnXoaTrang = new javax.swing.JButton();
-        btnLuu = new javax.swing.JButton();
         lbAnhDaiDien = new javax.swing.JLabel();
         btnAnhSanPham = new javax.swing.JPanel();
         lbAnhSanPhamOfbtn = new javax.swing.JLabel();
@@ -104,6 +99,11 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
         jdateNgaySinh1 = new com.toedter.calendar.JDateChooser();
         lbTenSanPham12 = new javax.swing.JLabel();
         lbErrTenSanPham8 = new javax.swing.JLabel();
+        btnThem = new javax.swing.JButton();
+        btnXoa = new javax.swing.JButton();
+        btnCapNhat = new javax.swing.JButton();
+        btnLuu = new javax.swing.JButton();
+        btnXoaTrang = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(1200, 700));
 
@@ -144,47 +144,6 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setPreferredSize(new java.awt.Dimension(1250, 500));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        btnThem.setBackground(new java.awt.Color(46, 204, 113));
-        btnThem.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/add.png"))); // NOI18N
-        btnThem.setText("Thêm");
-        btnThem.setBorder(null);
-        btnThem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThemActionPerformed(evt);
-            }
-        });
-        jPanel5.add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 440, 140, 40));
-
-        btnXoa.setBackground(new java.awt.Color(41, 128, 185));
-        btnXoa.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/close.png"))); // NOI18N
-        btnXoa.setText("Xóa");
-        jPanel5.add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 440, 130, 40));
-
-        btnCapNhat.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        btnCapNhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/update.png"))); // NOI18N
-        btnCapNhat.setText("Cập nhật");
-        btnCapNhat.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCapNhatActionPerformed(evt);
-            }
-        });
-        jPanel5.add(btnCapNhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 440, 130, 40));
-
-        btnXoaTrang.setBackground(new java.awt.Color(255, 121, 121));
-        btnXoaTrang.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        btnXoaTrang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/xoaTrang.png"))); // NOI18N
-        btnXoaTrang.setText("Xóa trắng");
-        btnXoaTrang.setBorder(null);
-        jPanel5.add(btnXoaTrang, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 440, 140, 40));
-
-        btnLuu.setBackground(new java.awt.Color(246, 229, 141));
-        btnLuu.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        btnLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/save.png"))); // NOI18N
-        btnLuu.setText("Lưu");
-        jPanel5.add(btnLuu, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 440, 130, 40));
 
         lbAnhDaiDien.setBackground(new java.awt.Color(153, 0, 0));
         lbAnhDaiDien.setForeground(new java.awt.Color(255, 0, 51));
@@ -398,6 +357,57 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
         lbErrTenSanPham8.setText("đây là dòng thông báo lỗi");
         jPanel5.add(lbErrTenSanPham8, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 380, 200, -1));
 
+        btnThem.setBackground(new java.awt.Color(46, 204, 113));
+        btnThem.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/add.png"))); // NOI18N
+        btnThem.setText("Thêm");
+        btnThem.setBorder(null);
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 430, 170, 40));
+
+        btnXoa.setBackground(new java.awt.Color(41, 128, 185));
+        btnXoa.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/close.png"))); // NOI18N
+        btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 430, 160, 40));
+
+        btnCapNhat.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnCapNhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/update.png"))); // NOI18N
+        btnCapNhat.setText("Cập nhật");
+        btnCapNhat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCapNhatActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnCapNhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 430, 160, 40));
+
+        btnLuu.setBackground(new java.awt.Color(156, 136, 255));
+        btnLuu.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/save.png"))); // NOI18N
+        btnLuu.setText("Lưu");
+        btnLuu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLuuActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnLuu, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 430, 160, 40));
+
+        btnXoaTrang.setBackground(new java.awt.Color(255, 121, 121));
+        btnXoaTrang.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        btnXoaTrang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/xoaTrang.png"))); // NOI18N
+        btnXoaTrang.setText("Xóa trắng");
+        btnXoaTrang.setBorder(null);
+        jPanel5.add(btnXoaTrang, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 430, 170, 40));
+
         jPanel1.add(jPanel5, java.awt.BorderLayout.PAGE_START);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -415,14 +425,6 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
-        new CapNhatSanPhamView().setVisible(true);
-    }//GEN-LAST:event_btnCapNhatActionPerformed
-
-    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnThemActionPerformed
 
     private void lbAnhSanPhamOfbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbAnhSanPhamOfbtnMouseClicked
         JFileChooser fileChooser = new JFileChooser("d:");
@@ -450,6 +452,22 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
     private void cbChucVuNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbChucVuNhanVienActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbChucVuNhanVienActionPerformed
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCapNhatActionPerformed
+
+    private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLuuActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
