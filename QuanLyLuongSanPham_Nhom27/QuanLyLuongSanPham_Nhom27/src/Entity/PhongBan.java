@@ -12,11 +12,13 @@ package Entity;
 public class PhongBan {
     private String maPhongBan;
     private String tenPhongBan;
+    private int soLuongNhanVien;
 
-    public PhongBan(String maPhongBan, String tenPhongBan) {
+    public PhongBan(String maPhongBan, String tenPhongBan, int soLuongNhanVien) {
         try {
             setMaPhongBan(maPhongBan);
             setTenPhongBan(tenPhongBan);
+            setSoLuongNhanVien(soLuongNhanVien);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
@@ -46,10 +48,25 @@ public class PhongBan {
         this.tenPhongBan = tenPhongBan;
     }
 
+    public int getSoLuongNhanVien() {
+        return soLuongNhanVien;
+    }
+
+    public void setSoLuongNhanVien(int soLuongNhanVien) throws Exception {
+        if (soLuongNhanVien < 0){
+            throw new Exception("Số lượng nhân viên không được < 0");
+        } else {
+            this.soLuongNhanVien = soLuongNhanVien;
+        }
+    }
+
     @Override
     public String toString() {
-        return "PhongBan{" + "maPhongBan=" + maPhongBan + ", tenPhongBan=" + tenPhongBan + '}';
+        return "PhongBan{" + "maPhongBan=" + maPhongBan + ", tenPhongBan=" + tenPhongBan + ", soLuongNhanVien=" + soLuongNhanVien + '}';
     }
+    
+    
+    
     
     
 }

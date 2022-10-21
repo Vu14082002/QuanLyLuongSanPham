@@ -12,11 +12,14 @@ public class ToNhom {
 
     private String maToNhom;
     private String tenToNhom;
+    private int soLuongCongNhan;
+    
 
-    public ToNhom(String maToNhom, String tenToNhom) {
+    public ToNhom(String maToNhom, String tenToNhom, int soLuongCongNhan) {
         try {
             setMaToNhom(maToNhom);
             setTenToNhom(tenToNhom);
+            setSoLuongCongNhan(soLuongCongNhan);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
@@ -49,9 +52,25 @@ public class ToNhom {
         }
     }
 
+    public int getSoLuongCongNhan() {
+        return soLuongCongNhan;
+    }
+
+    public void setSoLuongCongNhan(int soLuongCongNhan) throws Exception {
+        if (soLuongCongNhan < 0){
+            throw new Exception("Số lượng công nhân không được < 0");
+        }  else {
+            this.soLuongCongNhan = soLuongCongNhan;
+        }
+    }
+
     @Override
     public String toString() {
-        return String.format("Mã tổ nhóm: %s, Tên tổ nhóm: %s", maToNhom, tenToNhom);
+        return "ToNhom{" + "maToNhom=" + maToNhom + ", tenToNhom=" + tenToNhom + ", soLuongCongNhan=" + soLuongCongNhan + '}';
     }
+    
+    
+
+    
 
 }

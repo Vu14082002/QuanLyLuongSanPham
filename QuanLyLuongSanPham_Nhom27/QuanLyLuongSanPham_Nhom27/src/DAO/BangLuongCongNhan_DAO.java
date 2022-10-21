@@ -13,7 +13,6 @@ import Entity.BangLuongCongNhan;
 import Entity.CongNhan;
 import Entity.ToNhom;
 import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -245,12 +244,12 @@ public class BangLuongCongNhan_DAO {
         System.out.println("Thêm một: " 
                 + dao.themMotBangLuong(new BangLuongCongNhan("LC111111", new CongNhan("CN123123", "Nguyễn Văn Vũ"
         , java.sql.Date.valueOf(LocalDate.of(2000, 11, 11)), "111222333444", "0975123123", "hieurio12@gmail.com"
-        , "123123", java.sql.Date.valueOf(LocalDate.of(1999, 12, 12)), false, "anhDaiDien1.png", "Yên bái", new ToNhom("TN123123", "1")), 123
+        , "123123", java.sql.Date.valueOf(LocalDate.of(1999, 12, 12)), false, "anhDaiDien1.png", "Yên bái", new ToNhom("TN123123", "1", 0)), 123
                 , 22, 12, 2, new Date(), 123121, "VND")));
         System.out.println(dao.layDanhSachBangLuongCongNhan());
         System.err.println("Sửa:" + dao.suaMotBangLuongCongNhan(new BangLuongCongNhan("LC111111", new CongNhan("CN123123", "Nguyễn Văn Vũ"
         , java.sql.Date.valueOf(LocalDate.of(2000, 11, 11)), "111222333444", "0975123123", "hieurio12@gmail.com"
-        , "123123", java.sql.Date.valueOf(LocalDate.of(1999, 12, 12)), false, "anhDaiDien1.png", "Yên bái", new ToNhom("TN123123", "1")), 123
+        , "123123", java.sql.Date.valueOf(LocalDate.of(1999, 12, 12)), false, "anhDaiDien1.png", "Yên bái", new ToNhom("TN123123", "1", 0)), 123
                 , 22, 12, 2, new Date(), 123121, "VND")));
         System.out.println("Xóa: " + dao.xoaBangLuongCongNhanTheoMa("LC111111"));
         System.out.println(dao.layDanhSachBangLuongCongNhan());

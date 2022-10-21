@@ -40,7 +40,8 @@ public class SanPham_DAO {
                 String chatLieu = rs.getString("chatLieu");
                 int kichThuoc = rs.getInt("kichThuoc");
                 String anhSanPham = rs.getString("anhSanPham");
-                dsSanPham.add(new SanPham(maSanPham, tenSanPham, soLuongSanPham, mauSac, chatLieu, kichThuoc, anhSanPham));
+                int soLuongCongDoan = rs.getInt("soLuongCongDoan");
+                dsSanPham.add(new SanPham(maSanPham, tenSanPham, soLuongSanPham, mauSac, chatLieu, kichThuoc, anhSanPham, soLuongCongDoan));
 
             }
         } catch (Exception e) {
@@ -73,7 +74,8 @@ public class SanPham_DAO {
                 String chatLieu = rs.getString("chatLieu");
                 int kichThuoc = rs.getInt("kichThuoc");
                 String anhSanPham = rs.getString("anhSanPham");
-                sanPham = new SanPham(maSanPham, tenSanPham, soLuongSanPham, mauSac, chatLieu, kichThuoc, anhSanPham);
+                int soLuongCongDoan = rs.getInt("soLuongCongDoan");
+                sanPham = new SanPham(maSanPham, tenSanPham, soLuongSanPham, mauSac, chatLieu, kichThuoc, anhSanPham, soLuongCongDoan);
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -188,9 +190,9 @@ public class SanPham_DAO {
             System.out.println(e);
         }
         SanPham_DAO dao = new SanPham_DAO();
-        System.out.println("Thêm: " + dao.themMotSanPham(new SanPham("SP111111", "Giay Nika", 321, "Đỏ", "Poly", 12, "anh1.png")));
+        System.out.println("Thêm: " + dao.themMotSanPham(new SanPham("SP111111", "Giay Nika", 321, "Đỏ", "Poly", 12, "anh1.png", 0)));
         System.out.println("\n\n\n Danh sách: " + dao.layDanhSachSanPham().toString());
-        System.out.println("\n\n\n Sửa: " + dao.suaMotSanPham(new SanPham("SP111111", "Giay Nika", 323, "Đỏ", "Poly", 12, "anh1.png")));
+        System.out.println("\n\n\n Sửa: " + dao.suaMotSanPham(new SanPham("SP111111", "Giay Nika", 323, "Đỏ", "Poly", 12, "anh1.png", 0)));
         System.out.println("\n\n\n Xóa: " + dao.xoaMotSanPhamTheoMa("SP111111"));
         System.out.println("\n\n\n Danh sách: " + dao.layDanhSachSanPham().toString());
         System.out.println("\n\n\n Lấy 1: " + dao.layMotSanPhamTheoMa("SP123123").toString());

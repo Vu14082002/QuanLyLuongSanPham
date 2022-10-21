@@ -164,7 +164,7 @@ public class MainView extends javax.swing.JFrame {
         });
         MenuItem menuPhongBan = new MenuItem(iconDepartment, "Phòng ban", (ActionEvent e) -> {
             pnBody.removeAll();
-            pnBody.add(new PhongBan(), BorderLayout.CENTER);
+            pnBody.add(new PhongBanView(), BorderLayout.CENTER);
             pnBody.repaint();
             pnBody.revalidate();
         });

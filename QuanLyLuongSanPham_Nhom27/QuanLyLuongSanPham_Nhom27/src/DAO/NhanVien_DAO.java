@@ -267,7 +267,7 @@ public class NhanVien_DAO {
             System.out.println(e);
         }
         NhanVien_DAO dao = new NhanVien_DAO();
-        NhanVien nv = new NhanVien("NV111111", "Ngọc Thụ Lâm Phong", java.sql.Date.valueOf(LocalDate.of(2001, 12, 12)), "222333444555", "0976123321", "mailmail@gmail.com", "123123", "Quản lý", new Date(), 2000000, true, "anh1.png", "Lạng sơn", new PhongBan("PB123123", "Phòng quản lý"));
+        NhanVien nv = new NhanVien("NV111111", "Ngọc Thụ Lâm Phong", java.sql.Date.valueOf(LocalDate.of(2001, 12, 12)), "222333444555", "0976123321", "mailmail@gmail.com", "123123", "Quản lý", new Date(), 2000000, true, "anh1.png", "Lạng sơn", new PhongBan("PB123123", "Phòng quản lý", 0));
         System.out.println("Thêm : " + dao.themMotNhanVien(nv));
         System.out.println("\n\n\nDanh sách: " + dao.layDanhSachNhanVien());
         try {

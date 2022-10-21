@@ -14,9 +14,9 @@ CREATE TABLE ToNhom
 )
 GO
 INSERT TONHOM 
-VALUES ('TN123123', N'1', 0)
+VALUES ('TN100001', N'Tổ 1', 0)
 GO
-INSERT INTO ToNhom(maToNhom, tenTo, soLuongCongNhan) VALUES ('TN111111', N'Tổ 2', 0)
+INSERT INTO ToNhom(maToNhom, tenTo, soLuongCongNhan) VALUES ('TN100002', N'Tổ 2', 0)
 
 GO
 CREATE TABLE CongNhan
@@ -46,8 +46,28 @@ CREATE TABLE CongNhan
 	constraint CHK_CongNhan_ngayVoaLam_sauHienTai check (ngayVaoLam <= getDate()) -- ngày vào làm phải trước hoặc bằng ngày hiện tại
 )
 GO
+ CREATE TRIGGER capNhatSoLuongCongNhan on CongNhan
+ after insert, delete, update
+ as
+	begin
+		declare @maToNhom char(8), @soLuong int = 0
+		if exists (select * from inserted)
+		begin
+			select @maToNhom = toNhom from inserted
+			select @soLuong = count(maCongNhan) from ToNhom TN join CongNhan CN on TN.maToNhom = CN.toNhom where TN.maToNhom = @maToNhom group by maToNhom
+		end
+		if exists (select * from deleted)
+		begin
+			select @maToNhom = toNhom from deleted
+			select @soLuong = count(maCongNhan) from ToNhom TN join CongNhan CN on TN.maToNhom = CN.toNhom where TN.maToNhom = @maToNhom group by maToNhom
+		end
+		update ToNhom
+		set soLuongCongNhan = @soLuong
+		where maToNhom = @maToNhom
+	end
+GO
 INSERT CongNhan
-VALUES ('CN123123', N'Nguyễn Văn Hiếu', '2000-12-10', '111122223333', '0975654628', 'hieurio12@gmail.com', '123456', 1, 'anh1.png', N'Nghệ An', GETDATE(), 'TN123123')
+VALUES ('CN123123', N'Nguyễn Văn Hiếu', '2000-12-10', '111122223333', '0975654628', 'hieurio12@gmail.com', '123456', 1, 'anh1.png', N'Nghệ An', GETDATE(), 'TN100001')
 GO
 CREATE table BangLuongCongNhan 
 (
@@ -81,7 +101,8 @@ CREATE TABLE PhongBan
 )
 GO
 INSERT PhongBan
-VALUES ('PB123123', N'Phòng quản lý', 0)
+VALUES ('PB100001', N'Phòng quản lý', 0), ('PB100002', N'Phòng kế toán', 0)
+
 GO
 CREATE TABLE NhanVien
 (
@@ -113,11 +134,33 @@ CREATE TABLE NhanVien
 	constraint CHK_NhanVien_luongThoaThuan_hienNhien check (luongThoaThuan >= 0) -- lương thảo thuận phải >= 0
 )
 GO
-INSERT NhanVien 
-values ('NV123123', N'Nguyễn Văn Vũ', '2002-02-02', '222233334444', '0975123123', 'ngvanvu@gmail.com', '123456', N'Quản lý', GETDATE(), 4000000, 1, 'anh2.png', N'Phú Yên', 'PB123123')
+CREATE TRIGGER capNhatSoLuongKhiInsertNV on NhanVien
+after INSERT, DELETE, UPDATE
+as
+	begin
+		declare @maPhongBan char(8), @soLuong int = 0
+		if exists (select * from inserted)
+		begin
+			select @maPhongBan = maPhongBan from inserted
+			select @soLuong =  count(maNhanVien) from PhongBan PB join NhanVien NV on PB.maPhongBan = NV.maPhongBan where PB.maPhongBan = @maPhongBan group by PB.maPhongBan
+		end
+		if exists (select * from deleted)
+		begin
+			select @maPhongBan = maPhongBan from deleted
+			select @soLuong =  count(maNhanVien) from PhongBan PB join NhanVien NV on PB.maPhongBan = NV.maPhongBan where PB.maPhongBan = @maPhongBan group by PB.maPhongBan
+		end
+		
+		update PhongBan
+		set soLuongNhanVien = @soLuong
+		where maPhongBan = @maPhongBan
+	end
+
 GO
 INSERT NhanVien 
-values ('NV123456', N'Nguyễn Văn Toản', '2002-03-02', '222233334444', '0975123123', 'ngvanvu@gmail.com', '123456', N'Quản lý', GETDATE(), 4000000, 1, 'anh2.png', N'Phú Yên', 'PB123123')
+values ('NV123123', N'Nguyễn Văn Vũ', '2002-02-02', '222233334444', '0975123123', 'ngvanvu@gmail.com', '123456', N'Quản lý', GETDATE(), 4000000, 1, 'anh2.png', N'Phú Yên', 'PB100001')
+GO
+INSERT NhanVien 
+values ('NV123456', N'Nguyễn Văn Toản', '2002-03-02', '222233334444', '0975123123', 'ngvanvu@gmail.com', '123456', N'Quản lý', GETDATE(), 4000000, 1, 'anh2.png', N'Phú Yên', 'PB100002')
 GO
 CREATE TABLE BangLuongNhanVien
 (
@@ -187,6 +230,26 @@ CREATE TABLE CongDoan
 	constraint CHK_CongDoan_tienLuong_hienNhien check (tienLuong >= 0) -- tiền lương phải >= 0
 )
 GO
+CREATE TRIGGER capNhatSoLuongCongDoan on CongDoan
+after insert, delete, update
+as
+	begin
+		declare @maSanPham char(8), @soLuongCongDoan int = 0
+		if exists (select * from inserted)
+		begin
+			select @maSanPham = maSanPham from inserted
+			select @soLuongCongDoan = count(maCongDoan) from  SanPham SP join CongDoan CD on SP.maSanPham = CD.maSanPham where SP.maSanPham = @maSanPham group by SP.maSanPham
+		end
+		else 
+		begin
+			select @maSanPham = maSanPham from deleted
+			select @soLuongCongDoan = count(maCongDoan) from  SanPham SP join CongDoan CD on SP.maSanPham = CD.maSanPham where SP.maSanPham = @maSanPham group by SP.maSanPham
+		end
+		update SanPham
+		set soLuongCongDoan = @soLuongCongDoan
+		where maSanPham = @maSanPham
+	end
+GO
 INSERT CongDoan
 VALUES ('CD123123', N'May', 114, N'Chưa hoàn thành', '2022-12-12', 'SP123123', 1231)
 GO
@@ -234,78 +297,12 @@ as
  end
 
 GO
-CREATE TRIGGER capNhatSoLuongKhiInsertNV on NhanVien
-after INSERT, DELETE, UPDATE
-as
-	begin
-		declare @maPhongBan char(8), @soLuong int = 0
-		if exists (select * from inserted)
-		begin
-			select @maPhongBan = maPhongBan from inserted
-			select @soLuong =  count(maNhanVien) from PhongBan PB join NhanVien NV on PB.maPhongBan = NV.maPhongBan where PB.maPhongBan = @maPhongBan group by PB.maPhongBan
-		end
-		if exists (select * from deleted)
-		begin
-			select @maPhongBan = maPhongBan from deleted
-			select @soLuong =  count(maNhanVien) from PhongBan PB join NhanVien NV on PB.maPhongBan = NV.maPhongBan where PB.maPhongBan = @maPhongBan group by PB.maPhongBan
-		end
-		
-		update PhongBan
-		set soLuongNhanVien = @soLuong
-		where maPhongBan = @maPhongBan
-	end
 
-GO
 CREATE TRIGGER DELETE_PHONGBAN ON PHONGBAN
 instead of DELETE
 as
  begin
-	 SET NOCOUNT ON;
 	 DELETE NhanVien WHERE maPhongBan in (SELECT maPhongBan from deleted)
 	 DELETE PhongBan where maPhongBan in (SELECT maPhongBan FROM DELETED)
  end
- GO
- CREATE TRIGGER capNhatSoLuongCongNhan on CongNhan
- after insert, delete, update
- as
-	begin
-		declare @maToNhom char(8), @soLuong int = 0
-		if exists (select * from inserted)
-		begin
-			select @maToNhom = toNhom from inserted
-			select @soLuong = count(maCongNhan) from ToNhom TN join CongNhan CN on TN.maToNhom = CN.toNhom where TN.maToNhom = @maToNhom group by maToNhom
-		end
-		if exists (select * from deleted)
-		begin
-			select @maToNhom = toNhom from deleted
-			select @soLuong = count(maCongNhan) from ToNhom TN join CongNhan CN on TN.maToNhom = CN.toNhom where TN.maToNhom = @maToNhom group by maToNhom
-		end
-		update ToNhom
-		set soLuongCongNhan = @soLuong
-		where maToNhom = @maToNhom
-	end
-GO
-CREATE TRIGGER capNhatSoLuongCongDoan on CongDoan
-after insert, delete, update
-as
-	begin
-		declare @maSanPham char(8), @soLuongCongDoan int = 0
-		if ((select * from inserted) > 0)
-		begin
-			select @maSanPham = maSanPham from inserted
-			select @soLuongCongDoan = count(maCongDoan) from  SanPham SP join CongDoan CD on SP.maSanPham = CD.maSanPham where SP.maSanPham = @maSanPham group by CD.maSanPham
-		end
-		if ((select * from deleted) > 0)
-		begin
-			select @maSanPham = maSanPham from deleted
-			select @soLuongCongDoan = count(maCongDoan) from  SanPham SP join CongDoan CD on SP.maSanPham = CD.maSanPham where SP.maSanPham = @maSanPham group by CD.maSanPham
-		end
-		
-		update SanPham
-		set soLuongCongDoan = @soLuongCongDoan
-		where maSanPham = @maSanPham
-	end
-
-
-	select * from SanPham
-	select * from PhongBan
+ 

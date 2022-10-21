@@ -194,10 +194,10 @@ public class CongDoan_DAO {
         }
         CongDoan_DAO dao = new CongDoan_DAO();
         System.out.println(dao.themMotCongDoan(new CongDoan("CD111111", "Đánh bóng", 222, "Chưa hoàn thành", 
-        java.sql.Date.valueOf(LocalDate.of(2023, 12, 12)), new SanPham("SP123123", "Giay ISNA Nam", 1000, "Đỏ", "Cotton", 47, "anhsanpham1.png"), 2231)));
+        java.sql.Date.valueOf(LocalDate.of(2023, 12, 12)), new SanPham("SP123123", "Giay ISNA Nam", 1000, "Đỏ", "Cotton", 47, "anhsanpham1.png", 0), 2231)));
         System.out.println("\n\n\nLấy ds: " + dao.layDanhSachCongDoanTheoMaSP("SP123123").toString());
         System.out.println("\n\n\nSửa: " + dao.suaMotCongDoan(new CongDoan("CD111111", "Đánh bóng", 223, "Chưa hoàn thành", 
-        java.sql.Date.valueOf(LocalDate.of(2023, 12, 12)), new SanPham("SP123123", "Giay ISNA Nam", 1000, "Đỏ", "Cotton", 47, "anhsanpham1.png"), 2231)));
+        java.sql.Date.valueOf(LocalDate.of(2023, 12, 12)), new SanPham("SP123123", "Giay ISNA Nam", 1000, "Đỏ", "Cotton", 47, "anhsanpham1.png", 0), 2231)));
         System.out.println("\n\n\nXóa 1: " + dao.xoaMotCongDoanTheoMa("CD111111"));
         System.out.println("\n\n\nLấy 1: " + dao.layMotCongDoanTheoMaCongDoan("CD123123"));
     }

@@ -37,8 +37,8 @@ public class ToNhom_DAO {
             while (rs.next()) {
                 String maTo = rs.getString("maToNhom");
                 String tenToNhom = rs.getString("tenTo");
-
-                dsToNhom.add(new ToNhom(maTo, tenToNhom));
+                int soLuongCongNhan = rs.getInt("soLuongCongNhan");
+                dsToNhom.add(new ToNhom(maTo, tenToNhom, soLuongCongNhan));
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -147,8 +147,8 @@ public class ToNhom_DAO {
             while (rs.next()){
                 String maToNhomOb = rs.getString("maToNhom");
                 String tenToNhom = rs.getString("tenTo");
-                
-                toNhom = new ToNhom(maToNhomOb, tenToNhom);
+                int soLuongCongNhan = rs.getInt("soLuongCongNhan");
+                toNhom = new ToNhom(maToNhomOb, tenToNhom, soLuongCongNhan);
             }
             if (toNhom == null){
                 throw new Exception("Không tìm thấy tổ nhóm này!");
@@ -174,8 +174,8 @@ public class ToNhom_DAO {
         }
         ToNhom_DAO dao = new ToNhom_DAO();
         System.out.println("AAA" + dao.layMotToNhomTheoMa("TN123123"));
-        System.out.println(dao.themToNhom(new ToNhom("TN111112", "Tổ 2")));
-        System.out.println(dao.suaToNhom(new ToNhom("TN111112", "Tổ 4")));
+        System.out.println(dao.themToNhom(new ToNhom("TN111112", "Tổ 2", 0)));
+        System.out.println(dao.suaToNhom(new ToNhom("TN111112", "Tổ 4", 0)));
         System.out.println("Xóa " + dao.xoaMotToNhomTheoMa("TN111112"));
         ArrayList<ToNhom> dsToNhom = dao.layDanhSachToNhom();
         System.out.println(dsToNhom.toString());

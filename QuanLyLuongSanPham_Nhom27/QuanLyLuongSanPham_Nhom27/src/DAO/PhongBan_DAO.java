@@ -35,7 +35,8 @@ public class PhongBan_DAO {
             while (rs.next()) {
                 String maPhongBan = rs.getString("maPhongBan");
                 String tenPhongBan = rs.getString("tenPhongBan");
-                dsPhongBan.add(new PhongBan(maPhongBan, tenPhongBan));
+                int soLuongNhanVien = rs.getInt("soLuongNhanVien");
+                dsPhongBan.add(new PhongBan(maPhongBan, tenPhongBan, soLuongNhanVien));
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -62,7 +63,8 @@ public class PhongBan_DAO {
             while (rs.next()) {
                 String maPhongBanOb = rs.getString("maPhongBan");
                 String tenPhongBan = rs.getString("tenPhongBan");
-                phongBan = new PhongBan(maPhongBanOb, tenPhongBan);
+                int soLuongNhanVien = rs.getInt("soLuongNhanVien");
+                phongBan = new PhongBan(maPhongBanOb, tenPhongBan, soLuongNhanVien);
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -148,6 +150,36 @@ public class PhongBan_DAO {
         return soDongXoaDuoc != 0;
     }
 
+    public String layRaMaPhongBanDeThem(){
+        Statement stm = null;
+        PhongBan phongBan = null;
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String truyVan = "select top 1 * from PhongBan order by LEN(maPhongBan), maPhongBan desc";
+            stm = con.createStatement();
+            ResultSet rs = stm.executeQuery(truyVan);
+            while (rs.next()){
+                String maPhongBan = rs.getString("maPhongBan");
+                String tenPhongBan = rs.getString("tenPhongBan");
+                int soLuongNhanVien = rs.getInt("soLuongNhanVien");
+                phongBan = new PhongBan(maPhongBan, tenPhongBan, soLuongNhanVien);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+        System.out.println(phongBan.getMaPhongBan().split("PB").toString());
+        String chuoiCanLay = phongBan.getMaPhongBan().split("PB")[1];
+        
+        try {
+            chuoiCanLay = "PB" + (Integer.parseInt(chuoiCanLay)+1);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+        return chuoiCanLay;
+    }
     public static void main(String[] args) {
         try {
             System.setOut(new PrintStream(System.out, true, "UTF8"));
@@ -163,9 +195,9 @@ public class PhongBan_DAO {
             System.out.println(e);
         }
         PhongBan_DAO dao = new PhongBan_DAO();
-        System.out.println(dao.themMotPhongBan(new PhongBan("PB111111", "Phòng Nhân sự")));
+        System.out.println(dao.themMotPhongBan(new PhongBan("PB111111", "Phòng Nhân sự", 0)));
         System.out.println("\n\n\nDanh sách: " + dao.layDanhSachPhongBan());
-        System.out.println("\n\n\nSửa: " + dao.suaMotPhongBan(new PhongBan("PB111111", "Phòng Kế toán")));
+        System.out.println("\n\n\nSửa: " + dao.suaMotPhongBan(new PhongBan("PB111111", "Phòng Kế toán", 0)));
         System.out.println("\n\n\nXóa: " + dao.xoaMotPhongBanTheoMa("PB111111"));
         System.out.println("\n\n\nLấy 1: " + dao.layMotPhongBanTheoMa("PB123123"));
     }

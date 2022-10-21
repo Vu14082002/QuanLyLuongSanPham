@@ -198,11 +198,11 @@ public class PhanCongCongNhan_DAO {
         }
         PhanCongCongNhan_DAO dao = new PhanCongCongNhan_DAO();
         CongDoan congDoan = new CongDoan("CD123123", "Đánh bóng", 222, "Chưa hoàn thành", 
-        java.sql.Date.valueOf(LocalDate.of(2023, 12, 12)), new SanPham("SP123123", "Giay ISNA Nam", 1000, "Đỏ", "Cotton", 47, "anhsanpham1.png"), 2231);
+        java.sql.Date.valueOf(LocalDate.of(2023, 12, 12)), new SanPham("SP123123", "Giay ISNA Nam", 1000, "Đỏ", "Cotton", 47, "anhsanpham1.png", 0), 2231);
         CongNhan congNhan = new CongNhan("CN123123", "Nguyễn Văn Vũ"
         , java.sql.Date.valueOf(LocalDate.of(2000, 12, 12)), "111222333444", "0975123123", "hieurio12@gmail.com"
-        , "123123", new Date(), false, "anhDaiDien1.png", "Yên bái", new ToNhom("TN123123", "1"));
-        NhanVien nguoiPhanCong =  new NhanVien("NV123123", "Ngọc Thụ Lâm Phong", java.sql.Date.valueOf(LocalDate.of(2001, 12, 12)), "222333444555", "0976123321", "mailmail@gmail.com", "123123", "Quản lý", new Date(), 2000000, true, "anh1.png", "Lạng sơn", new PhongBan("PB123123", "Phòng quản lý"));
+        , "123123", new Date(), false, "anhDaiDien1.png", "Yên bái", new ToNhom("TN123123", "1", 0));
+        NhanVien nguoiPhanCong =  new NhanVien("NV123123", "Ngọc Thụ Lâm Phong", java.sql.Date.valueOf(LocalDate.of(2001, 12, 12)), "222333444555", "0976123321", "mailmail@gmail.com", "123123", "Quản lý", new Date(), 2000000, true, "anh1.png", "Lạng sơn", new PhongBan("PB123123", "Phòng quản lý", 0));
         PhanCongCongNhan pc = new PhanCongCongNhan("PC111111", congNhan, congDoan, nguoiPhanCong, new Date(), "CN");
         System.out.println("Thêm: " + dao.themMotPhanCongNhan(pc));
         System.out.println("\n\n\nDanh sách: " + dao.layDanhSachPhanCongCongNhan());

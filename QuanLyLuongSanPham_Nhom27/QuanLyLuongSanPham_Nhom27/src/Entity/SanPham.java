@@ -20,8 +20,10 @@ public class SanPham {
     private String chatLieu;
     private int kichThuoc;
     private String anhSanPham;
+    private int soLuongCongDoan;
 
-    public SanPham(String maSanPham, String tenSanPham, int soLuongSanPham, String mauSac, String chatLieu, int kichThuoc, String anhSanPham) {
+    public SanPham(String maSanPham, String tenSanPham, int soLuongSanPham, String mauSac, String chatLieu, int kichThuoc, String anhSanPham,
+             int soLuongCongDoan) {
         try {
             setMaSanPham(maSanPham);
             setTenSanPham(tenSanPham);
@@ -30,6 +32,7 @@ public class SanPham {
             setChatLieu(chatLieu);
             setKichThuoc(kichThuoc);
             setAnhSanPham(anhSanPham);
+            setSoLuongCongDoan(soLuongCongDoan);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
@@ -67,7 +70,7 @@ public class SanPham {
     }
 
     public void setSoLuongSanPham(int soLuongSanPham) throws Exception {
-        if (soLuongSanPham <= 0){
+        if (soLuongSanPham <= 0) {
             throw new Exception("Số lượng sản phẩm không được <= 0");
         } else {
             this.soLuongSanPham = soLuongSanPham;
@@ -95,7 +98,7 @@ public class SanPham {
     }
 
     public void setKichThuoc(int kichThuoc) throws Exception {
-        if (kichThuoc <= 0){
+        if (kichThuoc <= 0) {
             throw new Exception("Kích thước không được <= 0");
         } else {
             this.kichThuoc = kichThuoc;
@@ -107,18 +110,30 @@ public class SanPham {
     }
 
     public void setAnhSanPham(String anhSanPham) throws Exception {
-        if (anhSanPham.equals("")){
+        if (anhSanPham.equals("")) {
             throw new Exception("Ảnh sản phẩm không được để trống!");
-        } else if (!anhSanPham.matches(".+\\.(png|PNG|jpg|JPG|raw|RAW|JPEG|jpeg)$")){
+        } else if (!anhSanPham.matches(".+\\.(png|PNG|jpg|JPG|raw|RAW|JPEG|jpeg)$")) {
             throw new Exception("Chỉ chấp nhận các ảnh có định dạng png, jpg, raw, jpeg");
         } else {
             this.anhSanPham = anhSanPham;
         }
     }
 
+    public int getSoLuongCongDoan() {
+        return soLuongCongDoan;
+    }
+
+    public void setSoLuongCongDoan(int soLuongCongDoan) throws Exception {
+        if (soLuongCongDoan < 0) {
+            throw new Exception("Số lượng công đoạn không được < 0");
+        } else {
+            this.soLuongCongDoan = soLuongCongDoan;
+        }
+    }
+
     @Override
     public String toString() {
-        return "SanPham{" + "maSanPham=" + maSanPham + ", tenSanPham=" + tenSanPham + ", soLuongSanPham=" + soLuongSanPham + ", mauSac=" + mauSac + ", chatLieu=" + chatLieu + ", kichThuoc=" + kichThuoc + ", anhSanPham=" + anhSanPham + '}';
+        return "SanPham{" + "maSanPham=" + maSanPham + ", tenSanPham=" + tenSanPham + ", soLuongSanPham=" + soLuongSanPham + ", mauSac=" + mauSac + ", chatLieu=" + chatLieu + ", kichThuoc=" + kichThuoc + ", anhSanPham=" + anhSanPham + ", soLuongCongDoan=" + soLuongCongDoan + '}';
     }
 
 }

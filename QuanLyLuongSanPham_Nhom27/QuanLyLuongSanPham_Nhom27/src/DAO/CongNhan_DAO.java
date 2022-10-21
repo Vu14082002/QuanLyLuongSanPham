@@ -231,11 +231,11 @@ public class CongNhan_DAO {
         System.out.println("Lấy 1 công nhân: " + congNhan_DAO.layMotCongNhanTheoMa("CN123123"));
         System.out.println(congNhan_DAO.themMotCongNhan(new CongNhan("CN111111", "Nguyễn Văn Vũ"
         , ngaySinh, "111222333444", "0975123123", "hieurio12@gmail.com"
-        , "123123", new Date(), false, "anhDaiDien1.png", "Yên bái", new ToNhom("TN123123", "1"))));
+        , "123123", new Date(), false, "anhDaiDien1.png", "Yên bái", new ToNhom("TN123123", "1", 0))));
         System.out.println("Hiển thị: " + congNhan_DAO.layDanhSachCongNhan());
         System.out.println("Sửa: " + congNhan_DAO.capNhatMotCongNhan(new CongNhan("CN111111", "Nguyễn Văn Vũ"
         , java.sql.Date.valueOf(LocalDate.of(2000, 11, 11)), "111222333444", "0975123123", "hieurio12@gmail.com"
-        , "123123", java.sql.Date.valueOf(LocalDate.of(1999, 12, 12)), false, "anhDaiDien1.png", "Yên bái", new ToNhom("TN123123", "1"))));
+        , "123123", java.sql.Date.valueOf(LocalDate.of(1999, 12, 12)), false, "anhDaiDien1.png", "Yên bái", new ToNhom("TN123123", "1", 0))));
         System.out.println("Hiển thị: " + congNhan_DAO.layDanhSachCongNhan());
         System.out.println("Xóa"+ congNhan_DAO.xoaCongNhanTheoMa("CN111111"));
     }

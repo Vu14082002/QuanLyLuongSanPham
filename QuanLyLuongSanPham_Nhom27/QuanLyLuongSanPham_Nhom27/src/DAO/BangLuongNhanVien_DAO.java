@@ -198,7 +198,7 @@ public class BangLuongNhanVien_DAO {
             System.out.println(e);
         }
         BangLuongNhanVien_DAO dao = new BangLuongNhanVien_DAO();
-        NhanVien nv = new NhanVien("NV123123", "Ngọc Thụ Lâm Phong", java.sql.Date.valueOf(LocalDate.of(2001, 12, 12)), "222333444555", "0976123321", "mailmail@gmail.com", "123123", "Quản lý", new Date(), 2000000, true, "anh1.png", "Lạng sơn", new PhongBan("PB123123", "Phòng quản lý"));
+        NhanVien nv = new NhanVien("NV123123", "Ngọc Thụ Lâm Phong", java.sql.Date.valueOf(LocalDate.of(2001, 12, 12)), "222333444555", "0976123321", "mailmail@gmail.com", "123123", "Quản lý", new Date(), 2000000, true, "anh1.png", "Lạng sơn", new PhongBan("PB123123", "Phòng quản lý", 0));
         BangLuongNhanVien bl = new BangLuongNhanVien("LN111111", nv, 22, 12, 3, new Date(), 1231231, "VND");
         System.out.println("Thêm: " + dao.themMotBangLuong(bl));
         try {
