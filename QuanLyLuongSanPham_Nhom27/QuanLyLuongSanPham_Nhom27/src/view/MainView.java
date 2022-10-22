@@ -84,7 +84,7 @@ public class MainView extends javax.swing.JFrame {
         }));
         tinhLuongCongNhan = new MenuItem(iconSubMenuNonSelect, "Lương", ((e) -> {
             pnBody.removeAll();
-            pnBody.add(new CapNhatNhanVienView(), BorderLayout.CENTER);
+            pnBody.add(new LuongNhanVienView(), BorderLayout.CENTER);
             pnBody.repaint();
             pnBody.revalidate();
             macDinh((tinhLuongCongNhan));
@@ -109,7 +109,7 @@ public class MainView extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 pnBody.removeAll();
-                pnBody.add(new CapNhatNhanVienView(), BorderLayout.CENTER);
+                pnBody.add(new LuongNhanVienView(), BorderLayout.CENTER);
                 pnBody.repaint();
                 pnBody.revalidate();
                 macDinh(tinhLuongNhanVien);
