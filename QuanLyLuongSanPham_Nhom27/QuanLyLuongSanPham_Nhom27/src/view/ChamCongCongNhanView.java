@@ -6,7 +6,11 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -26,6 +30,7 @@ public class ChamCongCongNhanView extends javax.swing.JPanel {
         excute();
         insertTable();
     }
+  
     public void insertTable(){
         modelDanhSachNhanVienCanChamCong = (DefaultTableModel) tbNhanVien.getModel();
         modelDanhSachNhanVienCanChamCong.insertRow(modelDanhSachNhanVienCanChamCong.getRowCount(), new Object[]{"1"});

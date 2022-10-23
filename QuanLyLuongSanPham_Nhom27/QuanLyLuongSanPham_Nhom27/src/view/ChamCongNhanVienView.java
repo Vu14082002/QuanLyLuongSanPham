@@ -6,7 +6,11 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -21,12 +25,15 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
      * Creates new form NhanVienView
      */
     private DefaultTableModel modelDanhSachNhanVienCanChamCong;
+
     public ChamCongNhanVienView() {
         initComponents();
         excute();
         insertTable();
+       
     }
-    public void insertTable(){
+
+    public void insertTable() {
         modelDanhSachNhanVienCanChamCong = (DefaultTableModel) tbNhanVien.getModel();
         modelDanhSachNhanVienCanChamCong.insertRow(modelDanhSachNhanVienCanChamCong.getRowCount(), new Object[]{"1"});
         modelDanhSachNhanVienCanChamCong.insertRow(modelDanhSachNhanVienCanChamCong.getRowCount(), new Object[]{"1"});
@@ -40,6 +47,7 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
         modelDanhSachNhanVienCanChamCong.insertRow(modelDanhSachNhanVienCanChamCong.getRowCount(), new Object[]{"1"});
         modelDanhSachNhanVienCanChamCong.insertRow(modelDanhSachNhanVienCanChamCong.getRowCount(), new Object[]{"1"});
     }
+
     public void excute() {
 //        this.txtMaNhanVien.setText("");
 //        this.txtMaNhanVien.setBackground(new Color(0, 0, 0, 1));
@@ -50,7 +58,7 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
         ((DefaultTableCellRenderer) tbDanhSachCanChamCong.getTableHeader().getDefaultRenderer())
                 .setHorizontalAlignment(JLabel.CENTER);
         tbDanhSachCanChamCong.setRowHeight(25);
-        
+
         tbNhanVien.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
         tbNhanVien.getTableHeader().setOpaque(false);
         ((DefaultTableCellRenderer) tbNhanVien.getTableHeader().getDefaultRenderer())
@@ -94,7 +102,7 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
         btnXoaTrang = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
         jComboBox4 = new javax.swing.JComboBox<>();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jtbDanhSachNhanVienChamCong = new javax.swing.JScrollPane();
         tbNhanVien = new javax.swing.JTable();
 
         setPreferredSize(new java.awt.Dimension(1200, 700));
@@ -269,8 +277,8 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
 
         jPanel3.add(jPanel5, java.awt.BorderLayout.PAGE_START);
 
-        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách nhân viên", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
+        jtbDanhSachNhanVienChamCong.setBackground(new java.awt.Color(255, 255, 255));
+        jtbDanhSachNhanVienChamCong.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách nhân viên", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
 
         tbNhanVien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -292,9 +300,9 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
             }
         });
         tbNhanVien.setSelectionBackground(new java.awt.Color(232, 57, 95));
-        jScrollPane1.setViewportView(tbNhanVien);
+        jtbDanhSachNhanVienChamCong.setViewportView(tbNhanVien);
 
-        jPanel3.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        jPanel3.add(jtbDanhSachNhanVienChamCong, java.awt.BorderLayout.CENTER);
 
         jPanel1.add(jPanel3, java.awt.BorderLayout.CENTER);
 
@@ -358,7 +366,7 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jtbDanhSachNhanVienChamCong;
     private javax.swing.JTable tbDanhSachCanChamCong;
     private javax.swing.JTable tbNhanVien;
     // End of variables declaration//GEN-END:variables

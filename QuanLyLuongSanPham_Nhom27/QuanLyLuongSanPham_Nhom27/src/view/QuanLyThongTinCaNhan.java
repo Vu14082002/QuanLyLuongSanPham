@@ -151,7 +151,7 @@ public class QuanLyThongTinCaNhan extends javax.swing.JPanel {
         add(lbTenSanPham12, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 480, 140, 40));
 
         jdateNgaySinh1.setDateFormatString("yyyy-MM-dd");
-        add(jdateNgaySinh1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 480, 230, 40));
+        add(jdateNgaySinh1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 480, 220, 40));
 
         lbErrTenSanPham8.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lbErrTenSanPham8.setForeground(new java.awt.Color(204, 0, 0));

@@ -6,7 +6,11 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -25,7 +29,9 @@ public class LuongCongNhanView extends javax.swing.JPanel {
         initComponents();
         excute();
         insertTable();
+ 
     }
+
     public void insertTable(){
         modelDanhSachNhanVienCanChamCong = (DefaultTableModel) tbPhanCong.getModel();
         modelDanhSachNhanVienCanChamCong.insertRow(modelDanhSachNhanVienCanChamCong.getRowCount(), new Object[]{"1"});
@@ -77,7 +83,7 @@ public class LuongCongNhanView extends javax.swing.JPanel {
         jComboBox3 = new javax.swing.JComboBox<>();
         jComboBox4 = new javax.swing.JComboBox<>();
         jLabel18 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jtbBangLuongCongNhan = new javax.swing.JScrollPane();
         tbPhanCong = new javax.swing.JTable();
 
         setPreferredSize(new java.awt.Dimension(1200, 700));
@@ -150,8 +156,8 @@ public class LuongCongNhanView extends javax.swing.JPanel {
 
         jPanel3.add(jPanel5, java.awt.BorderLayout.PAGE_START);
 
-        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Bảng lương", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
+        jtbBangLuongCongNhan.setBackground(new java.awt.Color(255, 255, 255));
+        jtbBangLuongCongNhan.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Bảng lương", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
 
         tbPhanCong.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         tbPhanCong.setModel(new javax.swing.table.DefaultTableModel(
@@ -162,7 +168,7 @@ public class LuongCongNhanView extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "Mã lương", "Mã nhân viên", "Giới tính", "Số điện thoại", "Số ngày đi làm", "Số ngày nghỉ", "Số phép nghỉ", "Tổng lương", "Đơn vị tiên", "Ngày chấm công"
+                "STT", "Mã lương", "Mã coong nhaan", "Giới tính", "Số điện thoại", "Số ngày đi làm", "Số ngày nghỉ", "Số phép nghỉ", "Tổng lương", "Đơn vị tiên", "Ngày tính lương"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -174,9 +180,14 @@ public class LuongCongNhanView extends javax.swing.JPanel {
             }
         });
         tbPhanCong.setSelectionBackground(new java.awt.Color(232, 57, 95));
-        jScrollPane1.setViewportView(tbPhanCong);
+        tbPhanCong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tbPhanCongMousePressed(evt);
+            }
+        });
+        jtbBangLuongCongNhan.setViewportView(tbPhanCong);
 
-        jPanel3.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        jPanel3.add(jtbBangLuongCongNhan, java.awt.BorderLayout.CENTER);
 
         jPanel1.add(jPanel3, java.awt.BorderLayout.CENTER);
 
@@ -208,6 +219,15 @@ public class LuongCongNhanView extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLuuActionPerformed
 
+    private void tbPhanCongMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbPhanCongMousePressed
+         JTable table = (JTable) evt.getSource();
+                Point point = evt.getPoint();
+                int row = table.rowAtPoint(point);
+                if (evt.getClickCount() == 2 && table.getSelectedRow() != -1) {
+                    new ChiTietLuongCongNhan().setVisible(true);
+                }
+    }//GEN-LAST:event_tbPhanCongMousePressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLuu;
@@ -220,7 +240,7 @@ public class LuongCongNhanView extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jtbBangLuongCongNhan;
     private javax.swing.JTable tbPhanCong;
     // End of variables declaration//GEN-END:variables
 }
