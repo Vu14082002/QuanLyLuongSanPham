@@ -855,7 +855,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/image/icon/xoaTrang.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="X&#xf3;a tr&#x1eaf;ng"/>
+                <Property name="text" type="java.lang.String" value="H&#x1ee7;y"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
                 </Property>

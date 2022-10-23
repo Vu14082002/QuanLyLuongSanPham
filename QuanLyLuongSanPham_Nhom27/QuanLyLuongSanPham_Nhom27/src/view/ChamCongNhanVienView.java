@@ -92,6 +92,8 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
         btnCapNhat = new javax.swing.JButton();
         btnLuu = new javax.swing.JButton();
         btnXoaTrang = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
+        jComboBox4 = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbNhanVien = new javax.swing.JTable();
 
@@ -107,7 +109,7 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jDateChooser1.setDateFormatString("yyyy-MM-dd");
-        jPanel5.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 50, 190, 40));
+        jPanel5.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, 160, 40));
 
         aaaa.setBackground(new java.awt.Color(255, 255, 255));
         aaaa.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách nhân viên cần chấm công", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
@@ -135,11 +137,12 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
         tbDanhSachCanChamCong.setSelectionBackground(new java.awt.Color(232, 57, 95));
         aaaa.setViewportView(tbDanhSachCanChamCong);
 
-        jPanel5.add(aaaa, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, 710, 210));
+        jPanel5.add(aaaa, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 750, 210));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel6.setText("Ngày chấm công:");
-        jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 190, 40));
+        jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 150, 40));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -187,14 +190,14 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
         jButton3.setBackground(new java.awt.Color(46, 204, 113));
         jButton3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/add.png"))); // NOI18N
-        jButton3.setText("Chấm công tất cả");
+        jButton3.setText("Lấy danh sách");
         jButton3.setBorder(null);
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 50, 200, 40));
+        jPanel5.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 50, 210, 40));
 
         jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -254,7 +257,15 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
         btnXoaTrang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/xoaTrang.png"))); // NOI18N
         btnXoaTrang.setText("Xóa trắng");
         btnXoaTrang.setBorder(null);
-        jPanel5.add(btnXoaTrang, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 340, 170, 40));
+        jPanel5.add(btnXoaTrang, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 340, 170, 40));
+
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel17.setText("Ca làm:");
+        jPanel5.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 50, 90, 40));
+
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ca 01", "Ca 02", "Ca 03", "Chủ nhật" }));
+        jPanel5.add(jComboBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 50, 80, 40));
 
         jPanel3.add(jPanel5, java.awt.BorderLayout.PAGE_START);
 
@@ -331,6 +342,7 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JComboBox<String> jComboBox5;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel10;
@@ -340,6 +352,7 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;

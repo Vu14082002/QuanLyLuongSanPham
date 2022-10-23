@@ -404,7 +404,7 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
         btnXoaTrang.setBackground(new java.awt.Color(255, 121, 121));
         btnXoaTrang.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         btnXoaTrang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/xoaTrang.png"))); // NOI18N
-        btnXoaTrang.setText("Xóa trắng");
+        btnXoaTrang.setText("Hủy");
         btnXoaTrang.setBorder(null);
         jPanel5.add(btnXoaTrang, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 430, 170, 40));
 

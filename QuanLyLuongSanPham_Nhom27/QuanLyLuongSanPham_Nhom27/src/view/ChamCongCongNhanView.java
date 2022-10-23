@@ -128,17 +128,17 @@ public class ChamCongCongNhanView extends javax.swing.JPanel {
         tbDanhSachCanChamCong.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         tbDanhSachCanChamCong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "STT", "Mã nhân viên", "Họ và tên", "Tên sản phẩm", "Tên công đoạn", "số lượng làm "
+                "STT", "Mã công nhân", "Họ và tên"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -148,7 +148,7 @@ public class ChamCongCongNhanView extends javax.swing.JPanel {
         tbDanhSachCanChamCong.setSelectionBackground(new java.awt.Color(232, 57, 95));
         aaaa.setViewportView(tbDanhSachCanChamCong);
 
-        jPanel5.add(aaaa, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 780, 210));
+        jPanel5.add(aaaa, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 780, 210));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel6.setText("Ngày chấm công:");
@@ -169,7 +169,7 @@ public class ChamCongCongNhanView extends javax.swing.JPanel {
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel14.setText("Mã nhân viên:");
+        jLabel14.setText("Mã công nhân");
         jPanel5.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 10, 190, 40));
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -207,8 +207,8 @@ public class ChamCongCongNhanView extends javax.swing.JPanel {
         lbErrMaNhanVien.setText("đây là dòng thông báo lỗi");
         jPanel5.add(lbErrMaNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 340, 190, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rap giày" }));
-        jPanel5.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 100, 140, 40));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cd001" }));
+        jPanel5.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 160, 150, 40));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -218,7 +218,7 @@ public class ChamCongCongNhanView extends javax.swing.JPanel {
         jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel20.setText("Mã công đoạn:");
-        jPanel5.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 100, 110, 40));
+        jPanel5.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 150, 40));
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ca 01", "Ca 02", "Ca 03", "Chủ nhật" }));
         jPanel5.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 40, 140, 40));
@@ -247,12 +247,12 @@ public class ChamCongCongNhanView extends javax.swing.JPanel {
         jLabel23.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel23.setText("Ca làm:");
-        jPanel5.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 40, 100, 40));
+        jPanel5.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 40, 100, 40));
 
         jLabel24.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel24.setText("Sản phẩm");
-        jPanel5.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 140, 40));
+        jPanel5.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 150, 40));
 
         jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SP001", " " }));
         jPanel5.add(jComboBox6, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, 150, 40));
@@ -267,7 +267,7 @@ public class ChamCongCongNhanView extends javax.swing.JPanel {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 170, 180, 40));
+        jPanel5.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 160, 180, 40));
 
         jButton8.setBackground(new java.awt.Color(156, 136, 255));
         jButton8.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -280,26 +280,26 @@ public class ChamCongCongNhanView extends javax.swing.JPanel {
         });
         jPanel5.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 390, 180, 40));
 
-        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SP001", " " }));
-        jPanel5.add(jComboBox7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 160, 150, 40));
+        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Giày mới", " " }));
+        jPanel5.add(jComboBox7, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 100, 140, 40));
 
         jLabel25.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel25.setText("Tên sản phẩm");
-        jPanel5.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 140, 40));
+        jPanel5.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 100, 120, 40));
 
         jComboBox8.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rap giày" }));
-        jPanel5.add(jComboBox8, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 170, 140, 40));
+        jPanel5.add(jComboBox8, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 160, 140, 40));
 
         jLabel26.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel26.setText("Công đoạn:");
-        jPanel5.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, 110, 40));
+        jPanel5.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 160, 110, 40));
 
         jPanel3.add(jPanel5, java.awt.BorderLayout.PAGE_START);
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách công nhân", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Bảng chấm công", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
 
         tbNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         tbNhanVien.setModel(new javax.swing.table.DefaultTableModel(
@@ -310,7 +310,7 @@ public class ChamCongCongNhanView extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "Mã công nhân", "Họ và tên", "Tổ/Nhóm", "Ngày chấm công", "Ca làm", "Trạng thái", "Phép", "Mã công đoạn", "Công đoạn", "Mã sản phẩm", "Sản phẩm"
+                "STT", "Mã công nhân", "Họ và tên", "Tổ/Nhóm", "Ngày chấm công", "Ca làm", "Trạng thái", "Mã sản phẩm", "Sản phẩm", "Mã công đoạn", "Công đoạn", "Số lượng làm"
             }
         ) {
             boolean[] canEdit = new boolean [] {

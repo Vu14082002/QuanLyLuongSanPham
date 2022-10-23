@@ -34,9 +34,13 @@ public class MainView extends javax.swing.JFrame {
     /// san pham
     private MenuItem capNhatSanPham = null;
     private MenuItem phanCongDoanSanPham = null;
+    private MenuItem timKiemSanPham = null;
     // he thong
     private MenuItem dangXuat = null;
     private MenuItem thongTinCaNhan = null;
+    // thong ke
+    private MenuItem thongKeNhanVien = null;
+    private MenuItem thongKeCongNhan = null;
     private ImageIcon iconSubMenuNonSelect = null;
     private ImageIcon iconSubMenuSelect = null;
 
@@ -63,7 +67,7 @@ public class MainView extends javax.swing.JFrame {
         //sub menuCongNhan
         capNhatCongNhan = new MenuItem(iconSubMenuNonSelect, "Cập nhật", ((e) -> {
             pnBody.removeAll();
-            pnBody.add(new CapNhatCongNhan(), BorderLayout.CENTER);
+            pnBody.add(new CapNhatCongNhanView(), BorderLayout.CENTER);
             pnBody.repaint();
             pnBody.revalidate();
             macDinh(capNhatCongNhan);
@@ -77,14 +81,14 @@ public class MainView extends javax.swing.JFrame {
         }));
         timKiemCongNhan = new MenuItem(iconSubMenuNonSelect, "Tìm kiếm", ((e) -> {
             pnBody.removeAll();
-            pnBody.add(new ChamCongCongNhanView(), BorderLayout.CENTER);
+            pnBody.add(new TimKiemCongNhanView(), BorderLayout.CENTER);
             pnBody.repaint();
             pnBody.revalidate();
             macDinh(timKiemCongNhan);
         }));
         tinhLuongCongNhan = new MenuItem(iconSubMenuNonSelect, "Lương", ((e) -> {
             pnBody.removeAll();
-            pnBody.add(new LuongNhanVienView(), BorderLayout.CENTER);
+            pnBody.add(new LuongCongNhanView(), BorderLayout.CENTER);
             pnBody.repaint();
             pnBody.revalidate();
             macDinh((tinhLuongCongNhan));
@@ -120,7 +124,7 @@ public class MainView extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 pnBody.removeAll();
-                pnBody.add(new CapNhatNhanVienView(), BorderLayout.CENTER);
+                pnBody.add(new TimKiemNhanVienView(), BorderLayout.CENTER);
                 pnBody.repaint();
                 pnBody.revalidate();
                 macDinh(timKiemNhanVien);
@@ -153,11 +157,17 @@ public class MainView extends javax.swing.JFrame {
             pnBody.revalidate();
             macDinh(phanCongDoanSanPham);
         }));
-
+         timKiemSanPham = new MenuItem(iconSubMenuNonSelect, "Tìm kiếm", ((e) -> {
+            pnBody.removeAll();
+            pnBody.add(new TimKiemSanPhamView(), BorderLayout.CENTER);
+            pnBody.repaint();
+            pnBody.revalidate();
+            macDinh(timKiemSanPham);
+        }));
         // he thong
         thongTinCaNhan = new MenuItem(iconSubMenuNonSelect, "Thông tin cá nhân", ((e) -> {
             pnBody.removeAll();
-            pnBody.add(new CapNhatCongNhan(), BorderLayout.CENTER);
+            pnBody.add(new QuanLyThongTinCaNhan(), BorderLayout.CENTER);
             pnBody.repaint();
             pnBody.revalidate();
             macDinh((thongTinCaNhan));
@@ -171,7 +181,21 @@ public class MainView extends javax.swing.JFrame {
                 macDinh((null));
             }
         }));
-
+         thongKeNhanVien = new MenuItem(iconSubMenuNonSelect, "Nhân viên", ((e) -> {
+            pnBody.removeAll();
+            pnBody.add(new CapNhatCongNhanView(), BorderLayout.CENTER);
+            pnBody.repaint();
+            pnBody.revalidate();
+            macDinh((thongKeNhanVien));
+        }));
+         thongKeCongNhan = new MenuItem(iconSubMenuNonSelect, "Công nhân", ((e) -> {
+            pnBody.removeAll();
+            pnBody.add(new CapNhatCongNhanView(), BorderLayout.CENTER);
+            pnBody.repaint();
+            pnBody.revalidate();
+            macDinh((thongKeCongNhan));
+        }));
+        // thong ke sub menu
         // add trang chu
         pnBody.removeAll();
         pnBody.add(new TrangChuView(), BorderLayout.CENTER);
@@ -196,8 +220,8 @@ public class MainView extends javax.swing.JFrame {
         MenuItem menuCongNhan = new MenuItem(iconWorker, "Công nhân", (ActionEvent e) -> {
             resetSelect();
         }, capNhatCongNhan, chamCongCongNhan, tinhLuongCongNhan, timKiemCongNhan);
-        MenuItem menuSanPham = new MenuItem(iconProduct, "Sản phẩm", null, capNhatSanPham, phanCongDoanSanPham);
-        MenuItem menuThongKe = new MenuItem(iconThongKe, "Thống kê", null);
+        MenuItem menuSanPham = new MenuItem(iconProduct, "Sản phẩm", null, capNhatSanPham, phanCongDoanSanPham,timKiemSanPham);
+        MenuItem menuThongKe = new MenuItem(iconThongKe, "Thống kê", null,thongKeNhanVien,thongKeCongNhan);
         MenuItem menuHeThong = new MenuItem(iconHeThong, "Hệ thống", null, thongTinCaNhan, dangXuat);
         addMenu(menuTrangChu, menuPhongBan, menuSanPham, menuNhanVien, menuCongNhan, menuThongKe, menuHeThong);
     }
@@ -216,9 +240,13 @@ public class MainView extends javax.swing.JFrame {
         /// san pham
         capNhatSanPham.setIcon(iconSubMenuNonSelect);
         phanCongDoanSanPham.setIcon(iconSubMenuNonSelect);
+        timKiemSanPham.setIcon(iconSubMenuNonSelect);
         // he thong
         dangXuat.setIcon(iconSubMenuNonSelect);
         thongTinCaNhan.setIcon(iconSubMenuNonSelect);
+        // thong ke
+        thongKeNhanVien.setIcon(iconSubMenuNonSelect);
+        thongKeCongNhan.setIcon(iconSubMenuNonSelect);
     }
     public void macDinh(MenuItem menu) {
         resetSelect();
@@ -256,6 +284,7 @@ public class MainView extends javax.swing.JFrame {
         pnBody = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
 
         pnHeader.setBackground(new java.awt.Color(41, 128, 185));
         pnHeader.setForeground(new java.awt.Color(41, 128, 185));

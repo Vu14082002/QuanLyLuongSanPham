@@ -1,64 +1,45 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package view;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.io.File;
-import java.util.Date;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
- * @author Student
+ * @author December
  */
-public class CapNhatCongNhanView extends javax.swing.JFrame {
+public class CapNhatCongNhanView extends javax.swing.JPanel {
 
     /**
-     * Creates new form modalThemNhanSuView
+     * Creates new form NhanVienView
      */
     public CapNhatCongNhanView() {
         initComponents();
-        init();
+        excute();
+        
     }
 
-    public void init() {
-        this.txtMaCongNha.setText("");
-        this.lbErrMaCongNhan.setText("");
-        this.txtHoVaTen.setText("");
-        this.lbErrHovaTen.setText("");
-        this.txtSoCCCD.setText("");
-        this.lbErrSoCCCD.setText("");
-        this.txtEmail.setText("");
-        this.lbErrEmail.setText("");
-        this.txtSoDienThoaiNhanVien.setText("");
-        this.lbErrSoDienThoai.setText("");
-        this.lbErrSoCCCD.setText("");
-        this.txtDiaChi.setText("");
-        this.lbErrDiaChi.setText("");
-        this.rdNam.setSelected(true);
-        this.txtDiaChi.setText("");
-//        this.txtLuongNhanVien.setText("");
-//        this.lbErrLuongNhanVien.setText("");
+    public void excute() {
+       
 
-        this.txtMaCongNha.setBackground(new Color(0, 0, 0, 1));
-        this.txtHoVaTen.setBackground(new Color(0, 0, 0, 1));
-        this.txtSoCCCD.setBackground(new Color(0, 0, 0, 1));
-        this.txtEmail.setBackground(new Color(0, 0, 0, 1));
-        this.txtSoDienThoaiNhanVien.setBackground(new Color(0, 0, 0, 1));
-        this.txtDiaChi.setBackground(new Color(0, 0, 0, 1));
-//        this.txtLuongNhanVien.setBackground(new Color(0,0,0,1));
-        
-        ButtonGroup btngroup = new ButtonGroup();
-        btngroup.add(this.rdNam);
-        btngroup.add(this.rdNu);
-        
-        
-        this.jDateNgayVaoLam.setDate(new Date());
+        // custom table
+        tbNhanVien.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        tbNhanVien.getTableHeader().setOpaque(false);
+        ((DefaultTableCellRenderer) tbNhanVien.getTableHeader().getDefaultRenderer())
+                .setHorizontalAlignment(JLabel.CENTER);
+        tbNhanVien.setRowHeight(25);
+        ButtonGroup btnGroup = new ButtonGroup();
+        btnGroup.add(rdNam);
+        btnGroup.add(rdNu);
     }
 
     /**
@@ -70,248 +51,228 @@ public class CapNhatCongNhanView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
-        panelBorder1 = new CustomView.PanelBorder();
-        lbCapNhatCongNhan = new javax.swing.JLabel();
-        lbExitModal = new javax.swing.JLabel();
-        lbMaCongNhan = new javax.swing.JLabel();
-        lbGachChanMaNhanVien = new javax.swing.JLabel();
-        txtMaCongNha = new javax.swing.JTextField();
-        lbErrMaCongNhan = new javax.swing.JLabel();
-        lbHoVaTen = new javax.swing.JLabel();
-        txtHoVaTen = new javax.swing.JTextField();
-        lbGachChanHoVaTenNhanVien = new javax.swing.JLabel();
-        lbAnhDaiDienNhanVien = new javax.swing.JLabel();
-        lbErrHovaTen = new javax.swing.JLabel();
-        lbSoCCCD = new javax.swing.JLabel();
-        txtSoCCCD = new javax.swing.JTextField();
-        lbGachChanSoCCCDNhanVien = new javax.swing.JLabel();
-        btnAnhDaiDien = new javax.swing.JButton();
-        lbErrSoCCCD = new javax.swing.JLabel();
-        lbEmail = new javax.swing.JLabel();
-        lbGachChanEmailNhanVien = new javax.swing.JLabel();
-        txtEmail = new javax.swing.JTextField();
-        lbSoDienThoaiNhanVien = new javax.swing.JLabel();
-        lbErrEmail = new javax.swing.JLabel();
-        txtSoDienThoaiNhanVien = new javax.swing.JTextField();
-        lbGachChanSoDienThoaiNhanVien = new javax.swing.JLabel();
-        lbErrSoDienThoai = new javax.swing.JLabel();
-        lbDiaChi = new javax.swing.JLabel();
-        txtDiaChi = new javax.swing.JTextField();
-        lbErrDiaChi = new javax.swing.JLabel();
-        lbGachChanDiaChiNhanVien1 = new javax.swing.JLabel();
-        lbGioiTinh = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbNhanVien = new javax.swing.JTable();
+        jPanel5 = new javax.swing.JPanel();
+        lbAnhDaiDien = new javax.swing.JLabel();
+        btnAnhSanPham = new javax.swing.JPanel();
+        lbAnhSanPhamOfbtn = new javax.swing.JLabel();
+        lbErrTenSanPham = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtTenSanPham1 = new javax.swing.JTextField();
+        lbTenSanPham1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txtTenSanPham2 = new javax.swing.JTextField();
+        lbErrTenSanPham1 = new javax.swing.JLabel();
+        lbTenSanPham2 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        txtTenSanPham3 = new javax.swing.JTextField();
+        lbErrTenSanPham2 = new javax.swing.JLabel();
+        lbTenSanPham3 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        txtTenSanPham4 = new javax.swing.JTextField();
+        lbTenSanPham5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtTenSanPham5 = new javax.swing.JTextField();
+        lbErrTenSanPham4 = new javax.swing.JLabel();
+        lbTenSanPham4 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        lbErrTenSanPham5 = new javax.swing.JLabel();
+        txtTenSanPham6 = new javax.swing.JTextField();
+        lbTenSanPham6 = new javax.swing.JLabel();
+        lbTenSanPham8 = new javax.swing.JLabel();
         rdNam = new javax.swing.JRadioButton();
         rdNu = new javax.swing.JRadioButton();
         jdateNgaySinh = new com.toedter.calendar.JDateChooser();
-        lbNgaySinh = new javax.swing.JLabel();
-        lbToNhom = new javax.swing.JLabel();
         cbPhongBanNhanVien = new javax.swing.JComboBox<>();
         cbChucVuNhanVien = new javax.swing.JComboBox<>();
-        lbChucVu = new javax.swing.JLabel();
-        lbNgayVaoLam = new javax.swing.JLabel();
-        jDateNgayVaoLam = new com.toedter.calendar.JDateChooser();
+        lbTenSanPham9 = new javax.swing.JLabel();
+        lbTenSanPham10 = new javax.swing.JLabel();
+        lbErrTenSanPham7 = new javax.swing.JLabel();
+        lbTenSanPham11 = new javax.swing.JLabel();
+        jdateNgaySinh1 = new com.toedter.calendar.JDateChooser();
+        lbTenSanPham12 = new javax.swing.JLabel();
+        lbErrTenSanPham8 = new javax.swing.JLabel();
+        btnThem = new javax.swing.JButton();
+        btnXoa = new javax.swing.JButton();
+        btnCapNhat = new javax.swing.JButton();
         btnLuu = new javax.swing.JButton();
-        btnThoat = new javax.swing.JButton();
+        btnXoaTrang = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(1200, 700));
 
-        panelBorder1.setBackground(new java.awt.Color(204, 102, 255));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1250, 700));
+        jPanel1.setLayout(new java.awt.BorderLayout());
 
-        lbCapNhatCongNhan.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
-        lbCapNhatCongNhan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbCapNhatCongNhan.setText("Cập nhật công nhân");
-        panelBorder1.add(lbCapNhatCongNhan);
-        lbCapNhatCongNhan.setBounds(40, 10, 620, 50);
+        jPanel3.setLayout(new java.awt.BorderLayout());
 
-        lbExitModal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/close.png"))); // NOI18N
-        lbExitModal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lbExitModal.addMouseListener(new java.awt.event.MouseAdapter() {
+        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        tbNhanVien.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "STT", "Mã công nhân", "Họ và tên", "Sô CCCd", "Giới tính", "Ngày sinh", "Số điện thoại", "Địa chỉ", "Ảnh đại diện", "Email", "Tổ/Nhóm", "Chức vụ", "Ngày vào làm"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbNhanVien.setSelectionBackground(new java.awt.Color(232, 57, 95));
+        jScrollPane1.setViewportView(tbNhanVien);
+
+        jPanel3.add(jScrollPane1, java.awt.BorderLayout.PAGE_START);
+
+        jPanel1.add(jPanel3, java.awt.BorderLayout.CENTER);
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setPreferredSize(new java.awt.Dimension(1250, 500));
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lbAnhDaiDien.setBackground(new java.awt.Color(153, 0, 0));
+        lbAnhDaiDien.setForeground(new java.awt.Color(255, 0, 51));
+        lbAnhDaiDien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Anh/male.png"))); // NOI18N
+        jPanel5.add(lbAnhDaiDien, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
+
+        lbAnhSanPhamOfbtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbAnhSanPhamOfbtn.setText("Ảnh đại diện");
+        lbAnhSanPhamOfbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lbExitModalMouseClicked(evt);
+                lbAnhSanPhamOfbtnMouseClicked(evt);
             }
         });
-        panelBorder1.add(lbExitModal);
-        lbExitModal.setBounds(660, 20, 30, 30);
 
-        lbMaCongNhan.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lbMaCongNhan.setText("Mã công nhân");
-        panelBorder1.add(lbMaCongNhan);
-        lbMaCongNhan.setBounds(200, 90, 180, 18);
+        javax.swing.GroupLayout btnAnhSanPhamLayout = new javax.swing.GroupLayout(btnAnhSanPham);
+        btnAnhSanPham.setLayout(btnAnhSanPhamLayout);
+        btnAnhSanPhamLayout.setHorizontalGroup(
+            btnAnhSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnAnhSanPhamLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lbAnhSanPhamOfbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        btnAnhSanPhamLayout.setVerticalGroup(
+            btnAnhSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnAnhSanPhamLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lbAnhSanPhamOfbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
-        lbGachChanMaNhanVien.setText("_______________________________________");
-        panelBorder1.add(lbGachChanMaNhanVien);
-        lbGachChanMaNhanVien.setBounds(380, 100, 273, 16);
+        jPanel5.add(btnAnhSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, -1, -1));
 
-        txtMaCongNha.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        txtMaCongNha.setText("jTextField1");
-        txtMaCongNha.setBorder(null);
-        txtMaCongNha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMaCongNhaActionPerformed(evt);
-            }
-        });
-        panelBorder1.add(txtMaCongNha);
-        txtMaCongNha.setBounds(380, 90, 270, 20);
+        lbErrTenSanPham.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lbErrTenSanPham.setForeground(new java.awt.Color(204, 0, 0));
+        lbErrTenSanPham.setText("đây là dòng thông báo lỗi");
+        jPanel5.add(lbErrTenSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 70, 200, -1));
 
-        lbErrMaCongNhan.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lbErrMaCongNhan.setForeground(new java.awt.Color(204, 0, 0));
-        lbErrMaCongNhan.setText("đây là dòng thông báo lỗi");
-        panelBorder1.add(lbErrMaCongNhan);
-        lbErrMaCongNhan.setBounds(380, 120, 230, 20);
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel3.setText("_______________________________");
+        jPanel5.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 50, 290, 20));
 
-        lbHoVaTen.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lbHoVaTen.setText("Họ và tên:");
-        panelBorder1.add(lbHoVaTen);
-        lbHoVaTen.setBounds(200, 150, 180, 20);
+        txtTenSanPham1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtTenSanPham1.setBorder(null);
+        jPanel5.add(txtTenSanPham1, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 30, 270, 40));
 
-        txtHoVaTen.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        txtHoVaTen.setText("jTextField1");
-        txtHoVaTen.setBorder(null);
-        txtHoVaTen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtHoVaTenActionPerformed(evt);
-            }
-        });
-        panelBorder1.add(txtHoVaTen);
-        txtHoVaTen.setBounds(380, 150, 270, 20);
+        lbTenSanPham1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbTenSanPham1.setText("Họ và tên:");
+        jPanel5.add(lbTenSanPham1, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 40, 140, 40));
 
-        lbGachChanHoVaTenNhanVien.setText("_______________________________________");
-        panelBorder1.add(lbGachChanHoVaTenNhanVien);
-        lbGachChanHoVaTenNhanVien.setBounds(380, 160, 273, 16);
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel4.setText("_______________________________");
+        jPanel5.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 120, 290, 20));
 
-        lbAnhDaiDienNhanVien.setBackground(new java.awt.Color(153, 0, 0));
-        lbAnhDaiDienNhanVien.setForeground(new java.awt.Color(255, 0, 51));
-        lbAnhDaiDienNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Anh/male.png"))); // NOI18N
-        panelBorder1.add(lbAnhDaiDienNhanVien);
-        lbAnhDaiDienNhanVien.setBounds(20, 130, 140, 160);
+        txtTenSanPham2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtTenSanPham2.setBorder(null);
+        jPanel5.add(txtTenSanPham2, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 100, 270, 40));
 
-        lbErrHovaTen.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lbErrHovaTen.setForeground(new java.awt.Color(204, 0, 0));
-        lbErrHovaTen.setText("đây là dòng thông báo lỗi");
-        panelBorder1.add(lbErrHovaTen);
-        lbErrHovaTen.setBounds(380, 180, 230, 18);
+        lbErrTenSanPham1.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lbErrTenSanPham1.setForeground(new java.awt.Color(204, 0, 0));
+        lbErrTenSanPham1.setText("đây là dòng thông báo lỗi");
+        jPanel5.add(lbErrTenSanPham1, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 140, 200, -1));
 
-        lbSoCCCD.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lbSoCCCD.setText("Số CCCD:");
-        panelBorder1.add(lbSoCCCD);
-        lbSoCCCD.setBounds(200, 210, 170, 18);
+        lbTenSanPham2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbTenSanPham2.setText("Email:");
+        jPanel5.add(lbTenSanPham2, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 100, 140, 40));
 
-        txtSoCCCD.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        txtSoCCCD.setText("jTextField1");
-        txtSoCCCD.setBorder(null);
-        txtSoCCCD.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSoCCCDActionPerformed(evt);
-            }
-        });
-        panelBorder1.add(txtSoCCCD);
-        txtSoCCCD.setBounds(380, 210, 270, 20);
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel5.setText("_______________________________");
+        jPanel5.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 110, 290, 20));
 
-        lbGachChanSoCCCDNhanVien.setText("_______________________________________");
-        panelBorder1.add(lbGachChanSoCCCDNhanVien);
-        lbGachChanSoCCCDNhanVien.setBounds(380, 220, 273, 16);
+        txtTenSanPham3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtTenSanPham3.setBorder(null);
+        jPanel5.add(txtTenSanPham3, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 90, 270, 40));
 
-        btnAnhDaiDien.setText("Ảnh đại diện");
-        btnAnhDaiDien.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAnhDaiDien.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAnhDaiDienActionPerformed(evt);
-            }
-        });
-        panelBorder1.add(btnAnhDaiDien);
-        btnAnhDaiDien.setBounds(30, 300, 103, 25);
+        lbErrTenSanPham2.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lbErrTenSanPham2.setForeground(new java.awt.Color(204, 0, 0));
+        lbErrTenSanPham2.setText("đây là dòng thông báo lỗi");
+        jPanel5.add(lbErrTenSanPham2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 130, 200, -1));
 
-        lbErrSoCCCD.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lbErrSoCCCD.setForeground(new java.awt.Color(204, 0, 0));
-        lbErrSoCCCD.setText("đây là dòng thông báo lỗi");
-        panelBorder1.add(lbErrSoCCCD);
-        lbErrSoCCCD.setBounds(380, 240, 230, 18);
+        lbTenSanPham3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbTenSanPham3.setText("Sô CCCD:");
+        jPanel5.add(lbTenSanPham3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 140, 40));
 
-        lbEmail.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lbEmail.setText("Email:");
-        panelBorder1.add(lbEmail);
-        lbEmail.setBounds(200, 270, 180, 18);
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel7.setText("_______________________________");
+        jPanel5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 50, 290, 20));
 
-        lbGachChanEmailNhanVien.setText("_______________________________________");
-        panelBorder1.add(lbGachChanEmailNhanVien);
-        lbGachChanEmailNhanVien.setBounds(380, 280, 273, 16);
+        txtTenSanPham4.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtTenSanPham4.setBorder(null);
+        jPanel5.add(txtTenSanPham4, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, 270, 40));
 
-        txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        txtEmail.setText("jTextField1");
-        txtEmail.setBorder(null);
-        txtEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEmailActionPerformed(evt);
-            }
-        });
-        panelBorder1.add(txtEmail);
-        txtEmail.setBounds(380, 270, 270, 20);
+        lbTenSanPham5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbTenSanPham5.setText("Mã công nhân");
+        jPanel5.add(lbTenSanPham5, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, 140, 40));
 
-        lbSoDienThoaiNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lbSoDienThoaiNhanVien.setText("Số điện thoại");
-        panelBorder1.add(lbSoDienThoaiNhanVien);
-        lbSoDienThoaiNhanVien.setBounds(200, 330, 180, 18);
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel6.setText("_______________________________");
+        jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 170, 290, 20));
 
-        lbErrEmail.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lbErrEmail.setForeground(new java.awt.Color(204, 0, 0));
-        lbErrEmail.setText("đây là dòng thông báo lỗi");
-        panelBorder1.add(lbErrEmail);
-        lbErrEmail.setBounds(380, 300, 230, 18);
+        txtTenSanPham5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtTenSanPham5.setBorder(null);
+        jPanel5.add(txtTenSanPham5, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 150, 270, 40));
 
-        txtSoDienThoaiNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        txtSoDienThoaiNhanVien.setText("jTextField1");
-        txtSoDienThoaiNhanVien.setBorder(null);
-        txtSoDienThoaiNhanVien.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSoDienThoaiNhanVienActionPerformed(evt);
-            }
-        });
-        panelBorder1.add(txtSoDienThoaiNhanVien);
-        txtSoDienThoaiNhanVien.setBounds(380, 330, 270, 20);
+        lbErrTenSanPham4.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lbErrTenSanPham4.setForeground(new java.awt.Color(204, 0, 0));
+        lbErrTenSanPham4.setText("đây là dòng thông báo lỗi");
+        jPanel5.add(lbErrTenSanPham4, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 260, 200, -1));
 
-        lbGachChanSoDienThoaiNhanVien.setText("_______________________________________");
-        panelBorder1.add(lbGachChanSoDienThoaiNhanVien);
-        lbGachChanSoDienThoaiNhanVien.setBounds(380, 340, 273, 16);
+        lbTenSanPham4.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbTenSanPham4.setText("Chức vụ");
+        jPanel5.add(lbTenSanPham4, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 290, 140, 40));
 
-        lbErrSoDienThoai.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lbErrSoDienThoai.setForeground(new java.awt.Color(204, 0, 0));
-        lbErrSoDienThoai.setText("đây là dòng thông báo lỗi");
-        panelBorder1.add(lbErrSoDienThoai);
-        lbErrSoDienThoai.setBounds(380, 360, 230, 18);
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel8.setText("_______________________________");
+        jPanel5.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 180, 290, 20));
 
-        lbDiaChi.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lbDiaChi.setText("Địa chỉ thường chú:");
-        panelBorder1.add(lbDiaChi);
-        lbDiaChi.setBounds(200, 390, 180, 18);
+        lbErrTenSanPham5.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lbErrTenSanPham5.setForeground(new java.awt.Color(204, 0, 0));
+        lbErrTenSanPham5.setText("đây là dòng thông báo lỗi");
+        jPanel5.add(lbErrTenSanPham5, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 200, 200, -1));
 
-        txtDiaChi.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        txtDiaChi.setText("jTextField1");
-        txtDiaChi.setBorder(null);
-        txtDiaChi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDiaChiActionPerformed(evt);
-            }
-        });
-        panelBorder1.add(txtDiaChi);
-        txtDiaChi.setBounds(380, 390, 270, 20);
+        txtTenSanPham6.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtTenSanPham6.setBorder(null);
+        jPanel5.add(txtTenSanPham6, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 160, 270, 40));
 
-        lbErrDiaChi.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lbErrDiaChi.setForeground(new java.awt.Color(204, 0, 0));
-        lbErrDiaChi.setText("đây là dòng thông báo lỗi");
-        panelBorder1.add(lbErrDiaChi);
-        lbErrDiaChi.setBounds(380, 420, 230, 18);
+        lbTenSanPham6.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbTenSanPham6.setText("Giới tính");
+        jPanel5.add(lbTenSanPham6, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 220, 140, 40));
 
-        lbGachChanDiaChiNhanVien1.setText("_______________________________________");
-        panelBorder1.add(lbGachChanDiaChiNhanVien1);
-        lbGachChanDiaChiNhanVien1.setBounds(380, 400, 273, 16);
+        lbTenSanPham8.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbTenSanPham8.setText("Địa chỉ:");
+        jPanel5.add(lbTenSanPham8, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 160, 140, 40));
 
-        lbGioiTinh.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lbGioiTinh.setText("Giới tính:");
-        panelBorder1.add(lbGioiTinh);
-        lbGioiTinh.setBounds(200, 450, 180, 20);
-
+        rdNam.setSelected(true);
         rdNam.setText("Nam");
         rdNam.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         rdNam.addActionListener(new java.awt.event.ActionListener() {
@@ -319,8 +280,7 @@ public class CapNhatCongNhanView extends javax.swing.JFrame {
                 rdNamActionPerformed(evt);
             }
         });
-        panelBorder1.add(rdNam);
-        rdNam.setBounds(380, 450, 60, 25);
+        jPanel5.add(rdNam, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 230, -1, -1));
 
         rdNu.setText("Nữ");
         rdNu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -329,481 +289,215 @@ public class CapNhatCongNhanView extends javax.swing.JFrame {
                 rdNuActionPerformed(evt);
             }
         });
-        panelBorder1.add(rdNu);
-        rdNu.setBounds(470, 450, 60, 25);
+        jPanel5.add(rdNu, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 230, -1, -1));
 
         jdateNgaySinh.setDateFormatString("yyyy-MM-dd");
-        panelBorder1.add(jdateNgaySinh);
-        jdateNgaySinh.setBounds(380, 490, 270, 30);
+        jPanel5.add(jdateNgaySinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 220, 280, 40));
 
-        lbNgaySinh.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lbNgaySinh.setText("Ngày sinh:");
-        panelBorder1.add(lbNgaySinh);
-        lbNgaySinh.setBounds(200, 500, 120, 18);
-
-        lbToNhom.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lbToNhom.setText("Tổ/Nhóm");
-        panelBorder1.add(lbToNhom);
-        lbToNhom.setBounds(200, 530, 130, 30);
-
-        cbPhongBanNhanVien.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Phòng tài chính", "Phòng kinh doanh", "Phòng nhân sự" }));
+        cbPhongBanNhanVien.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
         cbPhongBanNhanVien.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        panelBorder1.add(cbPhongBanNhanVien);
-        cbPhongBanNhanVien.setBounds(380, 530, 270, 30);
+        jPanel5.add(cbPhongBanNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 290, 280, 40));
 
-        cbChucVuNhanVien.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quản lý", "Nhân viên" }));
+        cbChucVuNhanVien.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tổ trưởng", "Công nhân" }));
         cbChucVuNhanVien.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cbChucVuNhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbChucVuNhanVienActionPerformed(evt);
             }
         });
-        panelBorder1.add(cbChucVuNhanVien);
-        cbChucVuNhanVien.setBounds(380, 570, 270, 30);
+        jPanel5.add(cbChucVuNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 290, 280, 40));
 
-        lbChucVu.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lbChucVu.setText("Chức vụ:");
-        panelBorder1.add(lbChucVu);
-        lbChucVu.setBounds(200, 570, 120, 30);
+        lbTenSanPham9.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbTenSanPham9.setText("Số điện thoại:");
+        jPanel5.add(lbTenSanPham9, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, 140, 40));
 
-        lbNgayVaoLam.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lbNgayVaoLam.setText("Ngày vào làm:");
-        panelBorder1.add(lbNgayVaoLam);
-        lbNgayVaoLam.setBounds(200, 610, 130, 30);
+        lbTenSanPham10.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbTenSanPham10.setText("Ngày sinh:");
+        jPanel5.add(lbTenSanPham10, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 220, 140, 40));
 
-        jDateNgayVaoLam.setDateFormatString("yyyy-MM-dd");
-        panelBorder1.add(jDateNgayVaoLam);
-        jDateNgayVaoLam.setBounds(380, 610, 270, 30);
+        lbErrTenSanPham7.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lbErrTenSanPham7.setForeground(new java.awt.Color(204, 0, 0));
+        lbErrTenSanPham7.setText("đây là dòng thông báo lỗi");
+        jPanel5.add(lbErrTenSanPham7, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 190, 200, -1));
 
-        btnLuu.setBackground(new java.awt.Color(39, 174, 96));
-        btnLuu.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        btnLuu.setText("Lưu");
-        btnLuu.setBorder(null);
-        btnLuu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        panelBorder1.add(btnLuu);
-        btnLuu.setBounds(190, 670, 130, 40);
+        lbTenSanPham11.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbTenSanPham11.setText("Tổ/Nhóm");
+        jPanel5.add(lbTenSanPham11, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 290, 130, 40));
 
-        btnThoat.setBackground(new java.awt.Color(231, 76, 60));
-        btnThoat.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        btnThoat.setText("Thoát");
-        btnThoat.setBorder(null);
-        btnThoat.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnThoat.addActionListener(new java.awt.event.ActionListener() {
+        jdateNgaySinh1.setDateFormatString("yyyy-MM-dd");
+        jPanel5.add(jdateNgaySinh1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 350, 280, 40));
+
+        lbTenSanPham12.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbTenSanPham12.setText("Ngày vào làm:");
+        jPanel5.add(lbTenSanPham12, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 350, 140, 40));
+
+        lbErrTenSanPham8.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lbErrTenSanPham8.setForeground(new java.awt.Color(204, 0, 0));
+        lbErrTenSanPham8.setText("đây là dòng thông báo lỗi");
+        jPanel5.add(lbErrTenSanPham8, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 390, 200, -1));
+
+        btnThem.setBackground(new java.awt.Color(46, 204, 113));
+        btnThem.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/add.png"))); // NOI18N
+        btnThem.setText("Thêm");
+        btnThem.setBorder(null);
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThoatActionPerformed(evt);
+                btnThemActionPerformed(evt);
             }
         });
-        panelBorder1.add(btnThoat);
-        btnThoat.setBounds(410, 670, 130, 40);
+        jPanel5.add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 430, 170, 40));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        btnXoa.setBackground(new java.awt.Color(41, 128, 185));
+        btnXoa.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/close.png"))); // NOI18N
+        btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 430, 160, 40));
+
+        btnCapNhat.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnCapNhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/update.png"))); // NOI18N
+        btnCapNhat.setText("Cập nhật");
+        btnCapNhat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCapNhatActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnCapNhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 430, 160, 40));
+
+        btnLuu.setBackground(new java.awt.Color(156, 136, 255));
+        btnLuu.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/save.png"))); // NOI18N
+        btnLuu.setText("Lưu");
+        btnLuu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLuuActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnLuu, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 430, 160, 40));
+
+        btnXoaTrang.setBackground(new java.awt.Color(255, 121, 121));
+        btnXoaTrang.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        btnXoaTrang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/xoaTrang.png"))); // NOI18N
+        btnXoaTrang.setText("Hủy");
+        btnXoaTrang.setBorder(null);
+        jPanel5.add(btnXoaTrang, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 430, 170, 40));
+
+        jPanel1.add(jPanel5, java.awt.BorderLayout.PAGE_START);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, 719, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, 738, javax.swing.GroupLayout.PREFERRED_SIZE)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
-
-        setSize(new java.awt.Dimension(719, 738));
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtMaCongNhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaCongNhaActionPerformed
-
-    }//GEN-LAST:event_txtMaCongNhaActionPerformed
-
-    private void txtHoVaTenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHoVaTenActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtHoVaTenActionPerformed
-
-    private void txtSoCCCDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSoCCCDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSoCCCDActionPerformed
-
-    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEmailActionPerformed
-
-    private void txtSoDienThoaiNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSoDienThoaiNhanVienActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSoDienThoaiNhanVienActionPerformed
-
-    private void txtDiaChiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDiaChiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDiaChiActionPerformed
-
-    private void rdNuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdNuActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rdNuActionPerformed
-
-    private void rdNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdNamActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rdNamActionPerformed
-
-    private void cbChucVuNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbChucVuNhanVienActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbChucVuNhanVienActionPerformed
-
-    private void lbExitModalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbExitModalMouseClicked
-        this.dispose();
-    }//GEN-LAST:event_lbExitModalMouseClicked
-
-    private void btnAnhDaiDienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnhDaiDienActionPerformed
+    private void lbAnhSanPhamOfbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbAnhSanPhamOfbtnMouseClicked
         JFileChooser fileChooser = new JFileChooser("d:");
-//        int respone=fileChooser.showOpenDialog(null);
-        fileChooser.setCurrentDirectory(new File(".\\src\\image"));
+        //        int respone=fileChooser.showOpenDialog(null);
+        fileChooser.setCurrentDirectory(new File(".\\src\\image\\Anh"));
         int respone=fileChooser.showSaveDialog(null);
         if(respone== JFileChooser.APPROVE_OPTION ){
             File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
             System.out.println(file);
             String path = file.toString().split("src")[1].replace('\\', '/');
             System.out.println("path file split: "+file.toString().split("src")[1]);
-            this.lbAnhDaiDienNhanVien.setIcon(new ImageIcon(this.getClass().getResource(path)));
-            System.out.println(this.lbAnhDaiDienNhanVien.getIcon().toString());
+            this.lbAnhDaiDien.setIcon(new ImageIcon(this.getClass().getResource(path)));
+            System.out.println(this.lbAnhDaiDien.getIcon().toString());
         }
-    }//GEN-LAST:event_btnAnhDaiDienActionPerformed
+    }//GEN-LAST:event_lbAnhSanPhamOfbtnMouseClicked
 
-    private void btnThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoatActionPerformed
-        if(evt.getSource()==this.btnThoat)
-            this.dispose();
-    }//GEN-LAST:event_btnThoatActionPerformed
+    private void rdNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdNamActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rdNamActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CapNhatCongNhanView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CapNhatCongNhanView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CapNhatCongNhanView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CapNhatCongNhanView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+    private void rdNuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdNuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rdNuActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CapNhatCongNhanView().setVisible(true);
-            }
-        });
-    }
+    private void cbChucVuNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbChucVuNhanVienActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbChucVuNhanVienActionPerformed
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCapNhatActionPerformed
+
+    private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLuuActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAnhDaiDien;
+    private javax.swing.JPanel btnAnhSanPham;
+    private javax.swing.JButton btnCapNhat;
     private javax.swing.JButton btnLuu;
-    private javax.swing.JButton btnThoat;
-    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnXoa;
+    private javax.swing.JButton btnXoaTrang;
     private javax.swing.JComboBox<String> cbChucVuNhanVien;
     private javax.swing.JComboBox<String> cbPhongBanNhanVien;
-    private com.toedter.calendar.JDateChooser jDateNgayVaoLam;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
     private com.toedter.calendar.JDateChooser jdateNgaySinh;
-    private javax.swing.JLabel lbAnhDaiDienNhanVien;
-    private javax.swing.JLabel lbCapNhatCongNhan;
-    private javax.swing.JLabel lbChucVu;
-    private javax.swing.JLabel lbDiaChi;
-    private javax.swing.JLabel lbEmail;
-    private javax.swing.JLabel lbErrDiaChi;
-    private javax.swing.JLabel lbErrEmail;
-    private javax.swing.JLabel lbErrHovaTen;
-    private javax.swing.JLabel lbErrMaCongNhan;
-    private javax.swing.JLabel lbErrSoCCCD;
-    private javax.swing.JLabel lbErrSoDienThoai;
-    private javax.swing.JLabel lbExitModal;
-    private javax.swing.JLabel lbGachChanDiaChiNhanVien1;
-    private javax.swing.JLabel lbGachChanEmailNhanVien;
-    private javax.swing.JLabel lbGachChanHoVaTenNhanVien;
-    private javax.swing.JLabel lbGachChanMaNhanVien;
-    private javax.swing.JLabel lbGachChanSoCCCDNhanVien;
-    private javax.swing.JLabel lbGachChanSoDienThoaiNhanVien;
-    private javax.swing.JLabel lbGioiTinh;
-    private javax.swing.JLabel lbHoVaTen;
-    private javax.swing.JLabel lbMaCongNhan;
-    private javax.swing.JLabel lbNgaySinh;
-    private javax.swing.JLabel lbNgayVaoLam;
-    private javax.swing.JLabel lbSoCCCD;
-    private javax.swing.JLabel lbSoDienThoaiNhanVien;
-    private javax.swing.JLabel lbToNhom;
-    private CustomView.PanelBorder panelBorder1;
+    private com.toedter.calendar.JDateChooser jdateNgaySinh1;
+    private javax.swing.JLabel lbAnhDaiDien;
+    private javax.swing.JLabel lbAnhSanPhamOfbtn;
+    private javax.swing.JLabel lbErrTenSanPham;
+    private javax.swing.JLabel lbErrTenSanPham1;
+    private javax.swing.JLabel lbErrTenSanPham2;
+    private javax.swing.JLabel lbErrTenSanPham4;
+    private javax.swing.JLabel lbErrTenSanPham5;
+    private javax.swing.JLabel lbErrTenSanPham7;
+    private javax.swing.JLabel lbErrTenSanPham8;
+    private javax.swing.JLabel lbTenSanPham1;
+    private javax.swing.JLabel lbTenSanPham10;
+    private javax.swing.JLabel lbTenSanPham11;
+    private javax.swing.JLabel lbTenSanPham12;
+    private javax.swing.JLabel lbTenSanPham2;
+    private javax.swing.JLabel lbTenSanPham3;
+    private javax.swing.JLabel lbTenSanPham4;
+    private javax.swing.JLabel lbTenSanPham5;
+    private javax.swing.JLabel lbTenSanPham6;
+    private javax.swing.JLabel lbTenSanPham8;
+    private javax.swing.JLabel lbTenSanPham9;
     private javax.swing.JRadioButton rdNam;
     private javax.swing.JRadioButton rdNu;
-    private javax.swing.JTextField txtDiaChi;
-    private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtHoVaTen;
-    private javax.swing.JTextField txtMaCongNha;
-    private javax.swing.JTextField txtSoCCCD;
-    private javax.swing.JTextField txtSoDienThoaiNhanVien;
+    private javax.swing.JTable tbNhanVien;
+    private javax.swing.JTextField txtTenSanPham1;
+    private javax.swing.JTextField txtTenSanPham2;
+    private javax.swing.JTextField txtTenSanPham3;
+    private javax.swing.JTextField txtTenSanPham4;
+    private javax.swing.JTextField txtTenSanPham5;
+    private javax.swing.JTextField txtTenSanPham6;
     // End of variables declaration//GEN-END:variables
 }

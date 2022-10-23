@@ -62,7 +62,6 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
         btnXoa.addActionListener(this);
         btnCapNhat.addActionListener(this);
         btnLuu.addActionListener(this);
-
         execute();
 
     }
@@ -246,6 +245,7 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
         add(pnlPhongBan, java.awt.BorderLayout.PAGE_START);
 
         scrPhongBan.setBackground(new java.awt.Color(0, 0, 0));
+        scrPhongBan.setOpaque(false);
 
         tblPhongBan.getTableHeader().setBackground(new Color(32,136,203));
         tblPhongBan.setModel(new javax.swing.table.DefaultTableModel(

@@ -277,17 +277,17 @@ public class PhanCongDoanSanPhamView extends javax.swing.JPanel {
         tbNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         tbNhanVien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "Mã sản phẩm", "Tên sản phẩm", "Mã công đoạn", "Tên  công đoạn", "Số lượng cần làm", "giá tiền 1 sản phẩm", "Thòi hạn", "Mưc độ hoàn thành"
+                "STT", "Mã công đoạn", "Tên  công đoạn", "Số lượng cần làm", "giá tiền 1 sản phẩm", "Thòi hạn", "Mức độ hoàn thành"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
