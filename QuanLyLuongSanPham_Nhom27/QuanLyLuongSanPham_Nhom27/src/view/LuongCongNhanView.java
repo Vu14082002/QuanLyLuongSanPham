@@ -83,6 +83,7 @@ public class LuongCongNhanView extends javax.swing.JPanel {
         jComboBox3 = new javax.swing.JComboBox<>();
         jComboBox4 = new javax.swing.JComboBox<>();
         jLabel18 = new javax.swing.JLabel();
+        btnCapNhat = new javax.swing.JButton();
         jtbBangLuongCongNhan = new javax.swing.JScrollPane();
         tbPhanCong = new javax.swing.JTable();
 
@@ -153,6 +154,16 @@ public class LuongCongNhanView extends javax.swing.JPanel {
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel18.setText("Năm");
         jPanel5.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, 80, 40));
+
+        btnCapNhat.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnCapNhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/update.png"))); // NOI18N
+        btnCapNhat.setText("Xuất báo cáo");
+        btnCapNhat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCapNhatActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnCapNhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 120, 160, 40));
 
         jPanel3.add(jPanel5, java.awt.BorderLayout.PAGE_START);
 
@@ -228,8 +239,13 @@ public class LuongCongNhanView extends javax.swing.JPanel {
                 }
     }//GEN-LAST:event_tbPhanCongMousePressed
 
+    private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCapNhatActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCapNhat;
     private javax.swing.JButton btnLuu;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnXoa;

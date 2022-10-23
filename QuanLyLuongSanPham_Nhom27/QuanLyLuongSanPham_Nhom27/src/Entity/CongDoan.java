@@ -64,8 +64,8 @@ public class CongDoan {
     }
 
     public void setSoLuongCan(int soLuongCan) throws Exception {
-        if (soLuongCan < 0) {
-            throw new Exception("Số lượng cần không được < 0");
+        if (soLuongCan <= 0) {
+            throw new Exception("Số lượng cần không được <= 0");
         } else {
             this.soLuongCan = soLuongCan;
         }
@@ -100,8 +100,8 @@ public class CongDoan {
     }
 
     public void setTienLuong(double tienLuong) throws Exception {
-        if (tienLuong < 0) {
-            throw new Exception("Tiền lương không được < 0");
+        if (tienLuong <= 0) {
+            throw new Exception("Tiền lương không được <= 0");
         } else {
             this.tienLuong = tienLuong;
         }

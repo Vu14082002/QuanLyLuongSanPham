@@ -43,6 +43,9 @@ public class ChiTietLuongCongNhan extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        btnCapNhat = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -80,7 +83,7 @@ public class ChiTietLuongCongNhan extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setForeground(new java.awt.Color(153, 153, 255));
-        jPanel2.setPreferredSize(new java.awt.Dimension(1000, 200));
+        jPanel2.setPreferredSize(new java.awt.Dimension(1000, 250));
         jPanel2.setRequestFocusEnabled(false);
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -109,6 +112,26 @@ public class ChiTietLuongCongNhan extends javax.swing.JFrame {
         jLabel21.setText("Mã công nhân:");
         jPanel2.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 130, 40));
 
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel22.setText("Tổng tiền nhận:");
+        jPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 130, 40));
+
+        jLabel23.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel23.setText("1000000000000 vnd");
+        jPanel2.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, 300, 40));
+
+        btnCapNhat.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnCapNhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/update.png"))); // NOI18N
+        btnCapNhat.setText("Xuất báo cáo");
+        btnCapNhat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCapNhatActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnCapNhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 190, 160, 40));
+
         jPanel1.add(jPanel2, java.awt.BorderLayout.PAGE_START);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -116,6 +139,10 @@ public class ChiTietLuongCongNhan extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(1028, 747));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCapNhatActionPerformed
 
     /**
      * @param args the command line arguments
@@ -153,11 +180,14 @@ public class ChiTietLuongCongNhan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCapNhat;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
