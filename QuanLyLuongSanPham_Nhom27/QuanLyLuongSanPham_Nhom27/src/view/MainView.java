@@ -69,7 +69,7 @@ public class MainView extends javax.swing.JFrame {
         //sub menuCongNhan
         capNhatCongNhan = new MenuItem(iconSubMenuNonSelect, "Cập nhật", ((e) -> {
             pnBody.removeAll();
-            pnBody.add(new CapNhatCongNhanView(), BorderLayout.CENTER);
+            pnBody.add(new CapNhatCongNhanView1(), BorderLayout.CENTER);
             pnBody.repaint();
             pnBody.revalidate();
             macDinh(capNhatCongNhan);
@@ -188,15 +188,19 @@ public class MainView extends javax.swing.JFrame {
             }
         }));
          thongKeNhanVien = new MenuItem(iconSubMenuNonSelect, "Nhân viên", ((e) -> {
-            pnBody.removeAll();
-            pnBody.add(new CapNhatCongNhanView(), BorderLayout.CENTER);
-            pnBody.repaint();
-            pnBody.revalidate();
-            macDinh((thongKeNhanVien));
+            try {
+                pnBody.removeAll();
+                pnBody.add(new CapNhatNhanVienView(), BorderLayout.CENTER);
+                pnBody.repaint();
+                pnBody.revalidate();
+                macDinh((thongKeNhanVien));
+            } catch (Exception ex) {
+                Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }));
          thongKeCongNhan = new MenuItem(iconSubMenuNonSelect, "Công nhân", ((e) -> {
             pnBody.removeAll();
-            pnBody.add(new CapNhatCongNhanView(), BorderLayout.CENTER);
+            pnBody.add(new CapNhatCongNhanView1(), BorderLayout.CENTER);
             pnBody.repaint();
             pnBody.revalidate();
             macDinh((thongKeCongNhan));

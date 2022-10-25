@@ -32,11 +32,11 @@ public class TimKiemCongNhanView extends javax.swing.JPanel {
        
 
         // custom table
-        tbNhanVien.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
-        tbNhanVien.getTableHeader().setOpaque(false);
-        ((DefaultTableCellRenderer) tbNhanVien.getTableHeader().getDefaultRenderer())
+        jTable1.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        jTable1.getTableHeader().setOpaque(false);
+        ((DefaultTableCellRenderer) jTable1.getTableHeader().getDefaultRenderer())
                 .setHorizontalAlignment(JLabel.CENTER);
-        tbNhanVien.setRowHeight(25);
+        jTable1.setRowHeight(25);
         ButtonGroup btnGroup = new ButtonGroup();
     }
 
@@ -49,10 +49,6 @@ public class TimKiemCongNhanView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tbNhanVien = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         lbErrTenSanPham = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -78,42 +74,11 @@ public class TimKiemCongNhanView extends javax.swing.JPanel {
         lbTenSanPham11 = new javax.swing.JLabel();
         btnCapNhat = new javax.swing.JButton();
         cbPhongBanNhanVien1 = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setPreferredSize(new java.awt.Dimension(1200, 700));
-
-        jPanel1.setPreferredSize(new java.awt.Dimension(1250, 700));
-        jPanel1.setLayout(new java.awt.BorderLayout());
-
-        jPanel3.setLayout(new java.awt.BorderLayout());
-
-        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        tbNhanVien.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "STT", "Mã công nhân", "Họ và tên", "Sô CCCd", "Giới tính", "Ngày sinh", "Số điện thoại", "Địa chỉ", "Ảnh đại diện", "Email", "Phòng Ban", "Chức vụ", "Ngày vào làm"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tbNhanVien.setSelectionBackground(new java.awt.Color(232, 57, 95));
-        jScrollPane1.setViewportView(tbNhanVien);
-
-        jPanel3.add(jScrollPane1, java.awt.BorderLayout.PAGE_START);
-
-        jPanel1.add(jPanel3, java.awt.BorderLayout.CENTER);
+        setLayout(new java.awt.BorderLayout());
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setPreferredSize(new java.awt.Dimension(1250, 400));
@@ -179,7 +144,7 @@ public class TimKiemCongNhanView extends javax.swing.JPanel {
         jPanel5.add(txtTenSanPham4, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, 270, 40));
 
         lbTenSanPham5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        lbTenSanPham5.setText("Mã công nhân:");
+        lbTenSanPham5.setText("Mã công nhân");
         jPanel5.add(lbTenSanPham5, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, 140, 40));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
@@ -194,7 +159,7 @@ public class TimKiemCongNhanView extends javax.swing.JPanel {
         lbTenSanPham6.setText("Giới tính");
         jPanel5.add(lbTenSanPham6, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 180, 140, 40));
 
-        cbPhongBanNhanVien.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ", "Tất cả" }));
+        cbPhongBanNhanVien.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Nam", "Nữ", " " }));
         cbPhongBanNhanVien.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel5.add(cbPhongBanNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 180, 280, 40));
 
@@ -221,26 +186,34 @@ public class TimKiemCongNhanView extends javax.swing.JPanel {
         });
         jPanel5.add(btnCapNhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 290, 230, 40));
 
-        cbPhongBanNhanVien1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tât cả", "1", "2", "3", "4", "5" }));
+        cbPhongBanNhanVien1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Phòng tài chính", "Phòng kinh doanh", "Phòng nhân sự" }));
         cbPhongBanNhanVien1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel5.add(cbPhongBanNhanVien1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 220, 280, 40));
 
-        jPanel1.add(jPanel5, java.awt.BorderLayout.PAGE_START);
+        add(jPanel5, java.awt.BorderLayout.PAGE_START);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Stt", "Mã công nhân", "Họ và tên", "Số CCCD", "Giới tính", "Ngày sinh", "Số điện thoại", "Địa chỉ", "Ảnh đại diện", "Email", "Tổ/Nhóm", "Chức vụ", "Ngày vào làm"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        add(jScrollPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
@@ -257,10 +230,9 @@ public class TimKiemCongNhanView extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lbErrTenSanPham;
     private javax.swing.JLabel lbErrTenSanPham1;
     private javax.swing.JLabel lbErrTenSanPham2;
@@ -272,7 +244,6 @@ public class TimKiemCongNhanView extends javax.swing.JPanel {
     private javax.swing.JLabel lbTenSanPham5;
     private javax.swing.JLabel lbTenSanPham6;
     private javax.swing.JLabel lbTenSanPham9;
-    private javax.swing.JTable tbNhanVien;
     private javax.swing.JTextField txtTenSanPham1;
     private javax.swing.JTextField txtTenSanPham2;
     private javax.swing.JTextField txtTenSanPham3;

@@ -56,8 +56,6 @@ public class LuongCongNhanView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         btnThem = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
@@ -71,11 +69,7 @@ public class LuongCongNhanView extends javax.swing.JPanel {
         tbPhanCong = new javax.swing.JTable();
 
         setPreferredSize(new java.awt.Dimension(1200, 700));
-
-        jPanel1.setPreferredSize(new java.awt.Dimension(1250, 700));
-        jPanel1.setLayout(new java.awt.BorderLayout());
-
-        jPanel3.setLayout(new java.awt.BorderLayout());
+        setLayout(new java.awt.BorderLayout());
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setPreferredSize(new java.awt.Dimension(1250, 200));
@@ -148,7 +142,7 @@ public class LuongCongNhanView extends javax.swing.JPanel {
         });
         jPanel5.add(btnCapNhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 120, 160, 40));
 
-        jPanel3.add(jPanel5, java.awt.BorderLayout.PAGE_START);
+        add(jPanel5, java.awt.BorderLayout.PAGE_START);
 
         jtbBangLuongCongNhan.setBackground(new java.awt.Color(255, 255, 255));
         jtbBangLuongCongNhan.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Bảng lương", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
@@ -181,29 +175,12 @@ public class LuongCongNhanView extends javax.swing.JPanel {
         });
         jtbBangLuongCongNhan.setViewportView(tbPhanCong);
 
-        jPanel3.add(jtbBangLuongCongNhan, java.awt.BorderLayout.CENTER);
-
-        jPanel1.add(jPanel3, java.awt.BorderLayout.CENTER);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        add(jtbBangLuongCongNhan, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnThemActionPerformed
-
-    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox3ActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
@@ -213,18 +190,22 @@ public class LuongCongNhanView extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLuuActionPerformed
 
-    private void tbPhanCongMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbPhanCongMousePressed
-         JTable table = (JTable) evt.getSource();
-                Point point = evt.getPoint();
-                int row = table.rowAtPoint(point);
-                if (evt.getClickCount() == 2 && table.getSelectedRow() != -1) {
-                    new ChiTietLuongCongNhan().setVisible(true);
-                }
-    }//GEN-LAST:event_tbPhanCongMousePressed
+    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox3ActionPerformed
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCapNhatActionPerformed
+
+    private void tbPhanCongMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbPhanCongMousePressed
+        JTable table = (JTable) evt.getSource();
+        Point point = evt.getPoint();
+        int row = table.rowAtPoint(point);
+        if (evt.getClickCount() == 2 && table.getSelectedRow() != -1) {
+            new ChiTietLuongCongNhan().setVisible(true);
+        }
+    }//GEN-LAST:event_tbPhanCongMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -236,8 +217,6 @@ public class LuongCongNhanView extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jtbBangLuongCongNhan;
     private javax.swing.JTable tbPhanCong;

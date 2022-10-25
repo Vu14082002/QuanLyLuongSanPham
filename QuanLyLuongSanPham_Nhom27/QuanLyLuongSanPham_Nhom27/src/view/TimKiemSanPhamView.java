@@ -49,8 +49,6 @@ public class TimKiemSanPhamView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbNhanVien = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
@@ -68,11 +66,7 @@ public class TimKiemSanPhamView extends javax.swing.JPanel {
         cbChatLieu = new javax.swing.JComboBox<>();
 
         setPreferredSize(new java.awt.Dimension(1200, 700));
-
-        jPanel1.setPreferredSize(new java.awt.Dimension(1250, 700));
-        jPanel1.setLayout(new java.awt.BorderLayout());
-
-        jPanel3.setLayout(new java.awt.BorderLayout());
+        setLayout(new java.awt.BorderLayout());
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -99,9 +93,7 @@ public class TimKiemSanPhamView extends javax.swing.JPanel {
         tbNhanVien.setSelectionBackground(new java.awt.Color(232, 57, 95));
         jScrollPane1.setViewportView(tbNhanVien);
 
-        jPanel3.add(jScrollPane1, java.awt.BorderLayout.PAGE_START);
-
-        jPanel1.add(jPanel3, java.awt.BorderLayout.CENTER);
+        add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setPreferredSize(new java.awt.Dimension(1250, 300));
@@ -110,31 +102,31 @@ public class TimKiemSanPhamView extends javax.swing.JPanel {
         lbErrTenSanPham.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lbErrTenSanPham.setForeground(new java.awt.Color(204, 0, 0));
         lbErrTenSanPham.setText("đây là dòng thông báo lỗi");
-        jPanel5.add(lbErrTenSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 70, 280, -1));
+        jPanel5.add(lbErrTenSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 80, 280, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel3.setText("_______________________________");
-        jPanel5.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 50, 290, 20));
+        jPanel5.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 60, 290, 20));
 
         txtTenSanPham1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         txtTenSanPham1.setBorder(null);
-        jPanel5.add(txtTenSanPham1, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 30, 270, 40));
+        jPanel5.add(txtTenSanPham1, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 40, 270, 40));
 
         lbTenSanPham1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lbTenSanPham1.setText("Tên sản phẩm");
-        jPanel5.add(lbTenSanPham1, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 40, 140, 40));
+        jPanel5.add(lbTenSanPham1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 50, 140, 40));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel7.setText("_______________________________");
-        jPanel5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 50, 290, 20));
+        jPanel5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 60, 290, 20));
 
         txtTenSanPham4.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         txtTenSanPham4.setBorder(null);
-        jPanel5.add(txtTenSanPham4, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, 270, 40));
+        jPanel5.add(txtTenSanPham4, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, 270, 40));
 
         lbTenSanPham5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lbTenSanPham5.setText("Mã sản phẩm");
-        jPanel5.add(lbTenSanPham5, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, 140, 40));
+        jPanel5.add(lbTenSanPham5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 140, 40));
 
         btnCapNhat.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         btnCapNhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/search.png"))); // NOI18N
@@ -144,42 +136,27 @@ public class TimKiemSanPhamView extends javax.swing.JPanel {
                 btnCapNhatActionPerformed(evt);
             }
         });
-        jPanel5.add(btnCapNhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, 230, 40));
+        jPanel5.add(btnCapNhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 170, 230, 40));
 
         lbTenSanPham4.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lbTenSanPham4.setText("Chât liệu:");
-        jPanel5.add(lbTenSanPham4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 140, 40));
+        jPanel5.add(lbTenSanPham4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 110, 140, 40));
 
         cbChatLieu1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         cbChatLieu1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Vải Polyester", "Nylon", "Vải 210D", "Vải 420D", "Vải 600D", "Vải 900D", "Vải canvas", "Vải nỉ", "Vải Siminli", "Vải cotton", "Vải kaki", "Vải jeans", "Vải kate", "Vải len", " " }));
         cbChatLieu1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel5.add(cbChatLieu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 100, 200, 40));
+        jPanel5.add(cbChatLieu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 110, 200, 40));
 
         lbTenSanPham2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lbTenSanPham2.setText("Kích thước");
-        jPanel5.add(lbTenSanPham2, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 100, 140, 40));
+        jPanel5.add(lbTenSanPham2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 110, 140, 40));
 
         cbChatLieu.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         cbChatLieu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", " " }));
         cbChatLieu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel5.add(cbChatLieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 100, 200, 40));
+        jPanel5.add(cbChatLieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 110, 200, 40));
 
-        jPanel1.add(jPanel5, java.awt.BorderLayout.PAGE_START);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
+        add(jPanel5, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
@@ -193,8 +170,6 @@ public class TimKiemSanPhamView extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cbChatLieu1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbErrTenSanPham;

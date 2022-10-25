@@ -157,8 +157,6 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
         scrTableSanPham = new javax.swing.JScrollPane();
         tblNhanVien = new javax.swing.JTable();
         pnHead = new javax.swing.JPanel();
@@ -192,11 +190,7 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
         jLabel5 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1200, 700));
-
-        jPanel1.setPreferredSize(new java.awt.Dimension(1250, 700));
-        jPanel1.setLayout(new java.awt.BorderLayout());
-
-        jPanel3.setLayout(new java.awt.BorderLayout());
+        setLayout(new java.awt.BorderLayout());
 
         scrTableSanPham.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
 
@@ -221,11 +215,8 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
         });
         tblNhanVien.setSelectionBackground(new java.awt.Color(232, 57, 95));
         scrTableSanPham.setViewportView(tblNhanVien);
-        if (tblNhanVien.getColumnModel().getColumnCount() > 0) {
-            tblNhanVien.getColumnModel().getColumn(7).setResizable(false);
-        }
 
-        jPanel3.add(scrTableSanPham, java.awt.BorderLayout.CENTER);
+        add(scrTableSanPham, java.awt.BorderLayout.CENTER);
 
         pnHead.setBackground(new java.awt.Color(255, 255, 255));
         pnHead.setPreferredSize(new java.awt.Dimension(1250, 400));
@@ -430,25 +421,23 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
         jLabel5.setText("______________________");
         pnHead.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 300, 220, 30));
 
-        jPanel3.add(pnHead, java.awt.BorderLayout.PAGE_START);
-
-        jPanel1.add(jPanel3, java.awt.BorderLayout.CENTER);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
+        add(pnHead, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtSoCongDoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSoCongDoanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSoCongDoanActionPerformed
+
+    private void pnlMauSacSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMauSacSanPhamMouseClicked
+        Color colordefault = new Color(240, 240, 240);
+        JColorChooser jchooserColor = new JColorChooser();
+        Color color = jchooserColor.showDialog(this, "Chọn màu sắc cho sản phẩm", this.getBackground());
+        //        System.out.println(panelBorder1.getColorModel());
+        if (color != null && color.getRGB() != pnlAnhSanPham.getBackground().getRGB())
+        this.pnlMauSacSanPham.setBackground(color);
+        else
+        this.pnlMauSacSanPham.setBackground(colordefault);        // TODO add your handling code here:
+    }//GEN-LAST:event_pnlMauSacSanPhamMouseClicked
 
     private void lblAnhSanPhamOfPnlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAnhSanPhamOfPnlMouseClicked
         JFileChooser fileChooser = new JFileChooser("d:");
@@ -464,17 +453,6 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
             System.out.println(this.lblAnhSanPham.getIcon().toString());
         }
     }//GEN-LAST:event_lblAnhSanPhamOfPnlMouseClicked
-   
-    private void pnlMauSacSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMauSacSanPhamMouseClicked
-        Color colordefault = new Color(240, 240, 240);
-        JColorChooser jchooserColor = new JColorChooser();
-        Color color = jchooserColor.showDialog(this, "Chọn màu sắc cho sản phẩm", this.getBackground());
-//        System.out.println(panelBorder1.getColorModel());
-        if (color != null && color.getRGB() != pnlAnhSanPham.getBackground().getRGB())
-            this.pnlMauSacSanPham.setBackground(color);
-        else
-            this.pnlMauSacSanPham.setBackground(colordefault);        // TODO add your handling code here:
-    }//GEN-LAST:event_pnlMauSacSanPhamMouseClicked
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
@@ -496,14 +474,10 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
         // TODO add your handling code here:
     }//GEN-LAST:event_btnHuyActionPerformed
 
-    private void txtSoCongDoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSoCongDoanActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSoCongDoanActionPerformed
-
     private void txtSoLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSoLuongActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSoLuongActionPerformed
-
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCapNhat;
@@ -517,8 +491,6 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblAnhSanPham;
     private javax.swing.JLabel lblAnhSanPhamOfPnl;
     private javax.swing.JLabel lblChatLieu;
