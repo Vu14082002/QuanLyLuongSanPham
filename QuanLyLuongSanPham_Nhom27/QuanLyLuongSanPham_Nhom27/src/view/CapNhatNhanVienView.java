@@ -230,7 +230,7 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
         });
         scroll.setViewportView(tblNhanVien);
 
-        jPanel3.add(scroll, java.awt.BorderLayout.PAGE_START);
+        jPanel3.add(scroll, java.awt.BorderLayout.CENTER);
 
         jPanel1.add(jPanel3, java.awt.BorderLayout.CENTER);
 
