@@ -9,6 +9,8 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 // 1500 - 250 anf 800-75
@@ -97,7 +99,11 @@ public class MainView extends javax.swing.JFrame {
         // submenu nhan vien
         capNhatNhanVien = new MenuItem(iconSubMenuNonSelect, "Cập nhật", (ActionEvent e) -> {
             pnBody.removeAll();
-            pnBody.add(new CapNhatNhanVienView(), BorderLayout.CENTER);
+            try {
+                pnBody.add(new CapNhatNhanVienView(), BorderLayout.CENTER);
+            } catch (Exception ex) {
+                Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+            }
             pnBody.repaint();
             pnBody.revalidate();
             macDinh((capNhatNhanVien));
@@ -152,7 +158,7 @@ public class MainView extends javax.swing.JFrame {
         });
         phanCongDoanSanPham = new MenuItem(iconSubMenuNonSelect, "Phân công đoạn", ((e) -> {
             pnBody.removeAll();
-            pnBody.add(new PhanCongDoanSanPhamView(), BorderLayout.CENTER);
+            pnBody.add(new PhanCongDoanView(), BorderLayout.CENTER);
             pnBody.repaint();
             pnBody.revalidate();
             macDinh(phanCongDoanSanPham);

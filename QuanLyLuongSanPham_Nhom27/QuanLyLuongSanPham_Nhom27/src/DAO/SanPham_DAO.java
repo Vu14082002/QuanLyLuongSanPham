@@ -175,6 +175,32 @@ public class SanPham_DAO {
         return soLuongXoaDuoc != 0;
     }
 
+    public String layMaSanPhamDeThem(){
+        Statement stm = null;
+        String maSanPham = "";
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String truyVan = "select top 1 * from SanPham order by len(maSanPham), maSanPham desc ";
+            stm = con.createStatement();
+            ResultSet rs = stm.executeQuery(truyVan);
+            while (rs.next()) {
+                maSanPham = rs.getString("maSanPham");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        String chuoiCanLay = maSanPham.split("SP")[1];
+
+        try {
+            chuoiCanLay = "SP" + (Integer.parseInt(chuoiCanLay) + 1);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return chuoiCanLay;
+    }
     public static void main(String[] args) {
         try {
             System.setOut(new PrintStream(System.out, true, "UTF8"));
@@ -197,4 +223,5 @@ public class SanPham_DAO {
         System.out.println("\n\n\n Danh sách: " + dao.layDanhSachSanPham().toString());
         System.out.println("\n\n\n Lấy 1: " + dao.layMotSanPhamTheoMa("SP123123").toString());
     }
+    
 }

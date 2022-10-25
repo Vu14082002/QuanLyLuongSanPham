@@ -90,8 +90,12 @@ public class PhanCongCongNhan {
         return caLam;
     }
 
-    public void setCaLam(String caLam) {
-        this.caLam = caLam;
+    public void setCaLam(String caLam) throws Exception {
+        if (caLam.equals("")){
+            throw new Exception("Ca làm không được để trống!");
+        } else {
+            this.caLam = caLam;
+        }
     }
 
     @Override

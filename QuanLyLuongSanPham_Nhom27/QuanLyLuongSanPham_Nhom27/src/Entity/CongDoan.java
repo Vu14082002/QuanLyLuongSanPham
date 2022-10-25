@@ -55,8 +55,12 @@ public class CongDoan {
         return tenCongDoan;
     }
 
-    public void setTenCongDoan(String tenCongDoan) {
-        this.tenCongDoan = tenCongDoan;
+    public void setTenCongDoan(String tenCongDoan) throws Exception {
+        if (tenCongDoan.equals("")){
+            throw new Exception("Tên công đoạn không được để trống!");
+        } else {
+            this.tenCongDoan = tenCongDoan;
+        }
     }
 
     public int getSoLuongCan() {

@@ -78,6 +78,34 @@ public class PhongBan_DAO {
         return phongBan;
     }
 
+    public PhongBan layMotPhongBanTheoTen(String ten) {
+        PreparedStatement stm = null;
+        PhongBan phongBan = null;
+        try {
+            ConnectionDB.ConnectDB.getInstance();
+            Connection con = ConnectionDB.ConnectDB.getConnection();
+            String truyVan = "SELECT * FROM PhongBan where tenPhongBan = ?";
+            stm = con.prepareStatement(truyVan);
+            stm.setString(1, ten);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                String maPhongBanOb = rs.getString("maPhongBan");
+                String tenPhongBan = rs.getString("tenPhongBan");
+                int soLuongNhanVien = rs.getInt("soLuongNhanVien");
+                phongBan = new PhongBan(maPhongBanOb, tenPhongBan, soLuongNhanVien);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                stm.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return phongBan;
+    }
+
     public boolean themMotPhongBan(PhongBan phongBan) {
         PreparedStatement stm = null;
         int soDongThemDuoc = 0;
@@ -150,7 +178,7 @@ public class PhongBan_DAO {
         return soDongXoaDuoc != 0;
     }
 
-    public String layRaMaPhongBanDeThem(){
+    public String layRaMaPhongBanDeThem() {
         Statement stm = null;
         PhongBan phongBan = null;
         try {
@@ -159,7 +187,7 @@ public class PhongBan_DAO {
             String truyVan = "select top 1 * from PhongBan order by LEN(maPhongBan), maPhongBan desc";
             stm = con.createStatement();
             ResultSet rs = stm.executeQuery(truyVan);
-            while (rs.next()){
+            while (rs.next()) {
                 String maPhongBan = rs.getString("maPhongBan");
                 String tenPhongBan = rs.getString("tenPhongBan");
                 int soLuongNhanVien = rs.getInt("soLuongNhanVien");
@@ -168,18 +196,19 @@ public class PhongBan_DAO {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        
+
         System.out.println(phongBan.getMaPhongBan().split("PB").toString());
         String chuoiCanLay = phongBan.getMaPhongBan().split("PB")[1];
-        
+
         try {
-            chuoiCanLay = "PB" + (Integer.parseInt(chuoiCanLay)+1);
+            chuoiCanLay = "PB" + (Integer.parseInt(chuoiCanLay) + 1);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        
+
         return chuoiCanLay;
     }
+
     public static void main(String[] args) {
         try {
             System.setOut(new PrintStream(System.out, true, "UTF8"));
