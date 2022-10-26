@@ -61,7 +61,6 @@ public class ChamCongNhanVien_DAO {
         }
         return dsChamCong;
     }
-
     public boolean themMotChamCongNhanVien(ChamCongNhanVien chamCongNhanVien) {
         PreparedStatement stm = null;
         int soDongThemDuoc = 0;
@@ -122,7 +121,8 @@ public class ChamCongNhanVien_DAO {
         }
         return soDongSuaDuoc != 0;
     }
-    public boolean xoaMotChamCongNhanVienTheoMaChamCong(String maChamCong){
+
+    public boolean xoaMotChamCongNhanVienTheoMaChamCong(String maChamCong) {
         PreparedStatement stm = null;
         int soDongXoaDuoc = 0;
         try {
@@ -143,6 +143,7 @@ public class ChamCongNhanVien_DAO {
         }
         return soDongXoaDuoc != 0;
     }
+
     public static void main(String[] args) {
         try {
             System.setOut(new PrintStream(System.out, true, "UTF8"));
@@ -161,7 +162,7 @@ public class ChamCongNhanVien_DAO {
         NhanVien nv = new NhanVien("NV123123", "Ngọc Thụ Lâm Phong", java.sql.Date.valueOf(LocalDate.of(2001, 12, 12)), "222333444555", "0976123321", "mailmail@gmail.com", "123123", "Quản lý", new Date(), 2000000, true, "anh1.png", "Lạng sơn", new PhongBan("PB123123", "Phòng quản lý", 0));
         NhanVien nv2 = new NhanVien("NV123456", "Ngọc Thụ Lâm Phong", java.sql.Date.valueOf(LocalDate.of(2001, 12, 12)), "222333444555", "0976123321", "mailmail@gmail.com", "123123", "Quản lý", new Date(), 2000000, true, "anh1.png", "Lạng sơn", new PhongBan("PB123123", "Phòng quản lý", 0));
         ChamCongNhanVien cc = new ChamCongNhanVien("CNV11111", new Date(), "CN", "Đi làm", "7:59", nv, nv2);
-        System.out.println("Thêm: " + dao.themMotChamCongNhanVien(cc) );
+        System.out.println("Thêm: " + dao.themMotChamCongNhanVien(cc));
         System.out.println("\n\n\nDanh sách: " + dao.danhSachChamCongNhanVien().toString());
         try {
             cc.setGioDiLam("10:00");
