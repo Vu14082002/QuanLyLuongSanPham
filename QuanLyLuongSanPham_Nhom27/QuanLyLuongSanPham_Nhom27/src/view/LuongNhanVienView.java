@@ -4,9 +4,21 @@
  */
 package view;
 
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.pdf.PdfAcroForm;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfTable;
+import com.lowagie.text.pdf.PdfWriter;
 import java.awt.Color;
 import java.awt.Font;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -21,13 +33,15 @@ public class LuongNhanVienView extends javax.swing.JPanel {
      * Creates new form NhanVienView
      */
     private DefaultTableModel modelDanhSachNhanVienCanChamCong;
+    
     public LuongNhanVienView() {
         initComponents();
         excute();
         insertTable();
     }
-    public void insertTable(){
-        modelDanhSachNhanVienCanChamCong = (DefaultTableModel) tbPhanCong.getModel();
+    
+    public void insertTable() {
+        modelDanhSachNhanVienCanChamCong = (DefaultTableModel) tblBangLuong.getModel();
         modelDanhSachNhanVienCanChamCong.insertRow(modelDanhSachNhanVienCanChamCong.getRowCount(), new Object[]{"1"});
         modelDanhSachNhanVienCanChamCong.insertRow(modelDanhSachNhanVienCanChamCong.getRowCount(), new Object[]{"1"});
         modelDanhSachNhanVienCanChamCong.insertRow(modelDanhSachNhanVienCanChamCong.getRowCount(), new Object[]{"1"});
@@ -40,16 +54,17 @@ public class LuongNhanVienView extends javax.swing.JPanel {
         modelDanhSachNhanVienCanChamCong.insertRow(modelDanhSachNhanVienCanChamCong.getRowCount(), new Object[]{"1"});
         modelDanhSachNhanVienCanChamCong.insertRow(modelDanhSachNhanVienCanChamCong.getRowCount(), new Object[]{"1"});
     }
+    
     public void excute() {
 //        this.txtMaNhanVien.setText("");
 //        this.txtMaNhanVien.setBackground(new Color(0, 0, 0, 1));
 
         // custom table
-        tbPhanCong.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
-        tbPhanCong.getTableHeader().setOpaque(false);
-        ((DefaultTableCellRenderer) tbPhanCong.getTableHeader().getDefaultRenderer())
+        tblBangLuong.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        tblBangLuong.getTableHeader().setOpaque(false);
+        ((DefaultTableCellRenderer) tblBangLuong.getTableHeader().getDefaultRenderer())
                 .setHorizontalAlignment(JLabel.CENTER);
-        tbPhanCong.setRowHeight(25);
+        tblBangLuong.setRowHeight(25);
     }
 
     /**
@@ -71,7 +86,7 @@ public class LuongNhanVienView extends javax.swing.JPanel {
         jLabel18 = new javax.swing.JLabel();
         btnCapNhat1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbPhanCong = new javax.swing.JTable();
+        tblBangLuong = new javax.swing.JTable();
 
         setPreferredSize(new java.awt.Dimension(1200, 700));
         setLayout(new java.awt.BorderLayout());
@@ -152,8 +167,8 @@ public class LuongNhanVienView extends javax.swing.JPanel {
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Bảng lương", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
 
-        tbPhanCong.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        tbPhanCong.setModel(new javax.swing.table.DefaultTableModel(
+        tblBangLuong.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        tblBangLuong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null, null},
@@ -172,8 +187,8 @@ public class LuongNhanVienView extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tbPhanCong.setSelectionBackground(new java.awt.Color(232, 57, 95));
-        jScrollPane1.setViewportView(tbPhanCong);
+        tblBangLuong.setSelectionBackground(new java.awt.Color(232, 57, 95));
+        jScrollPane1.setViewportView(tblBangLuong);
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
@@ -195,7 +210,61 @@ public class LuongNhanVienView extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBox3ActionPerformed
 
     private void btnCapNhat1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhat1ActionPerformed
-        // TODO add your handling code here:
+        String path = "";
+        JFileChooser j = new JFileChooser();
+        j.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int x = j.showSaveDialog(this);
+        if (x == JFileChooser.APPROVE_OPTION) {
+            path = j.getSelectedFile().getPath();
+        }
+        Document doc = new Document();
+        try {
+            PdfWriter.getInstance(doc, new FileOutputStream(path + "abc.pdf"));
+            doc.open();
+            PdfPTable tbl = new PdfPTable(11);
+            tbl.addCell("STT");
+            tbl.addCell("Mã lương");
+            tbl.addCell("Mã nhân viên");
+            tbl.addCell("Giới tính");
+            tbl.addCell("Số điện thoại");
+            tbl.addCell("Số ngày đi làm");
+            tbl.addCell("Số ngày nghỉ");
+            tbl.addCell("Số phép nghỉ");
+            tbl.addCell("Tổng lương");
+            tbl.addCell("Đơn vị tiền");
+            tbl.addCell("Ngày chấm công");
+            for (int i = 0; i < tblBangLuong.getRowCount(); i++) {
+//                tbl.addCell(tblBangLuong.getValueAt(i, 0).toString());
+//                tbl.addCell(tblBangLuong.getValueAt(i, 1).toString());
+//                tbl.addCell(tblBangLuong.getValueAt(i, 2).toString());
+//                tbl.addCell(tblBangLuong.getValueAt(i, 3).toString());
+//                tbl.addCell(tblBangLuong.getValueAt(i, 4).toString());
+//                tbl.addCell(tblBangLuong.getValueAt(i, 5).toString());
+//                tbl.addCell(tblBangLuong.getValueAt(i, 6).toString());
+//                tbl.addCell(tblBangLuong.getValueAt(i, 7).toString());
+//                tbl.addCell(tblBangLuong.getValueAt(i, 8).toString());
+//                tbl.addCell(tblBangLuong.getValueAt(i, 9).toString());
+//                tbl.addCell(tblBangLuong.getValueAt(i, 10).toString());
+                tbl.addCell("1");
+                tbl.addCell("1");
+                tbl.addCell("1");
+                tbl.addCell("1");
+                tbl.addCell("1");
+                tbl.addCell("1");
+                tbl.addCell("1");
+                tbl.addCell("1");
+                tbl.addCell("1");
+                tbl.addCell("1");
+                tbl.addCell("1");
+            }
+            doc.add(tbl);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(LuongNhanVienView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DocumentException ex) {
+            Logger.getLogger(LuongNhanVienView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        doc.close();
+        JOptionPane.showMessageDialog(null, "Thanh cong");
     }//GEN-LAST:event_btnCapNhat1ActionPerformed
 
 
@@ -210,6 +279,6 @@ public class LuongNhanVienView extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tbPhanCong;
+    private javax.swing.JTable tblBangLuong;
     // End of variables declaration//GEN-END:variables
 }

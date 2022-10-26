@@ -95,22 +95,22 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
         cboPhongBan.removeAllItems();
         PhongBan_DAO daoPhongBan = new PhongBan_DAO();
         ArrayList<PhongBan> phongBan = daoPhongBan.layDanhSachPhongBan();
-       if(phongBan.size()>0){
+        if (phongBan.size() > 0) {
             for (PhongBan pb : phongBan) {
-            cboPhongBan.addItem(pb.getTenPhongBan());
+                cboPhongBan.addItem(pb.getTenPhongBan());
+            }
+            ArrayList<NhanVien> danhSachNhanVien = daoNhanVien.layDanhSachNhanVien();
+            for (NhanVien nv : danhSachNhanVien) {
+                String data[] = {(model.getRowCount() + 1) + "", nv.getMaNhanVien(), nv.getHoTen(), nv.getMaCCCD(), nv.isGioiTinh() ? "Nam" : "Nữ", nv.getNgaySinh().toString(),
+                    nv.getSoDienThoai(), nv.getDiaChi(), nv.getAnhDaiDien(), nv.getEmail(), nv.getPhongBan().getTenPhongBan(),
+                    nv.getChucVu(), nv.getNgayVaoLam().toString(), dcf.format(nv.getLuongThoaThuan())};
+                model.addRow(data);
+            }
+            if (tblNhanVien.getRowCount() != 0) {
+                tblNhanVien.setRowSelectionInterval(0, 0);
+                hienThiDuLieuLenTxt(0);
+            }
         }
-        ArrayList<NhanVien> danhSachNhanVien = daoNhanVien.layDanhSachNhanVien();
-        for (NhanVien nv : danhSachNhanVien) {
-            String data[] = {(model.getRowCount() + 1) + "", nv.getMaNhanVien(), nv.getHoTen(), nv.getMaCCCD(), nv.isGioiTinh() ? "Nam" : "Nữ", nv.getNgaySinh().toString(),
-                nv.getSoDienThoai(), nv.getDiaChi(), nv.getAnhDaiDien(), nv.getEmail(), nv.getPhongBan().getTenPhongBan(),
-                nv.getChucVu(), nv.getNgayVaoLam().toString(), dcf.format(nv.getLuongThoaThuan())};
-            model.addRow(data);
-        }
-        if (tblNhanVien.getRowCount() != 0) {
-            tblNhanVien.setRowSelectionInterval(0, 0);
-            hienThiDuLieuLenTxt(0);
-        }
-       }
     }
 
     @SuppressWarnings("deprecation")
@@ -594,8 +594,8 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
                 }
                 System.out.println(tienLuong);
                 nhanvienEntity = new NhanVien(txtMaNhanVien.getText(), txtHoVaTen.getText(), dcsNgaySinh.getDate(),
-                    txtSoCCCD.getText(), txtSoDienThoai.getText(), txtEmail.getText(), "111111", cboChucVu.getSelectedItem().toString(),
-                    dcsNgayVaoLam.getDate(), Double.parseDouble(tienLuong), rdoNam.isSelected(), lblHinhAnh.getIcon().toString().split("Anh/")[1], txtDiaChi.getText(), pb);
+                        txtSoCCCD.getText(), txtSoDienThoai.getText(), txtEmail.getText(), "111111", cboChucVu.getSelectedItem().toString(),
+                        dcsNgayVaoLam.getDate(), Double.parseDouble(tienLuong), rdoNam.isSelected(), lblHinhAnh.getIcon().toString().split("Anh/")[1], txtDiaChi.getText(), pb);
                 nhanvienEntity.toString();
                 if (isThem) {
                     if (this.daoNhanVien.themMotNhanVien(nhanvienEntity)) {
@@ -685,7 +685,9 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
         for (JButton jButton : btnHidden) {
             jButton.setEnabled(true);
         }
-    }    public boolean kiemTraNhap() throws ParseException {
+    }
+
+    public boolean kiemTraNhap() throws ParseException {
         boolean flag = true;
         if (this.txtHoVaTen.getText().equals("")) {
             this.lblErrHoVaTen.setText("Bắt buộc nhập");
