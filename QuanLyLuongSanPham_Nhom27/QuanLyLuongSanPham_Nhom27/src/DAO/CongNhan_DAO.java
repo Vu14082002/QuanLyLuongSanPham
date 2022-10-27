@@ -207,6 +207,63 @@ public class CongNhan_DAO {
         }
         return soLuongXoaDuoc != 0;
     }
+    public int layRaSoLuongCongNhan(){
+        Statement stm = null;
+        int soLuong = 0;
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String truyVan = "select count(maCongNhan) as soLuongCongNhan from CongNhan";
+            stm = con.createStatement();
+            ResultSet rs = stm.executeQuery(truyVan);
+            while(rs.next()){
+                soLuong = rs.getInt("soLuongCongNhan");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                stm.close();;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return soLuong;
+    }
+    
+    public String layRaMaCongNhanDeThem(){
+        Statement stm = null;
+        String maCongNhan = "";
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String truyVan = "select top 1 * from CongNhan order by LEN(maCongNhan), maCongNhan desc";
+            stm = con.createStatement();
+            ResultSet rs = stm.executeQuery(truyVan);
+            while (rs.next()) {
+                maCongNhan = rs.getString("maCongNhan");
+ 
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                stm.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        String chuoiCanLay = maCongNhan.split("CN")[1];
+
+        try {
+            chuoiCanLay = "CN" + (Integer.parseInt(chuoiCanLay) + 1);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return chuoiCanLay;
+    }
     public static void main(String[] args) {
         try {
             System.setOut(new PrintStream(System.out, true, "UTF8"));

@@ -71,23 +71,16 @@ public class NhanVien {
         return hoTen;
     }
     
-//    public void setHoTen(String hoTen) throws Exception {
-////        if (hoTen.equals("")) {
-////            throw new Exception("Họ tên không được để trống!");
-////        } else if (!hoTen.matches("^([A-Z]{1}[a-zvxyỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]+)"
-////                + "((\\s{1}[A-Z][{1}a-vxyỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]+){1,})$")) {
-////            throw new Exception("Họ tên chỉ được chứa kí tự chữ cái");
-////        } else {
-////            this.hoTen = hoTen;
-////        }
-//        if (hoTen==null) {
-//            this
-//        }
-//    }
-    
-    public void setHoTen(String hoTen) {
-        this.hoTen = hoTen;
+    public void setHoTen(String hoTen) throws Exception {
+        if (hoTen.equals("")) {
+            throw new Exception("Họ tên không được để trống!");
+        } else if (!hoTen.matches("^([A-ZĐÂÁƯ][a-zỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]+)((\\s[A-ZĐÂÁƯ][a-zỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]+){1,})$")) {
+            throw new Exception(hoTen);
+        } else {
+            this.hoTen = hoTen;
+        }
     }
+ 
 
     public Date getNgaySinh() {
         return ngaySinh;

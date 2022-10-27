@@ -12,42 +12,28 @@ import java.util.Date;
  * @author Student
  */
 public class ChamCongNhanVien {
-
-    private String maChamCong;
+    private NhanVien nhanVien;
     private Date ngayChamCong;
     private String caLam;
     private String trangThaiDiLam;
     private String gioDiLam;
-    private NhanVien nhanVien;
     private NhanVien nguoiChamCong;
 
-    public ChamCongNhanVien(String maChamCong, Date ngayChamCong, String caLam, String trangThaiDiLam, String gioDiLam, NhanVien nhanVien, NhanVien nguoiChamCong) {
+    public ChamCongNhanVien(NhanVien nhanVien, Date ngayChamCong, String caLam, String trangThaiDiLam, String gioDiLam, NhanVien nguoiChamCong) {
         try {
-            setMaChamCong(maChamCong);
+            
+            setNhanVien(nhanVien);
             setNgayChamCong(ngayChamCong);
             setCaLam(caLam);
             setTrangThaiDiLam(trangThaiDiLam);
             setGioDiLam(gioDiLam);
-            setNhanVien(nhanVien);
             setNguoiChamCong(nguoiChamCong);
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+        } catch (Exception e) {
+            e.getMessage();
         }
     }
 
-    public String getMaChamCong() {
-        return maChamCong;
-    }
-
-    private void setMaChamCong(String maChamCong) throws Exception {
-        if (maChamCong.equals("")) {
-            throw new Exception("Mã chấm công nhân viên không được để trống");
-        } else if (!maChamCong.matches("^CNV[1-9][0-9]{4}$")) {
-            throw new Exception("Mã chấm công nhân viên phải theo dạng CNVxxxxx với x là các kí tự số x đầu tiền từ [1-9] x sau từ [0-9]");
-        } else {
-            this.maChamCong = maChamCong;
-        }
-    }
+    
 
     public Date getNgayChamCong() {
         return ngayChamCong;
@@ -113,7 +99,9 @@ public class ChamCongNhanVien {
 
     @Override
     public String toString() {
-        return "ChamCongNhanVien{" + "maChamCong=" + maChamCong + ", ngayChamCong=" + ngayChamCong + ", caLam=" + caLam + ", trangThaiDiLam=" + trangThaiDiLam + ", gioDiLam=" + gioDiLam + ", nhanVien=" + nhanVien + ", nguoiChamCong=" + nguoiChamCong + '}';
+        return "ChamCongNhanVien{" + "nhanVien=" + nhanVien + ", ngayChamCong=" + ngayChamCong + ", caLam=" + caLam + ", trangThaiDiLam=" + trangThaiDiLam + ", gioDiLam=" + gioDiLam + ", nguoiChamCong=" + nguoiChamCong + '}';
     }
+
+    
 
 }

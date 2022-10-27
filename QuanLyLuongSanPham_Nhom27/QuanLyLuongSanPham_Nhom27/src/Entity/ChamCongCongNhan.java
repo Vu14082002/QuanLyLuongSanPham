@@ -14,39 +14,28 @@ import java.util.Date;
 
 public class ChamCongCongNhan {
 
-    private String maChamCong;
+    private PhanCongCongNhan phanCong;
+    private String caLam;
     private Date ngayChamCong;
     private int soLuongLam;
-    private PhanCongCongNhan phanCong;
     private String trangThaiDiLam;
     private String gioDiLam;
 
-    public ChamCongCongNhan(String maChamCong, Date ngayChamCong, int soLuongLam, PhanCongCongNhan phanCong, String trangThaiDiLam, String gioDiLam) {
+    public ChamCongCongNhan(PhanCongCongNhan phanCong, String caLam, Date ngayChamCong, int soLuongLam, String trangThaiDiLam, String gioDiLam) {
         try {
-            setMaChamCong(maChamCong);
+            setPhanCong(phanCong);
+            setCaLam(caLam);
             setNgayChamCong(ngayChamCong);
             setSoLuongLam(soLuongLam);
-            setPhanCong(phanCong);
             setTrangThaiDiLam(trangThaiDiLam);
             setGioDiLam(gioDiLam);
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
-    public String getMaChamCong() {
-        return maChamCong;
-    }
-
-    private void setMaChamCong(String maChamCong) throws Exception {
-        if (maChamCong.equals("")) {
-            throw new Exception("Mã chấm công công nhân không được để trống!");
-        } else if (!maChamCong.matches("^CCN[1-9][0-9]{4}$")) {
-            throw new Exception("Mã chấm công nhân viên phải theo dạng CCNxxxxx với x là các kí tự số x đầu tiền từ [1-9] x sau từ [0-9]");
-        } else {
-            this.maChamCong = maChamCong;
-        }
-    }
+    
+   
 
     public Date getNgayChamCong() {
         return ngayChamCong;
@@ -103,9 +92,25 @@ public class ChamCongCongNhan {
         return gioDiLam;
     }
 
+    public String getCaLam() {
+        return caLam;
+    }
+
+    public void setCaLam(String caLam) throws Exception {
+        if (caLam.equalsIgnoreCase("")){
+            throw new Exception("Ca làm không được trống!");
+        } else {
+            this.caLam = caLam;
+        }
+    }
+
     @Override
     public String toString() {
-        return "ChamCongCongNhan{" + "maChamCong=" + maChamCong + ", ngayChamCong=" + ngayChamCong + ", soLuongLam=" + soLuongLam + ", phanCong=" + phanCong + ", trangThaiDiLam=" + trangThaiDiLam + ", gioDiLam=" + gioDiLam + '}';
+        return "ChamCongCongNhan{" + "phanCong=" + phanCong + ", caLam=" + caLam + ", ngayChamCong=" + ngayChamCong + ", soLuongLam=" + soLuongLam + ", trangThaiDiLam=" + trangThaiDiLam + ", gioDiLam=" + gioDiLam + '}';
     }
+
+    
+    
+   
 
 }

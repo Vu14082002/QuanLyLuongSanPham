@@ -197,7 +197,6 @@ public class PhongBan_DAO {
             System.out.println(e.getMessage());
         }
 
-        System.out.println(phongBan.getMaPhongBan().split("PB").toString());
         String chuoiCanLay = phongBan.getMaPhongBan().split("PB")[1];
 
         try {
@@ -209,6 +208,29 @@ public class PhongBan_DAO {
         return chuoiCanLay;
     }
 
+    public int layRaSoLuongPhongBan(){
+        Statement stm = null;
+        int soLuong = 0;
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String truyVan = "select count(maPhongBan) as soLuongPhongBan from PhongBan";
+            stm = con.createStatement();
+            ResultSet rs = stm.executeQuery(truyVan);
+            while(rs.next()){
+                soLuong = rs.getInt("soLuongPhongBan");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                stm.close();;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return soLuong;
+    }
     public static void main(String[] args) {
         try {
             System.setOut(new PrintStream(System.out, true, "UTF8"));

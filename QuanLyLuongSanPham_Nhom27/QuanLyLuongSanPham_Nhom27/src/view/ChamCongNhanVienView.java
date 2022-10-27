@@ -91,7 +91,7 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
         daoChamCong = new ChamCongNhanVien_DAO();
         ArrayList<ChamCongNhanVien> listChamCong = daoChamCong.danhSachChamCongNhanVien();
         for (ChamCongNhanVien chamCong : listChamCong) {
-            String data[] = {(modelNhanVien.getRowCount() + 1) + "", chamCong.getMaChamCong(), chamCong.getNguoiChamCong().getMaNhanVien(),
+            String data[] = {(modelNhanVien.getRowCount() + 1) + "", chamCong.getNguoiChamCong().getMaNhanVien(),
                 chamCong.getNhanVien().getMaNhanVien(), chamCong.getNhanVien().getHoTen(), chamCong.getNhanVien().getSoDienThoai(),
                 chamCong.getNhanVien().getPhongBan().getTenPhongBan(), chamCong.getNhanVien().getChucVu(), chamCong.getNgayChamCong().toString(),
                 chamCong.getCaLam(), chamCong.getTrangThaiDiLam(), chamCong.getGioDiLam()};
@@ -159,13 +159,13 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
     }
 
     public void hienThiDuLieuLenTxtBangNhanVien(int dong) throws ParseException {
-        lblValueMaNhanVien.setText(tblNhanVien.getValueAt(dong, 3).toString());
-        lblValueHoVaTen.setText(tblNhanVien.getValueAt(dong, 4).toString());
-        cmbTrangThai.setSelectedItem(tblNhanVien.getValueAt(dong, 10).toString());
-        cmbCaLam.setSelectedItem(tblNhanVien.getValueAt(dong, 9).toString());
+        lblValueMaNhanVien.setText(tblNhanVien.getValueAt(dong, 2).toString());
+        lblValueHoVaTen.setText(tblNhanVien.getValueAt(dong, 3).toString());
+        cmbTrangThai.setSelectedItem(tblNhanVien.getValueAt(dong, 9).toString());
+        cmbCaLam.setSelectedItem(tblNhanVien.getValueAt(dong, 8).toString());
         if (cmbTrangThai.getSelectedIndex() != 2 && cmbTrangThai.getSelectedIndex() != 3) {
-            cmbGio.setSelectedItem(tblNhanVien.getValueAt(dong, 11).toString().split("h")[0]);
-            cmbPhut.setSelectedItem(tblNhanVien.getValueAt(dong, 11).toString().split("h")[1]);
+            cmbGio.setSelectedItem(tblNhanVien.getValueAt(dong, 10).toString().split("h")[0]);
+            cmbPhut.setSelectedItem(tblNhanVien.getValueAt(dong, 10).toString().split("h")[1]);
             cmbGio.setEditable(true);
             cmbPhut.setEditable(true);
         } else {
@@ -218,17 +218,17 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
 
         tblNhanVien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "Mã chấm công", "Mã người chấm", "Mã nhân viên", "Họ và tên", "Sđt", "Phòng ban", "Chức vụ", "Ngày chấm công", "Ca làm", "Trạng thái", "Giờ đi làm"
+                "STT", "Mã người chấm", "Mã nhân viên", "Họ và tên", "Sđt", "Phòng ban", "Chức vụ", "Ngày chấm công", "Ca làm", "Trạng thái", "Giờ đi làm"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

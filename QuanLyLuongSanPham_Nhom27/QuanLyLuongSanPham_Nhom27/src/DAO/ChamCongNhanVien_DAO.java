@@ -39,16 +39,15 @@ public class ChamCongNhanVien_DAO {
             stm = con.createStatement();
             ResultSet rs = stm.executeQuery(truyVan);
             while (rs.next()) {
-                String maChamCong = rs.getString("maChamCong");
-                String caLam = rs.getString("caLam");
-                String trangThaiDiLam = rs.getString("trangThaiDiLam");
-                String gioDiLam = rs.getString("gioDiLam");
                 String maNhanVien = rs.getString("maNhanVien");
-                String maNguoiCham = rs.getString("maNguoiCham");
+                String caLam = rs.getString("caLam");
                 Date ngayChamCong = rs.getDate("ngayChamCong");
+                String trangThaiDiLam = rs.getString("trangThaiDiLam");
+                String gioDiLam = rs.getString("gioDiLam");       
+                String maNguoiCham = rs.getString("maNguoiCham");
                 NhanVien nhanVien = nhanVien_Dao.layMotNhanVienTheoMaNhanVien(maNhanVien);
                 NhanVien nguoiChamCong = nhanVien_Dao.layMotNhanVienTheoMaNhanVien(maNguoiCham);
-                dsChamCong.add(new ChamCongNhanVien(maChamCong, ngayChamCong, caLam, trangThaiDiLam, gioDiLam, nhanVien, nguoiChamCong));
+                dsChamCong.add(new ChamCongNhanVien(nhanVien, ngayChamCong, caLam, trangThaiDiLam, gioDiLam, nguoiChamCong));
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -61,23 +60,24 @@ public class ChamCongNhanVien_DAO {
         }
         return dsChamCong;
     }
+
     public boolean themMotChamCongNhanVien(ChamCongNhanVien chamCongNhanVien) {
         PreparedStatement stm = null;
         int soDongThemDuoc = 0;
         try {
             ConnectionDB.ConnectDB.getInstance();
             Connection con = ConnectionDB.ConnectDB.getConnection();
-            String truyVan = "INSERT INTO ChamCongNhanVien(maChamCong, caLam, trangThaiDiLam"
-                    + " , gioDiLam, maNhanVien, maNguoiCham, ngayChamCong)"
-                    + " VALUES(?, ?, ?, ?, ?, ? ,?)";
+            String truyVan = "INSERT INTO ChamCongNhanVien(maNhanVien, caLam, ngayChamCong, trangThaiDiLam"
+                    + " , gioDiLam, maNguoiCham)"
+                    + " VALUES(?, ?, ?, ?, ?, ?)";
             stm = con.prepareStatement(truyVan);
-            stm.setString(1, chamCongNhanVien.getMaChamCong());
+            stm.setString(1, chamCongNhanVien.getNhanVien().getMaNhanVien());
             stm.setString(2, chamCongNhanVien.getCaLam());
+            stm.setDate(3, new java.sql.Date(chamCongNhanVien.getNgayChamCong().getTime()));
             stm.setString(3, chamCongNhanVien.getTrangThaiDiLam());
             stm.setString(4, chamCongNhanVien.getGioDiLam());
-            stm.setString(5, chamCongNhanVien.getNhanVien().getMaNhanVien());
-            stm.setString(6, chamCongNhanVien.getNguoiChamCong().getMaNhanVien());
-            stm.setDate(7, new java.sql.Date(chamCongNhanVien.getNgayChamCong().getTime()));
+            stm.setString(5, chamCongNhanVien.getNguoiChamCong().getMaNhanVien());
+            
             soDongThemDuoc = stm.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -98,17 +98,16 @@ public class ChamCongNhanVien_DAO {
             ConnectionDB.ConnectDB.getInstance();
             Connection con = ConnectionDB.ConnectDB.getConnection();
             String truyVan = "UPDATE ChamCongNhanVien"
-                    + "  set caLam = ?, trangThaiDiLam = ?, gioDiLam = ?"
-                    + "  , maNhanVien = ?, maNguoiCham = ?, ngayChamCong = ?"
-                    + "  where maChamCong = ?";
+                    + "  set caLam = ?, ngayChamCong = ?, trangThaiDiLam = ?, gioDiLam = ?"
+                    + "  , maNguoiCham = ?"
+                    + "  where maNhanVien = ?";
             stm = con.prepareStatement(truyVan);
             stm.setString(1, chamCongNhanVien.getCaLam());
-            stm.setString(2, chamCongNhanVien.getTrangThaiDiLam());
-            stm.setString(3, chamCongNhanVien.getGioDiLam());
-            stm.setString(4, chamCongNhanVien.getNhanVien().getMaNhanVien());
+            stm.setDate(2, new java.sql.Date(chamCongNhanVien.getNgayChamCong().getTime()));
+            stm.setString(3, chamCongNhanVien.getTrangThaiDiLam());
+            stm.setString(4, chamCongNhanVien.getGioDiLam());
             stm.setString(5, chamCongNhanVien.getNguoiChamCong().getMaNhanVien());
-            stm.setDate(6, new java.sql.Date(chamCongNhanVien.getNgayChamCong().getTime()));
-            stm.setString(7, chamCongNhanVien.getMaChamCong());
+            stm.setString(6, chamCongNhanVien.getNhanVien().getMaNhanVien());
             soDongSuaDuoc = stm.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -121,16 +120,15 @@ public class ChamCongNhanVien_DAO {
         }
         return soDongSuaDuoc != 0;
     }
-
-    public boolean xoaMotChamCongNhanVienTheoMaChamCong(String maChamCong) {
+    public boolean xoaMotChamCongNhanVienTheoMaChamCong(String maNhanVien){
         PreparedStatement stm = null;
         int soDongXoaDuoc = 0;
         try {
             ConnectionDB.ConnectDB.getInstance();
             Connection con = ConnectionDB.ConnectDB.getConnection();
-            String truyVan = "delete from ChamCongNhanVien where maChamCong = ?";
+            String truyVan = "delete from ChamCongNhanVien where maNhanVien = ?";
             stm = con.prepareStatement(truyVan);
-            stm.setString(1, maChamCong);
+            stm.setString(1, maNhanVien);
             soDongXoaDuoc = stm.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -143,7 +141,6 @@ public class ChamCongNhanVien_DAO {
         }
         return soDongXoaDuoc != 0;
     }
-
     public static void main(String[] args) {
         try {
             System.setOut(new PrintStream(System.out, true, "UTF8"));
@@ -161,16 +158,6 @@ public class ChamCongNhanVien_DAO {
         ChamCongNhanVien_DAO dao = new ChamCongNhanVien_DAO();
         NhanVien nv = new NhanVien("NV123123", "Ngọc Thụ Lâm Phong", java.sql.Date.valueOf(LocalDate.of(2001, 12, 12)), "222333444555", "0976123321", "mailmail@gmail.com", "123123", "Quản lý", new Date(), 2000000, true, "anh1.png", "Lạng sơn", new PhongBan("PB123123", "Phòng quản lý", 0));
         NhanVien nv2 = new NhanVien("NV123456", "Ngọc Thụ Lâm Phong", java.sql.Date.valueOf(LocalDate.of(2001, 12, 12)), "222333444555", "0976123321", "mailmail@gmail.com", "123123", "Quản lý", new Date(), 2000000, true, "anh1.png", "Lạng sơn", new PhongBan("PB123123", "Phòng quản lý", 0));
-        ChamCongNhanVien cc = new ChamCongNhanVien("CNV11111", new Date(), "CN", "Đi làm", "7:59", nv, nv2);
-        System.out.println("Thêm: " + dao.themMotChamCongNhanVien(cc));
-        System.out.println("\n\n\nDanh sách: " + dao.danhSachChamCongNhanVien().toString());
-        try {
-            cc.setGioDiLam("10:00");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        System.out.println("\n\n\nSửa: " + dao.suaMotChamCongNhanVien(cc));
-        System.out.println("\n\n\nDanh sách: " + dao.danhSachChamCongNhanVien().toString());
-        System.out.println("\n\n\nXóa: " + dao.xoaMotChamCongNhanVienTheoMaChamCong("CNV11111"));
+
     }
 }

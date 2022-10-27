@@ -251,7 +251,29 @@ public class NhanVien_DAO {
         }
         return soDongXoaDuoc != 0;
     }
-
+    public int laySoLuongNhanVien(){
+        Statement stm = null;
+        int soLuong = 0;
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String truyVan = "select count(maNhanVien) as soLuongNhanVien from NhanVien";
+            stm = con.createStatement();
+            ResultSet rs = stm.executeQuery(truyVan);
+            while (rs.next()){
+                soLuong = rs.getInt("soLuongNhanVien");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally{
+            try {
+                stm.close();;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return soLuong;
+    }
     public static void main(String[] args) {
         try {
             System.setOut(new PrintStream(System.out, true, "UTF8"));
