@@ -5,9 +5,8 @@
         <group>
             <file>file:/D:/MonHoc/Nam3_HK1/PTUD/Code/Git/QuanLyLuongSanPham/QuanLyLuongSanPham_Nhom27/QuanLyLuongSanPham_Nhom27/src/view/CapNhatNhanVienView.java</file>
             <file>file:/D:/MonHoc/Nam3_HK1/PTUD/Code/Git/QuanLyLuongSanPham/QuanLyLuongSanPham_Nhom27/QuanLyLuongSanPham_Nhom27/src/view/ChamCongNhanVienView.java</file>
-            <file>file:/D:/MonHoc/Nam3_HK1/PTUD/Code/Git/QuanLyLuongSanPham/QuanLyLuongSanPham_Nhom27/QuanLyLuongSanPham_Nhom27/src/Entity/PhongBan.java</file>
-            <file>file:/D:/MonHoc/Nam3_HK1/PTUD/Code/Git/QuanLyLuongSanPham/QuanLyLuongSanPham_Nhom27/QuanLyLuongSanPham_Nhom27/src/Entity/NhanVien.java</file>
-            <file>file:/D:/MonHoc/Nam3_HK1/PTUD/Code/Git/QuanLyLuongSanPham/QuanLyLuongSanPham_Nhom27/QuanLyLuongSanPham_Nhom27/src/DAO/ChamCongNhanVien_DAO.java</file>
+            <file>file:/D:/MonHoc/Nam3_HK1/PTUD/Code/Git/QuanLyLuongSanPham/QuanLyLuongSanPham_Nhom27/QuanLyLuongSanPham_Nhom27/src/Entity/ChamCongCongNhan.java</file>
+            <file>file:/D:/MonHoc/Nam3_HK1/PTUD/Code/Git/QuanLyLuongSanPham/QuanLyLuongSanPham_Nhom27/QuanLyLuongSanPham_Nhom27/src/DAO/ChamCongCongNhan_DAO.java</file>
         </group>
     </open-files>
 </project-private>
