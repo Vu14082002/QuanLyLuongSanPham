@@ -4,10 +4,16 @@
  */
 package view;
 
+import DAO.CongNhan_DAO;
+import DAO.NhanVien_DAO;
+import DAO.PhongBan_DAO;
+import Entity.NhanVien;
 import java.awt.Color;
 import java.awt.Font;
+import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 /**
@@ -16,17 +22,54 @@ import javax.swing.table.TableModel;
  */
 public class TrangChuView extends javax.swing.JPanel {
 
+    private NhanVien_DAO nhanVien_DAO;
+    private DefaultTableModel modelTableTrangChu;
+    private CongNhan_DAO congNhan_DAO;
+    private PhongBan_DAO phongBan_DAO;
+
     /**
      * Creates new form TrangChuView
      */
     public TrangChuView() {
         initComponents();
-        tbTrangChu.getTableHeader().setFont(new Font("Segoe UI",Font.BOLD,12));
-        tbTrangChu.getTableHeader().setOpaque(false);
-        ((DefaultTableCellRenderer)tbTrangChu.getTableHeader().getDefaultRenderer())
+        tblTrangChu.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        tblTrangChu.getTableHeader().setOpaque(false);
+        ((DefaultTableCellRenderer) tblTrangChu.getTableHeader().getDefaultRenderer())
                 .setHorizontalAlignment(JLabel.CENTER);
 //        tbTrangChu.getTableHeader().setForeground(new Color(255,255,255));
-        tbTrangChu.setRowHeight(25);
+        tblTrangChu.setRowHeight(25);
+        try {
+            ConnectionDB.ConnectDB.getInstance().connect();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        nhanVien_DAO = new NhanVien_DAO();
+        phongBan_DAO = new PhongBan_DAO();
+        congNhan_DAO = new CongNhan_DAO();
+        modelTableTrangChu = (DefaultTableModel) tblTrangChu.getModel();
+        excute();
+        hienThiDuLieuLenBang();
+        lblTongCongNhan.setText(congNhan_DAO.layRaSoLuongCongNhan()+"");
+        lblTongNhanVien.setText(nhanVien_DAO.laySoLuongNhanVien()+"");
+        lblTongPhongBan.setText(phongBan_DAO.layRaSoLuongPhongBan()+"");
+    }
+
+    public void excute() {
+
+    }
+
+    public void hienThiDuLieuLenBang() {
+        while (tblTrangChu.getRowCount() != 0) {
+            modelTableTrangChu.removeRow(0);
+        }
+        ArrayList<NhanVien> dsNhanVien = nhanVien_DAO.layDanhSachNhanVien();
+        for (NhanVien nhanVien : dsNhanVien) {
+            String data[] = {(modelTableTrangChu.getRowCount() + 1) + "", nhanVien.getMaNhanVien(), nhanVien.getHoTen(),
+                 nhanVien.getSoDienThoai(), nhanVien.getEmail(), (nhanVien.isGioiTinh()) ? "Nam" : "Nữ",
+                 nhanVien.getPhongBan().getTenPhongBan(), nhanVien.getChucVu()};
+            modelTableTrangChu.addRow(data);
+        }
         
     }
 
@@ -41,20 +84,19 @@ public class TrangChuView extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         panelBorder5 = new CustomView.PanelBorder();
-        jLabel19 = new javax.swing.JLabel();
+        lblPhongBan = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
+        lblTongPhongBan = new javax.swing.JLabel();
         panelBorder6 = new CustomView.PanelBorder();
-        jLabel23 = new javax.swing.JLabel();
+        lblCongNhan = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
+        lblTongCongNhan = new javax.swing.JLabel();
         panelBorder7 = new CustomView.PanelBorder();
-        jLabel26 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
+        lblTongNhanVien = new javax.swing.JLabel();
+        lblNhanVien = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tbTrangChu = new javax.swing.JTable();
+        scrTableTrangChu = new javax.swing.JScrollPane();
+        tblTrangChu = new javax.swing.JTable();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -65,11 +107,11 @@ public class TrangChuView extends javax.swing.JPanel {
         panelBorder5.setBackground(new java.awt.Color(0, 102, 102));
         panelBorder5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel19.setText("Tổng phòng ban");
-        panelBorder5.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 60));
+        lblPhongBan.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblPhongBan.setForeground(new java.awt.Color(255, 255, 255));
+        lblPhongBan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPhongBan.setText("Tổng phòng ban");
+        panelBorder5.add(lblPhongBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 60));
 
         jLabel30.setFont(new java.awt.Font("Segoe UI", 1, 26)); // NOI18N
         jLabel30.setForeground(new java.awt.Color(255, 255, 255));
@@ -77,22 +119,22 @@ public class TrangChuView extends javax.swing.JPanel {
         jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/TrangChu/phongban.png"))); // NOI18N
         panelBorder5.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 120, 120));
 
-        jLabel32.setFont(new java.awt.Font("Segoe UI", 1, 32)); // NOI18N
-        jLabel32.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel32.setText("1000");
-        panelBorder5.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 120, 60));
+        lblTongPhongBan.setFont(new java.awt.Font("Segoe UI", 1, 32)); // NOI18N
+        lblTongPhongBan.setForeground(new java.awt.Color(255, 255, 255));
+        lblTongPhongBan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblTongPhongBan.setText("1000");
+        panelBorder5.add(lblTongPhongBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 120, 60));
 
         jPanel1.add(panelBorder5, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 40, 300, 210));
 
         panelBorder6.setBackground(new java.awt.Color(0, 255, 204));
         panelBorder6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel23.setText("Tổng công nhân");
-        panelBorder6.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 60));
+        lblCongNhan.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblCongNhan.setForeground(new java.awt.Color(255, 255, 255));
+        lblCongNhan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCongNhan.setText("Tổng công nhân");
+        panelBorder6.add(lblCongNhan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 60));
 
         jLabel29.setFont(new java.awt.Font("Segoe UI", 1, 26)); // NOI18N
         jLabel29.setForeground(new java.awt.Color(255, 255, 255));
@@ -100,28 +142,28 @@ public class TrangChuView extends javax.swing.JPanel {
         jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/TrangChu/congnhan.png"))); // NOI18N
         panelBorder6.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 120, 120));
 
-        jLabel31.setFont(new java.awt.Font("Segoe UI", 1, 32)); // NOI18N
-        jLabel31.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel31.setText("1000");
-        panelBorder6.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 120, 60));
+        lblTongCongNhan.setFont(new java.awt.Font("Segoe UI", 1, 32)); // NOI18N
+        lblTongCongNhan.setForeground(new java.awt.Color(255, 255, 255));
+        lblTongCongNhan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblTongCongNhan.setText("1000");
+        panelBorder6.add(lblTongCongNhan, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 120, 60));
 
         jPanel1.add(panelBorder6, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 40, 300, 210));
 
         panelBorder7.setBackground(new java.awt.Color(255, 177, 66));
         panelBorder7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel26.setFont(new java.awt.Font("Segoe UI", 1, 32)); // NOI18N
-        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel26.setText("1000");
-        panelBorder7.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 120, 60));
+        lblTongNhanVien.setFont(new java.awt.Font("Segoe UI", 1, 32)); // NOI18N
+        lblTongNhanVien.setForeground(new java.awt.Color(255, 255, 255));
+        lblTongNhanVien.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblTongNhanVien.setText("1000");
+        panelBorder7.add(lblTongNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 120, 60));
 
-        jLabel27.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel27.setText("Tổng nhân viên");
-        panelBorder7.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 60));
+        lblNhanVien.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblNhanVien.setForeground(new java.awt.Color(255, 255, 255));
+        lblNhanVien.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNhanVien.setText("Tổng nhân viên");
+        panelBorder7.add(lblNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 60));
 
         jLabel28.setFont(new java.awt.Font("Segoe UI", 1, 26)); // NOI18N
         jLabel28.setForeground(new java.awt.Color(255, 255, 255));
@@ -133,14 +175,8 @@ public class TrangChuView extends javax.swing.JPanel {
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
-        jScrollPane1.setBackground(new java.awt.Color(255, 102, 102));
-        jScrollPane1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jScrollPane1.setViewportBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jScrollPane1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        add(jScrollPane1, java.awt.BorderLayout.PAGE_END);
-
-        tbTrangChu.getTableHeader().setBackground(new Color(32,136,203));
-        tbTrangChu.setModel(new javax.swing.table.DefaultTableModel(
+        tblTrangChu.getTableHeader().setBackground(new Color(32,136,203));
+        tblTrangChu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
@@ -148,36 +184,35 @@ public class TrangChuView extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "Mã nhân viên", "Họ trên", "Số điện thoai", "Email", "Giới tính", "Phòng ban", "Chức vụ"
+                "STT", "Mã nhân viên", "Họ Tên", "Số điện thoai", "Email", "Giới tính", "Phòng ban", "Chức vụ"
             }
         ));
-        tbTrangChu.setIntercellSpacing(new java.awt.Dimension(0, 0));
-        tbTrangChu.setRowHeight(25);
-        tbTrangChu.setSelectionBackground(new java.awt.Color(232, 57, 95));
-        tbTrangChu.setShowVerticalLines(false);
-        tbTrangChu.getTableHeader().setReorderingAllowed(false);
-        jScrollPane3.setViewportView(tbTrangChu);
+        tblTrangChu.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        tblTrangChu.setRowHeight(25);
+        tblTrangChu.setSelectionBackground(new java.awt.Color(232, 57, 95));
+        tblTrangChu.setShowVerticalLines(false);
+        tblTrangChu.getTableHeader().setReorderingAllowed(false);
+        scrTableTrangChu.setViewportView(tblTrangChu);
 
-        add(jScrollPane3, java.awt.BorderLayout.CENTER);
+        add(scrTableTrangChu, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel lblCongNhan;
+    private javax.swing.JLabel lblNhanVien;
+    private javax.swing.JLabel lblPhongBan;
+    private javax.swing.JLabel lblTongCongNhan;
+    private javax.swing.JLabel lblTongNhanVien;
+    private javax.swing.JLabel lblTongPhongBan;
     private CustomView.PanelBorder panelBorder5;
     private CustomView.PanelBorder panelBorder6;
     private CustomView.PanelBorder panelBorder7;
-    private javax.swing.JTable tbTrangChu;
+    private javax.swing.JScrollPane scrTableTrangChu;
+    private javax.swing.JTable tblTrangChu;
     // End of variables declaration//GEN-END:variables
 }

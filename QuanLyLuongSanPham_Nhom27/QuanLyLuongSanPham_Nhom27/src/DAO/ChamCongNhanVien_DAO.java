@@ -43,7 +43,7 @@ public class ChamCongNhanVien_DAO {
                 String caLam = rs.getString("caLam");
                 Date ngayChamCong = rs.getDate("ngayChamCong");
                 String trangThaiDiLam = rs.getString("trangThaiDiLam");
-                String gioDiLam = rs.getString("gioDiLam");       
+                String gioDiLam = rs.getString("gioDiLam");
                 String maNguoiCham = rs.getString("maNguoiCham");
                 NhanVien nhanVien = nhanVien_Dao.layMotNhanVienTheoMaNhanVien(maNhanVien);
                 NhanVien nguoiChamCong = nhanVien_Dao.layMotNhanVienTheoMaNhanVien(maNguoiCham);
@@ -74,10 +74,10 @@ public class ChamCongNhanVien_DAO {
             stm.setString(1, chamCongNhanVien.getNhanVien().getMaNhanVien());
             stm.setString(2, chamCongNhanVien.getCaLam());
             stm.setDate(3, new java.sql.Date(chamCongNhanVien.getNgayChamCong().getTime()));
-            stm.setString(3, chamCongNhanVien.getTrangThaiDiLam());
-            stm.setString(4, chamCongNhanVien.getGioDiLam());
-            stm.setString(5, chamCongNhanVien.getNguoiChamCong().getMaNhanVien());
-            
+            stm.setString(4, chamCongNhanVien.getTrangThaiDiLam());
+            stm.setString(5, chamCongNhanVien.getGioDiLam());
+            stm.setString(6, chamCongNhanVien.getNguoiChamCong().getMaNhanVien());
+
             soDongThemDuoc = stm.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -98,16 +98,16 @@ public class ChamCongNhanVien_DAO {
             ConnectionDB.ConnectDB.getInstance();
             Connection con = ConnectionDB.ConnectDB.getConnection();
             String truyVan = "UPDATE ChamCongNhanVien"
-                    + "  set caLam = ?, ngayChamCong = ?, trangThaiDiLam = ?, gioDiLam = ?"
+                    + "  set trangThaiDiLam = ?, gioDiLam = ?"
                     + "  , maNguoiCham = ?"
-                    + "  where maNhanVien = ?";
+                    + "  where maNhanVien = ?, caLam=?,ngayChamCong=?";
             stm = con.prepareStatement(truyVan);
-            stm.setString(1, chamCongNhanVien.getCaLam());
-            stm.setDate(2, new java.sql.Date(chamCongNhanVien.getNgayChamCong().getTime()));
-            stm.setString(3, chamCongNhanVien.getTrangThaiDiLam());
-            stm.setString(4, chamCongNhanVien.getGioDiLam());
-            stm.setString(5, chamCongNhanVien.getNguoiChamCong().getMaNhanVien());
-            stm.setString(6, chamCongNhanVien.getNhanVien().getMaNhanVien());
+            stm.setString(1, chamCongNhanVien.getTrangThaiDiLam());
+            stm.setString(2, chamCongNhanVien.getGioDiLam());
+            stm.setString(3, chamCongNhanVien.getNguoiChamCong().getMaNhanVien());
+            stm.setString(4, chamCongNhanVien.getNhanVien().getMaNhanVien());
+            stm.setString(5, chamCongNhanVien.getCaLam());
+            stm.setDate(6, new java.sql.Date(chamCongNhanVien.getNgayChamCong().getTime()));
             soDongSuaDuoc = stm.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -120,15 +120,18 @@ public class ChamCongNhanVien_DAO {
         }
         return soDongSuaDuoc != 0;
     }
-    public boolean xoaMotChamCongNhanVienTheoMaChamCong(String maNhanVien){
+
+    public boolean xoaMotChamCongNhanVienTheoMaChamCong(String maNhanVien,String caLam, Date ngayChamCong) {
         PreparedStatement stm = null;
         int soDongXoaDuoc = 0;
         try {
             ConnectionDB.ConnectDB.getInstance();
             Connection con = ConnectionDB.ConnectDB.getConnection();
-            String truyVan = "delete from ChamCongNhanVien where maNhanVien = ?";
+            String truyVan = "delete from ChamCongNhanVien where maNhanVien = ?,caLam=?,ngayChamCong=?";
             stm = con.prepareStatement(truyVan);
             stm.setString(1, maNhanVien);
+            stm.setString(2, maNhanVien);
+            stm.setDate(3, new java.sql.Date(ngayChamCong.getTime()));
             soDongXoaDuoc = stm.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -141,6 +144,7 @@ public class ChamCongNhanVien_DAO {
         }
         return soDongXoaDuoc != 0;
     }
+
     public static void main(String[] args) {
         try {
             System.setOut(new PrintStream(System.out, true, "UTF8"));

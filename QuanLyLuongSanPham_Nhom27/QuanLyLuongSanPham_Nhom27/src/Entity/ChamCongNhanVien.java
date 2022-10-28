@@ -32,9 +32,6 @@ public class ChamCongNhanVien {
             e.getMessage();
         }
     }
-
-    
-
     public Date getNgayChamCong() {
         return ngayChamCong;
     }

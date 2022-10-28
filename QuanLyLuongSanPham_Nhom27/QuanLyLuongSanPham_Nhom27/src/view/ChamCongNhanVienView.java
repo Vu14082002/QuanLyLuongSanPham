@@ -42,7 +42,7 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
     private ChamCongNhanVien entityChamCongNhanVien;
     private PhongBan entityPhongBan;
     private PhongBan_DAO daoPhongBan;
-    private ArrayList<NhanVien> list;
+    private ArrayList<NhanVien> listNhanVien;
 
     public ChamCongNhanVienView() throws ParseException, Exception {
         ConnectionDB.ConnectDB.getInstance().connect();
@@ -120,9 +120,8 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
         daoChamCong = new ChamCongNhanVien_DAO();
         daoNhanVien = new NhanVien_DAO();
         ArrayList<ChamCongNhanVien> listChamCong = daoChamCong.danhSachChamCongNhanVien();
-        ArrayList<NhanVien> listNhanVien = daoNhanVien.layDanhSachNhanVien();
+        listNhanVien = daoNhanVien.layDanhSachNhanVien();
         ArrayList<NhanVien> listTemp1 = new ArrayList<>();
-        list = new ArrayList<>();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String strDate = formatter.format(dcsNgayChamCong.getDate());
         listChamCong.forEach(e -> {
@@ -132,15 +131,19 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
         });
         listNhanVien.forEach(e -> {
             boolean flag = false;
-            for (NhanVien nhanVien : listTemp1) {
-                if (nhanVien.getMaNhanVien().equalsIgnoreCase(e.getMaNhanVien())) {
-                    flag = true;
+            if (e.getNgayVaoLam().after(dcsNgayChamCong.getDate())) {
+                System.out.println(e.getMaNhanVien()+"Nhan vien nay chua du dk de cham cong");
+            } else {
+                for (NhanVien nhanVien : listTemp1) {
+                    if (nhanVien.getMaNhanVien().equalsIgnoreCase(e.getMaNhanVien())) {
+                        flag = true;
+                    }
                 }
-            }
-            if (!flag) {
-                String data[] = {(modelChamCong.getRowCount() + 1) + "", e.getMaNhanVien(), e.getHoTen(), e.getSoDienThoai(), e.getPhongBan().getTenPhongBan(), e.getChucVu()};
-                modelChamCong.addRow(data);
-                btnChamCongTatCa.setEnabled(true);
+                if (!flag) {
+                    String data[] = {(modelChamCong.getRowCount() + 1) + "", e.getMaNhanVien(), e.getHoTen(), e.getSoDienThoai(), e.getPhongBan().getTenPhongBan(), e.getChucVu()};
+                    modelChamCong.addRow(data);
+                    btnChamCongTatCa.setEnabled(true);
+                }
             }
         });
     }
@@ -418,6 +421,7 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
     private void tblNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNhanVienMouseClicked
         try {
             hienThiDuLieuLenTxtBangNhanVien(tblNhanVien.getSelectedRow());
+            btnChamCongTatCa.setEnabled(false);
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(null, "Hệ thống đang bị lỗi, quý khách làm phiền thoát chương tình");
 
@@ -431,6 +435,8 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
     private void tblChamCongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblChamCongMouseClicked
         try {
             hienThiDuLieuLenTxtBangChamCong(tblChamCong.getSelectedRow());
+            btnChamCongTatCa.setEnabled(false);
+
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(null, "Hệ thống đang bị lỗi, quý khách làm phiền thoát chương tình");
 
@@ -470,10 +476,27 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
     }//GEN-LAST:event_dcsNgayChamCongPropertyChange
 
     private void btnChamCongTatCaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChamCongTatCaActionPerformed
-//        list.forEach(e->{
-//        daoChamCong.themMotChamCongNhanVien(entityChamCongNhanVien)
-//            
-//        });
+        daoChamCong = new ChamCongNhanVien_DAO();
+        String gio = "";
+        NhanVien nhanVienChamCong = daoNhanVien.layMotNhanVienTheoMaNhanVien("NV100001");
+        if (cmbTrangThai.getSelectedIndex() != 2 && cmbTrangThai.getSelectedIndex() != 3) {
+            gio = cmbGio.getSelectedItem().toString() + "h" + cmbPhut.getSelectedItem().toString();
+        }
+        for (NhanVien nhanVien : listNhanVien) {
+            ChamCongNhanVien chamCong = new ChamCongNhanVien(nhanVien, dcsNgayChamCong.getDate(), cmbCaLam.getSelectedItem().toString(), cmbTrangThai.getSelectedItem().toString(),
+                    gio, nhanVienChamCong);
+            daoChamCong.themMotChamCongNhanVien(chamCong);
+        }
+        try {
+            taiDuLieuLenBangNhanVien();
+            while (modelChamCong.getRowCount() != 0) {
+                modelChamCong.removeRow(0);
+            }
+            JOptionPane.showMessageDialog(null, "Chấm công nhân thành công");
+            btnChamCongTatCa.setEnabled(false);
+        } catch (ParseException ex) {
+            Logger.getLogger(ChamCongNhanVienView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnChamCongTatCaActionPerformed
 
     private void cmbTrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTrangThaiActionPerformed

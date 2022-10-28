@@ -692,8 +692,8 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
         if (this.txtHoVaTen.getText().equals("")) {
             this.lblErrHoVaTen.setText("Bắt buộc nhập");
             flag = false;
-        } else if (!this.txtHoVaTen.getText().matches("^([A-Z]{1}[a-zvxyỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]+)"
-                + "((\\s{1}[A-Z][{1}a-vxyỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]+){1,})$")) {
+        } else if (!this.txtHoVaTen.getText().matches("^([A-ZĐÂÁƯ][a-zỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổ"
+                + "ẵẻỡơôưăêâđ]+)((\\s[A-ZĐÂÁƯ][a-zỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]+){1,})$")) {
             this.lblErrHoVaTen.setText("Họ tên không hợp lệ");
             flag = false;
         } else {
@@ -733,8 +733,6 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
         } else {
             lblErrNgaySinh.setText("");
         }
-        System.out.println(flag);
-
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         long khoangCach2Ngay = sdf.parse(sdf.format(dcsNgayVaoLam.getDate())).getTime() - sdf.parse(sdf.format(dcsNgaySinh.getDate())).getTime();
         long getYearDiff = TimeUnit.MILLISECONDS.toDays(khoangCach2Ngay) / 365;
@@ -747,8 +745,7 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
         } else {
             lblErrNgayVaoLam.setText("");
         }
-//        this.txtLuongThoaThuan.getText().replaceAll(",", "");
-        if (this.txtLuongThoaThuan.getText().replaceAll(",", "").equals("")) {
+        if (this.txtLuongThoaThuan.getText().equals("")) {
             this.lblErrLuongThoaThuan.setText("Bắt buộc nhập");
             flag = false;
         } else if (!this.txtLuongThoaThuan.getText().replaceAll(",", "").matches("^[1-9][0-9]*$")) {
