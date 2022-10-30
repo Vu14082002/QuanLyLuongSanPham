@@ -158,6 +158,31 @@ public class ToNhom_DAO {
         }
         return toNhom;
     }
+        public ToNhom layMotToNhomTheoTen(String ten){
+        PreparedStatement stm = null;
+        ToNhom toNhom = null;
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String truyVan = "SELECT * FROM ToNhom WHERE tenTo = ?";
+            stm = con.prepareStatement(truyVan);
+            stm.setString(1, ten);
+            ResultSet rs = stm.executeQuery();
+           
+            while (rs.next()){
+                String maToNhomOb = rs.getString("maToNhom");
+                String tenToNhom = rs.getString("tenTo");
+                int soLuongCongNhan = rs.getInt("soLuongCongNhan");
+                toNhom = new ToNhom(maToNhomOb, tenToNhom, soLuongCongNhan);
+            }
+            if (toNhom == null){
+                throw new Exception("Không tìm thấy tổ nhóm này!");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return toNhom;
+    }
     public static void main(String[] args) {
         try {
             System.setOut(new PrintStream(System.out, true, "UTF8"));

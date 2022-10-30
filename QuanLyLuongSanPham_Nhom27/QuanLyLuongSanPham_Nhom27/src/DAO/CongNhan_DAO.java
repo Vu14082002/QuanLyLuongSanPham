@@ -107,7 +107,45 @@ public class CongNhan_DAO {
         }
         return congNhan;
     }
+      public CongNhan layMotCongNhanTheoTo(String to) {
+        CongNhan congNhan = null;
+        PreparedStatement stm = null;
+        ToNhom_DAO toNhom_DAO = new ToNhom_DAO();
+        try {
+            ConnectionDB.ConnectDB.getInstance();
+            Connection con = ConnectionDB.ConnectDB.getConnection();
+            String truyVan = "SELECT * FROM CongNhan where to = ?";
+            stm = con.prepareStatement(truyVan);
+            stm.setString(1, to);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                String maCongNhanOb = rs.getString("maCongNhan");
+                String hoTen = rs.getString("hoTen");
+                Date ngaySinh = rs.getDate("ngaySinh");
+                String maCCCD = rs.getString("maCCCD");
+                String soDienThoai = rs.getString("soDienThoai");
+                String email = rs.getString("email");
+                String matKhau = rs.getString("matKhau");
+                Boolean gioiTinh = rs.getBoolean("gioiTinh");
+                String anhDaiDien = rs.getString("anhDaiDien");
+                String diaChi = rs.getString("diaChi");
+                Date ngayVaoLam = rs.getDate("ngayVaoLam");
+                String maToNhom = rs.getString("toNhom");
+                ToNhom toNhom = toNhom_DAO.layMotToNhomTheoMa(maToNhom);
+                congNhan = new CongNhan(maCongNhanOb, hoTen, ngaySinh, maCCCD, soDienThoai, email, matKhau, ngayVaoLam, gioiTinh, anhDaiDien, diaChi, toNhom);
 
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                stm.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return congNhan;
+    }
     public boolean themMotCongNhan(CongNhan congNhan) {
         PreparedStatement stm = null;
         int soLuongThemDuoc = 0;

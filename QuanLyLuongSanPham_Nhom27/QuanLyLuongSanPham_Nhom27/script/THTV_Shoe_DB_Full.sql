@@ -1,5 +1,5 @@
 --drop database THTV_SHOES
-drop  DATABASE THTV_SHOES
+
 -- Tạo database 
 CREATE DATABASE THTV_SHOES
 GO

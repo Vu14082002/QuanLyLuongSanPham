@@ -20,20 +20,30 @@ public class PhanCongCongNhan {
     private CongDoan congDoan;
     private NhanVien nguoiPhanCong;
     private Date ngayPhanCong;
-    private String caLam;
+    private ToNhom toNhom;
 
-    public PhanCongCongNhan(String maPhanCong, CongNhan congNhan, CongDoan congDoan, NhanVien nguoiPhanCong, Date ngayPhanCong, String caLam) {
+    public PhanCongCongNhan() {
+    }
+
+    public PhanCongCongNhan(String maPhanCong, CongNhan congNhan, CongDoan congDoan, NhanVien nguoiPhanCong, Date ngayPhanCong, ToNhom toNhom) {
         try {
             setMaPhanCong(maPhanCong);
+            setNgayPhanCong(ngayPhanCong);
             setCongNhan(congNhan);
             setCongDoan(congDoan);
             setNguoiPhanCong(nguoiPhanCong);
-            setNgayPhanCong(ngayPhanCong);
-            setCaLam(caLam);
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            Logger.getLogger(PhanCongCongNhan.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    public ToNhom getToNhom() {
+        return toNhom;
+    }
+
+    public void setToNhom(ToNhom toNhom) {
+        this.toNhom = toNhom;
     }
 
     public String getMaPhanCong() {
@@ -79,28 +89,10 @@ public class PhanCongCongNhan {
     }
 
     public void setNgayPhanCong(Date ngayPhanCong) throws Exception {
-        if (ngayPhanCong.after(new Date())){
+        if (ngayPhanCong.after(new Date())) {
             throw new Exception("Ngày phân công phải là ngày hiện tại hoặc trước hiện tại!");
         } else {
             this.ngayPhanCong = ngayPhanCong;
         }
     }
-
-    public String getCaLam() {
-        return caLam;
-    }
-
-    public void setCaLam(String caLam) throws Exception {
-        if (caLam.equals("")){
-            throw new Exception("Ca làm không được để trống!");
-        } else {
-            this.caLam = caLam;
-        }
-    }
-
-    @Override
-    public String toString() {
-        return "PhanCongCongNhan{" + "maPhanCong=" + maPhanCong + ", congNhan=" + congNhan + ", congDoan=" + congDoan + ", nguoiPhanCong=" + nguoiPhanCong + ", ngayPhanCong=" + ngayPhanCong + ", caLam=" + caLam + '}';
-    }
-
 }
