@@ -98,8 +98,8 @@ public class ChamCongNhanVien_DAO {
             ConnectionDB.ConnectDB.getInstance();
             Connection con = ConnectionDB.ConnectDB.getConnection();
 
-            String truyVan = "UPDATE ChamCongNhanVien set trangThaiDiLam = N?, gioDiLam = ? , maNguoiCham = ?\n"
-                    + " where maNhanVien =? and caLam=N? and ngayChamCong=?";
+            String truyVan = "UPDATE ChamCongNhanVien set trangThaiDiLam =?, gioDiLam = ? , maNguoiCham = ?\n"
+                    + " where maNhanVien =? and caLam=? and ngayChamCong=?";
             stm = con.prepareStatement(truyVan);
             stm.setString(1, chamCongNhanVien.getTrangThaiDiLam());
             stm.setString(2, chamCongNhanVien.getGioDiLam());
