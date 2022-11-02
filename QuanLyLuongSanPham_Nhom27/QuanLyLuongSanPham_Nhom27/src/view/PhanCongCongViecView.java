@@ -181,7 +181,7 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
         jPanel5.add(lblNgayPhanCong, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 20, 190, 40));
 
         aaaa.setBackground(new java.awt.Color(255, 255, 255));
-        aaaa.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách sản phẩm", 0, 0, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
+        aaaa.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách sản phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
         aaaa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 aaaaMouseClicked(evt);
@@ -306,7 +306,7 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
         add(jPanel5, java.awt.BorderLayout.PAGE_START);
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách phân công", 0, 0, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách phân công", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
 
         tblPhanCong.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         tblPhanCong.setModel(new javax.swing.table.DefaultTableModel(
