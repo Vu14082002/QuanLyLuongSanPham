@@ -12,8 +12,10 @@ import Entity.CongNhan;
 import java.awt.Color;
 import java.awt.Container;
 import java.text.DecimalFormat;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -77,9 +79,9 @@ public class ChiTietLuongCongNhan extends javax.swing.JFrame {
             double tongTien = chamCong.getSoLuongLam() * chamCong.getPhanCong().getCongDoan().getTienLuong();
             String data[] = {(modelTableChiTiet.getRowCount() + 1) + "", chamCong.getNgayChamCong().toString()
             , chamCong.getTrangThaiDiLam(), chamCong.getPhanCong().getCongDoan().getSanPham().getMaSanPham()
-            , chamCong.getTrangThaiDiLam(), chamCong.getPhanCong().getCongDoan().getSanPham().getTenSanPham()
-            , chamCong.getTrangThaiDiLam(), chamCong.getPhanCong().getCongDoan().getMaCongDoan()
-            , chamCong.getTrangThaiDiLam(), chamCong.getPhanCong().getCongDoan().getTenCongDoan()
+            ,  chamCong.getPhanCong().getCongDoan().getSanPham().getTenSanPham()
+            , chamCong.getPhanCong().getCongDoan().getMaCongDoan()
+            , chamCong.getPhanCong().getCongDoan().getTenCongDoan()
             , chamCong.getCaLam(), chamCong.getSoLuongLam()+"", nf.format(tongTien)};
             modelTableChiTiet.addRow(data);
         }
@@ -201,6 +203,13 @@ public class ChiTietLuongCongNhan extends javax.swing.JFrame {
 
     private void btnXuatBaoCaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatBaoCaoActionPerformed
         // TODO add your handling code here:
+        MessageFormat header = new MessageFormat("Lương " + lblHoTenOutPut.getText()+ "(" + lblMaCongNhanOutput.getText() + ") " +  thang + "/" + nam);
+        MessageFormat footer = new MessageFormat("Tổng lương: " + lblTongTienNhan.getText());
+        try {
+            tblBangLuongChiTiet.print(JTable.PrintMode.FIT_WIDTH, header, footer);
+        } catch (Exception e) {
+            e.getMessage();
+        }
     }//GEN-LAST:event_btnXuatBaoCaoActionPerformed
 
     /**
@@ -230,11 +239,13 @@ public class ChiTietLuongCongNhan extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChiTietLuongCongNhan("CN100001", 10, 2022).setVisible(true);
+                new ChiTietLuongCongNhan("NV100001", 10, 2022).setVisible(true);
             }
         });
     }

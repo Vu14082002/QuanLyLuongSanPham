@@ -291,7 +291,9 @@ public class CongDoan_DAO {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
+        if (maCongDoan == null || maCongDoan.equals("")){
+            return "CD100001";
+        }
         String chuoiCanLay = maCongDoan.split("CD")[1];
 
         try {

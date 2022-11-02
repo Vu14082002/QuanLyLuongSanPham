@@ -253,7 +253,9 @@ public class CongNhan_DAO {
                 System.out.println(e.getMessage());
             }
         }
-
+        if (maCongNhan == null || maCongNhan.equals("")){
+            return "CN100001";
+        }
         String chuoiCanLay = maCongNhan.split("CN")[1];
 
         try {

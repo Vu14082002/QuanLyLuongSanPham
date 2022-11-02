@@ -463,6 +463,9 @@ public class QuanLyThongTinCaNhan extends javax.swing.JPanel implements ActionLi
         Object o = e.getSource();
         if (o.equals(btnLuu)){
             boolean isValid =  validateForm();
+            if (!isValid){
+                return;
+            }
             if (isNhanVien){
                 NhanVien nhanVienOld = nhanVien_DAO.layMotNhanVienTheoMaNhanVien(username);
                 boolean coSuaDuoc = nhanVien_DAO.suaThongTinMotNhanVien(new NhanVien(nhanVienOld.getMaNhanVien()

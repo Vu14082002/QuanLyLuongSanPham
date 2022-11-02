@@ -279,16 +279,19 @@ public class LuongNhanVienView extends javax.swing.JPanel {
         int res = date1.getActualMaximum(Calendar.DATE);
         Calendar date2 = Calendar.getInstance();
         date2.set(nam, thang, res);
+        int maLuong = 0;
         for (String nv : nhanVienKhongTrungList) {
-            int maLuong = 100001;
-            if (listLuong.size() > 0) {
-                maLuong = Integer.parseInt(listLuong.get(listLuong.size() - 1).getMaBangLuong().split("N")[1]) + 1;
+            BangLuongNhanVien_DAO daoLuong2 = new BangLuongNhanVien_DAO();
+            ArrayList<BangLuongNhanVien> listLuong2 = daoLuong2.danhSachBangLuong();
+            if (listLuong2.size() > 0) {
+                maLuong = Integer.parseInt(listLuong2.get(listLuong.size() - 1).getMaBangLuong().split("N")[1]) + 1;
+            } else {
+                maLuong = 100001;
             }
             NhanVien nhanvien = daoNhanVien.layMotNhanVienTheoMaNhanVien(nv);
             int soNgayDiLam = daoLuong.laySoNgayDilamCuaNhanVien(nv, thang, nam);
             int soNgayNghi = res - sunday(date1.getTime(), date2.getTime()) - soNgayDiLam;
             int soNgayNghiPhep = daoLuong.laySoNgayNghiCoPhepCuaNhanVien(nv, thang, nam);
-
             double luongNhanVien = (nhanvien.getLuongThoaThuan() / 26) * (soNgayDiLam + soNgayNghiPhep);
             DecimalFormat dfm = new DecimalFormat("###########.##");
             String tienLuong = dfm.format(luongNhanVien);

@@ -180,7 +180,7 @@ public class PhongBan_DAO {
 
     public String layRaMaPhongBanDeThem() {
         Statement stm = null;
-        PhongBan phongBan = null;
+        String  maPhongBan = "";
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
@@ -188,16 +188,18 @@ public class PhongBan_DAO {
             stm = con.createStatement();
             ResultSet rs = stm.executeQuery(truyVan);
             while (rs.next()) {
-                String maPhongBan = rs.getString("maPhongBan");
-                String tenPhongBan = rs.getString("tenPhongBan");
-                int soLuongNhanVien = rs.getInt("soLuongNhanVien");
-                phongBan = new PhongBan(maPhongBan, tenPhongBan, soLuongNhanVien);
+                maPhongBan = rs.getString("maPhongBan");
+               
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        if (maPhongBan.equals("") || maPhongBan == null){
+            return "PB100001";
+            
+        }
 
-        String chuoiCanLay = phongBan.getMaPhongBan().split("PB")[1];
+        String chuoiCanLay = maPhongBan.split("PB")[1];
 
         try {
             chuoiCanLay = "PB" + (Integer.parseInt(chuoiCanLay) + 1);

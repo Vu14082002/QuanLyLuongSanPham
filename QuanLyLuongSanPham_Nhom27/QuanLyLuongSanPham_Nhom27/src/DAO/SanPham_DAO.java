@@ -190,7 +190,9 @@ public class SanPham_DAO {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
+        if (maSanPham == null || maSanPham.equals("")){
+            return "SP100001";
+        }
         String chuoiCanLay = maSanPham.split("SP")[1];
 
         try {

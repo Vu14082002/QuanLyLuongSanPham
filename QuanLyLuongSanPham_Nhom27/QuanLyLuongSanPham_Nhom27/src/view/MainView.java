@@ -73,15 +73,16 @@ public class MainView extends javax.swing.JFrame {
         if (loai.equals("CN")) {
             congNhan = congNhan_DAO.layMotCongNhanTheoMa(userName);
 
+            
         } else if (loai.equals("NV")) {
             nhanVien = nhanVien_DAO.layMotNhanVienTheoMaNhanVien(userName);
         }
         String hello = "Xin Chào, ";
-
-        if (congNhan != null) {
+        
+        if (congNhan != null){
             hello += congNhan.getHoTen();
-        }
-        if (nhanVien != null) {
+        } 
+        if (nhanVien != null){
             hello += nhanVien.getHoTen();
         }
         lblXinChao.setText(hello);
@@ -211,10 +212,10 @@ public class MainView extends javax.swing.JFrame {
         thongTinCaNhan = new MenuItem(iconSubMenuNonSelect, "Thông tin cá nhân", ((e) -> {
             pnBody.removeAll();
             String username = "";
-            if (congNhan != null) {
+            if (congNhan != null){
                 username = congNhan.getMaCongNhan();
-
-            } else if (nhanVien != null) {
+                
+            } else if (nhanVien != null){
                 username = nhanVien.getMaNhanVien();
             }
             pnBody.add(new QuanLyThongTinCaNhan(username), BorderLayout.CENTER);
@@ -436,11 +437,15 @@ public class MainView extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainView("CN100001").setVisible(true);
+                new MainView("NV100001").setVisible(true);
             }
         });
     }

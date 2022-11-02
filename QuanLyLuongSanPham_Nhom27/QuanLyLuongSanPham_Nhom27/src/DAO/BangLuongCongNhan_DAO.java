@@ -465,7 +465,9 @@ public class BangLuongCongNhan_DAO {
                 System.out.println(e.getMessage());
             }
         }
-
+        if (maBangLuong == null || maBangLuong.equals("")){
+            return "LC100001";
+        }
         String chuoiCanLay = maBangLuong.split("LC")[1];
 
         try {
@@ -503,7 +505,43 @@ public class BangLuongCongNhan_DAO {
         }
         return soLuongDongTimThay == 0;
     }
-
+    public ArrayList<BangLuongCongNhan> layDanhSachBangLuongTheoThangNam(int thang, int nam){
+        PreparedStatement stm = null;
+        ArrayList<BangLuongCongNhan> dsBangLuong = new ArrayList<BangLuongCongNhan>();
+        CongNhan_DAO congNhan_DAO = new CongNhan_DAO();
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String truyVan = "select * from BangLuongCongNhan where MONTH(ngayTinh) = ? and YEAR(ngayTinh) = ?";
+            stm = con.prepareStatement(truyVan);
+            stm.setInt(1, thang);
+            stm.setInt(2, nam);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()){
+               String maBangLuong = rs.getString("maBangLuong");
+                String maCongNhanOb = rs.getString("maCongNhan");
+                Date ngayTinh = rs.getDate("ngayTinh");
+                int soLuongSanPhamLam = rs.getInt("soLuongSanPhamLam");
+                int soNgayDiLam = rs.getInt("soNgayDiLam");
+                int soNgayNghi = rs.getInt("soNgayNghi");
+                int soPhepNghi = rs.getInt("soPhepNghi");
+                double tongLuong = rs.getBigDecimal("tongLuong").doubleValue();
+                String donViTien = rs.getString("donViTien");
+                CongNhan congNhan = congNhan_DAO.layMotCongNhanTheoMa(maCongNhanOb);
+                dsBangLuong.add(new BangLuongCongNhan(maBangLuong, congNhan,
+                        soLuongSanPhamLam, soNgayDiLam, soNgayNghi, soPhepNghi, ngayTinh, tongLuong, donViTien));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally{
+            try {
+                stm.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return dsBangLuong;
+    }
     public static void main(String[] args) {
         try {
             System.setOut(new PrintStream(System.out, true, "UTF8"));

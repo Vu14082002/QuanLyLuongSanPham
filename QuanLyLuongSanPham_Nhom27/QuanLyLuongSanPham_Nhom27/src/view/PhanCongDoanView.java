@@ -509,6 +509,7 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
             lblHienThiMaCongDoan.setText(congDoan_DAO.layRaMaCongDoanDeThem());
             moKhoaTextField(true);
             xoaTrangTextField();
+            lblHienThiMaCongDoan.setText(congDoan_DAO.layRaMaCongDoanDeThem());
             oFlag = e.getSource();
             // mở | khóa các btn
             btnCapNhat.setEnabled(false);
@@ -705,6 +706,7 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
         txtSoLuongCan.setText("");
         txtGiaTien.setText("");
         dcsThoiHan.setDate(new Date());
+        lblHienThiMaCongDoan.setText("");
     }
 
     @Override
@@ -717,6 +719,7 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
             }
         } else if (o.equals(tblDanhSachSanPham)) {
             int rowSelected = tblDanhSachSanPham.getSelectedRow();
+            
             if (rowSelected != -1) {
                 taiDuLieuLenBangCongDoan();
                 hienThiSanPhamLenTxt(rowSelected);
@@ -726,6 +729,13 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
                 } else {
                     xoaTrangTextField();
                 }
+            }
+            if (tblCongDoan.getRowCount() == 0){
+                btnCapNhat.setEnabled(false);
+                btnXoa.setEnabled(false);
+            } else {
+                btnCapNhat.setEnabled(true);
+                btnXoa.setEnabled(true);
             }
         }
     }

@@ -38,6 +38,7 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
 
     public SanPhamView() {
         initComponents();
+        txtMaSanPham.setText("");
         try {
             ConnectionDB.ConnectDB.getInstance().connect();
 
@@ -55,7 +56,7 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
         btnThem.addActionListener(this);
         btnXoa.addActionListener(this);
         tblNhanVien.addMouseListener(this);
-
+        
         xoaTrangField();
         btnLuu.setEnabled(false);
         btnHuy.setEnabled(false);
@@ -637,6 +638,8 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
             }
         } else if (o.equals(btnHuy)) {
             moKhoaTextField(false);
+            lblErrSoLuong.setText("");
+            lblErrTenSanPham.setText("");
             if (tblNhanVien.getRowCount() != 0) {
                 hienThiLenTxt(0);
                 tblNhanVien.setRowSelectionInterval(0, 0);

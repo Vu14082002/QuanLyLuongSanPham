@@ -187,6 +187,39 @@ public class ChamCongCongNhan_DAO {
         return dsChamCong;
     }
 
+    public ArrayList<ChamCongCongNhan> layDanhSachChamCongTheoNgay(Date date){
+        PreparedStatement stm = null;
+        ArrayList<ChamCongCongNhan> dsChamCong = new ArrayList<ChamCongCongNhan>();
+        PhanCongCongNhan_DAO phanCong_DAO = new PhanCongCongNhan_DAO();
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String truyVan = "select * from ChamCongCongNhan where ngayChamCong = ?";
+            stm = con.prepareStatement(truyVan);
+            stm.setDate(1, new java.sql.Date(date.getTime()));
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()){
+                String maPhanCong = rs.getString("maPhanCong");
+                String caLam = rs.getString("caLam");
+                Date ngayChamCong = rs.getDate("ngayChamCong");
+                int soLuongLam = rs.getInt("soLuongLam");
+                String trangThaiDiLam = rs.getString("trangThaiDiLam");
+                String gioDiLam = rs.getString("gioDiLam");
+                PhanCongCongNhan phanCong = phanCong_DAO.layMotPhanCongCongNhanTheoMaPhanCong(maPhanCong);
+                dsChamCong.add(new ChamCongCongNhan(phanCong, caLam, ngayChamCong, soLuongLam, trangThaiDiLam, gioDiLam));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally{
+            try {
+                stm.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return dsChamCong;
+        
+    }
     public static void main(String[] args) {
         try {
             System.setOut(new PrintStream(System.out, true, "UTF8"));
