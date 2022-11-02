@@ -18,9 +18,11 @@ import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class BangLuongNhanVien_DAO {
@@ -174,7 +176,7 @@ public class BangLuongNhanVien_DAO {
             soDongXoaDuoc = stm.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getMessage());
-        } finally{
+        } finally {
             try {
                 stm.close();
             } catch (Exception e) {
@@ -183,6 +185,7 @@ public class BangLuongNhanVien_DAO {
         }
         return soDongXoaDuoc != 0;
     }
+
     public static void main(String[] args) {
         try {
             System.setOut(new PrintStream(System.out, true, "UTF8"));
@@ -209,6 +212,91 @@ public class BangLuongNhanVien_DAO {
         System.out.println("\n\n\nSửa: " + dao.suaMotBangLuong(bl));
         System.out.println("\n\n\n" + dao.layDanhSachBangLuongTheoMaNhanVien("NV123123"));
         System.out.println("\n\n\nXóa" + dao.xoaMotBangLuongTheoMaBangLuong("LN111111"));
-        
+
     }
+    // code by vu
+
+    public int laySoNgayDilamCuaNhanVien(String maNhanVien, int thang, int nam) {
+        PreparedStatement stm = null;
+        int soDongSuaDuoc = 0;
+        try {
+            ConnectionDB.ConnectDB.getInstance();
+            Connection con = ConnectionDB.ConnectDB.getConnection();
+            String truyVan = "select DISTINCT ngayChamCong from ChamCongNhanVien where maNhanVien = ? \n"
+                    + "and DAY(ngayChamCong) >=1 and DAY(ngayChamCong) <=31 and \n"
+                    + "month(ngayChamCong) =? and YEAR(ngayChamCong) =? and trangThaiDiLam not like '%Nghỉ%'";
+            stm = con.prepareStatement(truyVan);
+            stm.setString(1, maNhanVien);
+            stm.setInt(2, thang);
+            stm.setInt(3, nam);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                soDongSuaDuoc++;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                stm.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return soDongSuaDuoc;
+    }
+    public int laySoNgayNghiCoPhepCuaNhanVien(String maNhanVien, int thang, int nam) {
+        PreparedStatement stm = null;
+        int soNgayNghiCoPhep = 0;
+        try {
+            ConnectionDB.ConnectDB.getInstance();
+            Connection con = ConnectionDB.ConnectDB.getConnection();
+            String truyVan = "select DISTINCT ngayChamCong from ChamCongNhanVien where maNhanVien = ? \n"
+                    + "and DAY(ngayChamCong) >=1 and DAY(ngayChamCong) <=31 and \n"
+                    + "month(ngayChamCong) =? and YEAR(ngayChamCong) =? and trangThaiDiLam  like N'%Nghỉ Có%'";
+            stm = con.prepareStatement(truyVan);
+            stm.setString(1, maNhanVien);
+            stm.setInt(2, thang);
+            stm.setInt(3, nam);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                soNgayNghiCoPhep++;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                stm.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return soNgayNghiCoPhep;
+    }
+
+
+
+    public ArrayList<String> layDanhSachMaNhanVienKhongTrung() {
+        Statement stm = null;
+        ArrayList<String> dsNhanVien = new ArrayList<>();
+        try {
+            ConnectionDB.ConnectDB.getInstance();
+            Connection con = ConnectionDB.ConnectDB.getConnection();
+            String truyVan = "select DISTINCT maNhanVien from  ChamCongNhanVien";
+            stm = con.createStatement();
+            ResultSet rs = stm.executeQuery(truyVan);
+            while (rs.next()) {
+                dsNhanVien.add(rs.getString(1));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                stm.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return dsNhanVien;
+    }
+
 }

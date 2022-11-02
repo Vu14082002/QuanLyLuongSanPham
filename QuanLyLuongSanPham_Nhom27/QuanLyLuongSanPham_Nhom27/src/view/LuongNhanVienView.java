@@ -6,6 +6,7 @@ package view;
 
 import DAO.BangLuongNhanVien_DAO;
 import DAO.ChamCongNhanVien_DAO;
+import DAO.NhanVien_DAO;
 import Entity.BangLuongNhanVien;
 import Entity.ChamCongNhanVien;
 import Entity.NhanVien;
@@ -19,14 +20,18 @@ import java.awt.Color;
 import java.awt.Font;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.text.DecimalFormat;
 import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -62,8 +67,12 @@ public class LuongNhanVienView extends javax.swing.JPanel {
     }
 
     public void excute() {
-        // custom table
+
         model = (DefaultTableModel) tblBangLuong.getModel();
+        // custom table
+        while (model.getRowCount() > 0) {
+            model.removeRow(0);
+        }
         tblBangLuong.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
         tblBangLuong.getTableHeader().setOpaque(false);
         ((DefaultTableCellRenderer) tblBangLuong.getTableHeader().getDefaultRenderer())
@@ -78,41 +87,48 @@ public class LuongNhanVienView extends javax.swing.JPanel {
         }
     }
 
-    @SuppressWarnings("deprecation")
     public void taiDuLieuLenBangLuong() {
         while (model.getRowCount() != 0) {
             model.removeRow(0);
         }
+//        daoLuong = new BangLuongNhanVien_DAO();
+//        daoChamCong = new ChamCongNhanVien_DAO();
+//        ArrayList<BangLuongNhanVien> listLuong = daoLuong.danhSachBangLuong();
+//        ArrayList<ChamCongNhanVien> listChamCong = daoChamCong.danhSachChamCongNhanVien();
+//        if (cmbHienThi.getSelectedIndex() == 1) {
+//            if (listLuong != null) {
+//                listLuong.forEach(e -> {
+//                    listChamCong.forEach(j -> {
+//                        SimpleDateFormat dateFormatMonth = new SimpleDateFormat("MM");
+//                        SimpleDateFormat dateFormatYear = new SimpleDateFormat("yyyy");
+//                        String month = Integer.parseInt(dateFormatMonth.format(j.getNgayChamCong())) + "";
+//                        String year = Integer.parseInt(dateFormatYear.format(j.getNgayChamCong())) + "";
+//                        if (e.getNhanVien().getMaNhanVien().equalsIgnoreCase(j.getNhanVien().getMaNhanVien())
+//                                && month.equalsIgnoreCase(cmbThang.getSelectedItem().toString()) && year.equalsIgnoreCase(cmbNam.getSelectedItem().toString())) {
+//                            System.out.println("true");
+//                            model.addRow(new Object[]{model.getRowCount() + 1, e.getMaBangLuong(), e.getNhanVien().getMaNhanVien(), e.getNhanVien().getHoTen(),
+//                                e.getNhanVien().getSoDienThoai(), e.getSoNgayDiLam(), e.getSoNgayNghi(), e.getSoPhepNghi(), e.getTongTien(), e.getDonViTien(), e.getNgayTinh()
+//                            });
+//                        }
+//                    });
+//                });
+//            }
+//        } else {
+//            if (listLuong != null) {
+//                listLuong.forEach(e -> {
+//                    model.addRow(new Object[]{model.getRowCount() + 1, e.getMaBangLuong(), e.getNhanVien().getMaNhanVien(), e.getNhanVien().getHoTen(),
+//                        e.getNhanVien().isGioiTinh() ? "Nam" : "Nữ", e.getNhanVien().getSoDienThoai(), e.getSoNgayDiLam(), e.getSoNgayNghi(), e.getSoPhepNghi(), e.getTongTien(), e.getDonViTien(), e.getNgayTinh()
+//                    });
+//                });
+//            }
+//        }
         daoLuong = new BangLuongNhanVien_DAO();
-        daoChamCong = new ChamCongNhanVien_DAO();
-        ArrayList<BangLuongNhanVien> listLuong = daoLuong.danhSachBangLuong();
-        ArrayList<ChamCongNhanVien> listChamCong = daoChamCong.danhSachChamCongNhanVien();
-        if (cmbHienThi.getSelectedIndex() == 1) {
-            if (listLuong != null) {
-                listLuong.forEach(e -> {
-                    listChamCong.forEach(j -> {
-                        SimpleDateFormat dateFormatMonth = new SimpleDateFormat("MM");
-                        SimpleDateFormat dateFormatYear = new SimpleDateFormat("yyyy");
-                        String month = Integer.parseInt(dateFormatMonth.format(j.getNgayChamCong())) + "";
-                        String year = Integer.parseInt(dateFormatYear.format(j.getNgayChamCong())) + "";
-                        if (e.getNhanVien().getMaNhanVien().equalsIgnoreCase(j.getNhanVien().getMaNhanVien())
-                                && month.equalsIgnoreCase(cmbThang.getSelectedItem().toString()) && year.equalsIgnoreCase(cmbNam.getSelectedItem().toString())) {
-                            System.out.println("true");
-                            model.addRow(new Object[]{model.getRowCount() + 1, e.getMaBangLuong(), e.getNhanVien().getMaNhanVien(), e.getNhanVien().getHoTen(),
-                                e.getNhanVien().getSoDienThoai(), e.getSoNgayDiLam(), e.getSoNgayNghi(), e.getSoPhepNghi(), e.getTongTien(), e.getDonViTien(), e.getNgayTinh()
-                            });
-                        }
-                    });
-                });
-            }
-        } else {
-            if (listLuong != null) {
-                listLuong.forEach(e -> {
-                    model.addRow(new Object[]{model.getRowCount() + 1, e.getMaBangLuong(), e.getNhanVien().getMaNhanVien(), e.getNhanVien().getHoTen(),
-                        e.getNhanVien().isGioiTinh() ? "Nam" : "Nữ", e.getNhanVien().getSoDienThoai(), e.getSoNgayDiLam(), e.getSoNgayNghi(), e.getSoPhepNghi(), e.getTongTien(), e.getDonViTien(), e.getNgayTinh()
-                    });
-                });
-            }
+        ArrayList<BangLuongNhanVien> bangLuongNhanVienList = daoLuong.danhSachBangLuong();
+        for (BangLuongNhanVien l : bangLuongNhanVienList) {
+            model.addRow(new Object[]{model.getRowCount() + 1, l.getMaBangLuong(), l.getNhanVien().getMaNhanVien(), l.getNhanVien().getHoTen(),
+                l.getNhanVien().isGioiTinh() ? "Nam" : "Nữ", l.getNhanVien().getSoDienThoai(), l.getSoNgayDiLam(), l.getSoNgayNghi(), l.getSoPhepNghi(),
+                l.getTongTien(), l.getDonViTien(), l.getNgayTinh()
+            });
         }
     }
 
@@ -175,16 +191,16 @@ public class LuongNhanVienView extends javax.swing.JPanel {
                 cmbThangActionPerformed(evt);
             }
         });
-        jPanel5.add(cmbThang, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 30, 70, 40));
+        jPanel5.add(cmbThang, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, 70, 40));
 
         cmbNam.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         cmbNam.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
-        jPanel5.add(cmbNam, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 30, 120, 40));
+        jPanel5.add(cmbNam, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 30, 120, 40));
 
         lblNam.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lblNam.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblNam.setText("Năm");
-        jPanel5.add(lblNam, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 30, 80, 40));
+        jPanel5.add(lblNam, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 30, 80, 40));
 
         btnXuatBaoCao.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         btnXuatBaoCao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/update.png"))); // NOI18N
@@ -196,7 +212,7 @@ public class LuongNhanVienView extends javax.swing.JPanel {
         });
         jPanel5.add(btnXuatBaoCao, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 120, 160, 40));
 
-        cmbHienThi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Theo tháng/năm" }));
+        cmbHienThi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Theo tháng/năm" }));
         cmbHienThi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbHienThiActionPerformed(evt);
@@ -207,7 +223,7 @@ public class LuongNhanVienView extends javax.swing.JPanel {
         lblThang.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lblThang.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblThang.setText("Tháng:");
-        jPanel5.add(lblThang, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, 90, 40));
+        jPanel5.add(lblThang, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 90, 40));
 
         add(jPanel5, java.awt.BorderLayout.PAGE_START);
 
@@ -243,49 +259,61 @@ public class LuongNhanVienView extends javax.swing.JPanel {
     private void btnTinhLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTinhLuongActionPerformed
         daoLuong = new BangLuongNhanVien_DAO();
         daoChamCong = new ChamCongNhanVien_DAO();
+        NhanVien_DAO daoNhanVien = new NhanVien_DAO();
+        ArrayList<NhanVien> nhanVienList = daoNhanVien.layDanhSachNhanVien();
         ArrayList<BangLuongNhanVien> listLuong = daoLuong.danhSachBangLuong();
         ArrayList<ChamCongNhanVien> listChamCong = daoChamCong.danhSachChamCongNhanVien();
 
-        if (cmbHienThi.getSelectedIndex() == 0) {
-            if (listLuong != null) {
-                listLuong.forEach(e -> {
-                    listChamCong.forEach(j -> {
-                        try {
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-đ");
-                            Date date = sdf.parse(j.getNgayChamCong().toString());
-                            Calendar calendar = Calendar.getInstance();
-                            calendar.setTime(date);
-                            if (e.getNhanVien().getMaNhanVien().equalsIgnoreCase(j.getNhanVien().getMaNhanVien())
-                                    && calendar.MONTH + "" == cmbThang.getSelectedItem() && calendar.YEAR + "" == cmbNam.getSelectedItem()) {
-                                if (j.getTrangThaiDiLam().contains("Nghỉ")) {
-                                    if (j.getTrangThaiDiLam().contains("có")) {
-                                        soNgayNghiCoPhep++;
-                                        tongLuong += 0;
-                                    } else {
-                                        soNghiKhongPhep++;
-                                        tongLuong = -300000;
-                                    }
-                                } else {
-                                    if (j.getTrangThaiDiLam().contentEquals("Trễ")) {
-                                        soNgayLam++;
-                                        tongLuong = -50000;
-                                    } else {
-                                        soNgayLam++;
-                                        tongLuong = j.getNhanVien().getLuongThoaThuan() / 26;
-                                    }
-                                }
-                            }
-                        } catch (ParseException ex) {
-                            Logger.getLogger(LuongNhanVienView.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    });
-                    model.addRow(new Object[]{model.getRowCount() + 1, e.getMaBangLuong(), e.getNhanVien().getMaNhanVien(),
-                        e.getNhanVien().getHoTen(), e.getNhanVien().isGioiTinh() ? "Nam" : "Nữ", e.getNhanVien().getSoDienThoai(), soNgayLam, soNgayNghiCoPhep + soNgayNghiCoPhep});
-                });
-            }
-        }
-    }//GEN-LAST:event_btnTinhLuongActionPerformed
+        Date date = new Date();
+        SimpleDateFormat dmyFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String ngayTinhLuong = dmyFormat.format(date);
 
+        int thang = Integer.parseInt(cmbThang.getSelectedItem().toString());
+        int nam = Integer.parseInt(cmbNam.getSelectedItem().toString());
+        System.out.println(thang + " " + nam);
+        ArrayList<String> nhanVienKhongTrungList = daoLuong.layDanhSachMaNhanVienKhongTrung();
+        // lay ngay cuoi thang
+        Calendar date1 = Calendar.getInstance();
+        date1.set(nam, thang, 1);
+
+        int res = date1.getActualMaximum(Calendar.DATE);
+        Calendar date2 = Calendar.getInstance();
+        date2.set(nam, thang, res);
+        for (String nv : nhanVienKhongTrungList) {
+            int maLuong = 100001;
+            if (listLuong.size() > 0) {
+                maLuong = Integer.parseInt(listLuong.get(listLuong.size() - 1).getMaBangLuong().split("N")[1]) + 1;
+            }
+            NhanVien nhanvien = daoNhanVien.layMotNhanVienTheoMaNhanVien(nv);
+            int soNgayDiLam = daoLuong.laySoNgayDilamCuaNhanVien(nv, thang, nam);
+            int soNgayNghi = res - sunday(date1.getTime(), date2.getTime()) - soNgayDiLam;
+            int soNgayNghiPhep = daoLuong.laySoNgayNghiCoPhepCuaNhanVien(nv, thang, nam);
+
+            double luongNhanVien = (nhanvien.getLuongThoaThuan() / 26) * (soNgayDiLam + soNgayNghiPhep);
+            DecimalFormat dfm = new DecimalFormat("###########.##");
+            String tienLuong = dfm.format(luongNhanVien);
+            BangLuongNhanVien luogNhanVien = new BangLuongNhanVien("LN" + maLuong, nhanvien, soNgayDiLam, soNgayNghi, soNgayNghiPhep, date, Double.parseDouble(tienLuong), "VND");
+            daoLuong.themMotBangLuong(luogNhanVien);
+        }
+        taiDuLieuLenBangLuong();
+
+    }//GEN-LAST:event_btnTinhLuongActionPerformed
+    public int sunday(Date d1, Date d2) {
+        Calendar c1 = Calendar.getInstance();
+        c1.setTime(d1);
+        Calendar c2 = Calendar.getInstance();
+        c2.setTime(d2);
+        int sundays = 0;
+        while (c1.after(c2)) {
+            if (c2.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY || c2.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+                sundays++;
+            }
+            c2.add(Calendar.DATE, 1);
+            c2.add(Calendar.DATE, 1);
+        }
+        System.out.println(sundays);
+        return sundays;
+    }
     private void btnGuiThongTinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiThongTinActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnGuiThongTinActionPerformed

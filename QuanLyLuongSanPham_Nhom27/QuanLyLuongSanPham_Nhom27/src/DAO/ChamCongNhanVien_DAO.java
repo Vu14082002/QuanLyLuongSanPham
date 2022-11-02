@@ -178,6 +178,41 @@ public class ChamCongNhanVien_DAO {
         return dsChamCong;
     }
 
+    public ArrayList<ChamCongNhanVien> layDanhSachChamCongNhanVienTheoThangNam(String thang, String nam) {
+        PreparedStatement stm = null;
+        NhanVien_DAO nhanVien_Dao = new NhanVien_DAO();
+        ArrayList<ChamCongNhanVien> dsChamCong = new ArrayList<ChamCongNhanVien>();
+        try {
+            ConnectionDB.ConnectDB.getInstance();
+            Connection con = ConnectionDB.ConnectDB.getConnection();
+            String truyVan = "select * from ChamCongNhanVien \n"
+                    + "where MONTH(ngayChamCong) =? and YEAR(ngayChamCong)=?";
+            stm = con.prepareStatement(truyVan);
+            stm.setString(1, thang);
+            stm.setString(2, nam);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                String maNhanVien = rs.getString("maNhanVien");
+                String caLam = rs.getString("caLam");
+                Date ngayCham = rs.getDate("ngayChamCong");
+                String trangThaiDiLam = rs.getString("trangThaiDiLam");
+                String gioDiLam = rs.getString("gioDiLam");
+                String maNguoiCham = rs.getString("maNguoiCham");
+                NhanVien nhanVien = nhanVien_Dao.layMotNhanVienTheoMaNhanVien(maNhanVien);
+                NhanVien nguoiChamCong = nhanVien_Dao.layMotNhanVienTheoMaNhanVien(maNguoiCham);
+                dsChamCong.add(new ChamCongNhanVien(nhanVien, ngayCham, caLam, trangThaiDiLam, gioDiLam, nguoiChamCong));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                stm.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return dsChamCong;
+    }
     public static void main(String[] args) {
         try {
             System.setOut(new PrintStream(System.out, true, "UTF8"));

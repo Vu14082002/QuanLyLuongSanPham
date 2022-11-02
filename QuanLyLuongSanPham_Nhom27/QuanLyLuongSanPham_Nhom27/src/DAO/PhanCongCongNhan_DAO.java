@@ -165,7 +165,33 @@ public class PhanCongCongNhan_DAO {
         }
         return soDongSuaDuoc != 0;
     }
-    public boolean xoaMotPhanCongTheoMaPhanCong(String maPhanCong){
+
+    public boolean suaMotPhanCongNhanTheoMaCongDoan(String maToNhom,String maCongDoan) {
+        PreparedStatement stm = null;
+        int soDongSuaDuoc = 0;
+        try {
+            ConnectionDB.ConnectDB.getInstance();
+            Connection con = ConnectionDB.ConnectDB.getConnection();
+            String truyVan = "update PhanCongCongNhan set maToNhom =? where maCongDoan=?";
+            stm = con.prepareStatement(truyVan);
+            stm.setString(1, maToNhom);
+            stm.setString(2,maCongDoan);
+            System.out.println("Ma to: "+maToNhom);
+            System.out.println("Ma cong doan: "+maCongDoan);
+            soDongSuaDuoc = stm.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                stm.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return soDongSuaDuoc >0;
+    }
+
+    public boolean xoaMotPhanCongTheoMaPhanCong(String maPhanCong) {
         PreparedStatement stm = null;
         int soDongXoaDuoc = 0;
         try {
@@ -186,20 +212,42 @@ public class PhanCongCongNhan_DAO {
         }
         return soDongXoaDuoc != 0;
     }
-    
-    public ArrayList<CongNhan> layRaDanhSachCongNhanTheoCongDoanVaCaLam(String maCongDoan){
+
+    public boolean xoaMotPhanCongTheoMaToNhom(String maToNhom) {
+        PreparedStatement stm = null;
+        int soDongXoaDuoc = 0;
+        try {
+            ConnectionDB.ConnectDB.getInstance();
+            Connection con = ConnectionDB.ConnectDB.getConnection();
+            String truyVan = "DELETE FROM PhanCongCongNhan WHERE maToNhom = ?";
+            stm = con.prepareStatement(truyVan);
+            stm.setString(1, maToNhom);
+            soDongXoaDuoc = stm.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                stm.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return soDongXoaDuoc != 0;
+    }
+
+    public ArrayList<CongNhan> layRaDanhSachCongNhanTheoCongDoanVaCaLam(String maCongDoan) {
         PreparedStatement stm = null;
         ArrayList<CongNhan> dsCongNhan = new ArrayList<>();
         ToNhom_DAO toNhom_DAO = new ToNhom_DAO();
         try {
             ConnectDB.getInstance();
-            Connection con  = ConnectDB.getConnection();
+            Connection con = ConnectDB.getConnection();
             String sql = "select * from PhanCongCongNhan PCCN join CongNhan CN "
                     + " on PCCN.maCongNhan = CN.maCongNhan where maCongDoan = ?";
             stm = con.prepareStatement(sql);
             stm.setString(1, maCongDoan);
             ResultSet rs = stm.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 String maCongNhan = rs.getString("maCongNhan");
                 String hoTen = rs.getString("hoTen");
                 Date ngaySinh = rs.getDate("ngaySinh");
@@ -215,10 +263,10 @@ public class PhanCongCongNhan_DAO {
                 ToNhom toNhom = toNhom_DAO.layMotToNhomTheoMa(maToNhom);
                 dsCongNhan.add(new CongNhan(maCongNhan, hoTen, ngaySinh, maCCCD, soDienThoai, email, matKhau, ngayVaoLam, gioiTinh, anhDaiDien, diaChi, toNhom));
             }
-            
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
-        } finally{
+        } finally {
             try {
                 stm.close();
             } catch (Exception e) {
@@ -227,7 +275,8 @@ public class PhanCongCongNhan_DAO {
         }
         return dsCongNhan;
     }
-    public String layRaMaPhanCongTheoMaCongDoanMaCongNhan(String maCongDoan, String maCongNhan){
+
+    public String layRaMaPhanCongTheoMaCongDoanMaCongNhan(String maCongDoan, String maCongNhan) {
         String maPhanCong = "";
         PreparedStatement stm = null;
         try {
@@ -238,7 +287,7 @@ public class PhanCongCongNhan_DAO {
             stm.setString(1, maCongDoan);
             stm.setString(2, maCongNhan);
             ResultSet rs = stm.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 maPhanCong = rs.getString("maPhanCong");
             }
         } catch (Exception e) {
@@ -252,6 +301,7 @@ public class PhanCongCongNhan_DAO {
         }
         return maPhanCong;
     }
+
     public static void main(String[] args) {
         try {
             System.setOut(new PrintStream(System.out, true, "UTF8"));
@@ -266,23 +316,5 @@ public class PhanCongCongNhan_DAO {
             // TODO: handle exception
             System.out.println(e);
         }
-//        PhanCongCongNhan_DAO dao = new PhanCongCongNhan_DAO();
-//        CongDoan congDoan = new CongDoan("CD123123", "Đánh bóng", 222, "Chưa hoàn thành", 
-//        java.sql.Date.valueOf(LocalDate.of(2023, 12, 12)), new SanPham("SP123123", "Giay ISNA Nam", 1000, "Đỏ", "Cotton", 47, "anhsanpham1.png", 0), 2231);
-//        CongNhan congNhan = new CongNhan("CN123123", "Nguyễn Văn Vũ"
-//        , java.sql.Date.valueOf(LocalDate.of(2000, 12, 12)), "111222333444", "0975123123", "hieurio12@gmail.com"
-//        , "123123", new Date(), false, "anhDaiDien1.png", "Yên bái", new ToNhom("TN123123", "1", 0));
-//        NhanVien nguoiPhanCong =  new NhanVien("NV123123", "Ngọc Thụ Lâm Phong", java.sql.Date.valueOf(LocalDate.of(2001, 12, 12)), "222333444555", "0976123321", "mailmail@gmail.com", "123123", "Quản lý", new Date(), 2000000, true, "anh1.png", "Lạng sơn", new PhongBan("PB123123", "Phòng quản lý", 0));
-//        PhanCongCongNhan pc = new PhanCongCongNhan("PC111111", congNhan, congDoan, nguoiPhanCong, new Date(), "CN");
-//        System.out.println("Thêm: " + dao.themMotPhanCongNhan(pc));
-//        System.out.println("\n\n\nDanh sách: " + dao.layDanhSachPhanCongCongNhan());
-//        try {
-//            pc.setCaLam("Ca tối");
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
-//        System.out.println("\n\n\nSửa: " + dao.suaMotPhanCongNhan(pc));
-//        System.out.println("\n\n\nXóa: " + dao.xoaMotPhanCongTheoMaPhanCong("PC111111"));
-//        System.out.println("\n\n\nLấy 1: " + dao.layMotPhanCongCongNhanTheoMaPhanCong("PC123123"));
     }
 }
