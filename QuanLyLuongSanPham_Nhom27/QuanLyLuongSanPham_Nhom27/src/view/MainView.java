@@ -177,7 +177,7 @@ public class MainView extends javax.swing.JFrame {
         // he thong
         thongTinCaNhan = new MenuItem(iconSubMenuNonSelect, "Thông tin cá nhân", ((e) -> {
             pnBody.removeAll();
-            pnBody.add(new QuanLyThongTinCaNhan(), BorderLayout.CENTER);
+            pnBody.add(new QuanLyThongTinCaNhan("NV100001"), BorderLayout.CENTER);
             pnBody.repaint();
             pnBody.revalidate();
             macDinh((thongTinCaNhan));

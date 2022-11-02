@@ -38,14 +38,6 @@ public class LoginView extends javax.swing.JFrame {
     //    this.txtOTP.setBackground(new Color(0, 0, 0, 1));
     }
 
-    public void sendEmail() {
-        String fromName = "Nguyen Van Vu";
-        String fromEmail = "sherlockvufullsnack20020814@gmail.com";
-        String toEmail = "nguyenvanvu20020814@gmail.com";
-        Random rand = new Random();
-        int content = rand.nextInt(99999 + 1 - 10000) + 10000;
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -175,7 +167,6 @@ public class LoginView extends javax.swing.JFrame {
         chkRemerberPassword.setForeground(new java.awt.Color(255, 255, 255));
         chkRemerberPassword.setText("Remember passwrod?");
         chkRemerberPassword.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        chkRemerberPassword.setOpaque(false);
         chkRemerberPassword.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 chkRemerberPasswordMouseClicked(evt);

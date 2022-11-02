@@ -22,28 +22,18 @@ public class PhanCongCongNhan {
     private Date ngayPhanCong;
     private ToNhom toNhom;
 
-    public PhanCongCongNhan() {
-    }
-
     public PhanCongCongNhan(String maPhanCong, CongNhan congNhan, CongDoan congDoan, NhanVien nguoiPhanCong, Date ngayPhanCong, ToNhom toNhom) {
         try {
             setMaPhanCong(maPhanCong);
-            setNgayPhanCong(ngayPhanCong);
             setCongNhan(congNhan);
             setCongDoan(congDoan);
             setNguoiPhanCong(nguoiPhanCong);
+            setNgayPhanCong(ngayPhanCong);
+            setToNhom(toNhom);
         } catch (Exception ex) {
-            Logger.getLogger(PhanCongCongNhan.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
 
-    }
-
-    public ToNhom getToNhom() {
-        return toNhom;
-    }
-
-    public void setToNhom(ToNhom toNhom) {
-        this.toNhom = toNhom;
     }
 
     public String getMaPhanCong() {
@@ -89,10 +79,27 @@ public class PhanCongCongNhan {
     }
 
     public void setNgayPhanCong(Date ngayPhanCong) throws Exception {
-        if (ngayPhanCong.after(new Date())) {
+        if (ngayPhanCong.after(new Date())){
             throw new Exception("Ngày phân công phải là ngày hiện tại hoặc trước hiện tại!");
         } else {
             this.ngayPhanCong = ngayPhanCong;
         }
     }
+
+    public ToNhom getToNhom() {
+        return toNhom;
+    }
+
+    public void setToNhom(ToNhom toNhom) {
+        this.toNhom = toNhom;
+    }
+
+    @Override
+    public String toString() {
+        return "PhanCongCongNhan{" + "maPhanCong=" + maPhanCong + ", congNhan=" + congNhan + ", congDoan=" + congDoan + ", nguoiPhanCong=" + nguoiPhanCong + ", ngayPhanCong=" + ngayPhanCong + ", toNhom=" + toNhom + '}';
+    }
+
+    
+    
+
 }

@@ -4,9 +4,17 @@
  */
 package view;
 
+import DAO.BangLuongCongNhan_DAO;
+import DAO.ChamCongCongNhan_DAO;
+import DAO.CongNhan_DAO;
+import Entity.ChamCongCongNhan;
+import Entity.CongNhan;
 import java.awt.Color;
 import java.awt.Container;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,13 +25,64 @@ public class ChiTietLuongCongNhan extends javax.swing.JFrame {
     /**
      * Creates new form ChiTietLuongCongNhan
      */
-    public ChiTietLuongCongNhan() {
+    private String maCongNhan;
+    private int thang;
+    private int nam;
+    private CongNhan_DAO congNhan_DAO;
+    private BangLuongCongNhan_DAO bangLuongCN_DAO;
+    private ChamCongCongNhan_DAO chamCongCN_DAO;
+    private DecimalFormat nf, df;
+    private DefaultTableModel modelTableChiTiet;
+    public ChiTietLuongCongNhan(String maCongNhan, int thang, int nam) {
+        this.maCongNhan = maCongNhan;
+        this.thang = thang;
+        this.nam = nam;
+        nf = new DecimalFormat("#,###.00");
+        df = new DecimalFormat("#");
         initComponents();
         execute();
+        try {
+            ConnectionDB.ConnectDB.getInstance().connect();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        congNhan_DAO = new CongNhan_DAO();
+        bangLuongCN_DAO = new BangLuongCongNhan_DAO();
+        chamCongCN_DAO = new ChamCongCongNhan_DAO();
+        modelTableChiTiet = (DefaultTableModel) tblBangLuongChiTiet.getModel();
+        lblTitle.setText("Chi tiết Lương trong tháng " + thang + " năm " + nam);
+        hienThiLenLabel();
+        taiDuLieuLenBang();
+        
+    }
+    public void hienThiLenLabel(){
+        CongNhan congNhan = congNhan_DAO.layMotCongNhanTheoMa(maCongNhan);
+        Double tongLuong = bangLuongCN_DAO.layRaTongTienTheoMaCongNhan(maCongNhan, thang, nam);
+        lblMaCongNhanOutput.setText(congNhan.getMaCongNhan());
+        lblHoTenOutPut.setText(congNhan.getHoTen());
+        String tienLuong = nf.format(tongLuong) + " VND";
+        lblTongTienNhan.setText(tienLuong);
     }
     private void execute(){
         Container c = this.getContentPane();
         c.setBackground(Color.white);
+    }
+    public void taiDuLieuLenBang(){
+        while(tblBangLuongChiTiet.getRowCount() != 0){
+            modelTableChiTiet.removeRow(0);
+        }
+        ArrayList<ChamCongCongNhan> dsChamCong = chamCongCN_DAO.layDanhSachChamCongTheoMaCongNhan(maCongNhan, thang, nam);
+        for (ChamCongCongNhan chamCong : dsChamCong){
+            double tongTien = chamCong.getSoLuongLam() * chamCong.getPhanCong().getCongDoan().getTienLuong();
+            String data[] = {(modelTableChiTiet.getRowCount() + 1) + "", chamCong.getNgayChamCong().toString()
+            , chamCong.getTrangThaiDiLam(), chamCong.getPhanCong().getCongDoan().getSanPham().getMaSanPham()
+            , chamCong.getTrangThaiDiLam(), chamCong.getPhanCong().getCongDoan().getSanPham().getTenSanPham()
+            , chamCong.getTrangThaiDiLam(), chamCong.getPhanCong().getCongDoan().getMaCongDoan()
+            , chamCong.getTrangThaiDiLam(), chamCong.getPhanCong().getCongDoan().getTenCongDoan()
+            , chamCong.getCaLam(), chamCong.getSoLuongLam()+"", nf.format(tongTien)};
+            modelTableChiTiet.addRow(data);
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,17 +94,17 @@ public class ChiTietLuongCongNhan extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tbNhanVien = new javax.swing.JTable();
+        scrChiTietBangLuong = new javax.swing.JScrollPane();
+        tblBangLuongChiTiet = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
-        btnCapNhat = new javax.swing.JButton();
+        lblMaCongNhanOutput = new javax.swing.JLabel();
+        lblTitle = new javax.swing.JLabel();
+        lblHoTen = new javax.swing.JLabel();
+        lblHoTenOutPut = new javax.swing.JLabel();
+        lblMaCongNhan = new javax.swing.JLabel();
+        lblTongTien = new javax.swing.JLabel();
+        lblTongTienNhan = new javax.swing.JLabel();
+        btnXuatBaoCao = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -53,11 +112,11 @@ public class ChiTietLuongCongNhan extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jScrollPane1.setBorder(null);
+        scrChiTietBangLuong.setBackground(new java.awt.Color(255, 255, 255));
+        scrChiTietBangLuong.setBorder(null);
 
-        tbNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        tbNhanVien.setModel(new javax.swing.table.DefaultTableModel(
+        tblBangLuongChiTiet.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        tblBangLuongChiTiet.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null},
@@ -76,10 +135,10 @@ public class ChiTietLuongCongNhan extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tbNhanVien.setSelectionBackground(new java.awt.Color(232, 57, 95));
-        jScrollPane1.setViewportView(tbNhanVien);
+        tblBangLuongChiTiet.setSelectionBackground(new java.awt.Color(232, 57, 95));
+        scrChiTietBangLuong.setViewportView(tblBangLuongChiTiet);
 
-        jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        jPanel1.add(scrChiTietBangLuong, java.awt.BorderLayout.CENTER);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setForeground(new java.awt.Color(153, 153, 255));
@@ -87,50 +146,50 @@ public class ChiTietLuongCongNhan extends javax.swing.JFrame {
         jPanel2.setRequestFocusEnabled(false);
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel17.setText("CN001");
-        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 270, 40));
+        lblMaCongNhanOutput.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblMaCongNhanOutput.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblMaCongNhanOutput.setText("CN001");
+        jPanel2.add(lblMaCongNhanOutput, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 270, 40));
 
-        jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 32)); // NOI18N
-        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel18.setText("Chi tiết lương công nhân trong tháng");
-        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 70));
+        lblTitle.setFont(new java.awt.Font("Segoe UI", 0, 32)); // NOI18N
+        lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitle.setText("Chi tiết lương công nhân trong tháng");
+        jPanel2.add(lblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 70));
 
-        jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel19.setText("Họ và tên:");
-        jPanel2.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 130, 40));
+        lblHoTen.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblHoTen.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblHoTen.setText("Họ và tên:");
+        jPanel2.add(lblHoTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 130, 40));
 
-        jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel20.setText("Nguyễn Van A");
-        jPanel2.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, 300, 40));
+        lblHoTenOutPut.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblHoTenOutPut.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblHoTenOutPut.setText("Nguyễn Van A");
+        jPanel2.add(lblHoTenOutPut, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, 300, 40));
 
-        jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel21.setText("Mã công nhân:");
-        jPanel2.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 130, 40));
+        lblMaCongNhan.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblMaCongNhan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblMaCongNhan.setText("Mã công nhân:");
+        jPanel2.add(lblMaCongNhan, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 130, 40));
 
-        jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel22.setText("Tổng tiền nhận:");
-        jPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 130, 40));
+        lblTongTien.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblTongTien.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblTongTien.setText("Tổng tiền nhận:");
+        jPanel2.add(lblTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 130, 40));
 
-        jLabel23.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel23.setText("1000000000000 vnd");
-        jPanel2.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, 300, 40));
+        lblTongTienNhan.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblTongTienNhan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblTongTienNhan.setText("1000000000000 vnd");
+        jPanel2.add(lblTongTienNhan, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, 300, 40));
 
-        btnCapNhat.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        btnCapNhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/update.png"))); // NOI18N
-        btnCapNhat.setText("Xuất báo cáo");
-        btnCapNhat.addActionListener(new java.awt.event.ActionListener() {
+        btnXuatBaoCao.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnXuatBaoCao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/update.png"))); // NOI18N
+        btnXuatBaoCao.setText("Xuất báo cáo");
+        btnXuatBaoCao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCapNhatActionPerformed(evt);
+                btnXuatBaoCaoActionPerformed(evt);
             }
         });
-        jPanel2.add(btnCapNhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 190, 160, 40));
+        jPanel2.add(btnXuatBaoCao, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 190, 160, 40));
 
         jPanel1.add(jPanel2, java.awt.BorderLayout.PAGE_START);
 
@@ -140,9 +199,9 @@ public class ChiTietLuongCongNhan extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
+    private void btnXuatBaoCaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatBaoCaoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnCapNhatActionPerformed
+    }//GEN-LAST:event_btnXuatBaoCaoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -170,27 +229,28 @@ public class ChiTietLuongCongNhan extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ChiTietLuongCongNhan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChiTietLuongCongNhan().setVisible(true);
+                new ChiTietLuongCongNhan("CN100001", 10, 2022).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCapNhat;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
+    private javax.swing.JButton btnXuatBaoCao;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tbNhanVien;
+    private javax.swing.JLabel lblHoTen;
+    private javax.swing.JLabel lblHoTenOutPut;
+    private javax.swing.JLabel lblMaCongNhan;
+    private javax.swing.JLabel lblMaCongNhanOutput;
+    private javax.swing.JLabel lblTitle;
+    private javax.swing.JLabel lblTongTien;
+    private javax.swing.JLabel lblTongTienNhan;
+    private javax.swing.JScrollPane scrChiTietBangLuong;
+    private javax.swing.JTable tblBangLuongChiTiet;
     // End of variables declaration//GEN-END:variables
 }

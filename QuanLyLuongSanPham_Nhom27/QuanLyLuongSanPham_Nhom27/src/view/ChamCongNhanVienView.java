@@ -495,17 +495,24 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
 
     private void tblNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNhanVienMouseClicked
         try {
+            String ngayCham = tblNhanVien.getValueAt(tblNhanVien.getSelectedRow(), 7).toString();
+//            SimpleDateFormat dfm = new SimpleDateFormat("yyyy-MM-dd");
+//            Date kq = null;
+//            kq = dfm.parse(ngayCham);
+//            dcsNgayChamCong.setDate(kq);
             capNhatCmbGio();
+//            cmbCaLam.setSelectedItem(tblNhanVien.getValueAt(tblNhanVien.getSelectedRow(), 8).toString());
             hienThiDuLieuLenTxtBangNhanVien(tblNhanVien.getSelectedRow());
             setEditInput(false);
             setShow(btnCapNhat);
             setHidden(btnHuy, btnLuu, btnChamCong);
-            checkChamCong=false;
+            checkChamCong = false;
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(null, "Hệ thống đang bị lỗi, quý khách làm phiền thoát chương tình");
 
         }
     }//GEN-LAST:event_tblNhanVienMouseClicked
+
     public void change() {
         if (cmboHienThi.getSelectedIndex() == 1) {
             daoChamCong = new ChamCongNhanVien_DAO();
@@ -550,9 +557,9 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
             capNhatCmbGio();
             hienThiDuLieuLenTxtBangChamCong(tblChamCong.getSelectedRow());
             setEditInput(false);
-            setHidden(btnHuy, btnLuu,btnCapNhat);
-            setShow(btnChamCong,btnChamCongTatCa);
-            checkChamCong=false;
+            setHidden(btnHuy, btnLuu, btnCapNhat);
+            setShow(btnChamCong, btnChamCongTatCa);
+            checkChamCong = false;
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(null, "Hệ thống đang bị lỗi, quý khách làm phiền thoát chương tình");
         }
@@ -571,7 +578,6 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
         }
         if (tblChamCong.getRowCount() != 0) {
             setShow(btnChamCong, btnChamCongTatCa);
-            setHidden(btnCapNhat);
         } else {
             setHidden(btnChamCong, btnChamCongTatCa);
         }
@@ -641,7 +647,7 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
         setHidden(btnCapNhat, btnChamCong, btnChamCongTatCa);
         setShow(btnHuy, btnLuu);
         setEditInput(true);
-       
+
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
     private void aaaaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aaaaMouseClicked
@@ -667,8 +673,8 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
     }
     private void cmbCaLamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCaLamActionPerformed
         capNhatCmbGio();
-        setHidden(btnHuy, btnLuu, btnChamCongTatCa, btnChamCong);
-        setShow(btnCapNhat);
+        setHidden(btnHuy, btnLuu, btnChamCongTatCa, btnChamCong, btnCapNhat);
+//        setShow(btnCapNhat);
         setEditInput(false);
     }//GEN-LAST:event_cmbCaLamActionPerformed
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
@@ -696,8 +702,11 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
                 } catch (ParseException | InterruptedException ex) {
                     Logger.getLogger(ChamCongNhanVienView.class.getName()).log(Level.SEVERE, null, ex);
                 } finally {
-//                    setShow(btnCapNhat, btnChamCong, btnChamCongTatCa);
-//                    setHidden(btnLuu, btnHuy);
+                    if (modelChamCong.getRowCount() > 0) {
+                        setShow(btnChamCong, btnChamCongTatCa);
+                    }
+                    setHidden(btnLuu, btnHuy, btnCapNhat);
+                    checkChamCong = false;
                 }
             }
             checkChamCong = false;
@@ -715,24 +724,24 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
                     tblNhanVien.getValueAt(tblNhanVien.getSelectedRow(), 8).toString(), cmbTrangThai.getSelectedItem().toString(), gioLam, nhanVienChamCong);
             if (daoChamCong.suaMotChamCongNhanVien(chamcong)) {
                 try {
-                    taiDuLieuLenBangChamCong();
+                    taiDuLieuLenBangNhanVien();
                     JOptionPane.showMessageDialog(null, "Cap nhat thanh cong");
-//                    setShow(btnCapNhat);
-//                    setHidden(btnLuu, btnHuy);
+                    if (modelChamCong.getRowCount() > 0) {
+                        setShow(btnChamCongTatCa, btnChamCong);
+                    }
+                    setHidden(btnLuu, btnHuy, btnCapNhat);
                 } catch (ParseException ex) {
-                    Logger.getLogger(ChamCongNhanVienView.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (InterruptedException ex) {
                     Logger.getLogger(ChamCongNhanVienView.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
-        setShow(btnChamCongTatCa,btnChamCong);
-        setHidden(btnCapNhat,btnHuy,btnLuu);
+        setShow(btnChamCongTatCa, btnChamCong);
+        setHidden(btnCapNhat, btnHuy, btnLuu);
     }//GEN-LAST:event_btnLuuActionPerformed
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
-        setShow( btnChamCong, btnChamCongTatCa);
-        setHidden(btnLuu, btnHuy,btnCapNhat);
+        setShow(btnChamCong, btnChamCongTatCa);
+        setHidden(btnLuu, btnHuy, btnCapNhat);
         checkChamCong = false;
     }//GEN-LAST:event_btnHuyActionPerformed
 
