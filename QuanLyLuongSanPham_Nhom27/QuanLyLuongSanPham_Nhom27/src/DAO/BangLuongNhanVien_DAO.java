@@ -99,12 +99,37 @@ public class BangLuongNhanVien_DAO {
         return dsBangLuong;
     }
 
-    public boolean themMotBangLuong(BangLuongNhanVien bangLuongNhanVien) {
+    public boolean xoaBangLuongInsert(String thang, String nam) {
+        System.out.println("Xoa");
+        PreparedStatement stm = null;
+        int soDongXoaDuoc = 0;
+        try {
+            ConnectionDB.ConnectDB.getInstance();
+            Connection con = ConnectionDB.ConnectDB.getConnection();
+            String truyVan = "delete BangLuongNhanVien where MONTH(ngayTinh)= ? and YEAR(ngayTinh)= ?";
+            stm = con.prepareStatement(truyVan);
+            stm.setString(1, thang);
+            stm.setString(2, nam);
+            soDongXoaDuoc = stm.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                stm.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return soDongXoaDuoc != 0;
+    }
+
+    public boolean themMotBangLuong(BangLuongNhanVien bangLuongNhanVien, String thang, String nam) {
         PreparedStatement stm = null;
         int soDongThemDuoc = 0;
         try {
             ConnectionDB.ConnectDB.getInstance();
             Connection con = ConnectionDB.ConnectDB.getConnection();
+            xoaBangLuongInsert(thang, nam);
             String truyVan = "INSERT INTO BangLuongNhanVien(maBangLuong, maNhanVien"
                     + " , soNgayDiLam, soNgayNghi, soPhepNghi, ngayTinh"
                     + " , tongTien, donViTien)"
@@ -187,32 +212,6 @@ public class BangLuongNhanVien_DAO {
     }
 
     public static void main(String[] args) {
-        try {
-            System.setOut(new PrintStream(System.out, true, "UTF8"));
-        } catch (UnsupportedEncodingException ex) {
-            System.out.println(ex.getMessage());
-        }
-
-        try {
-            ConnectDB.getInstance().connect();
-            System.out.println("Yes");
-        } catch (Exception e) {
-            // TODO: handle exception
-            System.out.println(e);
-        }
-        BangLuongNhanVien_DAO dao = new BangLuongNhanVien_DAO();
-        NhanVien nv = new NhanVien("NV123123", "Ngọc Thụ Lâm Phong", java.sql.Date.valueOf(LocalDate.of(2001, 12, 12)), "222333444555", "0976123321", "mailmail@gmail.com", "123123", "Quản lý", new Date(), 2000000, true, "anh1.png", "Lạng sơn", new PhongBan("PB123123", "Phòng quản lý", 0));
-        BangLuongNhanVien bl = new BangLuongNhanVien("LN111111", nv, 22, 12, 3, new Date(), 1231231, "VND");
-        System.out.println("Thêm: " + dao.themMotBangLuong(bl));
-        try {
-            bl.setSoNgayDiLam(24);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        System.out.println("\n\n\nSửa: " + dao.suaMotBangLuong(bl));
-        System.out.println("\n\n\n" + dao.layDanhSachBangLuongTheoMaNhanVien("NV123123"));
-        System.out.println("\n\n\nXóa" + dao.xoaMotBangLuongTheoMaBangLuong("LN111111"));
-
     }
     // code by vu
 
@@ -244,6 +243,7 @@ public class BangLuongNhanVien_DAO {
         }
         return soDongSuaDuoc;
     }
+
     public int laySoNgayNghiCoPhepCuaNhanVien(String maNhanVien, int thang, int nam) {
         PreparedStatement stm = null;
         int soNgayNghiCoPhep = 0;
@@ -272,8 +272,6 @@ public class BangLuongNhanVien_DAO {
         }
         return soNgayNghiCoPhep;
     }
-
-
 
     public ArrayList<String> layDanhSachMaNhanVienKhongTrung() {
         Statement stm = null;

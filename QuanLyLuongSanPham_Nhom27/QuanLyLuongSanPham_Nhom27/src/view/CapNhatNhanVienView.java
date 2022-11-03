@@ -77,6 +77,10 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
         ConnectionDB.ConnectDB.getInstance().connect();
         dcf = new DecimalFormat("###,###,###,###,###.###");
         setEnableForInput(false);
+        setInit();
+    }
+
+    public void setInit() {
         lblErrHoVaTen.setText("");
         lblErrSoCCCD.setText("");
         lblErrEmail.setText("");
@@ -645,6 +649,7 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
         }
         isThem = false;
         isCapNhat = false;
+        setInit();
     }//GEN-LAST:event_btnHuyActionPerformed
 
     private void tblNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNhanVienMouseClicked

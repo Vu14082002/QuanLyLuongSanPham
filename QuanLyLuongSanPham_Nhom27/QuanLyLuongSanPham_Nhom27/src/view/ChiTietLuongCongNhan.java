@@ -107,11 +107,14 @@ public class ChiTietLuongCongNhan extends javax.swing.JFrame {
         lblTongTien = new javax.swing.JLabel();
         lblTongTienNhan = new javax.swing.JLabel();
         btnXuatBaoCao = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         scrChiTietBangLuong.setBackground(new java.awt.Color(255, 255, 255));
@@ -156,7 +159,7 @@ public class ChiTietLuongCongNhan extends javax.swing.JFrame {
         lblTitle.setFont(new java.awt.Font("Segoe UI", 0, 32)); // NOI18N
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("Chi tiết lương công nhân trong tháng");
-        jPanel2.add(lblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 70));
+        jPanel2.add(lblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 860, 70));
 
         lblHoTen.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lblHoTen.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -193,11 +196,19 @@ public class ChiTietLuongCongNhan extends javax.swing.JFrame {
         });
         jPanel2.add(btnXuatBaoCao, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 190, 160, 40));
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/close.png"))); // NOI18N
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 10, 60, 50));
+
         jPanel1.add(jPanel2, java.awt.BorderLayout.PAGE_START);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
-        setSize(new java.awt.Dimension(1028, 747));
+        setSize(new java.awt.Dimension(1010, 738));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -211,6 +222,10 @@ public class ChiTietLuongCongNhan extends javax.swing.JFrame {
             e.getMessage();
         }
     }//GEN-LAST:event_btnXuatBaoCaoActionPerformed
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        this.setVisible(false);
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -252,6 +267,7 @@ public class ChiTietLuongCongNhan extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnXuatBaoCao;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblHoTen;

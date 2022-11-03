@@ -191,7 +191,6 @@ public class LoginView extends javax.swing.JFrame {
         chkRemerberPassword.setForeground(new java.awt.Color(255, 255, 255));
         chkRemerberPassword.setText("Remember password?");
         chkRemerberPassword.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        chkRemerberPassword.setOpaque(false);
         chkRemerberPassword.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 chkRemerberPasswordMouseClicked(evt);
@@ -264,6 +263,7 @@ public class LoginView extends javax.swing.JFrame {
             CongNhan congNhan = congNhan_DAO.layMotCongNhanTheoMa(userName);
             if (congNhan != null && congNhan.getMatKhau().equals(password)) {
                 new MainView(congNhan.getMaCongNhan()).setVisible(true);
+                this.setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(null, "Tài khoản hoặc Mật khẩu không chính xác!", "Thông Báo Đăng nhập", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -272,12 +272,13 @@ public class LoginView extends javax.swing.JFrame {
             NhanVien nhanVien = nhanVien_DAO.layMotNhanVienTheoMaNhanVien(userName);
             if (nhanVien != null && nhanVien.getMatKhau().equals(password)) {
                 new MainView(nhanVien.getMaNhanVien()).setVisible(true);
+                this.setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(null, "Tài khoản hoặc Mật khẩu không chính xác!", "Thông Báo Đăng nhập", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Tài khoản hoặc Mật khẩu không chính xác!", "Thông Báo Đăng nhập", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "cính xác!", "Thông Báo Đăng nhập", JOptionPane.ERROR_MESSAGE);
             return;
 
         }

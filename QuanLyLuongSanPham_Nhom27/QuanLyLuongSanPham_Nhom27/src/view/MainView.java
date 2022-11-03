@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 // 1500 - 250 anf 800-75
 
@@ -86,6 +87,7 @@ public class MainView extends javax.swing.JFrame {
             hello += nhanVien.getHoTen();
         }
         lblXinChao.setText(hello);
+        this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
     }
 
     private void execute() {

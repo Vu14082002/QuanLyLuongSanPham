@@ -283,8 +283,12 @@ public class LuongNhanVienView extends javax.swing.JPanel {
         for (String nv : nhanVienKhongTrungList) {
             BangLuongNhanVien_DAO daoLuong2 = new BangLuongNhanVien_DAO();
             ArrayList<BangLuongNhanVien> listLuong2 = daoLuong2.danhSachBangLuong();
+            listLuong2.forEach(e->{
+                System.out.println(e.getMaBangLuong());
+            });
             if (listLuong2.size() > 0) {
-                maLuong = Integer.parseInt(listLuong2.get(listLuong.size() - 1).getMaBangLuong().split("N")[1]) + 1;
+//                System.out.println(li);
+                maLuong =  1+ Integer.parseInt(listLuong2.get(listLuong.size()-1).getMaBangLuong().split("N")[1]);
             } else {
                 maLuong = 100001;
             }
@@ -295,8 +299,9 @@ public class LuongNhanVienView extends javax.swing.JPanel {
             double luongNhanVien = (nhanvien.getLuongThoaThuan() / 26) * (soNgayDiLam + soNgayNghiPhep);
             DecimalFormat dfm = new DecimalFormat("###########.##");
             String tienLuong = dfm.format(luongNhanVien);
+            System.out.println("LN"+maLuong);
             BangLuongNhanVien luogNhanVien = new BangLuongNhanVien("LN" + maLuong, nhanvien, soNgayDiLam, soNgayNghi, soNgayNghiPhep, date, Double.parseDouble(tienLuong), "VND");
-            daoLuong.themMotBangLuong(luogNhanVien);
+            daoLuong.themMotBangLuong(luogNhanVien,cmbThang.getSelectedItem().toString(),cmbThang.getSelectedItem().toString());
         }
         taiDuLieuLenBangLuong();
 
