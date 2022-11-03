@@ -91,11 +91,27 @@ public class LuongNhanVienView extends javax.swing.JPanel {
         }
         daoLuong = new BangLuongNhanVien_DAO();
         ArrayList<BangLuongNhanVien> bangLuongNhanVienList = daoLuong.danhSachBangLuong();
-        for (BangLuongNhanVien l : bangLuongNhanVienList) {
-            model.addRow(new Object[]{model.getRowCount() + 1, l.getMaBangLuong(), l.getNhanVien().getMaNhanVien(), l.getNhanVien().getHoTen(),
-                l.getNhanVien().isGioiTinh() ? "Nam" : "Nữ", l.getNhanVien().getSoDienThoai(), l.getSoNgayDiLam(), l.getSoNgayNghi(), l.getSoPhepNghi(),
-                l.getTongTien(), l.getDonViTien(), l.getNgayTinh()
-            });
+        if (bangLuongNhanVienList != null) {
+            if (cmbHienThi.getSelectedIndex() == 0) {
+                for (BangLuongNhanVien l : bangLuongNhanVienList) {
+                    model.addRow(new Object[]{model.getRowCount() + 1, l.getMaBangLuong(), l.getNhanVien().getMaNhanVien(), l.getNhanVien().getHoTen(),
+                        l.getNhanVien().isGioiTinh() ? "Nam" : "Nữ", l.getNhanVien().getSoDienThoai(), l.getSoNgayDiLam(), l.getSoNgayNghi(), l.getSoPhepNghi(),
+                        l.getTongTien(), l.getDonViTien(), l.getNgayTinh()
+                    });
+                }
+            } else {
+                daoLuong = new BangLuongNhanVien_DAO();
+                ArrayList<BangLuongNhanVien> luongTheoNgayThangList = daoLuong.layDanhSachBangLuongTheoThangNam(cmbThang.getSelectedItem().toString(), cmbNam.getSelectedItem().toString());
+                if (luongTheoNgayThangList != null) {
+                    for (BangLuongNhanVien l : luongTheoNgayThangList) {
+                        model.addRow(new Object[]{model.getRowCount() + 1, l.getMaBangLuong(), l.getNhanVien().getMaNhanVien(), l.getNhanVien().getHoTen(),
+                            l.getNhanVien().isGioiTinh() ? "Nam" : "Nữ", l.getNhanVien().getSoDienThoai(), l.getSoNgayDiLam(), l.getSoNgayNghi(), l.getSoPhepNghi(),
+                            l.getTongTien(), l.getDonViTien(), l.getNgayTinh()
+                        });
+                    }
+                }
+            }
+
         }
     }
 
@@ -162,6 +178,11 @@ public class LuongNhanVienView extends javax.swing.JPanel {
 
         cmbNam.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         cmbNam.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
+        cmbNam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbNamActionPerformed(evt);
+            }
+        });
         jPanel5.add(cmbNam, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 30, 120, 40));
 
         lblNam.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -230,7 +251,7 @@ public class LuongNhanVienView extends javax.swing.JPanel {
 
     private void btnTinhLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTinhLuongActionPerformed
         LocalDate local = LocalDate.now();
-        if(Integer.parseInt(cmbThang.getSelectedItem().toString())>local.getMonthValue()){
+        if (Integer.parseInt(cmbThang.getSelectedItem().toString()) > local.getMonthValue()) {
             JOptionPane.showMessageDialog(this, "Thang cham khong duoc sau thang hien tai");
             return;
         }
@@ -274,9 +295,6 @@ public class LuongNhanVienView extends javax.swing.JPanel {
             DecimalFormat dfm = new DecimalFormat("###########.##");
             String tienLuong = dfm.format(luongNhanVien);
             System.out.println("LN" + maLuong);
-
-//            BangLuongNhanVien luogNhanVien = new BangLuongNhanVien("LN" + maLuong, nhanvien, soNgayDiLam, soNgayNghi, soNgayNghiPhep, date, Double.parseDouble(tienLuong), "VND");
-//            daoLuong.themMotBangLuong(luogNhanVien, cmbThang.getSelectedItem().toString(), cmbThang.getSelectedItem().toString());
             daoLuong.themMotBangLuongString("LN" + maLuong, nv, soNgayDiLam, soNgayNghi, soNgayNghiPhep, new Date(), luongNhanVien, "VND", cmbThang.getSelectedItem().toString(), cmbNam.getSelectedItem().toString(), xoa);
             xoa++;
             System.out.println("Them thanh cong");
@@ -306,7 +324,7 @@ public class LuongNhanVienView extends javax.swing.JPanel {
     }//GEN-LAST:event_btnGuiThongTinActionPerformed
 
     private void cmbThangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbThangActionPerformed
-        // TODO add your handling code here:
+        taiDuLieuLenBangLuong();
     }//GEN-LAST:event_cmbThangActionPerformed
 
     private void btnXuatBaoCaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatBaoCaoActionPerformed
@@ -340,6 +358,9 @@ public class LuongNhanVienView extends javax.swing.JPanel {
                     tblBangLuong.getValueAt(row, 9).toString(), tblBangLuong.getValueAt(row, 11).toString().split("-")[1], tblBangLuong.getValueAt(row, 11).toString().split("-")[0]).setVisible(true);
         }        // TODO add your handling code here:
     }//GEN-LAST:event_tblBangLuongMousePressed
+    private void cmbNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNamActionPerformed
+        taiDuLieuLenBangLuong();
+    }//GEN-LAST:event_cmbNamActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

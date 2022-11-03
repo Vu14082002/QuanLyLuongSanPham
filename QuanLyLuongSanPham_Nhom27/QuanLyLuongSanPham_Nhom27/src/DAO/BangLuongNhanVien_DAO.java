@@ -98,7 +98,41 @@ public class BangLuongNhanVien_DAO {
         }
         return dsBangLuong;
     }
-
+ public ArrayList<BangLuongNhanVien> layDanhSachBangLuongTheoThangNam(String thang, String nam) {
+        PreparedStatement stm = null;
+        ArrayList<BangLuongNhanVien> dsBangLuong = new ArrayList<BangLuongNhanVien>();
+        NhanVien_DAO nhanVien_DAO = new NhanVien_DAO();
+        try {
+            ConnectionDB.ConnectDB.getInstance();
+            Connection con = ConnectionDB.ConnectDB.getConnection();
+            String truyVan = "select * from BangLuongNhanVien where MONTH(ngayTinh)= ? and YEAR(ngayTinh)= ?";
+            stm = con.prepareStatement(truyVan);
+            stm.setString(1, thang);
+            stm.setString(2, nam);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                String maBangLuong = rs.getString("maBangLuong");
+                String maNhanVienOB = rs.getString("maNhanVien");
+                int soNgayDiLam = rs.getInt("soNgayDiLam");
+                int soNgayNghi = rs.getInt("soNgayNghi");
+                int soPhepNghi = rs.getInt("soPhepNghi");
+                Date ngayTinh = rs.getDate("ngayTinh");
+                double tongTien = rs.getBigDecimal("tongTien").doubleValue();
+                String donViTien = rs.getString("donViTien");
+                NhanVien nhanVien = nhanVien_DAO.layMotNhanVienTheoMaNhanVien(maNhanVienOB);
+                dsBangLuong.add(new BangLuongNhanVien(maBangLuong, nhanVien, soNgayDiLam, soNgayNghi, soPhepNghi, ngayTinh, tongTien, donViTien));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                stm.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return dsBangLuong;
+    }
     public boolean xoaBangLuongInsert(String thang, String nam, int xoa) {
         System.out.println("Xoa");
         PreparedStatement stm = null;
