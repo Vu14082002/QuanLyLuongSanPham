@@ -18,6 +18,7 @@ import com.lowagie.text.pdf.PdfTable;
 import com.lowagie.text.pdf.PdfWriter;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Point;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.text.DecimalFormat;
@@ -54,9 +55,6 @@ public class LuongNhanVienView extends javax.swing.JPanel {
     private DefaultTableModel model;
     private ChamCongNhanVien_DAO daoChamCong;
     private BangLuongNhanVien_DAO daoLuong;
-    private int soNghiKhongPhep = 0;
-    private int soNgayNghiCoPhep = 0;
-    private int soNgayLam = 0;
 
     private double tongLuong = 0;
 
@@ -91,37 +89,6 @@ public class LuongNhanVienView extends javax.swing.JPanel {
         while (model.getRowCount() != 0) {
             model.removeRow(0);
         }
-//        daoLuong = new BangLuongNhanVien_DAO();
-//        daoChamCong = new ChamCongNhanVien_DAO();
-//        ArrayList<BangLuongNhanVien> listLuong = daoLuong.danhSachBangLuong();
-//        ArrayList<ChamCongNhanVien> listChamCong = daoChamCong.danhSachChamCongNhanVien();
-//        if (cmbHienThi.getSelectedIndex() == 1) {
-//            if (listLuong != null) {
-//                listLuong.forEach(e -> {
-//                    listChamCong.forEach(j -> {
-//                        SimpleDateFormat dateFormatMonth = new SimpleDateFormat("MM");
-//                        SimpleDateFormat dateFormatYear = new SimpleDateFormat("yyyy");
-//                        String month = Integer.parseInt(dateFormatMonth.format(j.getNgayChamCong())) + "";
-//                        String year = Integer.parseInt(dateFormatYear.format(j.getNgayChamCong())) + "";
-//                        if (e.getNhanVien().getMaNhanVien().equalsIgnoreCase(j.getNhanVien().getMaNhanVien())
-//                                && month.equalsIgnoreCase(cmbThang.getSelectedItem().toString()) && year.equalsIgnoreCase(cmbNam.getSelectedItem().toString())) {
-//                            System.out.println("true");
-//                            model.addRow(new Object[]{model.getRowCount() + 1, e.getMaBangLuong(), e.getNhanVien().getMaNhanVien(), e.getNhanVien().getHoTen(),
-//                                e.getNhanVien().getSoDienThoai(), e.getSoNgayDiLam(), e.getSoNgayNghi(), e.getSoPhepNghi(), e.getTongTien(), e.getDonViTien(), e.getNgayTinh()
-//                            });
-//                        }
-//                    });
-//                });
-//            }
-//        } else {
-//            if (listLuong != null) {
-//                listLuong.forEach(e -> {
-//                    model.addRow(new Object[]{model.getRowCount() + 1, e.getMaBangLuong(), e.getNhanVien().getMaNhanVien(), e.getNhanVien().getHoTen(),
-//                        e.getNhanVien().isGioiTinh() ? "Nam" : "Nữ", e.getNhanVien().getSoDienThoai(), e.getSoNgayDiLam(), e.getSoNgayNghi(), e.getSoPhepNghi(), e.getTongTien(), e.getDonViTien(), e.getNgayTinh()
-//                    });
-//                });
-//            }
-//        }
         daoLuong = new BangLuongNhanVien_DAO();
         ArrayList<BangLuongNhanVien> bangLuongNhanVienList = daoLuong.danhSachBangLuong();
         for (BangLuongNhanVien l : bangLuongNhanVienList) {
@@ -251,12 +218,22 @@ public class LuongNhanVienView extends javax.swing.JPanel {
             }
         });
         tblBangLuong.setSelectionBackground(new java.awt.Color(232, 57, 95));
+        tblBangLuong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblBangLuongMousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblBangLuong);
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTinhLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTinhLuongActionPerformed
+        LocalDate local = LocalDate.now();
+        if(Integer.parseInt(cmbThang.getSelectedItem().toString())>local.getMonthValue()){
+            JOptionPane.showMessageDialog(this, "Thang cham khong duoc sau thang hien tai");
+            return;
+        }
         daoLuong = new BangLuongNhanVien_DAO();
         daoChamCong = new ChamCongNhanVien_DAO();
         NhanVien_DAO daoNhanVien = new NhanVien_DAO();
@@ -280,28 +257,30 @@ public class LuongNhanVienView extends javax.swing.JPanel {
         Calendar date2 = Calendar.getInstance();
         date2.set(nam, thang, res);
         int maLuong = 0;
+        BangLuongNhanVien_DAO daoLuong2 = new BangLuongNhanVien_DAO();
+        ArrayList<BangLuongNhanVien> listLuong2 = daoLuong2.danhSachBangLuong();
+        if (!listLuong2.isEmpty()) {
+            maLuong = 1 + Integer.parseInt(listLuong2.get(listLuong.size() - 1).getMaBangLuong().split("N")[1]);
+        } else {
+            maLuong = 100001;
+        }
+        int xoa = 0;
         for (String nv : nhanVienKhongTrungList) {
-            BangLuongNhanVien_DAO daoLuong2 = new BangLuongNhanVien_DAO();
-            ArrayList<BangLuongNhanVien> listLuong2 = daoLuong2.danhSachBangLuong();
-            listLuong2.forEach(e->{
-                System.out.println(e.getMaBangLuong());
-            });
-            if (listLuong2.size() > 0) {
-//                System.out.println(li);
-                maLuong =  1+ Integer.parseInt(listLuong2.get(listLuong.size()-1).getMaBangLuong().split("N")[1]);
-            } else {
-                maLuong = 100001;
-            }
             NhanVien nhanvien = daoNhanVien.layMotNhanVienTheoMaNhanVien(nv);
             int soNgayDiLam = daoLuong.laySoNgayDilamCuaNhanVien(nv, thang, nam);
-            int soNgayNghi = res - sunday(date1.getTime(), date2.getTime()) - soNgayDiLam;
             int soNgayNghiPhep = daoLuong.laySoNgayNghiCoPhepCuaNhanVien(nv, thang, nam);
+            int soNgayNghi = res - sunday(date1.getTime(), date2.getTime()) - soNgayDiLam - soNgayNghiPhep;
             double luongNhanVien = (nhanvien.getLuongThoaThuan() / 26) * (soNgayDiLam + soNgayNghiPhep);
             DecimalFormat dfm = new DecimalFormat("###########.##");
             String tienLuong = dfm.format(luongNhanVien);
-            System.out.println("LN"+maLuong);
-            BangLuongNhanVien luogNhanVien = new BangLuongNhanVien("LN" + maLuong, nhanvien, soNgayDiLam, soNgayNghi, soNgayNghiPhep, date, Double.parseDouble(tienLuong), "VND");
-            daoLuong.themMotBangLuong(luogNhanVien,cmbThang.getSelectedItem().toString(),cmbThang.getSelectedItem().toString());
+            System.out.println("LN" + maLuong);
+
+//            BangLuongNhanVien luogNhanVien = new BangLuongNhanVien("LN" + maLuong, nhanvien, soNgayDiLam, soNgayNghi, soNgayNghiPhep, date, Double.parseDouble(tienLuong), "VND");
+//            daoLuong.themMotBangLuong(luogNhanVien, cmbThang.getSelectedItem().toString(), cmbThang.getSelectedItem().toString());
+            daoLuong.themMotBangLuongString("LN" + maLuong, nv, soNgayDiLam, soNgayNghi, soNgayNghiPhep, new Date(), luongNhanVien, "VND", cmbThang.getSelectedItem().toString(), cmbNam.getSelectedItem().toString(), xoa);
+            xoa++;
+            System.out.println("Them thanh cong");
+            maLuong++;
         }
         taiDuLieuLenBangLuong();
 
@@ -346,6 +325,21 @@ public class LuongNhanVienView extends javax.swing.JPanel {
         taiDuLieuLenBangLuong();
 //    
     }//GEN-LAST:event_cmbHienThiActionPerformed
+
+    private void tblBangLuongMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBangLuongMousePressed
+        JTable table = (JTable) evt.getSource();
+        Point point = evt.getPoint();
+        int row = table.rowAtPoint(point);
+        if (evt.getClickCount() == 2 && tblBangLuong.getSelectedRow() != -1) {
+            int rowSelected = tblBangLuong.getSelectedRow();
+            LocalDate date = LocalDate.parse(tblBangLuong.getValueAt(row, 11).toString());
+            int thang = date.getMonthValue();
+            int nam = date.getYear();
+
+            new ChiTietLuongNhanVien(tblBangLuong.getValueAt(row, 2).toString(), tblBangLuong.getValueAt(row, 3).toString(),
+                    tblBangLuong.getValueAt(row, 9).toString(), tblBangLuong.getValueAt(row, 11).toString().split("-")[1], tblBangLuong.getValueAt(row, 11).toString().split("-")[0]).setVisible(true);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_tblBangLuongMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

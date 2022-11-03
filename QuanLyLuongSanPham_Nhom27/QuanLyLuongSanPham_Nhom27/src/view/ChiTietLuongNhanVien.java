@@ -4,9 +4,18 @@
  */
 package view;
 
+import DAO.ChamCongCongNhan_DAO;
+import DAO.ChamCongNhanVien_DAO;
+import Entity.ChamCongNhanVien;
+import com.sun.org.apache.xerces.internal.util.MessageFormatter;
 import java.awt.Color;
 import java.awt.Container;
+import java.text.MessageFormat;
+import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -17,14 +26,35 @@ public class ChiTietLuongNhanVien extends javax.swing.JFrame {
     /**
      * Creates new form ChiTietLuongCongNhan
      */
-    public ChiTietLuongNhanVien() {
+    public ChiTietLuongNhanVien(String maNhanVien, String hoVaTen, String tongTien, String thang, String nam) {
         initComponents();
         execute();
+        lblValueMaNhanVien.setText(maNhanVien);
+        lblValueHoVaTen.setText(hoVaTen);
+        lblValueTongTien.setText(tongTien);
+        lblTitle.setText("Chi tiết lương nhân viên trong tháng " + thang + "-" + nam);
+        taiDuLieuLenBangChiTietLuong(maNhanVien, thang, nam, tongTien);
     }
-    private void execute(){
+
+    private void execute() {
         Container c = this.getContentPane();
         c.setBackground(Color.white);
+
     }
+
+    public void taiDuLieuLenBangChiTietLuong(String maNhanVien, String thang, String nam, String tongTien) {
+        DefaultTableModel model = (DefaultTableModel) tblChiTietLuongNhanVien.getModel();
+        while (model.getRowCount() > 0) {
+            model.removeRow(0);
+        }
+        ChamCongNhanVien_DAO chamCongDao = new ChamCongNhanVien_DAO();
+        ArrayList<ChamCongNhanVien> chamCongList = chamCongDao.layDanhSachChamCongTheoNhanVienThangNam(maNhanVien, thang, nam);
+        for (ChamCongNhanVien chamCong : chamCongList) {
+            model.addRow(new Object[]{model.getRowCount() + 1, chamCong.getNgayChamCong(), chamCong.getCaLam(), chamCong.getTrangThaiDiLam(), chamCong.getGioDiLam()});
+        }
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,50 +66,51 @@ public class ChiTietLuongNhanVien extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbNhanVien = new javax.swing.JTable();
+        tblChiTietLuongNhanVien = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
+        lblValueMaNhanVien = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
+        lblValueHoVaTen = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
+        lblValueTongTien = new javax.swing.JLabel();
         btnCapNhat = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        lblTitle = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setBorder(null);
 
-        tbNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        tbNhanVien.setModel(new javax.swing.table.DefaultTableModel(
+        tblChiTietLuongNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        tblChiTietLuongNhanVien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "STT", "Ngày làm", "Trạng thái", "Ca làm"
+                "STT", "Ngày làm", "Ca làm", "Trạng thái", "Giờ đi làm"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tbNhanVien.setSelectionBackground(new java.awt.Color(232, 57, 95));
-        jScrollPane1.setViewportView(tbNhanVien);
+        tblChiTietLuongNhanVien.setSelectionBackground(new java.awt.Color(232, 57, 95));
+        jScrollPane1.setViewportView(tblChiTietLuongNhanVien);
 
         jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
@@ -89,25 +120,20 @@ public class ChiTietLuongNhanVien extends javax.swing.JFrame {
         jPanel2.setRequestFocusEnabled(false);
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel17.setText("NV001");
-        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 270, 40));
-
-        jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 32)); // NOI18N
-        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel18.setText("Chi tiết lương nhân viên trong tháng");
-        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 850, 70));
+        lblValueMaNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblValueMaNhanVien.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblValueMaNhanVien.setText("NV001");
+        jPanel2.add(lblValueMaNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 270, 40));
 
         jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel19.setText("Họ và tên:");
         jPanel2.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 130, 40));
 
-        jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel20.setText("Nguyễn Van A");
-        jPanel2.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, 300, 40));
+        lblValueHoVaTen.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblValueHoVaTen.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblValueHoVaTen.setText("Nguyễn Van A");
+        jPanel2.add(lblValueHoVaTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, 300, 40));
 
         jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -119,10 +145,10 @@ public class ChiTietLuongNhanVien extends javax.swing.JFrame {
         jLabel22.setText("Tổng tiền nhận:");
         jPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 130, 40));
 
-        jLabel23.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel23.setText("1000000000000 vnd");
-        jPanel2.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, 300, 40));
+        lblValueTongTien.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblValueTongTien.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblValueTongTien.setText("1000000000000 vnd");
+        jPanel2.add(lblValueTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, 300, 40));
 
         btnCapNhat.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         btnCapNhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/update.png"))); // NOI18N
@@ -142,6 +168,11 @@ public class ChiTietLuongNhanVien extends javax.swing.JFrame {
         });
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 10, 60, 50));
 
+        lblTitle.setFont(new java.awt.Font("Segoe UI", 0, 32)); // NOI18N
+        lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitle.setText("Chi tiết lương nhân viên trong tháng");
+        jPanel2.add(lblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, 840, 70));
+
         jPanel1.add(jPanel2, java.awt.BorderLayout.PAGE_START);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -151,11 +182,17 @@ public class ChiTietLuongNhanVien extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
-        // TODO add your handling code here:
+        MessageFormat header = new MessageFormat(lblTitle.getText());
+        MessageFormat footer = new MessageFormat("Nhóm 27");
+        try {
+            tblChiTietLuongNhanVien.print(JTable.PrintMode.FIT_WIDTH, header, footer);
+        } catch (Exception e) {
+            e.getMessage();
+        }
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-       this.setVisible(false);
+        this.setVisible(false);
     }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
@@ -189,7 +226,7 @@ public class ChiTietLuongNhanVien extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChiTietLuongNhanVien().setVisible(true);
+//                new ChiTietLuongNhanVien().setVisible(true);
             }
         });
     }
@@ -197,16 +234,16 @@ public class ChiTietLuongNhanVien extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCapNhat;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tbNhanVien;
+    private javax.swing.JLabel lblTitle;
+    private javax.swing.JLabel lblValueHoVaTen;
+    private javax.swing.JLabel lblValueMaNhanVien;
+    private javax.swing.JLabel lblValueTongTien;
+    private javax.swing.JTable tblChiTietLuongNhanVien;
     // End of variables declaration//GEN-END:variables
 }

@@ -186,11 +186,16 @@ public class TrangChuView extends javax.swing.JPanel {
             new String [] {
                 "STT", "Mã nhân viên", "Họ Tên", "Số điện thoai", "Email", "Giới tính", "Phòng ban", "Chức vụ"
             }
-        ));
-        tblTrangChu.setIntercellSpacing(new java.awt.Dimension(0, 0));
-        tblTrangChu.setRowHeight(25);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblTrangChu.setSelectionBackground(new java.awt.Color(232, 57, 95));
-        tblTrangChu.setShowVerticalLines(false);
         tblTrangChu.getTableHeader().setReorderingAllowed(false);
         scrTableTrangChu.setViewportView(tblTrangChu);
 

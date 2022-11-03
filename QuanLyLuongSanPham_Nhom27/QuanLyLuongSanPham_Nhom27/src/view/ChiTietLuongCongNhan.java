@@ -221,6 +221,13 @@ public class ChiTietLuongCongNhan extends javax.swing.JFrame {
         } catch (Exception e) {
             e.getMessage();
         }
+//             MessageFormat header = new MessageFormat("Lương " + lblHoTenOutPut.getText()+ "(" + lblMaCongNhanOutput.getText() + ") " +  thang + "/" + nam);
+//        MessageFormat footer = new MessageFormat("Tổng lương: " + lblTongTienNhan.getText());
+//        try {
+//            tblBangLuongChiTiet.print(JTable.PrintMode.FIT_WIDTH, header, footer);
+//        } catch (Exception e) {
+//            e.getMessage();
+//        }
     }//GEN-LAST:event_btnXuatBaoCaoActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked

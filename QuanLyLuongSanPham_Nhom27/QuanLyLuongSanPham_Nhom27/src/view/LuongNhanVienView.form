@@ -282,6 +282,9 @@
               <Color blue="5f" green="39" red="e8" type="rgb"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblBangLuongMousePressed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

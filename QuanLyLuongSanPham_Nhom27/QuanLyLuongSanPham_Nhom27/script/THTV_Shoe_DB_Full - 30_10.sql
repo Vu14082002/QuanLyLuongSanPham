@@ -1,5 +1,5 @@
 --drop database THTV_SHOES
-
+drop  DATABASE THTV_SHOES
 -- Tạo database 
 CREATE DATABASE THTV_SHOES
 GO
@@ -31,7 +31,7 @@ CREATE TABLE CongNhan
 	anhDaiDien varchar(100),
 	diaChi nvarchar(100),
 	ngayVaoLam date,
-	toNhom char(8) COLLATE SQL_Latin1_General_CP1_CS_AS references ToNhom(maToNhom) ON DELETE CASCADE,
+	toNhom char(8) COLLATE SQL_Latin1_General_CP1_CS_AS references ToNhom(maToNhom) , -- đã xóa cascade delete
 	constraint CHK_CongNhan_maCongNhan_dinhDang check (maCongNhan like 'CN[1-9][0-9][0-9][0-9][0-9][0-9]'),-- Gồm 8 kí tự bắt đầu bằng CN 6 kí tự sau là số từ 0-9 riêng số đầu tiên bắt đầu bằng 1
 	constraint CHK_CongNhan_tenCongNhan_hienNhien check (hoTen like '%[^A-Za-z]%'), -- Họ tên chỉ chứa kí tự chữ 
 	constraint CHK_CongNhan_ngaySinh_hienNhien check (ngaySinh < getdate()), -- ngày sinh phải sau ngày hiện tại
@@ -65,40 +65,41 @@ GO
 		where maToNhom = @maToNhom
 	end
 GO
+
 INSERT CongNhan
-VALUES ('CN100001', N'Nguyễn Văn Hiếu', '2000-12-10', '111122223333', '0975654628', 'hieurio12@gmail.com', '111111', 1, 'male.png', N'Nghệ An', GETDATE(), 'TN100001')
+VALUES ('CN100001', N'Nguyễn Văn Hiếu', '2000-12-10', '111122223333', '0975654628', 'hieurio12@gmail.com', '111111', 1, 'male.png', N'Nghệ An', '2022-03-03', 'TN100001')
 GO
 INSERT CongNhan
-VALUES ('CN100002', N'Nguyễn Văn Hậu', '1998-12-10', '111122224444', '0975654622', 'haunguyen@gmail.com', '111111', 1, 'male.png', N'Quãng Ninh', GETDATE(), 'TN100002')
+VALUES ('CN100002', N'Nguyễn Văn Hậu', '1998-12-10', '111122224444', '0975654622', 'haunguyen@gmail.com', '111111', 1, 'male.png', N'Quãng Ninh', '2022-03-03', 'TN100002')
 GO
 INSERT CongNhan
-VALUES ('CN100003', N'Nguyễn Thị Hà', '2002-01-01', '222233334444', '0975654623', 'nguyenha@gmail.com', '111111', 0, 'female.png', N'Quãng Bình', GETDATE(), 'TN100003')
+VALUES ('CN100003', N'Nguyễn Thị Hà', '2002-01-01', '222233334444', '0975654623', 'nguyenha@gmail.com', '111111', 0, 'female.png', N'Quãng Bình', '2022-04-01', 'TN100003')
 GO
 INSERT CongNhan
-VALUES ('CN100004', N'Phan Văn Đức', '2001-12-10', '333322221111', '0975222622', 'duckot37@gmail.com', '111111', 1, 'male.png', N'Đồng Tháp', GETDATE(), 'TN100004')
+VALUES ('CN100004', N'Phan Văn Đức', '2001-12-10', '333322221111', '0975222622', 'duckot37@gmail.com', '111111', 1, 'male.png', N'Đồng Tháp', '2022-03-02', 'TN100004')
 GO
 INSERT CongNhan
-VALUES ('CN100005', N'Nguyễn Xuân Mạnh', '1990-10-10', '555533332222', '0363121424', 'xuanmanhnguyen@gmail.com', '111111', 1, 'male.png', N'Vĩnh Long', GETDATE(), 'TN100005')
+VALUES ('CN100005', N'Nguyễn Xuân Mạnh', '1990-10-10', '555533332222', '0363121424', 'xuanmanhnguyen@gmail.com', '111111', 1, 'male.png', N'Vĩnh Long', '2022-04-10', 'TN100005')
 GO
 INSERT CongNhan
-VALUES ('CN100006', N'Trần Ngọc Hoài', '2001-12-10', '222122231111', '0363214224', 'hoaiflower@gmail.com', '111111', 0, 'female.png', N'Hà Tĩnh', GETDATE(), 'TN100005')
+VALUES ('CN100006', N'Trần Ngọc Hoài', '2001-12-10', '222122231111', '0363214224', 'hoaiflower@gmail.com', '111111', 0, 'female.png', N'Hà Tĩnh', '2022-02-05', 'TN100005')
 GO
 INSERT CongNhan
-VALUES ('CN100007', N'Lê Hoài Vũ', '1996-06-10', '231223134444', '0363233924', 'vukhongvu@gmail.com', '111111', 1, 'male.png', N'Hà Nội', GETDATE(), 'TN100004')
+VALUES ('CN100007', N'Lê Hoài Vũ', '1996-06-10', '231223134444', '0363233924', 'vukhongvu@gmail.com', '111111', 1, 'male.png', N'Hà Nội', '2022-01-01', 'TN100004')
 GO
 INSERT CongNhan
-VALUES ('CN100008', N'Nguyễn Đình Dũng', '1992-12-10', '111132321212', '0363213435', 'dinhdungsoccer@gmail.com', '111111', 1, 'male.png', N'Thái Bình', GETDATE(), 'TN100003')
+VALUES ('CN100008', N'Nguyễn Đình Dũng', '1992-12-10', '111132321212', '0363213435', 'dinhdungsoccer@gmail.com', '111111', 1, 'male.png', N'Thái Bình', '2022-03-03', 'TN100003')
 GO
 INSERT CongNhan
-VALUES ('CN100009', N'Nguyễn Quang Hải', '1990-03-09', '299966653332', '0974262444', 'haileague2@gmail.com', '111111', 1, 'male.png', N'Hà Nội', GETDATE(), 'TN100002')
+VALUES ('CN100009', N'Nguyễn Quang Hải', '1990-03-09', '299966653332', '0974262444', 'haileague2@gmail.com', '111111', 1, 'male.png', N'Hà Nội', '2022-03-02', 'TN100002')
 GO
 INSERT CongNhan
-VALUES ('CN100010', N'Nguyễn Tiến Linh', '1993-02-10', '222122231111', '0363244224', 'tienwood@gmail.com', '111111', 1, 'male.png', N'Hà Giang', GETDATE(), 'TN100001')
+VALUES ('CN100010', N'Nguyễn Tiến Linh', '1993-02-10', '222122231111', '0363244224', 'tienwood@gmail.com', '111111', 1, 'male.png', N'Hà Giang', '2022-06-03', 'TN100001')
 GO
 CREATE table BangLuongCongNhan 
 (
 	maBangLuong char(8) COLLATE SQL_Latin1_General_CP1_CS_AS primary key,
-	maCongNhan char(8) COLLATE SQL_Latin1_General_CP1_CS_AS not null references CongNhan(maCongNhan) ON DELETE CASCADE,
+	maCongNhan char(8) COLLATE SQL_Latin1_General_CP1_CS_AS not null references CongNhan(maCongNhan), -- đã xóa cascade delete
 	ngayTinh date not null,
 	soLuongSanPhamLam int not null,
 	soNgayDiLam int not null,
@@ -112,20 +113,20 @@ CREATE table BangLuongCongNhan
 	constraint CHK_BangLuongCongNhan_soNgayNghi_hienNhien check (soNgayNghi >= 0), -- số ngày nghỉ phải >= 0
 	constraint CHK_BangLuongCongNhan_soPhepNghi_hienNhien check (soPhepNghi <= soNgayNghi), -- số  phép phải <= số ngày nghỉ
 	constraint CHK_BangLuongCongNhan_tongLuong_hienNhien check (tongLuong >= 0), -- tổng lương phải >= 0
-	constraint CHK_BangLuongCongNhan_donViTien_hienNhien check (donViTien in ('VND', 'vnd', 'USD', 'usd')) -- chỉ chấp nhận dạng tiền usd, vnd
+	constraint CHK_BangLuongCongNhan_donViTien_hienNhien check (donViTien in ('VND', 'vnd')) -- chỉ chấp nhận dạng tiền usd, vnd
 )
 GO
 INSERT BangLuongCongNhan
-VALUES ('LC100001', 'CN100001', GETDATE(), 221, 25, 5, 4, 6132312, 'vnd'),
-('LC100002', 'CN100002', GETDATE(), 321, 23, 7, 4, 9132312, 'vnd'),
-('LC100003', 'CN100003', GETDATE(), 119, 24, 6, 1, 12132312, 'vnd'),
-('LC100004', 'CN100004', GETDATE(), 23, 26, 4, 2, 16138312, 'vnd'),
-('LC100005', 'CN100005', GETDATE(), 32, 26, 4, 0, 21312122, 'vnd'),
-('LC100006', 'CN100006', GETDATE(), 21, 26, 4, 0, 23123123, 'vnd'),
-('LC100007', 'CN100007', GETDATE(), 33, 19, 11, 1, 21121234, 'vnd'),
-('LC100008', 'CN100008', GETDATE(), 123, 24, 6, 0, 12314545, 'vnd'),
-('LC100009', 'CN100009', GETDATE(), 431, 25, 5, 0, 32123124, 'vnd'),
-('LC100010', 'CN100001', GETDATE(), 89, 21, 9, 1, 7876889, 'vnd'),
+VALUES ('LC100001', 'CN100001', '2022-05-05', 221, 25, 5, 4, 6132312, 'vnd'),
+('LC100002', 'CN100002', '2022-05-05', 321, 23, 7, 4, 9132312, 'vnd'),
+('LC100003', 'CN100003', '2022-05-05', 119, 24, 6, 1, 12132312, 'vnd'),
+('LC100004', 'CN100004', '2022-05-05', 23, 26, 4, 2, 16138312, 'vnd'),
+('LC100005', 'CN100005', '2022-05-05', 32, 26, 4, 0, 21312122, 'vnd'),
+('LC100006', 'CN100006', '2022-05-05', 21, 26, 4, 0, 23123123, 'vnd'),
+('LC100007', 'CN100007', '2022-05-05', 33, 19, 11, 1, 21121234, 'vnd'),
+('LC100008', 'CN100008', '2022-05-05', 123, 24, 6, 0, 12314545, 'vnd'),
+('LC100009', 'CN100009', '2022-05-05', 431, 25, 5, 0, 32123124, 'vnd'),
+('LC100010', 'CN100001', '2022-05-05', 89, 21, 9, 1, 7876889, 'vnd'),
 ('LC100011', 'CN100002', '2022-09-10', 321, 15, 15, 5, 3331234, 'vnd'),
 ('LC100012', 'CN100003', '2022-09-10', 16, 16, 14, 4, 4353451, 'vnd'),
 ('LC100013', 'CN100004', '2022-09-10', 45, 21, 9, 0, 15124312, 'vnd'),
@@ -211,39 +212,39 @@ as
 
 GO
 INSERT NhanVien 
-values ('NV100001', N'Nguyễn Văn Vũ', '1995-02-02', '222233334444', '0975123123', 'ngvanvu@gmail.com', '111111', N'Quản Lý', GETDATE(), 4000000, 1, 'male.png', N'Phú Yên', 'PB100001')
+values ('NV100001', N'Nguyễn Văn Vũ', '1995-02-02', '222233334444', '0975123123', 'ngvanvu@gmail.com', '111111', N'Quản Lý', '2022-03-03', 4000000, 1, 'male.png', N'Phú Yên', 'PB100001')
 GO
 INSERT NhanVien 
-values ('NV100002', N'Nguyễn Văn Toản', '2001-03-02', '111133334444', '0862170471', 'mmccool12@gmail.com', '111111', N'Quản Lý', GETDATE(), 3600000, 1, 'male.png', N'Cà Mau', 'PB100002')
+values ('NV100002', N'Nguyễn Văn Toản', '2001-03-02', '111133334444', '0862170471', 'mmccool12@gmail.com', '111111', N'Quản Lý', '2022-03-03', 3600000, 1, 'male.png', N'Cà Mau', 'PB100002')
 GO
 INSERT NhanVien 
-values ('NV100003', N'Chu Hữu Hạnh', '2000-05-01', '213122313124', '0869094448', 'huhuhanhne@gmail.com', '111111', N'Nhân Viên', GETDATE(), 2233000, 1, 'male.png', N'Vĩnh Phúc', 'PB100003')
+values ('NV100003', N'Chu Hữu Hạnh', '2000-05-01', '213122313124', '0869094448', 'huhuhanhne@gmail.com', '111111', N'Nhân Viên', '2022-03-03', 2233000, 1, 'male.png', N'Vĩnh Phúc', 'PB100003')
 GO
 INSERT NhanVien 
-values('NV100004', N'Ưng Trường Phúc', '2002-01-01', '312331234123', '0394710588', 'phucnotalone@gmail.com', '111111', N'Nhân Viên', GETDATE(), 5500000, 1, 'male.png', N'Hội An', 'PB100004')
+values('NV100004', N'Ưng Trường Phúc', '2002-01-01', '312331234123', '0394710588', 'phucnotalone@gmail.com', '111111', N'Nhân Viên', '2022-03-03', 5500000, 1, 'male.png', N'Hội An', 'PB100004')
 GO
 INSERT NhanVien 
-values ('NV100005', N'Đặng Ngọc Dương', '1999-11-02', '431521413514', '0352162139', 'ngoctrongda@gmail.com', '111111', N'Nhân Viên', GETDATE(), 3600000, 1, 'male.png', N'Đà Nẵng', 'PB100005')
+values ('NV100005', N'Đặng Ngọc Dương', '1999-11-02', '431521413514', '0352162139', 'ngoctrongda@gmail.com', '111111', N'Nhân Viên', '2022-03-03', 3600000, 1, 'male.png', N'Đà Nẵng', 'PB100005')
 GO
 INSERT NhanVien 
-values ('NV100006', N'Lê Văn Hảo', '1994-02-01', '425176362421', '0384177886', 'dinhaobro@gmail.com', '111111', N'Quản lý', GETDATE(), 3600000, 1, 'male.png', N'Cần Thơ', 'PB100001')
+values ('NV100006', N'Lê Văn Hảo', '1994-02-01', '425176362421', '0384177886', 'dinhaobro@gmail.com', '111111', N'Quản lý', '2022-03-05', 3600000, 1, 'male.png', N'Cần Thơ', 'PB100001')
 GO
 INSERT NhanVien 
-values ('NV100007', N'Tạ Hoàng Lan', '2002-05-05', '312515451312', '0364248488', 'hoanlan@gmail.com', '111111', N'Nhân Viên', GETDATE(), 2340000, 1, 'male.png', N'Vũng Tàu', 'PB100001')
+values ('NV100007', N'Tạ Hoàng Lan', '2002-05-05', '312515451312', '0364248488', 'hoanlan@gmail.com', '111111', N'Nhân Viên', '2022-03-06', 2340000, 1, 'male.png', N'Vũng Tàu', 'PB100001')
 GO
 INSERT NhanVien 
-values ('NV100008', N'Lưu Cát Ly', '2001-12-12', '432514313151', '0325230839', 'catlyluu@gmail.com', '111111', N'Nhân Viên', GETDATE(), 2350000, 0, 'female.png', N'Dak Nông', 'PB100002')
+values ('NV100008', N'Lưu Cát Ly', '2001-12-12', '432514313151', '0325230839', 'catlyluu@gmail.com', '111111', N'Nhân Viên', '2022-03-02', 2350000, 0, 'female.png', N'Dak Nông', 'PB100002')
 GO
 INSERT NhanVien 
-values ('NV100009', N'Đặng Mộng Vy', '1998-01-02', '231512355141', '0384910990', 'dangmongvi@gmail.com', '111111', N'Nhân Viên', GETDATE(), 4333222, 0, 'female.png', N'Đồng Tháp', 'PB100003')
+values ('NV100009', N'Đặng Mộng Vy', '1998-01-02', '231512355141', '0384910990', 'dangmongvi@gmail.com', '111111', N'Nhân Viên', '2022-03-01', 4333222, 0, 'female.png', N'Đồng Tháp', 'PB100003')
 go
 INSERT NhanVien 
-values ('NV100010', N'Lý Tố Quyên', '1998-01-05', '214515571351', '0397872166', 'lytoquyen12@gmail.com', '111111', N'Nhân Viên', GETDATE(), 3700000, 0, 'female.png', N'Bình Dương', 'PB100001')
+values ('NV100010', N'Lý Tố Quyên', '1998-01-05', '214515571351', '0397872166', 'lytoquyen12@gmail.com', '111111', N'Nhân Viên', '2022-03-01', 3700000, 0, 'female.png', N'Bình Dương', 'PB100001')
 GO
 CREATE TABLE BangLuongNhanVien
 (
 	maBangLuong char(8) COLLATE SQL_Latin1_General_CP1_CS_AS primary key,
-	maNhanVien char(8) COLLATE SQL_Latin1_General_CP1_CS_AS  not null references NhanVien(maNhanVien) ON DELETE CASCADE,
+	maNhanVien char(8) COLLATE SQL_Latin1_General_CP1_CS_AS  not null references NhanVien(maNhanVien) , -- đã xóa cascade delete
 	soNgayDiLam int not null,
 	soNgayNghi int not null,
 	soPhepNghi int not null,
@@ -259,16 +260,16 @@ CREATE TABLE BangLuongNhanVien
 )
 GO
 INSERT BangLuongNhanVien
-values ('LN100001', 'NV100001', 27, 0, 0, GETDATE(), 7000000, 'VND'),
-('LN100002', 'NV100002', 25, 2, 0, GETDATE(), 6000000, 'VND'),
-('LN100003', 'NV100003', 23, 4, 0, GETDATE(), 5500000, 'VND'),
-('LN100004', 'NV100004', 26, 1, 1, GETDATE(), 6300000, 'VND'),
-('LN100005', 'NV100005', 27, 0, 0, GETDATE(), 7000000, 'VND'),
-('LN100006', 'NV100006', 27, 0, 0, GETDATE(), 7000000, 'VND'),
-('LN100007', 'NV100007', 27, 0, 0, GETDATE(), 7000000, 'VND'),
-('LN100008', 'NV100008', 27, 0, 0, GETDATE(), 7000000, 'VND'),
-('LN100009', 'NV100009', 27, 0, 0, GETDATE(), 7000000, 'VND'),
-('LN100010', 'NV100010', 27, 0, 0, GETDATE(), 7000000, 'VND'),
+values ('LN100001', 'NV100001', 27, 0, 0, '2022-10-11', 7000000, 'VND'),
+('LN100002', 'NV100002', 25, 2, 0, '2022-10-11', 6000000, 'VND'),
+('LN100003', 'NV100003', 23, 4, 0, '2022-10-11', 5500000, 'VND'),
+('LN100004', 'NV100004', 26, 1, 1, '2022-10-11', 6300000, 'VND'),
+('LN100005', 'NV100005', 27, 0, 0, '2022-10-11', 7000000, 'VND'),
+('LN100006', 'NV100006', 27, 0, 0, '2022-10-11', 7000000, 'VND'),
+('LN100007', 'NV100007', 27, 0, 0, '2022-10-11', 7000000, 'VND'),
+('LN100008', 'NV100008', 27, 0, 0, '2022-10-11', 7000000, 'VND'),
+('LN100009', 'NV100009', 27, 0, 0, '2022-10-11', 7000000, 'VND'),
+('LN100010', 'NV100010', 27, 0, 0, '2022-10-11', 7000000, 'VND'),
 ('LN100011', 'NV100001', 27, 0, 0, '2022-09-10', 7000000, 'VND'),
 ('LN100012', 'NV100002', 27, 0, 0, '2022-09-10', 7000000, 'VND'),
 ('LN100013', 'NV100003', 24, 3, 1, '2022-09-10', 6000000, 'VND'),
@@ -293,16 +294,27 @@ GO
 	alter table ChamCongNhanVien add primary key(maNhanVien, caLam, ngayChamCong)
 GO
 INSERT ChamCongNhanVien
-VALUES ('NV100001', N'Sáng' , GETDATE(),  N'Đi Làm', '8h00', 'NV100002'),
-('NV100002', N'Đêm', GETDATE(),  N'Đi Trễ', '8h30', 'NV100002'),
-('NV100003', N'Chiều', GETDATE(), N'Nghỉ Có Phép', '', 'NV100002'),
-('NV100004', N'Chiều', GETDATE(), N'Nghỉ Không Phép', '', 'NV100002'),
-('NV100005', N'Chiều', GETDATE(), N'Đi Làm', '8h00', 'NV100001'),
-('NV100006', N'Sáng', GETDATE(), N'Đi Làm', '8h00', 'NV100001'),
-('NV100007', N'Sáng' , GETDATE(), N'Đi Làm', '8h00',  'NV100001'),
-('NV100008', N'Chiều' , GETDATE(), N'Nghỉ Có Phép', '',  'NV100001'),
-('NV100009', N'Đêm', GETDATE(),  N'Nghỉ Có Phép', '',  'NV100002'),
-('NV100010', N'Chiều', GETDATE(), N'Đi Làm', '8h00',  'NV100002')
+VALUES ('NV100001', N'Sáng' , '2022-11-02',  N'Đi Làm', '8h00', 'NV100002'),
+('NV100002', N'Đêm', '2022-11-02',  N'Đi Trễ', '8h30', 'NV100002'),
+('NV100003', N'Chiều', '2022-11-02', N'Nghỉ Có Phép', '', 'NV100002'),
+('NV100004', N'Chiều', '2022-11-02', N'Nghỉ Không Phép', '', 'NV100002'),
+('NV100005', N'Chiều', '2022-11-02', N'Đi Làm', '8h00', 'NV100001'),
+('NV100006', N'Sáng', '2022-11-02', N'Đi Làm', '8h00', 'NV100001'),
+('NV100007', N'Sáng' , '2022-11-02', N'Đi Làm', '8h00',  'NV100001'),
+('NV100008', N'Chiều' , '2022-11-02', N'Nghỉ Có Phép', '',  'NV100001'),
+('NV100009', N'Đêm', '2022-11-02',  N'Nghỉ Có Phép', '',  'NV100002'),
+('NV100010', N'Chiều', '2022-11-02', N'Đi Làm', '8h00',  'NV100002'),
+('NV100001', N'Sáng' , '2022-11-01',  N'Đi Làm', '8h00', 'NV100002'),
+('NV100002', N'Đêm', '2022-11-01',  N'Đi Làm', '8h30', 'NV100002'),
+('NV100003', N'Chiều', '2022-11-01', N'Đi Làm', '', 'NV100002'),
+('NV100004', N'Chiều', '2022-11-01', N'Đi Làm', '', 'NV100002'),
+('NV100005', N'Chiều', '2022-11-01', N'Đi Làm', '8h00', 'NV100001'),
+('NV100006', N'Sáng', '2022-11-01', N'Đi Làm', '8h00', 'NV100001'),
+('NV100007', N'Sáng' , '2022-11-01', N'Đi Làm', '8h00',  'NV100001'),
+('NV100008', N'Chiều' , '2022-11-01', N'Đi Làm', '',  'NV100001'),
+('NV100009', N'Đêm', '2022-11-01',  N'Đi Làm', '',  'NV100002'),
+('NV100010', N'Chiều', '2022-11-01', N'Đi Làm', '8h00',  'NV100002')
+
 GO
 CREATE TABLE SanPham
 (
@@ -318,6 +330,7 @@ CREATE TABLE SanPham
 	constraint CHK_SanPham_soLuongSanPham check (soLuongSanPham > 0), -- số lượng sản phẩm >= 0
 	constraint CHK_SanPham_kichThuoc check (kichThuoc >= 0) -- kích thước >= 0
 )
+
 GO
 INSERT SanPham
 VALUES ('SP100001', N'MLB Boston Red Sox', 1000, N'214, 214, 214', N'Vải cotton', 41, 'icons8-shoes-64(2).png', 0)
@@ -356,13 +369,14 @@ CREATE TABLE CongDoan
 	soLuongCan int not null,
 	tinhTrang nvarchar(50),
 	thoiHan date not null,
-	maSanPham char(8) COLLATE SQL_Latin1_General_CP1_CS_AS  not null references SanPham(maSanPham) ON DELETE CASCADE,
+	maSanPham char(8) COLLATE SQL_Latin1_General_CP1_CS_AS  not null references SanPham(maSanPham), -- đã xóa delete cascade
 	tienLuong money,
 	constraint CHK_CongDoan_maCongDoan_dinhDang check (maCongDoan like 'CD[1-9][0-9][0-9][0-9][0-9][0-9]'), -- Gồm 8 kí tự bắt đầu bằng CD 6 kí tự sau là số từ 0-9 riêng số đầu tiên bắt đầu bằng 1
 	constraint CHK_CongDoan_soLuongCan_hienNhien check (soLuongCan > 0), -- số lượng cần phải >= 0
 	constraint CHK_CongDoan_thoiHan_hienNhien check (thoiHan > GETDATE()), -- thời hạn phải sau ngày hiện tại
 	constraint CHK_CongDoan_tienLuong_hienNhien check (tienLuong > 0) -- tiền lương phải >= 0
 )
+
 GO
 CREATE TRIGGER capNhatSoLuongCongDoan on CongDoan
 after insert, delete, update
@@ -417,29 +431,29 @@ GO
 CREATE TABLE PhanCongCongNhan
 (
 	maPhanCong char(8) COLLATE SQL_Latin1_General_CP1_CS_AS primary key,
-	maCongNhan char(8) COLLATE SQL_Latin1_General_CP1_CS_AS not null references CongNhan(maCongNhan) ON DELETE CASCADE,
-	maNguoiPhanCong char(8) COLLATE SQL_Latin1_General_CP1_CS_AS not null references NhanVien(maNhanVien) ON DELETE CASCADE,
-	maCongDoan char(8) COLLATE SQL_Latin1_General_CP1_CS_AS not null references CongDoan(maCongDoan) ON DELETE CASCADE,
+	maCongNhan char(8) COLLATE SQL_Latin1_General_CP1_CS_AS not null references CongNhan(maCongNhan) , -- đã xóa cascade delete
+	maNguoiPhanCong char(8) COLLATE SQL_Latin1_General_CP1_CS_AS not null references NhanVien(maNhanVien) , -- đã xóa cascade delete
+	maCongDoan char(8) COLLATE SQL_Latin1_General_CP1_CS_AS not null references CongDoan(maCongDoan), -- đã xóa cascade delete
 	ngayPhanCong date,
-	caLam nvarchar(50),
+	maToNhom char(8) COLLATE SQL_Latin1_General_CP1_CS_AS not null references ToNhom(maToNhom) ,
 	constraint CHK_PhanCongCongNhan_maPhanCong check (maPhanCong like 'PC[1-9][0-9][0-9][0-9][0-9][0-9]') -- Gồm 8 kí tự bắt đầu bằng PC 6 kí tự sau là số từ 0-9 riêng số đầu tiên bắt đầu bằng 1
 )
-
 GO
+
 INSERT PhanCongCongNhan
-VALUES ('PC100001', 'CN100001', 'NV100001', 'CD100001' ,GETDATE(), N'Đêm'),
- ('PC100002', 'CN100002', 'NV100002', 'CD100002' ,GETDATE(), N'Sáng'),
- ('PC100003', 'CN100003', 'NV100001', 'CD100001' ,GETDATE(), N'Chiều'),
- ('PC100004', 'CN100004', 'NV100002', 'CD100002' ,GETDATE(), N'Đêm'),
- ('PC100005', 'CN100005', 'NV100001', 'CD100003' ,GETDATE(), N'Sáng'),
- ('PC100006', 'CN100006', 'NV100002', 'CD100004' ,GETDATE(), N'Đêm'),
- ('PC100007', 'CN100007', 'NV100001', 'CD100001' ,GETDATE(), N'Sáng'),
- ('PC100008', 'CN100008', 'NV100002', 'CD100002' ,GETDATE(), N'Đêm'),
- ('PC100009', 'CN100009', 'NV100001', 'CD100003' ,GETDATE(), N'Chiều'),
- ('PC100010', 'CN100010', 'NV100002', 'CD100001' ,GETDATE(), N'Sáng')
+VALUES ('PC100001', 'CN100001', 'NV100001', 'CD100001' , '2022-05-09', 'TN100001'),
+ ('PC100002', 'CN100002', 'NV100002', 'CD100002' ,'2022-05-09', 'TN100002'),
+ ('PC100003', 'CN100003', 'NV100001', 'CD100001' ,'2022-05-09', 'TN100003'),
+ ('PC100004', 'CN100004', 'NV100002', 'CD100002' ,'2022-05-09', 'TN100004'),
+ ('PC100005', 'CN100005', 'NV100001', 'CD100003' ,'2022-05-09', 'TN100005'),
+ ('PC100006', 'CN100006', 'NV100002', 'CD100004' ,'2022-05-09', 'TN100005'),
+ ('PC100007', 'CN100007', 'NV100001', 'CD100001' ,'2022-05-09', 'TN100004'),
+ ('PC100008', 'CN100008', 'NV100002', 'CD100002' ,'2022-05-09', 'TN100003'),
+ ('PC100009', 'CN100009', 'NV100001', 'CD100003' ,'2022-05-09', 'TN100002'),
+ ('PC100010', 'CN100010', 'NV100002', 'CD100001' ,'2022-05-09', 'TN100001')
 GO
 CREATE TABLE ChamCongCongNhan(
-	maPhanCong char(8)  COLLATE SQL_Latin1_General_CP1_CS_AS not null references PhanCongCongNhan(maPhanCong) ON DELETE CASCADE,
+	maPhanCong char(8)  COLLATE SQL_Latin1_General_CP1_CS_AS not null references PhanCongCongNhan(maPhanCong) , -- đã xóa cascade delete
 	caLam nvarchar(50) not null,
 	ngayChamCong date not null,
 	soLuongLam int not null,
@@ -451,38 +465,98 @@ GO
 	ALTER TABLE ChamCongCongNhan add primary key(maPhanCong, caLam, ngayChamCong)
 GO
 INSERT ChamCongCongNhan
-VALUES ('PC100001', N'Đêm', GETDATE(), 24,  N'Đi Làm',  '19h00'),
-('PC100002', N'Sáng' ,GETDATE(), 32, N'Đi Trễ', '8h30'),
-('PC100003',  N'Chiều', GETDATE(), 15,  N'Đi Làm',  '12h00'),
-('PC100004', N'Đêm', GETDATE(), 55,  N'Đi Làm',  '19h00'),
-('PC100005', N'Đêm', GETDATE(), 33, N'Đi Làm',  '19h00'),
-('PC100006', N'Sáng', GETDATE(), 12, N'Đi Trễ',  '8h25'),
-('PC100007', N'Sáng', GETDATE(), 43,  N'Đi Làm',  '8h00'),
-('PC100008', N'Sáng', GETDATE(), 54, N'Đi Làm',  '8h00'),
-('PC100009', N'Sáng', GETDATE(), 24,  N'Đi Trễ',  '8h30'),
-('PC100010', N'Sáng', GETDATE(), 54,  N'Đi Làm',  '8h00')
+VALUES ('PC100001', N'Đêm', '2022-11-02', 24,  N'Đi Làm',  '19h00'),
+('PC100002', N'Sáng' , '2022-11-02', 32, N'Đi Trễ', '8h30'),
+('PC100003',  N'Chiều',  '2022-11-02', 15,  N'Đi Làm',  '12h00'),
+('PC100004', N'Đêm',  '2022-11-02', 55,  N'Đi Làm',  '19h00'),
+('PC100005', N'Đêm',  '2022-11-02', 33, N'Đi Làm',  '19h00'),
+('PC100006', N'Sáng',  '2022-11-02', 12, N'Đi Trễ',  '8h25'),
+('PC100007', N'Sáng',  '2022-11-02', 43,  N'Đi Làm',  '8h00'),
+('PC100008', N'Sáng',  '2022-11-02', 54, N'Đi Làm',  '8h00'),
+('PC100009', N'Sáng',  '2022-11-02', 24,  N'Đi Trễ',  '8h30'),
+('PC100010', N'Sáng',  '2022-11-02', 54,  N'Đi Làm',  '8h00'),
+('PC100001', N'Đêm', '2022-11-01', 25,  N'Đi Làm',  '19h00'),
+('PC100002', N'Sáng' ,'2022-11-01', 31, N'Đi Trễ', '8h30'),
+('PC100003',  N'Chiều', '2022-11-01', 11,  N'Đi Làm',  '12h00'),
+('PC100004', N'Đêm', '2022-11-01', 22,  N'Đi Làm',  '19h00'),
+('PC100005', N'Đêm', '2022-11-01', 53, N'Đi Làm',  '19h00'),
+('PC100006', N'Sáng', '2022-11-01', 15, N'Đi Trễ',  '8h25'),
+('PC100007', N'Sáng', '2022-11-01', 54,  N'Đi Làm',  '8h00'),
+('PC100008', N'Sáng', '2022-11-01', 32, N'Đi Làm',  '8h00'),
+('PC100009', N'Sáng', '2022-11-01', 13,  N'Đi Trễ',  '8h30'),
+('PC100010', N'Sáng', '2022-11-01', 53,  N'Đi Làm',  '8h00')
+
+ -- Tạo các trigger instead of xóa sản phẩm 
+GO
+CREATE TRIGGER trigger_Xoa_SanPham on SanPham
+	INSTEAD OF DELETE
+	AS 
+		BEGIN
+			SET NOCOUNT ON;
+			 DELETE FROM CongDoan WHERE maSanPham IN (SELECT maSanPham FROM DELETED)
+			  DELETE SanPham where maSanPham in (SELECT maSanPham from deleted)
+		END
+GO
+CREATE TRIGGER trigger_Xoa_CongDoan on CongDoan
+	INSTEAD OF DELETE
+	AS 
+		BEGIN
+			SET NOCOUNT ON;
+			 DELETE FROM PhanCongCongNhan WHERE maCongDoan IN (SELECT maCongDoan FROM DELETED)
+			  DELETE CongDoan where maCongDoan in (SELECT maCongDoan from deleted)
+		END
+GO
+CREATE TRIGGER trigger_Xoa_PCCN on PhanCongCongNhan
+	INSTEAD OF DELETE
+	AS 
+		BEGIN
+			SET NOCOUNT ON;
+			 DELETE FROM ChamCongCongNhan WHERE maPhanCong IN (SELECT maPhanCong FROM DELETED)
+			  DELETE PhanCongCongNhan where maPhanCong in (SELECT maPhanCong from deleted)
+		END
 GO
 
-CREATE TRIGGER DELETE_NHANVIEN ON NhanVien
+CREATE TRIGGER trigger_Xoa_NhanVien ON NhanVien
 instead of DELETE
 as
  begin
 	 SET NOCOUNT ON;
 	 DELETE ChamCongNhanVien WHERE maNhanVien in (SELECT maNhanVien from deleted)
 	 DELETE ChamCongNhanVien WHERE maNguoiCham in (SELECT maNguoiCham from deleted)
+	 DELETE BangLuongNhanVien WHERE maNhanVien IN (SELECT maNhanVien from deleted)
+	 DELETE PhanCongCongNhan WHERE maNguoiPhanCong IN (SELECT maNhanVien from deleted)
 	 DELETE NhanVien where maNhanVien in (SELECT maNhanVien from deleted)
+	 
  end
 
 GO
-
-CREATE TRIGGER DELETE_PHONGBAN ON PHONGBAN
+CREATE TRIGGER trigger_Xoa_PhongBan ON PHONGBAN
 instead of DELETE
 as
  begin
 	 DELETE NhanVien WHERE maPhongBan in (SELECT maPhongBan from deleted)
 	 DELETE PhongBan where maPhongBan in (SELECT maPhongBan FROM DELETED)
  end
- 
-
-
-
+GO
+CREATE TRIGGER trigger_Xoa_ToNhom on ToNhom
+	INSTEAD OF DELETE
+	AS 
+		BEGIN
+			SET NOCOUNT ON;
+			 DELETE FROM CongNhan WHERE toNhom IN (SELECT maToNhom FROM DELETED)
+			 DELETE FROM PhanCongCongNhan WHERE maToNhom IN (SELECT maToNhom FROM DELETED)
+			  DELETE ToNhom where maToNhom in (SELECT maToNhom from deleted)
+			 
+		END
+GO
+	CREATE TRIGGER trigger_Xoa_CN on CongNhan
+	INSTEAD OF DELETE
+	AS 
+		BEGIN
+			SET NOCOUNT ON;
+			 DELETE FROM BangLuongCongNhan WHERE maCongNhan IN (SELECT maCongNhan FROM DELETED)
+			 DELETE FROM PhanCongCongNhan WHERE maCongNhan IN (SELECT maCongNhan FROM DELETED)
+			 DELETE CongNhan where maCongNhan in (select maCongNhan from deleted)
+		END
+GO
+delete  ChamCongNhanVien

@@ -99,25 +99,27 @@ public class BangLuongNhanVien_DAO {
         return dsBangLuong;
     }
 
-    public boolean xoaBangLuongInsert(String thang, String nam) {
+    public boolean xoaBangLuongInsert(String thang, String nam, int xoa) {
         System.out.println("Xoa");
         PreparedStatement stm = null;
         int soDongXoaDuoc = 0;
-        try {
-            ConnectionDB.ConnectDB.getInstance();
-            Connection con = ConnectionDB.ConnectDB.getConnection();
-            String truyVan = "delete BangLuongNhanVien where MONTH(ngayTinh)= ? and YEAR(ngayTinh)= ?";
-            stm = con.prepareStatement(truyVan);
-            stm.setString(1, thang);
-            stm.setString(2, nam);
-            soDongXoaDuoc = stm.executeUpdate();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        } finally {
+        if (xoa == 0) {
             try {
-                stm.close();
+                ConnectionDB.ConnectDB.getInstance();
+                Connection con = ConnectionDB.ConnectDB.getConnection();
+                String truyVan = "delete BangLuongNhanVien where MONTH(ngayTinh)= ? and YEAR(ngayTinh)= ?";
+                stm = con.prepareStatement(truyVan);
+                stm.setString(1, thang);
+                stm.setString(2, nam);
+                soDongXoaDuoc = stm.executeUpdate();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
+            } finally {
+                try {
+                    stm.close();
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
             }
         }
         return soDongXoaDuoc != 0;
@@ -129,7 +131,7 @@ public class BangLuongNhanVien_DAO {
         try {
             ConnectionDB.ConnectDB.getInstance();
             Connection con = ConnectionDB.ConnectDB.getConnection();
-            xoaBangLuongInsert(thang, nam);
+            xoaBangLuongInsert(thang, nam,0);
             String truyVan = "INSERT INTO BangLuongNhanVien(maBangLuong, maNhanVien"
                     + " , soNgayDiLam, soNgayNghi, soPhepNghi, ngayTinh"
                     + " , tongTien, donViTien)"
@@ -223,7 +225,7 @@ public class BangLuongNhanVien_DAO {
             Connection con = ConnectionDB.ConnectDB.getConnection();
             String truyVan = "select DISTINCT ngayChamCong from ChamCongNhanVien where maNhanVien = ? \n"
                     + "and DAY(ngayChamCong) >=1 and DAY(ngayChamCong) <=31 and \n"
-                    + "month(ngayChamCong) =? and YEAR(ngayChamCong) =? and trangThaiDiLam not like '%Nghỉ%'";
+                    + "month(ngayChamCong) = ? and YEAR(ngayChamCong) = ? and trangThaiDiLam not like N'%Nghỉ%'";
             stm = con.prepareStatement(truyVan);
             stm.setString(1, maNhanVien);
             stm.setInt(2, thang);
@@ -297,4 +299,34 @@ public class BangLuongNhanVien_DAO {
         return dsNhanVien;
     }
 
+    public boolean themMotBangLuongString(String maLuong, String maNhanVien, int soNgayLam, int soNgayNghi, int soPhepNghi, Date ngayTinh,
+            double tongTien, String donViTien, String thang, String nam, int xoa) {
+        PreparedStatement stm = null;
+        int soDongThemDuoc = 0;
+        try {
+            ConnectionDB.ConnectDB.getInstance();
+            Connection con = ConnectionDB.ConnectDB.getConnection();
+            xoaBangLuongInsert(thang, nam, xoa);
+            String truyVan = "INSERT INTO BangLuongNhanVien values ( ? , ? , ? , ? , ? , ? , ? , ?)";
+            stm = con.prepareStatement(truyVan);
+            stm.setString(1, maLuong);
+            stm.setString(2, maNhanVien);
+            stm.setInt(3, soNgayLam);
+            stm.setInt(4, soNgayNghi);
+            stm.setInt(5, soPhepNghi);
+            stm.setDate(6, new java.sql.Date(ngayTinh.getTime()));
+            stm.setDouble(7, tongTien);
+            stm.setString(8, donViTien);
+            soDongThemDuoc = stm.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                stm.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return soDongThemDuoc != 0;
+    }
 }

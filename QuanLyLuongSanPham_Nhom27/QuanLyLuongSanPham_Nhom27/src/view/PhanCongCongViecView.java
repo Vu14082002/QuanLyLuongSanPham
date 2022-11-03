@@ -49,6 +49,7 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
         initComponents();
         excute();
         taiDuLieuLenBangSanPham();
+        dcsNgayPhanCong.setEnabled(false);
     }
 
     public void excute() {
@@ -168,7 +169,7 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
         lblValueTenCongDoan = new javax.swing.JLabel();
         lblToNhom = new javax.swing.JLabel();
         lblNgayPhanCong = new javax.swing.JLabel();
-        aaaa = new javax.swing.JScrollPane();
+        scrDanhSachSanPham = new javax.swing.JScrollPane();
         tblSanPham = new javax.swing.JTable();
         cmbToNhom = new javax.swing.JComboBox<>();
         cmbMaCongDoan = new javax.swing.JComboBox<>();
@@ -180,7 +181,7 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
         lblSoLuongCanLam1 = new javax.swing.JLabel();
         dcsNgayPhanCong = new com.toedter.calendar.JDateChooser();
         lblMaPhanCong = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        scrDanhSachPhanCong = new javax.swing.JScrollPane();
         tblPhanCong = new javax.swing.JTable();
 
         setPreferredSize(new java.awt.Dimension(1200, 700));
@@ -223,11 +224,11 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
         lblNgayPhanCong.setText("Ngày phân công:");
         jPanel5.add(lblNgayPhanCong, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 20, 190, 40));
 
-        aaaa.setBackground(new java.awt.Color(255, 255, 255));
-        aaaa.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách sản phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
-        aaaa.addMouseListener(new java.awt.event.MouseAdapter() {
+        scrDanhSachSanPham.setBackground(new java.awt.Color(255, 255, 255));
+        scrDanhSachSanPham.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách sản phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
+        scrDanhSachSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                aaaaMouseClicked(evt);
+                scrDanhSachSanPhamMouseClicked(evt);
             }
         });
 
@@ -257,9 +258,9 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
                 tblSanPhamMouseClicked(evt);
             }
         });
-        aaaa.setViewportView(tblSanPham);
+        scrDanhSachSanPham.setViewportView(tblSanPham);
 
-        jPanel5.add(aaaa, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 660, 270));
+        jPanel5.add(scrDanhSachSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 660, 270));
 
         cmbToNhom.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tổ 1", "Tổ 2", "Tổ 3", "Tổ 4", "Tổ 5", "Tổ 6", "Tổ 7", "Tổ 8", "Tổ 9", "Tổ 10" }));
         cmbToNhom.addActionListener(new java.awt.event.ActionListener() {
@@ -348,8 +349,8 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
 
         add(jPanel5, java.awt.BorderLayout.PAGE_START);
 
-        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách phân công", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
+        scrDanhSachPhanCong.setBackground(new java.awt.Color(255, 255, 255));
+        scrDanhSachPhanCong.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách phân công", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
 
         tblPhanCong.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         tblPhanCong.setModel(new javax.swing.table.DefaultTableModel(
@@ -377,9 +378,9 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
                 tblPhanCongMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblPhanCong);
+        scrDanhSachPhanCong.setViewportView(tblPhanCong);
 
-        add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        add(scrDanhSachPhanCong, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPhanCongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPhanCongActionPerformed
@@ -389,6 +390,7 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
         checkPhanCong = true;
         daoPhanCong = new PhanCongCongNhan_DAO();
         ArrayList<PhanCongCongNhan> pc = daoPhanCong.layDanhSachPhanCongCongNhan();
+        dcsNgayPhanCong.setEnabled(false);
         setTblClick(true);
         if (pc.size() > 0) {
             int maSo = Integer.parseInt(pc.get(pc.size() - 1).getMaPhanCong().split("C")[1]) + 1;
@@ -534,15 +536,14 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
         setTblClick(false);
     }//GEN-LAST:event_btnHuyActionPerformed
 
-    private void aaaaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aaaaMouseClicked
+    private void scrDanhSachSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_scrDanhSachSanPhamMouseClicked
         setHidden(btnCapNhat, btnHuy, btnLuu, btnCapNhat);
         setShow(btnPhanCong);
         checkPhanCong = false;
-    }//GEN-LAST:event_aaaaMouseClicked
+    }//GEN-LAST:event_scrDanhSachSanPhamMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane aaaa;
     private javax.swing.JButton btnCapNhat;
     private javax.swing.JButton btnHuy;
     private javax.swing.JButton btnLuu;
@@ -552,7 +553,6 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cmbToNhom;
     private com.toedter.calendar.JDateChooser dcsNgayPhanCong;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblMaCongDoan;
     private javax.swing.JLabel lblMaPhanCong;
     private javax.swing.JLabel lblNgayPhanCong;
@@ -562,6 +562,8 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
     private javax.swing.JLabel lblValueMaPhanCong;
     private javax.swing.JLabel lblValueSoLuongCanLam;
     private javax.swing.JLabel lblValueTenCongDoan;
+    private javax.swing.JScrollPane scrDanhSachPhanCong;
+    private javax.swing.JScrollPane scrDanhSachSanPham;
     private javax.swing.JTable tblPhanCong;
     private javax.swing.JTable tblSanPham;
     // End of variables declaration//GEN-END:variables

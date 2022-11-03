@@ -281,6 +281,9 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tblPhanCongMousePressed(evt);
             }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tblPhanCongMouseReleased(evt);
+            }
         });
         scrBangLuong.setViewportView(tblPhanCong);
 
@@ -328,6 +331,10 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
     private void cmbHienThiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbHienThiActionPerformed
 
     }//GEN-LAST:event_cmbHienThiActionPerformed
+
+    private void tblPhanCongMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPhanCongMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblPhanCongMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
