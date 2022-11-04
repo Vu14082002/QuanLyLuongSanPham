@@ -10,6 +10,12 @@ import Entity.ChamCongNhanVien;
 import com.sun.org.apache.xerces.internal.util.MessageFormatter;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import javax.swing.JFrame;
@@ -74,7 +80,7 @@ public class ChiTietLuongNhanVien extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         lblValueTongTien = new javax.swing.JLabel();
-        btnCapNhat = new javax.swing.JButton();
+        btnXuatBaoCao = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         lblTitle = new javax.swing.JLabel();
 
@@ -150,15 +156,15 @@ public class ChiTietLuongNhanVien extends javax.swing.JFrame {
         lblValueTongTien.setText("1000000000000 vnd");
         jPanel2.add(lblValueTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, 300, 40));
 
-        btnCapNhat.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        btnCapNhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/update.png"))); // NOI18N
-        btnCapNhat.setText("Xuất báo cáo");
-        btnCapNhat.addActionListener(new java.awt.event.ActionListener() {
+        btnXuatBaoCao.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnXuatBaoCao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/update.png"))); // NOI18N
+        btnXuatBaoCao.setText("Xuất báo cáo");
+        btnXuatBaoCao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCapNhatActionPerformed(evt);
+                btnXuatBaoCaoActionPerformed(evt);
             }
         });
-        jPanel2.add(btnCapNhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 190, 160, 40));
+        jPanel2.add(btnXuatBaoCao, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 190, 160, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/close.png"))); // NOI18N
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -181,7 +187,7 @@ public class ChiTietLuongNhanVien extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
+    private void btnXuatBaoCaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatBaoCaoActionPerformed
         MessageFormat header = new MessageFormat(lblTitle.getText());
         MessageFormat footer = new MessageFormat("Nhóm 27");
         try {
@@ -189,7 +195,41 @@ public class ChiTietLuongNhanVien extends javax.swing.JFrame {
         } catch (Exception e) {
             e.getMessage();
         }
-    }//GEN-LAST:event_btnCapNhatActionPerformed
+
+//        btnXuatBaoCao.setVisible(false);
+//        PrinterJob job = PrinterJob.getPrinterJob();
+//            job.setJobName("Print Data");
+//            
+//            job.setPrintable(new Printable(){
+//            public int print(Graphics pg,PageFormat pf, int pageNum){
+//                    pf.setOrientation(PageFormat.LANDSCAPE);
+//                 if(pageNum>0){
+//                    return Printable.NO_SUCH_PAGE;
+//                }
+//                
+//                Graphics2D g2 = (Graphics2D)pg;
+//                g2.translate(pf.getImageableX(), pf.getImageableY());
+//                g2.scale(0.24,0.24);
+//                
+//                jPanel1.paint(g2);
+////          
+//               
+//                return Printable.PAGE_EXISTS;
+//                         
+//                
+//            }
+//    });
+//         
+//        boolean ok = job.printDialog();
+//        if(ok){
+//        try{
+//            
+//        job.print();
+//        }
+//        catch (PrinterException ex){}
+//        }
+//          btnXuatBaoCao.setVisible(true);
+    }//GEN-LAST:event_btnXuatBaoCaoActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         this.setVisible(false);
@@ -232,7 +272,7 @@ public class ChiTietLuongNhanVien extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCapNhat;
+    private javax.swing.JButton btnXuatBaoCao;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel21;

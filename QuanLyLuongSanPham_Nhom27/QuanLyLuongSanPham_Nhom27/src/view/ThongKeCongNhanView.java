@@ -4,15 +4,20 @@
  */
 package view;
 
+import DAO.CongDoan_DAO;
+import DAO.CongNhan_DAO;
+import Entity.CongNhan;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.File;
+import java.util.ArrayList;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -35,6 +40,8 @@ public class ThongKeCongNhanView extends javax.swing.JPanel {
     /**
      * Creates new form NhanVienView
      */
+    private DefaultTableModel model;
+
     public ThongKeCongNhanView() {
         initComponents();
         excute();
@@ -42,10 +49,26 @@ public class ThongKeCongNhanView extends javax.swing.JPanel {
         showLineChart();
         showHistogram();
         showBarChart();
+        model = (DefaultTableModel) tblCongNhan.getModel();
+        taiDuLieuLenBangCongNhan();
     }
 
     public void excute() {
         ButtonGroup btnGroup = new ButtonGroup();
+    }
+
+    public void taiDuLieuLenBangCongNhan() {
+        while (model.getRowCount() > 0) {
+            model.removeRow(0);
+        }
+        CongNhan_DAO daoCongNhan = new CongNhan_DAO();
+        ArrayList<CongNhan> congNhanList = daoCongNhan.layDanhSachCongNhan();
+        if (congNhanList != null) {
+            congNhanList.forEach(e -> {
+                model.addRow(new Object[]{model.getRowCount()+1,e.getMaCongNhan(),e.getHoTen(),e.isGioiTinh()?"Nam":"Nữ",e.getToNhom().getTenToNhom()});
+
+            });
+        }
     }
 
     public void showPieChart() {
@@ -63,18 +86,18 @@ public class ThongKeCongNhanView extends javax.swing.JPanel {
 
     public void showLineChart() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.setValue(200,"Amount","1");
-        dataset.setValue(150,"Amount","2");
-        dataset.setValue(18,"Amount","3");
-        dataset.setValue(100,"Amount","4");
-        dataset.setValue(80,"Amount","5");
-        dataset.setValue(250,"Amount","6");
-        dataset.setValue(250,"Amount","7");
-        dataset.setValue(250,"Amount","8");
-        dataset.setValue(250,"Amount","9");
-        dataset.setValue(250,"Amount","10");
-        dataset.setValue(250,"Amount","11");
-        dataset.setValue(250,"Amount","12");
+        dataset.setValue(200, "Amount", "1");
+        dataset.setValue(150, "Amount", "2");
+        dataset.setValue(18, "Amount", "3");
+        dataset.setValue(100, "Amount", "4");
+        dataset.setValue(80, "Amount", "5");
+        dataset.setValue(250, "Amount", "6");
+        dataset.setValue(250, "Amount", "7");
+        dataset.setValue(250, "Amount", "8");
+        dataset.setValue(250, "Amount", "9");
+        dataset.setValue(250, "Amount", "10");
+        dataset.setValue(250, "Amount", "11");
+        dataset.setValue(250, "Amount", "12");
         JFreeChart linechart = ChartFactory.createLineChart("Line char", "Tháng", "Số tiền",
                 dataset, PlotOrientation.VERTICAL, false, true, false);
         CategoryPlot lineCategoryPlot = linechart.getCategoryPlot();
@@ -158,7 +181,7 @@ public class ThongKeCongNhanView extends javax.swing.JPanel {
         pnBarChar = new javax.swing.JPanel();
         pnLineChar = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tbTrangChu = new javax.swing.JTable();
+        tblCongNhan = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1200, 700));
@@ -174,34 +197,31 @@ public class ThongKeCongNhanView extends javax.swing.JPanel {
         add(pnBarChar, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 400, 620, 250));
 
         pnLineChar.setLayout(new java.awt.BorderLayout());
-        add(pnLineChar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 40, 500, 250));
+        add(pnLineChar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, 500, 250));
 
-        tbTrangChu.getTableHeader().setBackground(new Color(32,136,203));
-        tbTrangChu.setModel(new javax.swing.table.DefaultTableModel(
+        tblCongNhan.getTableHeader().setBackground(new Color(32,136,203));
+        tblCongNhan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "STT", "Mã công nhân", "Họ trên", "Giới tính", "Phòng ban", "Chức vụ"
+                "STT", "Mã công nhân", "Họ trên", "Giới tính", "Tổ/Nhóm"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tbTrangChu.setIntercellSpacing(new java.awt.Dimension(0, 0));
-        tbTrangChu.setRowHeight(25);
-        tbTrangChu.setSelectionBackground(new java.awt.Color(232, 57, 95));
-        tbTrangChu.setShowVerticalLines(false);
-        tbTrangChu.getTableHeader().setReorderingAllowed(false);
-        jScrollPane3.setViewportView(tbTrangChu);
+        tblCongNhan.setSelectionBackground(new java.awt.Color(232, 57, 95));
+        tblCongNhan.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setViewportView(tblCongNhan);
 
         add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 530, 230));
     }// </editor-fold>//GEN-END:initComponents
@@ -213,6 +233,6 @@ public class ThongKeCongNhanView extends javax.swing.JPanel {
     private javax.swing.JPanel pnHitogramChar;
     private javax.swing.JPanel pnLineChar;
     private javax.swing.JPanel pnPieChar;
-    private javax.swing.JTable tbTrangChu;
+    private javax.swing.JTable tblCongNhan;
     // End of variables declaration//GEN-END:variables
 }

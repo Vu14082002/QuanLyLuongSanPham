@@ -58,9 +58,6 @@ public class MainView extends javax.swing.JFrame {
 
     public MainView(String userName) {
         initComponents();
-//        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
-//        this.setResizable(false);
         execute();
         try {
             ConnectionDB.ConnectDB.getInstance().connect();
@@ -74,16 +71,15 @@ public class MainView extends javax.swing.JFrame {
         if (loai.equals("CN")) {
             congNhan = congNhan_DAO.layMotCongNhanTheoMa(userName);
 
-            
         } else if (loai.equals("NV")) {
             nhanVien = nhanVien_DAO.layMotNhanVienTheoMaNhanVien(userName);
         }
         String hello = "Xin Chào, ";
-        
-        if (congNhan != null){
+
+        if (congNhan != null) {
             hello += congNhan.getHoTen();
-        } 
-        if (nhanVien != null){
+        }
+        if (nhanVien != null) {
             hello += nhanVien.getHoTen();
         }
         lblXinChao.setText(hello);
@@ -95,8 +91,10 @@ public class MainView extends javax.swing.JFrame {
         ImageIcon iconEmployee = new ImageIcon(getClass().getResource("/image/icon/employee.png"));
         ImageIcon iconWorker = new ImageIcon(getClass().getResource("/image/icon/worker.png"));
         ImageIcon iconDepartment = new ImageIcon(getClass().getResource("/image/icon/department.png"));
+        ImageIcon iconGroup = new ImageIcon(getClass().getResource("/image/icon/toNhom.png"));
         ImageIcon iconHeThong = new ImageIcon(getClass().getResource("/image/icon/system.png"));
         ImageIcon iconThongKe = new ImageIcon(getClass().getResource("/image/icon/thongke.png"));
+        ImageIcon iconContract = new ImageIcon(getClass().getResource("/image/icon/contract.png"));
         iconSubMenuNonSelect = new ImageIcon(getClass().getResource("/image/icon/moon.png"));
         iconSubMenuSelect = new ImageIcon(getClass().getResource("/image/icon/moonSelect.png"));
         ImageIcon iconProduct = new ImageIcon(getClass().getResource("/image/icon/sanpham.png"));
@@ -214,10 +212,10 @@ public class MainView extends javax.swing.JFrame {
         thongTinCaNhan = new MenuItem(iconSubMenuNonSelect, "Thông tin cá nhân", ((e) -> {
             pnBody.removeAll();
             String username = "";
-            if (congNhan != null){
+            if (congNhan != null) {
                 username = congNhan.getMaCongNhan();
-                
-            } else if (nhanVien != null){
+
+            } else if (nhanVien != null) {
                 username = nhanVien.getMaNhanVien();
             }
             pnBody.add(new QuanLyThongTinCaNhan(username), BorderLayout.CENTER);
@@ -265,9 +263,21 @@ public class MainView extends javax.swing.JFrame {
             pnBody.repaint();
             pnBody.revalidate();
         });
+        MenuItem meNuHopDong = new MenuItem(iconContract, "Hợp đồng", (ActionEvent e) -> {
+            pnBody.removeAll();
+            pnBody.add(new TrangChuView(), BorderLayout.CENTER);
+            pnBody.repaint();
+            pnBody.revalidate();
+        });
         MenuItem menuPhongBan = new MenuItem(iconDepartment, "Phòng ban", (ActionEvent e) -> {
             pnBody.removeAll();
             pnBody.add(new PhongBanView(), BorderLayout.CENTER);
+            pnBody.repaint();
+            pnBody.revalidate();
+        });
+        MenuItem menuToNhom = new MenuItem(iconGroup, "Tổ/Nhóm", (ActionEvent e) -> {
+            pnBody.removeAll();
+            pnBody.add(new ToNhomView(), BorderLayout.CENTER);
             pnBody.repaint();
             pnBody.revalidate();
         });
@@ -280,7 +290,7 @@ public class MainView extends javax.swing.JFrame {
         MenuItem menuSanPham = new MenuItem(iconProduct, "Sản phẩm", null, capNhatSanPham, phanCongDoanSanPham, timKiemSanPham);
         MenuItem menuThongKe = new MenuItem(iconThongKe, "Thống kê", null, thongKeNhanVien, thongKeCongNhan);
         MenuItem menuHeThong = new MenuItem(iconHeThong, "Hệ thống", null, thongTinCaNhan, dangXuat);
-        addMenu(menuTrangChu, menuPhongBan, menuSanPham, menuNhanVien, menuCongNhan, menuThongKe, menuHeThong);
+        addMenu(menuTrangChu, menuPhongBan, menuToNhom, meNuHopDong, menuSanPham, menuNhanVien, menuCongNhan, menuThongKe, menuHeThong);
     }
 
     public void resetSelect() {
