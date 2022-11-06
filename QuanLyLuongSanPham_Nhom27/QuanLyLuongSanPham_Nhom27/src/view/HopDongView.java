@@ -155,6 +155,7 @@ public class HopDongView extends javax.swing.JPanel {
         lblNgayKyKet = new javax.swing.JLabel();
         lblErrHanHopDong = new javax.swing.JLabel();
         lblErrTienCoc = new javax.swing.JLabel();
+        btnThem1 = new javax.swing.JButton();
         scrPhongBan = new javax.swing.JScrollPane();
         tblHopDong = new javax.swing.JTable();
 
@@ -205,7 +206,7 @@ public class HopDongView extends javax.swing.JPanel {
                 btnLuuActionPerformed(evt);
             }
         });
-        pnlPhongBan.add(btnLuu, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 390, 160, 40));
+        pnlPhongBan.add(btnLuu, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 390, 160, 40));
 
         btnThem.setBackground(new java.awt.Color(46, 204, 113));
         btnThem.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -217,7 +218,7 @@ public class HopDongView extends javax.swing.JPanel {
                 btnThemActionPerformed(evt);
             }
         });
-        pnlPhongBan.add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 390, 170, 40));
+        pnlPhongBan.add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 390, 170, 40));
 
         btnXoa.setBackground(new java.awt.Color(41, 128, 185));
         btnXoa.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -228,7 +229,7 @@ public class HopDongView extends javax.swing.JPanel {
                 btnXoaActionPerformed(evt);
             }
         });
-        pnlPhongBan.add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 390, 160, 40));
+        pnlPhongBan.add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 390, 160, 40));
 
         btnCapNhat.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         btnCapNhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/update.png"))); // NOI18N
@@ -238,7 +239,7 @@ public class HopDongView extends javax.swing.JPanel {
                 btnCapNhatActionPerformed(evt);
             }
         });
-        pnlPhongBan.add(btnCapNhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 390, 160, 40));
+        pnlPhongBan.add(btnCapNhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 390, 160, 40));
 
         lblErrTongTien.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lblErrTongTien.setForeground(new java.awt.Color(204, 0, 0));
@@ -274,7 +275,7 @@ public class HopDongView extends javax.swing.JPanel {
                 btnHuyActionPerformed(evt);
             }
         });
-        pnlPhongBan.add(btnHuy, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 390, 170, 40));
+        pnlPhongBan.add(btnHuy, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 390, 170, 40));
 
         lblTongTien.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lblTongTien.setText("Tổng tiền:");
@@ -334,6 +335,18 @@ public class HopDongView extends javax.swing.JPanel {
         lblErrTienCoc.setForeground(new java.awt.Color(204, 0, 0));
         lblErrTienCoc.setText("đây là dòng thông báo lỗi");
         pnlPhongBan.add(lblErrTienCoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 140, 210, -1));
+
+        btnThem1.setBackground(new java.awt.Color(255, 234, 167));
+        btnThem1.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnThem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/add.png"))); // NOI18N
+        btnThem1.setText("Thêm nhiều");
+        btnThem1.setBorder(null);
+        btnThem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThem1ActionPerformed(evt);
+            }
+        });
+        pnlPhongBan.add(btnThem1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, 170, 40));
 
         add(pnlPhongBan, java.awt.BorderLayout.PAGE_START);
 
@@ -488,12 +501,17 @@ public class HopDongView extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_tblHopDongMouseClicked
 
+    private void btnThem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnThem1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCapNhat;
     private javax.swing.JButton btnHuy;
     private javax.swing.JButton btnLuu;
     private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnThem1;
     private javax.swing.JButton btnXoa;
     private com.toedter.calendar.JDateChooser dcsHanHopDong;
     private com.toedter.calendar.JDateChooser dcsNgayKyKet;

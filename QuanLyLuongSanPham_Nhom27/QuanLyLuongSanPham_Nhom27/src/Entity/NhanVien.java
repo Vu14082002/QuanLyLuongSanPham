@@ -165,8 +165,8 @@ public class NhanVien {
     }
     
     public void setNgayVaoLam(Date ngayVaoLam) throws Exception {
-        if (ngayVaoLam.before(new Date())) {
-            throw new Exception("Ngày vào làm phải sau hoặc bằng ngày hiện tại");
+        if (ngayVaoLam.after(new Date())) {
+            throw new Exception("Ngày vào làm phải truoc hoặc bằng ngày hiện tại");
         } else {
             this.ngayVaoLam = ngayVaoLam;
         }

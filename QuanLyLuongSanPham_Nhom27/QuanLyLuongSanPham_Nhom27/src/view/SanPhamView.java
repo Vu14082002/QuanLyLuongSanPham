@@ -196,6 +196,8 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
         tblHopDong = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
+        btnThem1 = new javax.swing.JButton();
+        btnThem2 = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(1200, 700));
         setLayout(new java.awt.BorderLayout());
@@ -487,6 +489,30 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Hợp đồng" }));
         pnHead.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, 120, 40));
 
+        btnThem1.setBackground(new java.awt.Color(255, 234, 167));
+        btnThem1.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnThem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/add.png"))); // NOI18N
+        btnThem1.setText("Thêm nhiều");
+        btnThem1.setBorder(null);
+        btnThem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThem1ActionPerformed(evt);
+            }
+        });
+        pnHead.add(btnThem1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 410, 170, 40));
+
+        btnThem2.setBackground(new java.awt.Color(255, 234, 167));
+        btnThem2.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnThem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/add.png"))); // NOI18N
+        btnThem2.setText("Thêm nhiều");
+        btnThem2.setBorder(null);
+        btnThem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThem2ActionPerformed(evt);
+            }
+        });
+        pnHead.add(btnThem2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 330, 150, 40));
+
         add(pnHead, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -564,12 +590,22 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
         btnLuu.setEnabled(false);        // TODO add your handling code here:
     }//GEN-LAST:event_tblDanhSachSanPhamMouseClicked
 
+    private void btnThem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnThem1ActionPerformed
+
+    private void btnThem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnThem2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCapNhat;
     private javax.swing.JButton btnHuy;
     private javax.swing.JButton btnLuu;
     private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnThem1;
+    private javax.swing.JButton btnThem2;
     private javax.swing.JButton btnXoa;
     private javax.swing.JComboBox<String> cmbKichThuoc;
     private javax.swing.JComboBox<String> jComboBox1;

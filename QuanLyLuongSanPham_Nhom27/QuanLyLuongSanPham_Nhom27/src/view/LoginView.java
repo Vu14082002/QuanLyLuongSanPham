@@ -207,6 +207,11 @@ public class LoginView extends javax.swing.JFrame {
         lblQuenMatKhau.setForeground(new java.awt.Color(255, 255, 255));
         lblQuenMatKhau.setText("Quên mật khẩu?");
         lblQuenMatKhau.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblQuenMatKhau.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblQuenMatKhauMouseClicked(evt);
+            }
+        });
         jPanel2.add(lblQuenMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 340, 190, -1));
 
         btnDangNhap.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -331,6 +336,10 @@ public class LoginView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_chkRemerberPasswordMouseClicked
 
+    private void lblQuenMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuenMatKhauMouseClicked
+        JOptionPane.showMessageDialog(this, "Mat khau moi chung toi da gui qua sdt ban dang ky :)");
+    }//GEN-LAST:event_lblQuenMatKhauMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -366,7 +375,6 @@ public class LoginView extends javax.swing.JFrame {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDangNhap;
     private javax.swing.JCheckBox chkRemerberPassword;

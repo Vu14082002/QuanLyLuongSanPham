@@ -216,6 +216,7 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
         btnCapNhat = new javax.swing.JButton();
         btnLuu = new javax.swing.JButton();
         btnHuy = new javax.swing.JButton();
+        btnThem1 = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(1200, 700));
         setLayout(new java.awt.BorderLayout());
@@ -443,7 +444,7 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
                 btnThemActionPerformed(evt);
             }
         });
-        jPanel5.add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 430, 170, 40));
+        jPanel5.add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 410, 170, 40));
 
         btnXoa.setBackground(new java.awt.Color(41, 128, 185));
         btnXoa.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -454,7 +455,7 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
                 btnXoaActionPerformed(evt);
             }
         });
-        jPanel5.add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 430, 160, 40));
+        jPanel5.add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 410, 160, 40));
 
         btnCapNhat.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         btnCapNhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/update.png"))); // NOI18N
@@ -464,7 +465,7 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
                 btnCapNhatActionPerformed(evt);
             }
         });
-        jPanel5.add(btnCapNhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 430, 160, 40));
+        jPanel5.add(btnCapNhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 410, 160, 40));
 
         btnLuu.setBackground(new java.awt.Color(156, 136, 255));
         btnLuu.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -475,14 +476,26 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
                 btnLuuActionPerformed(evt);
             }
         });
-        jPanel5.add(btnLuu, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 430, 160, 40));
+        jPanel5.add(btnLuu, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 410, 160, 40));
 
         btnHuy.setBackground(new java.awt.Color(255, 121, 121));
         btnHuy.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         btnHuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/xoaTrang.png"))); // NOI18N
         btnHuy.setText("Hủy");
         btnHuy.setBorder(null);
-        jPanel5.add(btnHuy, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 430, 170, 40));
+        jPanel5.add(btnHuy, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 410, 170, 40));
+
+        btnThem1.setBackground(new java.awt.Color(255, 234, 167));
+        btnThem1.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnThem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/add.png"))); // NOI18N
+        btnThem1.setText("Thêm nhiều");
+        btnThem1.setBorder(null);
+        btnThem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThem1ActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnThem1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 410, 170, 40));
 
         add(jPanel5, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
@@ -526,6 +539,10 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLuuActionPerformed
 
+    private void btnThem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnThem1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnAnhSanPham;
@@ -533,6 +550,7 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
     private javax.swing.JButton btnHuy;
     private javax.swing.JButton btnLuu;
     private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnThem1;
     private javax.swing.JButton btnXoa;
     private javax.swing.JComboBox<String> cmbToNhom;
     private com.toedter.calendar.JDateChooser dtcNgaySinh;
