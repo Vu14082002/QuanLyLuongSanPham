@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 public class CongDoan {
 
     private String maCongDoan;
+    private int thuTuCongDoan;
     private String tenCongDoan;
     private int soLuongCan;
     private String tinhTrang;
@@ -22,7 +23,7 @@ public class CongDoan {
     private SanPham sanPham;
     private double tienLuong;
 
-    public CongDoan(String maCongDoan, String tenCongDoan, int soLuongCan, String tinhTrang, Date thoiHan, SanPham sanPham, double tienLuong) {
+    public CongDoan(String maCongDoan, int thuTuCongDoan, String tenCongDoan, int soLuongCan, String tinhTrang, Date thoiHan, SanPham sanPham, double tienLuong) {
         try {
             setMaCongDoan(maCongDoan);
             setTenCongDoan(tenCongDoan);
@@ -31,11 +32,13 @@ public class CongDoan {
             setThoiHan(thoiHan);
             setSanPham(sanPham);
             setTienLuong(tienLuong);
+            setThuTuCongDoan(thuTuCongDoan);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
-
     }
+
+    
 
     public String getMaCongDoan() {
         return maCongDoan;
@@ -111,9 +114,22 @@ public class CongDoan {
         }
     }
 
-    @Override
-    public String toString() {
-        return "CongDoan{" + "maCongDoan=" + maCongDoan + ", tenCongDoan=" + tenCongDoan + ", soLuongCan=" + soLuongCan + ", tinhTrang=" + tinhTrang + ", thoiHan=" + thoiHan + ", sanPham=" + sanPham + ", tienLuong=" + tienLuong + '}';
+    public int getThuTuCongDoan() {
+        return thuTuCongDoan;
     }
 
+    public void setThuTuCongDoan(int thuTuCongDoan) throws Exception {
+        if (thuTuCongDoan <= 0){
+            throw new Exception("Thứ tự công đoạn phải từ 1 trở lên");
+        } else {
+            this.thuTuCongDoan = thuTuCongDoan;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "CongDoan{" + "maCongDoan=" + maCongDoan + ", thuTuCongDoan=" + thuTuCongDoan + ", tenCongDoan=" + tenCongDoan + ", soLuongCan=" + soLuongCan + ", tinhTrang=" + tinhTrang + ", thoiHan=" + thoiHan + ", sanPham=" + sanPham + ", tienLuong=" + tienLuong + '}';
+    }
+    
+    
 }

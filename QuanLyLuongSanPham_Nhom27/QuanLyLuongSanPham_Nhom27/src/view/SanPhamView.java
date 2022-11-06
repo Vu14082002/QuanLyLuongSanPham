@@ -5,6 +5,7 @@
 package view;
 
 import DAO.SanPham_DAO;
+import Entity.HopDong;
 import Entity.SanPham;
 import java.awt.Color;
 import java.awt.Font;
@@ -46,7 +47,7 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
             System.out.println(e.getMessage());
         }
         sanPham_DAO = new SanPham_DAO();
-        modelSanPham = (DefaultTableModel) tblNhanVien.getModel();
+        modelSanPham = (DefaultTableModel) tblDanhSachSanPham.getModel();
         oFlag = null;
 
         // Gắn sự kiện
@@ -55,8 +56,8 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
         btnLuu.addActionListener(this);
         btnThem.addActionListener(this);
         btnXoa.addActionListener(this);
-        tblNhanVien.addMouseListener(this);
-        
+        tblDanhSachSanPham.addMouseListener(this);
+
         xoaTrangField();
         btnLuu.setEnabled(false);
         btnHuy.setEnabled(false);
@@ -85,11 +86,11 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
     public void excute() {
 
         // custom table
-        tblNhanVien.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
-        tblNhanVien.getTableHeader().setOpaque(false);
-        ((DefaultTableCellRenderer) tblNhanVien.getTableHeader().getDefaultRenderer())
+        tblDanhSachSanPham.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        tblDanhSachSanPham.getTableHeader().setOpaque(false);
+        ((DefaultTableCellRenderer) tblDanhSachSanPham.getTableHeader().getDefaultRenderer())
                 .setHorizontalAlignment(JLabel.CENTER);
-        tblNhanVien.setRowHeight(25);
+        tblDanhSachSanPham.setRowHeight(25);
         this.txtTenSanPham.setBackground(new Color(0, 0, 0, 1));
         this.txtChatLieu.setBackground(new Color(0, 0, 0, 1));
         this.txtMaSanPham.setBackground(new Color(0, 0, 0, 1));
@@ -98,7 +99,7 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
     }
 
     public void taiDuLieuLenBang() {
-        while (tblNhanVien.getRowCount() != 0) {
+        while (tblDanhSachSanPham.getRowCount() != 0) {
             modelSanPham.removeRow(0);
         }
         ArrayList<SanPham> dsSanPham = sanPham_DAO.layDanhSachSanPham();
@@ -107,34 +108,34 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
                 sanPham.getMauSac(), sanPham.getChatLieu(), sanPham.getKichThuoc() + "", sanPham.getAnhSanPham(), sanPham.getSoLuongCongDoan() + ""};
             modelSanPham.addRow(data);
         }
-        if (tblNhanVien.getRowCount() != 0) {
+        if (tblDanhSachSanPham.getRowCount() != 0) {
             hienThiLenTxt(0);
-            tblNhanVien.setRowSelectionInterval(0, 0);
+            tblDanhSachSanPham.setRowSelectionInterval(0, 0);
         }
     }
 
     public void hienThiLenTxt(int row) {
-        txtMaSanPham.setText(tblNhanVien.getValueAt(row, 1).toString());
-        txtTenSanPham.setText(tblNhanVien.getValueAt(row, 2).toString());
-        txtSoLuong.setText(tblNhanVien.getValueAt(row, 3).toString());
+        txtMaSanPham.setText(tblDanhSachSanPham.getValueAt(row, 1).toString());
+        txtTenSanPham.setText(tblDanhSachSanPham.getValueAt(row, 2).toString());
+        txtSoLuong.setText(tblDanhSachSanPham.getValueAt(row, 3).toString());
         // hien thi mau
-        String mauStr[] = tblNhanVien.getValueAt(row, 4).toString().split(",");
-        
+        String mauStr[] = tblDanhSachSanPham.getValueAt(row, 4).toString().split(",");
+
         int mau[] = new int[mauStr.length];
-        for (int i = 0; i < mauStr.length; i++){
+        for (int i = 0; i < mauStr.length; i++) {
             mau[i] = Integer.parseInt(mauStr[i].trim());
-           
+
         }
-        
+
         this.pnlMauSacSanPham.setBackground(new Color(mau[0], mau[1], mau[2]));
-        txtChatLieu.setText(tblNhanVien.getValueAt(row, 5).toString());
-        cmbKichThuoc.setSelectedItem(tblNhanVien.getValueAt(row, 6).toString());
-        System.out.println("/image/sanPham/"+tblNhanVien.getValueAt(row, 7).toString());
+        txtChatLieu.setText(tblDanhSachSanPham.getValueAt(row, 5).toString());
+        cmbKichThuoc.setSelectedItem(tblDanhSachSanPham.getValueAt(row, 6).toString());
+        System.out.println("/image/sanPham/" + tblDanhSachSanPham.getValueAt(row, 7).toString());
         lblAnhSanPham.
-                setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/sanPham/"+tblNhanVien.getValueAt(row, 7).toString())));
+                setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/sanPham/" + tblDanhSachSanPham.getValueAt(row, 7).toString())));
         // hien thi anh
-        
-        txtSoCongDoan.setText(tblNhanVien.getValueAt(row, 8).toString());
+
+        txtSoCongDoan.setText(tblDanhSachSanPham.getValueAt(row, 8).toString());
 
     }
 
@@ -159,7 +160,7 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
     private void initComponents() {
 
         scrTableSanPham = new javax.swing.JScrollPane();
-        tblNhanVien = new javax.swing.JTable();
+        tblDanhSachSanPham = new javax.swing.JTable();
         pnHead = new javax.swing.JPanel();
         lblAnhSanPham = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -192,7 +193,7 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
         txtChatLieu = new javax.swing.JTextField();
         lblErrChatLieu = new javax.swing.JLabel();
         scrTableSanPham1 = new javax.swing.JScrollPane();
-        tblDanhSachSanPham = new javax.swing.JTable();
+        tblHopDong = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
 
@@ -201,27 +202,32 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
 
         scrTableSanPham.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
 
-        tblNhanVien.setModel(new javax.swing.table.DefaultTableModel(
+        tblDanhSachSanPham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "Mã sản phẩm", "Tên sản phẩm", "Só lượng", "Màu sắc", "Chất liệu", "Kích thước", "Ảnh sản phẩm", "Số lượng công đoạn"
+                "STT", "Mã hợp đồng", "Mã sản phẩm", "Tên sản phẩm", "Só lượng", "Màu sắc", "Chất liệu", "Kích thước", "Ảnh sản phẩm", "Số lượng công đoạn"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tblNhanVien.setSelectionBackground(new java.awt.Color(232, 57, 95));
-        scrTableSanPham.setViewportView(tblNhanVien);
+        tblDanhSachSanPham.setSelectionBackground(new java.awt.Color(232, 57, 95));
+        tblDanhSachSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDanhSachSanPhamMouseClicked(evt);
+            }
+        });
+        scrTableSanPham.setViewportView(tblDanhSachSanPham);
 
         add(scrTableSanPham, java.awt.BorderLayout.CENTER);
 
@@ -443,10 +449,10 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
         pnHead.add(lblErrChatLieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 210, 170, -1));
 
         scrTableSanPham1.setBackground(new java.awt.Color(255, 255, 255));
-        scrTableSanPham1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách sản phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
+        scrTableSanPham1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách hợp đồng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
 
-        tblDanhSachSanPham.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        tblDanhSachSanPham.setModel(new javax.swing.table.DefaultTableModel(
+        tblHopDong.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        tblHopDong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -465,8 +471,13 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
                 return canEdit [columnIndex];
             }
         });
-        tblDanhSachSanPham.setSelectionBackground(new java.awt.Color(232, 57, 95));
-        scrTableSanPham1.setViewportView(tblDanhSachSanPham);
+        tblHopDong.setSelectionBackground(new java.awt.Color(232, 57, 95));
+        tblHopDong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblHopDongMouseClicked(evt);
+            }
+        });
+        scrTableSanPham1.setViewportView(tblHopDong);
 
         pnHead.add(scrTableSanPham1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 450, 260));
 
@@ -489,9 +500,9 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
         Color color = jchooserColor.showDialog(this, "Chọn màu sắc cho sản phẩm", this.getBackground());
         //        System.out.println(panelBorder1.getColorModel());
         if (color != null && color.getRGB() != pnlAnhSanPham.getBackground().getRGB())
-        this.pnlMauSacSanPham.setBackground(color);
+            this.pnlMauSacSanPham.setBackground(color);
         else
-        this.pnlMauSacSanPham.setBackground(colordefault);        // TODO add your handling code here:
+            this.pnlMauSacSanPham.setBackground(colordefault);        // TODO add your handling code here:
     }//GEN-LAST:event_pnlMauSacSanPhamMouseClicked
 
     private void lblAnhSanPhamOfPnlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAnhSanPhamOfPnlMouseClicked
@@ -536,7 +547,23 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
     private void txtChatLieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtChatLieuActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtChatLieuActionPerformed
-   
+
+    private void tblHopDongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHopDongMouseClicked
+        btnThem.setEnabled(true);
+        btnXoa.setEnabled(false);
+        btnCapNhat.setEnabled(false);
+        btnHuy.setEnabled(false);
+        btnLuu.setEnabled(false);
+    }//GEN-LAST:event_tblHopDongMouseClicked
+
+    private void tblDanhSachSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDanhSachSanPhamMouseClicked
+        btnThem.setEnabled(false);
+        btnXoa.setEnabled(true);
+        btnCapNhat.setEnabled(true);
+        btnHuy.setEnabled(false);
+        btnLuu.setEnabled(false);        // TODO add your handling code here:
+    }//GEN-LAST:event_tblDanhSachSanPhamMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCapNhat;
@@ -570,7 +597,7 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
     private javax.swing.JScrollPane scrTableSanPham;
     private javax.swing.JScrollPane scrTableSanPham1;
     private javax.swing.JTable tblDanhSachSanPham;
-    private javax.swing.JTable tblNhanVien;
+    private javax.swing.JTable tblHopDong;
     private javax.swing.JTextField txtChatLieu;
     private javax.swing.JTextField txtMaSanPham;
     private javax.swing.JTextField txtSoCongDoan;
@@ -602,11 +629,11 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
             moKhoaTextField(true);
 
         } else if (o.equals(btnXoa)) {
-            int rowSelected = tblNhanVien.getSelectedRow();
+            int rowSelected = tblDanhSachSanPham.getSelectedRow();
             if (rowSelected != -1) {
                 int coXacNhanXoa = JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa?", "Xóa Phòng ban", JOptionPane.ERROR_MESSAGE);
                 if (coXacNhanXoa == 0) {
-                    boolean coXoaDuoc = sanPham_DAO.xoaMotSanPhamTheoMa(tblNhanVien.getValueAt(tblNhanVien.getSelectedRow(), 1).toString());
+                    boolean coXoaDuoc = sanPham_DAO.xoaMotSanPhamTheoMa(tblDanhSachSanPham.getValueAt(tblDanhSachSanPham.getSelectedRow(), 1).toString());
                     if (coXoaDuoc) {
                         JOptionPane.showMessageDialog(null, "Xóa thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                         taiDuLieuLenBang();
@@ -639,13 +666,12 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
 
                 String iconfilename = lblAnhSanPham.getIcon().toString();
                 String anhSanPham = iconfilename.substring(iconfilename.lastIndexOf("/") + 1);
-               
                 int red = pnlMauSacSanPham.getBackground().getRed();
                 int blue = pnlMauSacSanPham.getBackground().getBlue();
                 int green = pnlMauSacSanPham.getBackground().getGreen();
                 String mauSac = red + ", " + green + ", " + blue;
-                
-                boolean coThemDuoc = sanPham_DAO.themMotSanPham(new SanPham(maSanPham, tenSanPham, soLuongSanPham, mauSac, chatLieu, kichThuoc, anhSanPham, soCongDoan));
+                HopDong hd = new HopDong(tblHopDong.getValueAt(tblHopDong.getSelectedRow(), 1).toString());
+                boolean coThemDuoc = sanPham_DAO.themMotSanPham(new SanPham(maSanPham, tenSanPham, soLuongSanPham, mauSac, chatLieu, kichThuoc, anhSanPham, soCongDoan, hd));
                 if (coThemDuoc) {
                     taiDuLieuLenBang();
                     btnThem.setEnabled(true);
@@ -684,8 +710,9 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
                 int blue = pnlMauSacSanPham.getBackground().getBlue();
                 int green = pnlMauSacSanPham.getBackground().getGreen();
                 String mauSac = red + ", " + green + ", " + blue;
-                boolean coSuaDuoc = sanPham_DAO.suaMotSanPham(new SanPham(maSanPham, tenSanPham, soLuongSanPham, mauSac, chatLieu, kichThuoc, anhSanPham, soCongDoan));
-                if (coSuaDuoc){
+                boolean coSuaDuoc = sanPham_DAO.suaMotSanPham(new SanPham(maSanPham, tenSanPham, soLuongSanPham, mauSac, chatLieu, kichThuoc, anhSanPham, soCongDoan,
+                        new HopDong(tblDanhSachSanPham.getValueAt(tblDanhSachSanPham.getSelectedRow(), 1).toString())));
+                if (coSuaDuoc) {
                     taiDuLieuLenBang();
                     btnThem.setEnabled(true);
                     btnXoa.setEnabled(true);
@@ -703,9 +730,9 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
             moKhoaTextField(false);
             lblErrSoLuong.setText("");
             lblErrTenSanPham.setText("");
-            if (tblNhanVien.getRowCount() != 0) {
+            if (tblDanhSachSanPham.getRowCount() != 0) {
                 hienThiLenTxt(0);
-                tblNhanVien.setRowSelectionInterval(0, 0);
+                tblDanhSachSanPham.setRowSelectionInterval(0, 0);
             }
             btnThem.setEnabled(true);
             btnXoa.setEnabled(true);
@@ -745,9 +772,9 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
     @Override
     public void mouseClicked(MouseEvent e) {
         Object o = e.getSource();
-        if (o.equals(tblNhanVien)){
-            int row = tblNhanVien.getSelectedRow();
-            if (row != -1){
+        if (o.equals(tblDanhSachSanPham)) {
+            int row = tblDanhSachSanPham.getSelectedRow();
+            if (row != -1) {
                 hienThiLenTxt(row);
             }
         }

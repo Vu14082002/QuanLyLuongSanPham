@@ -117,8 +117,8 @@ public class NhanVien {
     public void setSoDienThoai(String soDienThoai) throws Exception {
         if (soDienThoai.equals("")) {
             throw new Exception("Số điện thoại không được rỗng");
-        } else if (!soDienThoai.matches("^[0][0-9]{9}$")) {
-            throw new Exception("Số điện thoại gồm 10 chữ số, bắt đầu bằng số 0");
+        } else if (!soDienThoai.matches("^\\+[0-9]{11}$")) {
+            throw new Exception("Số điện thoại theo mau ma vung + sdt ");
         } else {
             this.soDienThoai = soDienThoai;
         }
@@ -165,8 +165,8 @@ public class NhanVien {
     }
     
     public void setNgayVaoLam(Date ngayVaoLam) throws Exception {
-        if (ngayVaoLam.after(new Date())) {
-            throw new Exception("Ngày vào làm phải trước hoặc bằng ngày hiện tại");
+        if (ngayVaoLam.before(new Date())) {
+            throw new Exception("Ngày vào làm phải sau hoặc bằng ngày hiện tại");
         } else {
             this.ngayVaoLam = ngayVaoLam;
         }

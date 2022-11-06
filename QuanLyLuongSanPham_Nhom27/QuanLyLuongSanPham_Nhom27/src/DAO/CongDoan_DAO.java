@@ -46,6 +46,7 @@ public class CongDoan_DAO {
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 String maCongDoan = rs.getString("maCongDoan");
+                int thuTuCongDoan = rs.getInt("thuTu");
                 String tenCongDoan = rs.getString("tenCongDoan");
                 int soLuongCan = rs.getInt("soLuongCan");
                 String tinhTrang = rs.getString("tinhTrang");
@@ -53,7 +54,7 @@ public class CongDoan_DAO {
                 String maSanPhamOb = rs.getString("maSanPham");
                 double tienLuong = rs.getBigDecimal("tienLuong").doubleValue();
                 SanPham sanPham = sanPham_DAO.layMotSanPhamTheoMa(maSanPhamOb);
-                dsCongDoan.add(new CongDoan(maCongDoan, tenCongDoan, soLuongCan, tinhTrang, thoiHan, sanPham, tienLuong));
+                dsCongDoan.add(new CongDoan(maCongDoan, thuTuCongDoan, tenCongDoan, soLuongCan, tinhTrang, thoiHan, sanPham, tienLuong));
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -80,6 +81,7 @@ public class CongDoan_DAO {
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 String maCongDoanOb = rs.getString("maCongDoan");
+                int thuTuCongDoan = rs.getInt("thuTu");
                 String tenCongDoan = rs.getString("tenCongDoan");
                 int soLuongCan = rs.getInt("soLuongCan");
                 String tinhTrang = rs.getString("tinhTrang");
@@ -87,7 +89,7 @@ public class CongDoan_DAO {
                 String maSanPhamOb = rs.getString("maSanPham");
                 double tienLuong = rs.getBigDecimal("tienLuong").doubleValue();
                 SanPham sanPham = sanPham_DAO.layMotSanPhamTheoMa(maSanPhamOb);
-                congDoan = new CongDoan(maCongDoanOb, tenCongDoan, soLuongCan, tinhTrang, thoiHan, sanPham, tienLuong);
+                congDoan = new CongDoan(maCongDoanOb, thuTuCongDoan, tenCongDoan, soLuongCan, tinhTrang, thoiHan, sanPham, tienLuong);
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -108,17 +110,18 @@ public class CongDoan_DAO {
         try {
             ConnectionDB.ConnectDB.getInstance();
             Connection con = ConnectionDB.ConnectDB.getConnection();
-            String truyVan = "INSERT INTO CongDoan(maCongDoan, tenCongDoan, soLuongCan, tinhTrang, "
+            String truyVan = "INSERT INTO CongDoan(maCongDoan, thuTu, tenCongDoan, soLuongCan, tinhTrang, "
                     + " thoiHan, maSanPham, tienLuong)"
-                    + " VALUES(?, ?, ?, ?, ? ,? ,?)";
+                    + " VALUES(?, ?, ?, ?, ? ,? ,?, ?)";
             stm = con.prepareStatement(truyVan);
             stm.setString(1, congDoan.getMaCongDoan());
-            stm.setString(2, congDoan.getTenCongDoan());
-            stm.setInt(3, congDoan.getSoLuongCan());
-            stm.setString(4, congDoan.getTinhTrang());
-            stm.setDate(5, new java.sql.Date(congDoan.getThoiHan().getTime()));
-            stm.setString(6, congDoan.getSanPham().getMaSanPham());
-            stm.setBigDecimal(7, new BigDecimal(congDoan.getTienLuong()));
+            stm.setInt(2, congDoan.getThuTuCongDoan());
+            stm.setString(3, congDoan.getTenCongDoan());
+            stm.setInt(4, congDoan.getSoLuongCan());
+            stm.setString(5, congDoan.getTinhTrang());
+            stm.setDate(6, new java.sql.Date(congDoan.getThoiHan().getTime()));
+            stm.setString(7, congDoan.getSanPham().getMaSanPham());
+            stm.setBigDecimal(8, new BigDecimal(congDoan.getTienLuong()));
             soDongThemDuoc = stm.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -139,17 +142,18 @@ public class CongDoan_DAO {
             ConnectionDB.ConnectDB.getInstance();
             Connection con = ConnectionDB.ConnectDB.getConnection();
             String truyVan = "update CongDoan "
-                    + " set tenCongDoan = ?, soLuongCan = ?, tinhTrang = ?"
+                    + " set tenCongDoan = ?, thuTu = ?, soLuongCan = ?, tinhTrang = ?"
                     + " , thoiHan = ?, maSanPham = ?, tienLuong = ?"
                     + " where maCongDoan = ? ";
             stm = con.prepareStatement(truyVan);
             stm.setString(1, congDoan.getTenCongDoan());
-            stm.setInt(2, congDoan.getSoLuongCan());
-            stm.setString(3, congDoan.getTinhTrang());
-            stm.setDate(4, new java.sql.Date(congDoan.getThoiHan().getTime()));
-            stm.setString(5, congDoan.getSanPham().getMaSanPham());
-            stm.setBigDecimal(6, new BigDecimal(congDoan.getTienLuong()));
-            stm.setString(7, congDoan.getMaCongDoan());
+            stm.setInt(2, congDoan.getThuTuCongDoan());
+            stm.setInt(3, congDoan.getSoLuongCan());
+            stm.setString(4, congDoan.getTinhTrang());
+            stm.setDate(5, new java.sql.Date(congDoan.getThoiHan().getTime()));
+            stm.setString(6, congDoan.getSanPham().getMaSanPham());
+            stm.setBigDecimal(7, new BigDecimal(congDoan.getTienLuong()));
+            stm.setString(8, congDoan.getMaCongDoan());
             soDongDuocSua = stm.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -244,7 +248,7 @@ public class CongDoan_DAO {
         if (Double.isNaN(mucDoHoanThanh)) {
             updateThoiHan(maCongDoan, "0%");
             return 0;
-        } 
+        }
         updateThoiHan(maCongDoan, String.format("%.2f", mucDoHoanThanh) + "%");
         return mucDoHoanThanh;
     }
@@ -291,7 +295,7 @@ public class CongDoan_DAO {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        if (maCongDoan == null || maCongDoan.equals("")){
+        if (maCongDoan == null || maCongDoan.equals("")) {
             return "CD100001";
         }
         String chuoiCanLay = maCongDoan.split("CD")[1];
@@ -319,22 +323,22 @@ public class CongDoan_DAO {
             // TODO: handle exception
             System.out.println(e);
         }
-        CongDoan_DAO dao = new CongDoan_DAO();
-        System.out.println(dao.themMotCongDoan(new CongDoan("CD111111", "Đánh bóng", 222, "Chưa hoàn thành",
-                java.sql.Date.valueOf(LocalDate.of(2023, 12, 12)), new SanPham("SP123123", "Giay ISNA Nam", 1000, "Đỏ", "Cotton", 47, "anhsanpham1.png", 0), 2231)));
-        System.out.println("\n\n\nLấy ds: " + dao.layDanhSachCongDoanTheoMaSP("SP123123").toString());
-        System.out.println("\n\n\nSửa: " + dao.suaMotCongDoan(new CongDoan("CD111111", "Đánh bóng", 223, "Chưa hoàn thành",
-                java.sql.Date.valueOf(LocalDate.of(2023, 12, 12)), new SanPham("SP123123", "Giay ISNA Nam", 1000, "Đỏ", "Cotton", 47, "anhsanpham1.png", 0), 2231)));
-        System.out.println("\n\n\nXóa 1: " + dao.xoaMotCongDoanTheoMa("CD111111"));
-        System.out.println("\n\n\nLấy 1: " + dao.layMotCongDoanTheoMaCongDoan("CD123123"));
-        System.out.println("Mức độ hoàn thành" + dao.layMucDoHoanThanhCuaMotCongDoan("CD100001"));
-
-        NumberFormat nf = new DecimalFormat("#,###.00");
-        System.out.println("Tiền string: " + nf.format(22332232.30));
-        try {
-            System.out.println(String.format("Tiền doble: %f", nf.parse("22.332.232,30").doubleValue()));
-        } catch (ParseException ex) {
-            System.out.println(ex.getMessage());
-        }
+//        CongDoan_DAO dao = new CongDoan_DAO();
+//        System.out.println(dao.themMotCongDoan(new CongDoan("CD111111", "Đánh bóng", 222, "Chưa hoàn thành",
+//                java.sql.Date.valueOf(LocalDate.of(2023, 12, 12)), new SanPham("SP123123", "Giay ISNA Nam", 1000, "Đỏ", "Cotton", 47, "anhsanpham1.png", 0), 2231)));
+//        System.out.println("\n\n\nLấy ds: " + dao.layDanhSachCongDoanTheoMaSP("SP123123").toString());
+//        System.out.println("\n\n\nSửa: " + dao.suaMotCongDoan(new CongDoan("CD111111", "Đánh bóng", 223, "Chưa hoàn thành",
+//                java.sql.Date.valueOf(LocalDate.of(2023, 12, 12)), new SanPham("SP123123", "Giay ISNA Nam", 1000, "Đỏ", "Cotton", 47, "anhsanpham1.png", 0), 2231)));
+//        System.out.println("\n\n\nXóa 1: " + dao.xoaMotCongDoanTheoMa("CD111111"));
+//        System.out.println("\n\n\nLấy 1: " + dao.layMotCongDoanTheoMaCongDoan("CD123123"));
+//        System.out.println("Mức độ hoàn thành" + dao.layMucDoHoanThanhCuaMotCongDoan("CD100001"));
+//
+//        NumberFormat nf = new DecimalFormat("#,###.00");
+//        System.out.println("Tiền string: " + nf.format(22332232.30));
+//        try {
+//            System.out.println(String.format("Tiền doble: %f", nf.parse("22.332.232,30").doubleValue()));
+//        } catch (ParseException ex) {
+//            System.out.println(ex.getMessage());
+//        }
     }
 }

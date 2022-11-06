@@ -4,11 +4,9 @@
  */
 package Entity;
 
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 
 /**
  *
@@ -83,10 +81,10 @@ public class CongNhan {
     }
 
     public void setNgaySinh(Date ngaySinh) throws Exception {
-        
+
         if (ngaySinh.after(new Date())) {
             throw new Exception("Ngày sinh phải trước ngày hiện tại");
-        }else if (calculateAgeWithJava7(ngaySinh, new Date()) < 18) {
+        } else if (calculateAgeWithJava7(ngaySinh, new Date()) < 18) {
             throw new Exception("Phải từ 18 tuổi trở lên");
         } else {
             this.ngaySinh = ngaySinh;
@@ -98,9 +96,9 @@ public class CongNhan {
     }
 
     public void setMaCCCD(String maCCCD) throws Exception {
-        if (maCCCD.equals("")){
+        if (maCCCD.equals("")) {
             throw new Exception("Mã căn cước công dân không được trống!");
-        } else if (!maCCCD.matches("^[0-9]{12}$")){
+        } else if (!maCCCD.matches("^[0-9]{12}$")) {
             throw new Exception("Mã căn cước công dân chí chứa chữ số, gồm 12 kí tự");
         } else {
             this.maCCCD = maCCCD;
@@ -112,10 +110,10 @@ public class CongNhan {
     }
 
     public void setSoDienThoai(String soDienThoai) throws Exception {
-        if (soDienThoai.equals("")){
+        if (soDienThoai.equals("")) {
             throw new Exception("Số điện thoại không được rỗng");
-        } else if (!soDienThoai.matches("^[0][0-9]{9}$")){
-            throw new Exception("Số điện thoại gồm 10 chữ số, bắt đầu bằng số 0");
+        } else if (!soDienThoai.matches("^\\+[0-9]{11}$")) {
+            throw new Exception("Số điện thoại theo mau gom  ma vung + sdt");
         } else {
             this.soDienThoai = soDienThoai;
         }
@@ -126,11 +124,11 @@ public class CongNhan {
     }
 
     public void setEmail(String email) throws Exception {
-        if (email.equals("")){
+        if (email.equals("")) {
             throw new Exception("Địa chỉ email không được để trống");
-        } else if (!email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")){
+        } else if (!email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
             throw new Exception("Địa chỉ email không hợp lệ, phải đúng định dạng gmail hiện nay, phải có @, tên miền");
-        } else{
+        } else {
             this.email = email;
         }
     }
@@ -140,9 +138,9 @@ public class CongNhan {
     }
 
     public void setMatKhau(String matKhau) throws Exception {
-        if (matKhau.equals("")){
+        if (matKhau.equals("")) {
             throw new Exception("Mật khẩu không được để trống!");
-        } else if (matKhau.length() < 6){
+        } else if (matKhau.length() < 6) {
             throw new Exception("Mật khẩu phải từ 6 kí tự trở lên");
         } else {
             this.matKhau = matKhau;
@@ -154,8 +152,8 @@ public class CongNhan {
     }
 
     public void setNgayVaoLam(Date ngayVaoLam) throws Exception {
-        if (ngayVaoLam.after(new Date())){
-            throw new Exception("Ngày vào làm phải trước hoặc bằng ngày hiện tại");
+        if (ngayVaoLam.before(new Date())) {
+            throw new Exception("Ngày vào làm phải sau hoặc bằng ngày hiện tại");
         } else {
             this.ngayVaoLam = ngayVaoLam;
         }
@@ -174,9 +172,9 @@ public class CongNhan {
     }
 
     public void setAnhDaiDien(String anhDaiDien) throws Exception {
-        if (anhDaiDien.equals("")){
+        if (anhDaiDien.equals("")) {
             throw new Exception("Ảnh sản phẩm không được để trống!");
-        } else if (!anhDaiDien.matches("^.{1,}\\.(png|PNG|jpg|JPG|raw|RAW|JPEG|jpeg)$")){
+        } else if (!anhDaiDien.matches("^.{1,}\\.(png|PNG|jpg|JPG|raw|RAW|JPEG|jpeg)$")) {
             throw new Exception("Chỉ chấp nhận các ảnh có định dạng png, jpg, raw, jpeg");
         } else {
             this.anhDaiDien = anhDaiDien;

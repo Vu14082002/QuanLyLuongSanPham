@@ -21,9 +21,9 @@ public class SanPham {
     private int kichThuoc;
     private String anhSanPham;
     private int soLuongCongDoan;
+    private HopDong hopDong;
 
-    public SanPham(String maSanPham, String tenSanPham, int soLuongSanPham, String mauSac, String chatLieu, int kichThuoc, String anhSanPham,
-             int soLuongCongDoan) {
+    public SanPham(String maSanPham, String tenSanPham, int soLuongSanPham, String mauSac, String chatLieu, int kichThuoc, String anhSanPham, int soLuongCongDoan, HopDong hopDong) {
         try {
             setMaSanPham(maSanPham);
             setTenSanPham(tenSanPham);
@@ -33,12 +33,12 @@ public class SanPham {
             setKichThuoc(kichThuoc);
             setAnhSanPham(anhSanPham);
             setSoLuongCongDoan(soLuongCongDoan);
+            setHopDong(hopDong);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
-
     }
-
+    
     public String getMaSanPham() {
         return maSanPham;
     }
@@ -131,9 +131,19 @@ public class SanPham {
         }
     }
 
+    public HopDong getHopDong() {
+        return hopDong;
+    }
+
+    public void setHopDong(HopDong hopDong) {
+        this.hopDong = hopDong;
+    }
+
     @Override
     public String toString() {
-        return "SanPham{" + "maSanPham=" + maSanPham + ", tenSanPham=" + tenSanPham + ", soLuongSanPham=" + soLuongSanPham + ", mauSac=" + mauSac + ", chatLieu=" + chatLieu + ", kichThuoc=" + kichThuoc + ", anhSanPham=" + anhSanPham + ", soLuongCongDoan=" + soLuongCongDoan + '}';
+        return "SanPham{" + "maSanPham=" + maSanPham + ", tenSanPham=" + tenSanPham + ", soLuongSanPham=" + soLuongSanPham + ", mauSac=" + mauSac + ", chatLieu=" + chatLieu + ", kichThuoc=" + kichThuoc + ", anhSanPham=" + anhSanPham + ", soLuongCongDoan=" + soLuongCongDoan + ", hopDong=" + hopDong + '}';
     }
+    
+    
 
 }

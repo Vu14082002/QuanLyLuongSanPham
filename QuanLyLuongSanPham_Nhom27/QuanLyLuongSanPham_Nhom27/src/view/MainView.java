@@ -12,6 +12,7 @@ import Entity.NhanVien;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -265,7 +266,11 @@ public class MainView extends javax.swing.JFrame {
         });
         MenuItem meNuHopDong = new MenuItem(iconContract, "Hợp đồng", (ActionEvent e) -> {
             pnBody.removeAll();
-            pnBody.add(new TrangChuView(), BorderLayout.CENTER);
+            try {
+                pnBody.add(new HopDongView(), BorderLayout.CENTER);
+            } catch (ParseException ex) {
+                Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+            }
             pnBody.repaint();
             pnBody.revalidate();
         });

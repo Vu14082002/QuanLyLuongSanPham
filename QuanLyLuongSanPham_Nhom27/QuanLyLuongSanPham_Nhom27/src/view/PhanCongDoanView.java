@@ -214,7 +214,7 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
         lblHienThiMaCongDoan = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         lblSoLuongCan = new javax.swing.JLabel();
-        lblThoiHan = new javax.swing.JLabel();
+        lblSoThuTuCongDoan = new javax.swing.JLabel();
         txtGiaTien = new javax.swing.JTextField();
         lblErrLuongSP = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
@@ -226,6 +226,8 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
         btnLuu = new javax.swing.JButton();
         btnHuy = new javax.swing.JButton();
         lblErrTenCongDoan1 = new javax.swing.JLabel();
+        lblThoiHan = new javax.swing.JLabel();
+        cmbSoThuTuCongDoan = new javax.swing.JComboBox<>();
         scrTableCongDoan = new javax.swing.JScrollPane();
         tblCongDoan = new javax.swing.JTable();
 
@@ -233,7 +235,7 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
         setLayout(new java.awt.BorderLayout());
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel5.setPreferredSize(new java.awt.Dimension(1250, 400));
+        jPanel5.setPreferredSize(new java.awt.Dimension(1250, 475));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         scrTableSanPham.setBackground(new java.awt.Color(255, 255, 255));
@@ -328,10 +330,10 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
         lblSoLuongCan.setText("Số lượng cần:");
         jPanel5.add(lblSoLuongCan, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 220, 170, 40));
 
-        lblThoiHan.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        lblThoiHan.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblThoiHan.setText("Thời hạn:");
-        jPanel5.add(lblThoiHan, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 340, 170, 40));
+        lblSoThuTuCongDoan.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lblSoThuTuCongDoan.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblSoThuTuCongDoan.setText("Thứ tự làm:");
+        jPanel5.add(lblSoThuTuCongDoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 400, 170, 40));
 
         txtGiaTien.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         txtGiaTien.setText("0");
@@ -347,7 +349,7 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
         lblGiaTien.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lblGiaTien.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblGiaTien.setText("Lương / 1 Sản phẩm:");
-        jPanel5.add(lblGiaTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 280, 170, 40));
+        jPanel5.add(lblGiaTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 280, 170, 40));
         jPanel5.add(dcsThoiHan, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 350, 190, 30));
 
         btnThem.setBackground(new java.awt.Color(46, 204, 113));
@@ -416,6 +418,14 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
         lblErrTenCongDoan1.setText("đây là dòng thông báo lỗi");
         jPanel5.add(lblErrTenCongDoan1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 200, 190, -1));
 
+        lblThoiHan.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lblThoiHan.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblThoiHan.setText("Thời hạn:");
+        jPanel5.add(lblThoiHan, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 340, 170, 40));
+
+        cmbSoThuTuCongDoan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel5.add(cmbSoThuTuCongDoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 410, 190, -1));
+
         add(jPanel5, java.awt.BorderLayout.PAGE_START);
 
         scrTableCongDoan.setBackground(new java.awt.Color(255, 255, 255));
@@ -474,6 +484,7 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
     private javax.swing.JButton btnLuu;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnXoa;
+    private javax.swing.JComboBox<String> cmbSoThuTuCongDoan;
     private com.toedter.calendar.JDateChooser dcsThoiHan;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JSeparator jSeparator2;
@@ -490,6 +501,7 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
     private javax.swing.JLabel lblMaCongDoan;
     private javax.swing.JLabel lblMaSanPham;
     private javax.swing.JLabel lblSoLuongCan;
+    private javax.swing.JLabel lblSoThuTuCongDoan;
     private javax.swing.JLabel lblTenCongDoan;
     private javax.swing.JLabel lblTenSanPham;
     private javax.swing.JLabel lblThoiHan;
@@ -583,7 +595,7 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
                     System.out.println(e2.getMessage());
                 }
                 SanPham sanPham = sanPham_DAO.layMotSanPhamTheoMa(lblHienThiMaSP.getText());
-                boolean coThemDuoc = congDoan_DAO.themMotCongDoan(new CongDoan(maCongDoan, tenCongDoan, soLuongCan, "0%", dcsThoiHan.getDate(), sanPham, tienLuong));
+                boolean coThemDuoc = congDoan_DAO.themMotCongDoan(new CongDoan(maCongDoan,cmbSoThuTuCongDoan.getSelectedIndex() ,tenCongDoan, soLuongCan, "0%", dcsThoiHan.getDate(), sanPham, tienLuong));
                 if (coThemDuoc) {
                     moKhoaTextField(false);
                     taiDuLieuLenBangCongDoan();
@@ -617,7 +629,7 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
                     System.out.println(e2.getMessage());
                 }
                 SanPham sanPham = sanPham_DAO.layMotSanPhamTheoMa(lblHienThiMaSP.getText());
-                boolean coSuaDuoc = congDoan_DAO.suaMotCongDoan(new CongDoan(maCongDoan, tenCongDoan, soLuongCan, "0%", dcsThoiHan.getDate(), sanPham, tienLuong));
+                boolean coSuaDuoc = congDoan_DAO.suaMotCongDoan(new CongDoan(maCongDoan, cmbSoThuTuCongDoan.getSelectedIndex(),tenCongDoan, soLuongCan, "0%", dcsThoiHan.getDate(), sanPham, tienLuong));
                 if (coSuaDuoc) {
                     moKhoaTextField(false);
                     taiDuLieuLenBangCongDoan();

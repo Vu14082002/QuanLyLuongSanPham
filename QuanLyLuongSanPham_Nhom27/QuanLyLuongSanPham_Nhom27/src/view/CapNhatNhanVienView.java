@@ -725,7 +725,7 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
         if (txtSoDienThoai.getText().equals("")) {
             lblErrSoDienThoai.setText("Bắt buộc nhập");
             flag = false;
-        } else if (!txtSoDienThoai.getText().matches("^[0][0-9]{9}$")) {
+        } else if (!txtSoDienThoai.getText().matches("^\\+[0-9]{11}$")) {
             lblErrSoDienThoai.setText("Số điện thoại không hợp lệ");
             flag = false;
         } else {
