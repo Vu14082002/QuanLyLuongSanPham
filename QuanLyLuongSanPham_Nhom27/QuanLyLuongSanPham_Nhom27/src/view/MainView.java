@@ -347,7 +347,7 @@ public class MainView extends javax.swing.JFrame {
     private void initComponents() {
 
         pnHeader = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lblTieuDe = new javax.swing.JLabel();
         lblXinChao = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         pnMenu = new javax.swing.JPanel();
@@ -364,11 +364,11 @@ public class MainView extends javax.swing.JFrame {
         pnHeader.setPreferredSize(new java.awt.Dimension(1500, 75));
         pnHeader.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 26)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("QUẢN LÝ LƯƠNG CÔNG TY THVT_SHOES");
-        pnHeader.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 1250, 75));
+        lblTieuDe.setFont(new java.awt.Font("Segoe UI", 0, 26)); // NOI18N
+        lblTieuDe.setForeground(new java.awt.Color(255, 255, 255));
+        lblTieuDe.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTieuDe.setText("QUẢN LÝ LƯƠNG CÔNG TY THVT_SHOES");
+        pnHeader.add(lblTieuDe, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 1250, 75));
 
         lblXinChao.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lblXinChao.setForeground(new java.awt.Color(255, 255, 255));
@@ -469,8 +469,8 @@ public class MainView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblTieuDe;
     private javax.swing.JLabel lblXinChao;
     private javax.swing.JPanel menus;
     private javax.swing.JPanel pnBody;

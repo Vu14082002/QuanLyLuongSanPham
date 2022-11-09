@@ -152,7 +152,7 @@ public class CongNhan {
     }
 
     public void setNgayVaoLam(Date ngayVaoLam) throws Exception {
-        if (ngayVaoLam.before(new Date())) {
+        if (ngayVaoLam.after(new Date())) {
             throw new Exception("Ngày vào làm phải sau hoặc bằng ngày hiện tại");
         } else {
             this.ngayVaoLam = ngayVaoLam;

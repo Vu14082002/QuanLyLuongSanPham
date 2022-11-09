@@ -52,9 +52,46 @@ public class CongNhan_DAO {
                 Date ngayVaoLam = rs.getDate("ngayVaoLam");
                 String maToNhom = rs.getString("toNhom");
                 ToNhom toNhom = toNhom_DAO.layMotToNhomTheoMa(maToNhom);
-                
                 dsCongNhan.add(new CongNhan(maCongNhan, hoTen, ngaySinh, maCCCD, soDienThoai, email, matKhau, ngayVaoLam, gioiTinh, anhDaiDien, diaChi, toNhom));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                stm.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return dsCongNhan;
+    }
 
+    public ArrayList<CongNhan> layDanhSachCongNhanTheoMaTo(String maTo) {
+        ArrayList<CongNhan> dsCongNhan = new ArrayList<CongNhan>();
+        PreparedStatement stm = null;
+        ToNhom_DAO toNhom_DAO = new ToNhom_DAO();
+        try {
+            ConnectionDB.ConnectDB.getInstance();
+            Connection con = ConnectionDB.ConnectDB.getConnection();
+            String truyVan = "select * from CongNhan where toNhom = ?";
+            stm = con.prepareStatement(truyVan);
+            stm.setString(1, maTo);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                String maCongNhan = rs.getString("maCongNhan");
+                String hoTen = rs.getString("hoTen");
+                Date ngaySinh = rs.getDate("ngaySinh");
+                String maCCCD = rs.getString("maCCCD");
+                String soDienThoai = rs.getString("soDienThoai");
+                String email = rs.getString("email");
+                String matKhau = rs.getString("matKhau");
+                Boolean gioiTinh = rs.getBoolean("gioiTinh");
+                String anhDaiDien = rs.getString("anhDaiDien");
+                String diaChi = rs.getString("diaChi");
+                Date ngayVaoLam = rs.getDate("ngayVaoLam");
+                String maToNhom = rs.getString("toNhom");
+                ToNhom toNhom = toNhom_DAO.layMotToNhomTheoMa(maToNhom);
+                dsCongNhan.add(new CongNhan(maCongNhan, hoTen, ngaySinh, maCCCD, soDienThoai, email, matKhau, ngayVaoLam, gioiTinh, anhDaiDien, diaChi, toNhom));
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -170,12 +207,12 @@ public class CongNhan_DAO {
             stm.setDate(10, new java.sql.Date(congNhan.getNgayVaoLam().getTime()));
             stm.setString(11, congNhan.getToNhom().getMaToNhom());
             stm.setString(12, congNhan.getMaCongNhan());
-            
+
             soLuongDuocCapNhat = stm.executeUpdate();
-            
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
-        } finally{
+        } finally {
             try {
                 stm.close();
             } catch (Exception e) {
@@ -184,8 +221,8 @@ public class CongNhan_DAO {
         }
         return soLuongDuocCapNhat != 0;
     }
-    
-    public boolean xoaCongNhanTheoMa(String maCongNhan){
+
+    public boolean xoaCongNhanTheoMa(String maCongNhan) {
         PreparedStatement stm = null;
         int soLuongXoaDuoc = 0;
         try {
@@ -195,7 +232,7 @@ public class CongNhan_DAO {
             stm = con.prepareStatement(truyVan);
             stm.setString(1, maCongNhan);
             soLuongXoaDuoc = stm.executeUpdate();
-            
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
@@ -207,7 +244,8 @@ public class CongNhan_DAO {
         }
         return soLuongXoaDuoc != 0;
     }
-    public int layRaSoLuongCongNhan(){
+
+    public int layRaSoLuongCongNhan() {
         Statement stm = null;
         int soLuong = 0;
         try {
@@ -216,7 +254,7 @@ public class CongNhan_DAO {
             String truyVan = "select count(maCongNhan) as soLuongCongNhan from CongNhan";
             stm = con.createStatement();
             ResultSet rs = stm.executeQuery(truyVan);
-            while(rs.next()){
+            while (rs.next()) {
                 soLuong = rs.getInt("soLuongCongNhan");
             }
         } catch (Exception e) {
@@ -230,8 +268,8 @@ public class CongNhan_DAO {
         }
         return soLuong;
     }
-    
-    public String layRaMaCongNhanDeThem(){
+
+    public String layRaMaCongNhanDeThem() {
         Statement stm = null;
         String maCongNhan = "";
         try {
@@ -242,7 +280,7 @@ public class CongNhan_DAO {
             ResultSet rs = stm.executeQuery(truyVan);
             while (rs.next()) {
                 maCongNhan = rs.getString("maCongNhan");
- 
+
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -253,7 +291,7 @@ public class CongNhan_DAO {
                 System.out.println(e.getMessage());
             }
         }
-        if (maCongNhan == null || maCongNhan.equals("")){
+        if (maCongNhan == null || maCongNhan.equals("")) {
             return "CN100001";
         }
         String chuoiCanLay = maCongNhan.split("CN")[1];
@@ -266,13 +304,14 @@ public class CongNhan_DAO {
 
         return chuoiCanLay;
     }
+
     public static void main(String[] args) {
         try {
             System.setOut(new PrintStream(System.out, true, "UTF8"));
         } catch (UnsupportedEncodingException ex) {
             System.out.println(ex.getMessage());
         }
-        
+
         try {
             ConnectDB.getInstance().connect();
             System.out.println("Yes");
@@ -280,7 +319,7 @@ public class CongNhan_DAO {
             // TODO: handle exception
             System.out.println(e);
         }
-        CongNhan_DAO congNhan_DAO  = new CongNhan_DAO();
+        CongNhan_DAO congNhan_DAO = new CongNhan_DAO();
         Date ngaySinh = null;
         try {
             ngaySinh = new SimpleDateFormat("yyyy-MM-dd").parse(LocalDate.of(2000, Month.DECEMBER, 29).toString());
@@ -288,14 +327,14 @@ public class CongNhan_DAO {
             System.out.println(e.getMessage());
         }
         System.out.println("Lấy 1 công nhân: " + congNhan_DAO.layMotCongNhanTheoMa("CN123123"));
-        System.out.println(congNhan_DAO.themMotCongNhan(new CongNhan("CN111111", "Nguyễn Văn Vũ"
-        , ngaySinh, "111222333444", "0975123123", "hieurio12@gmail.com"
-        , "123123", new Date(), false, "anhDaiDien1.png", "Yên bái", new ToNhom("TN123123", "1", 0))));
+        System.out.println(congNhan_DAO.themMotCongNhan(new CongNhan("CN111111", "Nguyễn Văn Vũ",
+                ngaySinh, "111222333444", "0975123123", "hieurio12@gmail.com",
+                "123123", new Date(), false, "anhDaiDien1.png", "Yên bái", new ToNhom("TN123123", "1", 0))));
         System.out.println("Hiển thị: " + congNhan_DAO.layDanhSachCongNhan());
-        System.out.println("Sửa: " + congNhan_DAO.capNhatMotCongNhan(new CongNhan("CN111111", "Nguyễn Văn Vũ"
-        , java.sql.Date.valueOf(LocalDate.of(2000, 11, 11)), "111222333444", "0975123123", "hieurio12@gmail.com"
-        , "123123", java.sql.Date.valueOf(LocalDate.of(1999, 12, 12)), false, "anhDaiDien1.png", "Yên bái", new ToNhom("TN123123", "1", 0))));
+        System.out.println("Sửa: " + congNhan_DAO.capNhatMotCongNhan(new CongNhan("CN111111", "Nguyễn Văn Vũ",
+                java.sql.Date.valueOf(LocalDate.of(2000, 11, 11)), "111222333444", "0975123123", "hieurio12@gmail.com",
+                "123123", java.sql.Date.valueOf(LocalDate.of(1999, 12, 12)), false, "anhDaiDien1.png", "Yên bái", new ToNhom("TN123123", "1", 0))));
         System.out.println("Hiển thị: " + congNhan_DAO.layDanhSachCongNhan());
-        System.out.println("Xóa"+ congNhan_DAO.xoaCongNhanTheoMa("CN111111"));
+        System.out.println("Xóa" + congNhan_DAO.xoaCongNhanTheoMa("CN111111"));
     }
 }

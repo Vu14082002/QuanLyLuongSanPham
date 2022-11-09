@@ -9,7 +9,14 @@ import DAO.NhanVien_DAO;
 import Entity.CongNhan;
 import Entity.NhanVien;
 import java.awt.Color;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Properties;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.prefs.Preferences;
 import javax.swing.JOptionPane;
 
@@ -24,8 +31,13 @@ public class LoginView extends javax.swing.JFrame {
      */
     private NhanVien_DAO nhanVien_DAO;
     private CongNhan_DAO congNhan_DAO;
+    private ArrayList<String> ngonNguList;
 
     public LoginView() {
+        ngonNguList = new ArrayList<>();
+        ngonNguList.add("./config/VietNam.properties");
+        ngonNguList.add("./config/English.properties");
+
         initComponents();
         gui();
         getDataRemember();
@@ -39,27 +51,31 @@ public class LoginView extends javax.swing.JFrame {
         nhanVien_DAO = new NhanVien_DAO();
     }
 
+    public void caiDatNgonNguChoView(String fileName) throws FileNotFoundException, IOException {
+        FileInputStream fis = new FileInputStream(fileName);
+        Properties prop = new Properties();
+        prop.load(fis);
+        lblTietDePhanMem.setText(prop.getProperty("Login_lblTietDePhanMem"));
+        lblTieuDeDangNhap.setText(prop.getProperty("Login_lblTieuDeDangNhap"));
+        lblTenDangNhap.setText(prop.getProperty("Login_lblTenDangNhap"));
+        lblMatKhau.setText(prop.getProperty("Login_lblMatKhau"));
+        lblQuenMatKhau.setText(prop.getProperty("Login_lblQuenMatKhau"));
+        btnDangNhap.setText(prop.getProperty("Login_btnDangNhap"));
+        lblNgonNgu.setText(prop.getProperty("Login_lblNgonNgu"));
+    }
     public void getDataRemember() {
         String userName = "";
         userName = pref.get("userName", userName);
         String passWord = "";
         passWord = pref.get("password", passWord);
-        this.txtUserName.setText(userName);
-        this.txtPassWord.setText(passWord);
+        this.txtDangNhap.setText(userName);
+        this.txtMatKhau.setText(passWord);
     }
 
     public void gui() {
-        this.txtUserName.setBackground(new Color(0, 0, 0, 1));
-        this.txtPassWord.setBackground(new Color(0, 0, 0, 1));
+        this.txtDangNhap.setBackground(new Color(0, 0, 0, 1));
+        this.txtMatKhau.setBackground(new Color(0, 0, 0, 1));
         //    this.txtOTP.setBackground(new Color(0, 0, 0, 1));
-    }
-
-    public void sendEmail() {
-        String fromName = "Nguyen Van Vu";
-        String fromEmail = "sherlockvufullsnack20020814@gmail.com";
-        String toEmail = "nguyenvanvu20020814@gmail.com";
-        Random rand = new Random();
-        int content = rand.nextInt(99999 + 1 - 10000) + 10000;
     }
 
     /**
@@ -76,9 +92,9 @@ public class LoginView extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         lblLogo = new javax.swing.JLabel();
-        lblBrand = new javax.swing.JLabel();
+        lblTietDePhanMem = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        lbTieuDe01 = new javax.swing.JLabel();
+        lblTieuDeDangNhap = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         lblExit = new javax.swing.JLabel();
         lblTenDangNhap = new javax.swing.JLabel();
@@ -88,11 +104,13 @@ public class LoginView extends javax.swing.JFrame {
         disable = new javax.swing.JLabel();
         show = new javax.swing.JLabel();
         chkRemerberPassword = new javax.swing.JCheckBox();
-        lblQuenMatKhau = new javax.swing.JLabel();
+        lblNgonNgu = new javax.swing.JLabel();
         btnDangNhap = new javax.swing.JButton();
-        txtUserName = new javax.swing.JTextField();
+        txtDangNhap = new javax.swing.JTextField();
         lbPassword02 = new javax.swing.JLabel();
-        txtPassWord = new javax.swing.JPasswordField();
+        txtMatKhau = new javax.swing.JPasswordField();
+        lblQuenMatKhau = new javax.swing.JLabel();
+        cmbNgonNgu = new javax.swing.JComboBox<>();
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -115,24 +133,24 @@ public class LoginView extends javax.swing.JFrame {
         lblLogo.setPreferredSize(new java.awt.Dimension(400, 400));
         jPanel1.add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 60, 520, 380));
 
-        lblBrand.setBackground(new java.awt.Color(255, 255, 255));
-        lblBrand.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblBrand.setForeground(new java.awt.Color(255, 255, 255));
-        lblBrand.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblBrand.setText("PHẦN MỀM QUẢN LÝ LƯƠNG THVT_SHOES");
-        jPanel1.add(lblBrand, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 60));
+        lblTietDePhanMem.setBackground(new java.awt.Color(255, 255, 255));
+        lblTietDePhanMem.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTietDePhanMem.setForeground(new java.awt.Color(255, 255, 255));
+        lblTietDePhanMem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTietDePhanMem.setText("PHẦN MỀM QUẢN LÝ LƯƠNG THVT_SHOES");
+        jPanel1.add(lblTietDePhanMem, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 60));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 500));
 
         jPanel2.setBackground(new java.awt.Color(52, 152, 219));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lbTieuDe01.setFont(new java.awt.Font("Segoe UI", 0, 32)); // NOI18N
-        lbTieuDe01.setForeground(new java.awt.Color(255, 255, 255));
-        lbTieuDe01.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbTieuDe01.setText("ĐĂNG NHẬP");
-        lbTieuDe01.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(lbTieuDe01, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 500, -1));
+        lblTieuDeDangNhap.setFont(new java.awt.Font("Segoe UI", 0, 32)); // NOI18N
+        lblTieuDeDangNhap.setForeground(new java.awt.Color(255, 255, 255));
+        lblTieuDeDangNhap.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTieuDeDangNhap.setText("ĐĂNG NHẬP");
+        lblTieuDeDangNhap.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel2.add(lblTieuDeDangNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 500, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -201,18 +219,18 @@ public class LoginView extends javax.swing.JFrame {
                 chkRemerberPasswordActionPerformed(evt);
             }
         });
-        jPanel2.add(chkRemerberPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, -1));
+        jPanel2.add(chkRemerberPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, -1, -1));
 
-        lblQuenMatKhau.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lblQuenMatKhau.setForeground(new java.awt.Color(255, 255, 255));
-        lblQuenMatKhau.setText("Quên mật khẩu?");
-        lblQuenMatKhau.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblQuenMatKhau.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblNgonNgu.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblNgonNgu.setForeground(new java.awt.Color(255, 255, 255));
+        lblNgonNgu.setText("Chọn ngôn ngữ:");
+        lblNgonNgu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblNgonNgu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblQuenMatKhauMouseClicked(evt);
+                lblNgonNguMouseClicked(evt);
             }
         });
-        jPanel2.add(lblQuenMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 340, 190, -1));
+        jPanel2.add(lblNgonNgu, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 450, 170, -1));
 
         btnDangNhap.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnDangNhap.setForeground(new java.awt.Color(52, 152, 219));
@@ -223,26 +241,45 @@ public class LoginView extends javax.swing.JFrame {
                 btnDangNhapActionPerformed(evt);
             }
         });
-        jPanel2.add(btnDangNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, 405, 47));
+        jPanel2.add(btnDangNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 370, 405, 47));
 
-        txtUserName.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtUserName.setForeground(new java.awt.Color(255, 255, 255));
-        txtUserName.setBorder(null);
-        txtUserName.addActionListener(new java.awt.event.ActionListener() {
+        txtDangNhap.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtDangNhap.setForeground(new java.awt.Color(255, 255, 255));
+        txtDangNhap.setBorder(null);
+        txtDangNhap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUserNameActionPerformed(evt);
+                txtDangNhapActionPerformed(evt);
             }
         });
-        jPanel2.add(txtUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 360, 30));
+        jPanel2.add(txtDangNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 360, 30));
 
         lbPassword02.setForeground(new java.awt.Color(255, 255, 255));
         lbPassword02.setText("_____________________________________________________");
         jPanel2.add(lbPassword02, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, 378, -1));
 
-        txtPassWord.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtPassWord.setForeground(new java.awt.Color(255, 255, 255));
-        txtPassWord.setBorder(null);
-        jPanel2.add(txtPassWord, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 360, 30));
+        txtMatKhau.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtMatKhau.setForeground(new java.awt.Color(255, 255, 255));
+        txtMatKhau.setBorder(null);
+        jPanel2.add(txtMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 360, 30));
+
+        lblQuenMatKhau.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblQuenMatKhau.setForeground(new java.awt.Color(255, 255, 255));
+        lblQuenMatKhau.setText("Quên mật khẩu?");
+        lblQuenMatKhau.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblQuenMatKhau.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblQuenMatKhauMouseClicked(evt);
+            }
+        });
+        jPanel2.add(lblQuenMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 323, 190, -1));
+
+        cmbNgonNgu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "VietNam", "English" }));
+        cmbNgonNgu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbNgonNguActionPerformed(evt);
+            }
+        });
+        jPanel2.add(cmbNgonNgu, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 440, 190, 40));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 0, 550, 500));
 
@@ -255,10 +292,10 @@ public class LoginView extends javax.swing.JFrame {
     }//GEN-LAST:event_chkRemerberPasswordActionPerformed
 
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
-        System.out.println(this.txtUserName.getText());
-        System.out.println(new String(this.txtPassWord.getPassword()));
-        String userName = txtUserName.getText();
-        String password = new String(txtPassWord.getPassword());
+        System.out.println(this.txtDangNhap.getText());
+        System.out.println(new String(this.txtMatKhau.getPassword()));
+        String userName = txtDangNhap.getText();
+        String password = new String(txtMatKhau.getPassword());
         if (userName.length() != 8 || password.length() < 6) {
             JOptionPane.showMessageDialog(null, "Tài khoản hoặc Mật khẩu không chính xác!", "Thông Báo Đăng nhập", JOptionPane.ERROR_MESSAGE);
             return;
@@ -283,7 +320,7 @@ public class LoginView extends javax.swing.JFrame {
                 return;
             }
         } else {
-            JOptionPane.showMessageDialog(null, "cính xác!", "Thông Báo Đăng nhập", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "chính xác!", "Thông Báo Đăng nhập", JOptionPane.ERROR_MESSAGE);
             return;
 
         }
@@ -291,7 +328,7 @@ public class LoginView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
     private void showMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showMouseClicked
-        this.txtPassWord.setEchoChar((char) 8226);
+        this.txtMatKhau.setEchoChar((char) 8226);
         this.disable.setVisible(true);
         this.disable.setEnabled(true);
         this.show.setVisible(false);
@@ -299,16 +336,16 @@ public class LoginView extends javax.swing.JFrame {
     }//GEN-LAST:event_showMouseClicked
 
     private void disableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_disableMouseClicked
-        this.txtPassWord.setEchoChar((char) 0);
+        this.txtMatKhau.setEchoChar((char) 0);
         this.disable.setVisible(false);
         this.disable.setEnabled(false);
         this.show.setVisible(true);
         this.show.setEnabled(true);
     }//GEN-LAST:event_disableMouseClicked
 
-    private void txtUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserNameActionPerformed
+    private void txtDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDangNhapActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtUserNameActionPerformed
+    }//GEN-LAST:event_txtDangNhapActionPerformed
 
     private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseClicked
 //        for(double i=0.0; i<=1.0;i=i+0.1){
@@ -332,13 +369,25 @@ public class LoginView extends javax.swing.JFrame {
     }
     private void chkRemerberPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chkRemerberPasswordMouseClicked
         if (chkRemerberPassword.isSelected()) {
-            saveAccount(this.txtUserName.getText(), new String(this.txtPassWord.getPassword()));
+            saveAccount(this.txtDangNhap.getText(), new String(this.txtMatKhau.getPassword()));
         }
     }//GEN-LAST:event_chkRemerberPasswordMouseClicked
 
-    private void lblQuenMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuenMatKhauMouseClicked
+    private void lblNgonNguMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNgonNguMouseClicked
         JOptionPane.showMessageDialog(this, "Mat khau moi chung toi da gui qua sdt ban dang ky :)");
+    }//GEN-LAST:event_lblNgonNguMouseClicked
+
+    private void lblQuenMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuenMatKhauMouseClicked
+        // TODO add your handling code here:
     }//GEN-LAST:event_lblQuenMatKhauMouseClicked
+
+    private void cmbNgonNguActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNgonNguActionPerformed
+        try {
+            caiDatNgonNguChoView(ngonNguList.get(cmbNgonNgu.getSelectedIndex()));
+        } catch (IOException ex) {
+            Logger.getLogger(LoginView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_cmbNgonNguActionPerformed
 
     /**
      * @param args the command line arguments
@@ -378,6 +427,7 @@ public class LoginView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDangNhap;
     private javax.swing.JCheckBox chkRemerberPassword;
+    private javax.swing.JComboBox<String> cmbNgonNgu;
     private javax.swing.JLabel disable;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
@@ -387,16 +437,17 @@ public class LoginView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lbIcon;
     private javax.swing.JLabel lbPassword02;
-    private javax.swing.JLabel lbTieuDe01;
     private javax.swing.JLabel lbUserName2;
-    private javax.swing.JLabel lblBrand;
     private javax.swing.JLabel lblExit;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblMatKhau;
+    private javax.swing.JLabel lblNgonNgu;
     private javax.swing.JLabel lblQuenMatKhau;
     private javax.swing.JLabel lblTenDangNhap;
+    private javax.swing.JLabel lblTietDePhanMem;
+    private javax.swing.JLabel lblTieuDeDangNhap;
     private javax.swing.JLabel show;
-    private javax.swing.JPasswordField txtPassWord;
-    private javax.swing.JTextField txtUserName;
+    private javax.swing.JTextField txtDangNhap;
+    private javax.swing.JPasswordField txtMatKhau;
     // End of variables declaration//GEN-END:variables
 }

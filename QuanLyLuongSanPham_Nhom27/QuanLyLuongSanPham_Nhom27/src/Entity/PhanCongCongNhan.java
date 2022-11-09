@@ -21,8 +21,9 @@ public class PhanCongCongNhan {
     private NhanVien nguoiPhanCong;
     private Date ngayPhanCong;
     private ToNhom toNhom;
+    private int soLuongCanLam;
 
-    public PhanCongCongNhan(String maPhanCong, CongNhan congNhan, CongDoan congDoan, NhanVien nguoiPhanCong, Date ngayPhanCong, ToNhom toNhom) {
+    public PhanCongCongNhan(String maPhanCong, CongNhan congNhan, CongDoan congDoan, NhanVien nguoiPhanCong, Date ngayPhanCong, int soLuongCanLam, ToNhom toNhom) {
         try {
             setMaPhanCong(maPhanCong);
             setCongNhan(congNhan);
@@ -30,6 +31,7 @@ public class PhanCongCongNhan {
             setNguoiPhanCong(nguoiPhanCong);
             setNgayPhanCong(ngayPhanCong);
             setToNhom(toNhom);
+            setSoLuongCanLam(soLuongCanLam);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
@@ -38,6 +40,18 @@ public class PhanCongCongNhan {
 
     public String getMaPhanCong() {
         return maPhanCong;
+    }
+
+    public int getSoLuongCanLam() {
+        return soLuongCanLam;
+    }
+
+    public void setSoLuongCanLam(int soLuongCanLam) throws Exception {
+        if (soLuongCanLam <= 0) {
+            throw new Exception("So luong can lamm > 0");
+        } else {
+            this.soLuongCanLam = soLuongCanLam;
+        }
     }
 
     private void setMaPhanCong(String maPhanCong) throws Exception {
@@ -79,7 +93,7 @@ public class PhanCongCongNhan {
     }
 
     public void setNgayPhanCong(Date ngayPhanCong) throws Exception {
-        if (ngayPhanCong.after(new Date())){
+        if (ngayPhanCong.after(new Date())) {
             throw new Exception("Ngày phân công phải là ngày hiện tại hoặc trước hiện tại!");
         } else {
             this.ngayPhanCong = ngayPhanCong;
@@ -98,8 +112,5 @@ public class PhanCongCongNhan {
     public String toString() {
         return "PhanCongCongNhan{" + "maPhanCong=" + maPhanCong + ", congNhan=" + congNhan + ", congDoan=" + congDoan + ", nguoiPhanCong=" + nguoiPhanCong + ", ngayPhanCong=" + ngayPhanCong + ", toNhom=" + toNhom + '}';
     }
-
-    
-    
 
 }

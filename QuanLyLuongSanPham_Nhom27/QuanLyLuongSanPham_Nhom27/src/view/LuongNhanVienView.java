@@ -177,7 +177,7 @@ public class LuongNhanVienView extends javax.swing.JPanel {
         jPanel5.add(cmbThang, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, 70, 40));
 
         cmbNam.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        cmbNam.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
+        cmbNam.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2000" }));
         cmbNam.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbNamActionPerformed(evt);
@@ -325,6 +325,17 @@ public class LuongNhanVienView extends javax.swing.JPanel {
 
     private void cmbThangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbThangActionPerformed
         taiDuLieuLenBangLuong();
+     
+        System.out.println(cmbThang.getSelectedItem().toString() + "-" + cmbNam.getSelectedItem().toString());
+        System.out.println("Local date: " + LocalDate.now().getMonthValue()+"-"+LocalDate.now().getYear());
+        if(LocalDate.now().getMonthValue() == Integer.parseInt(cmbThang.getSelectedItem().toString())){
+            System.out.println("true");
+        }
+        if ( LocalDate.now().getMonthValue() == Integer.parseInt(cmbThang.getSelectedItem().toString()) && LocalDate.now().getDayOfMonth() == Integer.parseInt(cmbNam.getSelectedItem().toString())) {
+            btnTinhLuong.setEnabled(true);
+        } else {
+            btnTinhLuong.setEnabled(false);
+        }
     }//GEN-LAST:event_cmbThangActionPerformed
 
     private void btnXuatBaoCaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatBaoCaoActionPerformed
@@ -353,13 +364,18 @@ public class LuongNhanVienView extends javax.swing.JPanel {
             LocalDate date = LocalDate.parse(tblBangLuong.getValueAt(row, 11).toString());
             int thang = date.getMonthValue();
             int nam = date.getYear();
-
             new ChiTietLuongNhanVien(tblBangLuong.getValueAt(row, 2).toString(), tblBangLuong.getValueAt(row, 3).toString(),
-                    tblBangLuong.getValueAt(row, 9).toString(), tblBangLuong.getValueAt(row, 11).toString().split("-")[1], tblBangLuong.getValueAt(row, 11).toString().split("-")[0]).setVisible(true);
-        }        // TODO add your handling code here:
+                    tblBangLuong.getValueAt(row, 9).toString(), tblBangLuong.getValueAt(row, 11).toString().split("-")[1],
+                    tblBangLuong.getValueAt(row, 11).toString().split("-")[0]).setVisible(true);
+        }
     }//GEN-LAST:event_tblBangLuongMousePressed
     private void cmbNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNamActionPerformed
         taiDuLieuLenBangLuong();
+        if (LocalDate.now().getMonthValue() == Integer.parseInt(cmbThang.getSelectedItem().toString()) && LocalDate.now().getDayOfMonth() == Integer.parseInt(cmbNam.getSelectedItem().toString())) {
+            btnTinhLuong.setEnabled(true);
+        } else {
+            btnTinhLuong.setEnabled(false);
+        }
     }//GEN-LAST:event_cmbNamActionPerformed
 
 
