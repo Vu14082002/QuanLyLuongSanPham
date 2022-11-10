@@ -101,8 +101,8 @@ public class ChamCongCongNhan_DAO {
             Connection con = ConnectionDB.ConnectDB.getConnection();
             String truyVan = "UPDATE ChamCongCongNhan"
                     + " set soLuongLam = ?"
-                    + " , trangThaiDiLam = ?, gioDiLam = ?"
-                    + " where maPhanCong = ?, caLam = ?, ngayChamCong = ?";
+                    + " ,trangThaiDiLam = ?, gioDiLam = ?"
+                    + " where maPhanCong = ? AND caLam = ? AND ngayChamCong = ?";
             stm = con.prepareStatement(truyVan);
 
             stm.setInt(1, chamCongCongNhan.getSoLuongLam());
@@ -132,7 +132,7 @@ public class ChamCongCongNhan_DAO {
         try {
             ConnectionDB.ConnectDB.getInstance();
             Connection con = ConnectionDB.ConnectDB.getConnection();
-            String truyVan = "delete from ChamCongCongNhan where maPhanCong = ?, caLam = ?, ngayChamCong = ?";
+            String truyVan = "delete from ChamCongCongNhan where maPhanCong = ? and caLam = ? and ngayChamCong = ?";
             stm = con.prepareStatement(truyVan);
             stm.setString(1, maPhanCong);
             stm.setString(2, caLam);

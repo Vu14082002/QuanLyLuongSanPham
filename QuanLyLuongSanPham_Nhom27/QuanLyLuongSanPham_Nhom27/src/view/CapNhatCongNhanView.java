@@ -4,9 +4,11 @@
  */
 package view;
 
+
 import DAO.CongNhan_DAO;
 import DAO.ToNhom_DAO;
 import Entity.CongNhan;
+import Entity.HopDong;
 import Entity.ToNhom;
 import java.awt.Color;
 import java.awt.Font;
@@ -15,17 +17,27 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -490,6 +502,11 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
         btnThem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/add.png"))); // NOI18N
         btnThem1.setText("Thêm nhiều");
         btnThem1.setBorder(null);
+        btnThem1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnThem1MouseClicked(evt);
+            }
+        });
         btnThem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThem1ActionPerformed(evt);
@@ -542,6 +559,120 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
     private void btnThem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnThem1ActionPerformed
+
+    private void btnThem1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThem1MouseClicked
+        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser("d:");
+        //        int respone=fileChooser.showOpenDialog(null);
+        fileChooser.setCurrentDirectory(new File(".\\src\\ExcelFile"));
+        fileChooser.removeChoosableFileFilter(fileChooser.getFileFilter());
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel File (.xlsx)", "xlsx");
+        fileChooser.setFileFilter(filter);
+        int count = 0, total = 0;
+        int respone = fileChooser.showSaveDialog(null);
+        if (respone == JFileChooser.APPROVE_OPTION) {
+            File inputFile = fileChooser.getSelectedFile();
+
+            try ( FileInputStream in = new FileInputStream(inputFile)) {
+                XSSFWorkbook importedFile = new XSSFWorkbook(in);
+                XSSFSheet sheet1 = importedFile.getSheetAt(0);
+                Iterator<Row> rowIterator = sheet1.iterator();
+                while (rowIterator.hasNext()) {
+                    total++;
+                    Row row = rowIterator.next();
+                    Iterator<Cell> cellItera = row.cellIterator();
+                    // khai báo biến 
+                    try {
+                        String hoTen = "", maCCCD = "", soDienThoai = "", email = "", matKhau = "111111", anhDaiDien = "", diaChi="";
+                        String maToNhom = "";
+                        Date ngaySinh = new Date(), ngayVaoLam = new Date();
+                        Boolean gioiTinh = false;
+                        while (cellItera.hasNext()) {
+                            Cell cell = cellItera.next();
+                            if (row.getRowNum() == 0) {
+                                continue;
+                            } else {
+                                if (cell.getColumnIndex() == 0) {
+                                    hoTen = cell.getStringCellValue();
+                                    System.out.println("HoTen" + hoTen);
+                                } else if (cell.getColumnIndex() == 1) {
+                                   String chuoiNgaySinh = cell.getStringCellValue();
+                                    try {
+                                        ngaySinh = new SimpleDateFormat("yyyy-MM-dd").parse(chuoiNgaySinh);
+                                        System.out.println("Ngay Sinh" + ngaySinh);
+                                    } catch (ParseException ex) {
+                                        System.out.println(ex.getMessage());
+                                    }
+                                } else if (cell.getColumnIndex() == 2) {
+                                   maCCCD = cell.getStringCellValue();
+                                    System.out.println("Ma cccd" + maCCCD);
+                                } else if (cell.getColumnIndex() == 3) {
+                                   soDienThoai = cell.getStringCellValue();
+                                    System.out.println("sdt" + soDienThoai);
+                                } else if (cell.getColumnIndex() == 4) {
+                                   email = cell.getStringCellValue();
+                                    System.out.println("email" + email);
+                                } else if (cell.getColumnIndex() == 5) {
+                                    int matKhauInt = (int)cell.getNumericCellValue();
+                                    matKhau = matKhauInt +"";
+                                    System.out.println("mat khau" + matKhau);
+                                } else if (cell.getColumnIndex() == 6) {
+                                    String gioiTinhStr = cell.getStringCellValue();
+                                    if (gioiTinhStr.equalsIgnoreCase("Nữ") || gioiTinhStr.equalsIgnoreCase("Nu")){
+                                        gioiTinh = false;
+                                    } else {
+                                        gioiTinh = true;
+                                    }
+                                    System.out.println("gt" + gioiTinh);
+                                } else if (cell.getColumnIndex() == 7) {
+                                    anhDaiDien = cell.getStringCellValue();
+                                    System.out.println("anh d d" + anhDaiDien);
+                                } else if (cell.getColumnIndex() == 8) {
+                                    diaChi = cell.getStringCellValue();
+                                    System.out.println("dia chi" + diaChi);
+                                } else if (cell.getColumnIndex() == 9) {
+                                    String chuoiNgayVaoLam = cell.getStringCellValue();
+                                    try {
+                                        ngayVaoLam = new SimpleDateFormat("yyyy-MM-dd").parse(chuoiNgayVaoLam);
+                                    } catch (ParseException ex) {
+                                        System.out.println(ex.getMessage());
+                                    }
+                                    System.out.println("nvl " + ngayVaoLam);
+                                } else if (cell.getColumnIndex()== 10){
+                                    maToNhom = cell.getStringCellValue();
+                                }
+                            }
+
+                        }
+                        
+                        String maCongNhan = congNhan_DAO.layRaMaCongNhanDeThem();
+                        ToNhom toNhom = toNhom_DAO.layMotToNhomTheoMa(maToNhom);
+                        boolean coThemDuoc = 
+                                congNhan_DAO.themMotCongNhan(new CongNhan(maCongNhan, hoTen, ngaySinh, maCCCD, 
+                                        soDienThoai, email, matKhau, ngayVaoLam, gioiTinh, anhDaiDien, diaChi, toNhom));
+                        if (coThemDuoc) {
+                            count++;
+                        }
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
+                in.close();
+                JOptionPane.showMessageDialog(null, "Thêm thành công " + count + " trên " + (--total) + " công nhân!");
+            } catch (FileNotFoundException ex) {
+                JOptionPane.showMessageDialog(null, "Lỗi không tìm thấy file", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "Lỗi không đọc được file", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            }
+            if (count != 0){
+                try {
+                    hienThiDuLieuLen();
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }
+    }//GEN-LAST:event_btnThem1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -747,8 +878,8 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
         if (soDienThoai.equals("")) {
             lblErrSoDienThoai.setText("Số điện thoại không được trông!");
             flag = false;
-        } else if (!soDienThoai.matches("^[0][0-9]{9}$")) {
-            lblErrSoDienThoai.setText("Số điện thoại 10 kí số, bắt đầu = 0");
+        } else if (!soDienThoai.matches("^\\+84[1-9][0-9]{8}$")) {
+            lblErrSoDienThoai.setText("Bắt đầu: +84, theo sau là 9 kí số");
             flag = false;
         } else {
             lblErrSoDienThoai.setText("");
@@ -809,6 +940,8 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
             int row = tblCongNhan.getSelectedRow();
             if (row != -1) {
                 hienThiLenTxt(row);
+                dongMoTxt(false);
+                dongMoBtnEdit(true);
             }
         }
     }

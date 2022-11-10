@@ -12,6 +12,7 @@ import java.util.Date;
  */
 public class HopDong {
     private String maHopDong;
+    private String tenHopDong;
     private String tenKhachHang;
     private double soTienCoc;
     private double tongTien;
@@ -25,9 +26,11 @@ public class HopDong {
     public HopDong(String maHopDong){
         this.maHopDong=maHopDong;
     }
-    public HopDong(String maHopDong, String tenKhachHang, double soTienCoc, double tongTien, Date ngayKyKet, Date hanChot, String yeuCau) {
+
+    public HopDong(String maHopDong, String tenHopDong, String tenKhachHang, double soTienCoc, double tongTien, Date ngayKyKet, Date hanChot, String yeuCau) {
         try {
             setMaHopDong(maHopDong);
+            setTenHopDong(tenHopDong);
             setTenKhachHang(tenKhachHang);
             setSoTienCoc(soTienCoc);
             setTongTien(tongTien);
@@ -38,7 +41,7 @@ public class HopDong {
             System.out.println(e.getMessage());
         }
     }
-
+    
     public String getMaHopDong() {
         return maHopDong;
     }
@@ -121,10 +124,24 @@ public class HopDong {
         this.yeuCau = yeuCau;
     }
 
+    public String getTenHopDong() {
+        return tenHopDong;
+    }
+
+    public void setTenHopDong(String tenHopDong) throws Exception {
+        if (tenHopDong.equals("")){
+            throw new Exception("Tên hợp đồng không được trống!");
+        } else {
+            this.tenHopDong = tenHopDong;
+        }
+    }
+
     @Override
     public String toString() {
-        return "HopDong{" + "maHopDong=" + maHopDong + ", tenKhachHang=" + tenKhachHang + ", soTienCoc=" + soTienCoc + ", tongTien=" + tongTien + ", ngayKyKet=" + ngayKyKet + ", hanChot=" + hanChot + ", yeuCau=" + yeuCau + '}';
+        return "HopDong{" + "maHopDong=" + maHopDong + ", tenHopDong=" + tenHopDong + ", tenKhachHang=" + tenKhachHang + ", soTienCoc=" + soTienCoc + ", tongTien=" + tongTien + ", ngayKyKet=" + ngayKyKet + ", hanChot=" + hanChot + ", yeuCau=" + yeuCau + '}';
     }
+
+    
     
     
     

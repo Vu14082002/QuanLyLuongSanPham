@@ -348,6 +348,14 @@ public class ToNhomView extends javax.swing.JPanel implements MouseListener, Act
             int row = tblToNhom.getSelectedRow();
             if (row != -1) {
                 hienThiDuLieuLenTxt(row);
+                if (!btnThem.isEnabled()){
+                    btnThem.setEnabled(true);
+                    btnXoa.setEnabled(true);
+                    btnCapNhat.setEnabled(true);
+                    btnLuu.setEnabled(false);
+                    btnHuy.setEnabled(false);
+                    txtTenTo.setEditable(false);
+                }
             }
         }
 

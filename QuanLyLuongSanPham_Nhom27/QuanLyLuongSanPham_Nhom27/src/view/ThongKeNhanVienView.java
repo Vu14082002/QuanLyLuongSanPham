@@ -40,6 +40,7 @@ public class ThongKeNhanVienView extends javax.swing.JPanel {
      * Creates new form NhanVienView
      */
     private DefaultTableModel model;
+
     public ThongKeNhanVienView() {
         initComponents();
         excute();
@@ -52,13 +53,24 @@ public class ThongKeNhanVienView extends javax.swing.JPanel {
 
     public void excute() {
         ButtonGroup btnGroup = new ButtonGroup();
-        model=(DefaultTableModel) tblNhanVien.getModel();
+        model = (DefaultTableModel) tblNhanVien.getModel();
     }
-    
+
     public void showPieChart() {
+        NhanVien_DAO daoNhanVien = new NhanVien_DAO();
+        ArrayList<NhanVien> nhanVienList = daoNhanVien.layDanhSachNhanVien();
+        double soLuongNam = 0;
+        double soLuongNu = 0;
+        for (NhanVien nhanVien : nhanVienList) {
+            if (nhanVien.isGioiTinh()) {
+                soLuongNam++;
+            } else {
+                soLuongNu++;
+            }
+        }
         DefaultPieDataset barDataset = new DefaultPieDataset();
-        barDataset.setValue("Nam", new Double(60));
-        barDataset.setValue("Nữ", new Double(40));
+        barDataset.setValue("Nam", new Double(soLuongNam));
+        barDataset.setValue("Nữ", new Double(soLuongNu));
         JFreeChart piechart = ChartFactory.createPieChart("Giới tính", barDataset, false, true, false);//explain
         PiePlot piePlot = (PiePlot) piechart.getPlot();
         piePlot.setBackgroundPaint(Color.white);
@@ -67,32 +79,34 @@ public class ThongKeNhanVienView extends javax.swing.JPanel {
         pnPieChar.add(barChartPanel, BorderLayout.CENTER);
         pnPieChar.validate();
     }
-    public void taiDuLieuLenBangNhanVien(){
+
+    public void taiDuLieuLenBangNhanVien() {
         NhanVien_DAO daoNhanVien = new NhanVien_DAO();
         ArrayList<NhanVien> nhanVienList = daoNhanVien.layDanhSachNhanVien();
-        while(model.getRowCount()>0){
+        while (model.getRowCount() > 0) {
             model.removeRow(0);
         }
-        if(nhanVienList!=null){
-            nhanVienList.forEach(e->{
-                model.addRow(new Object[]{model.getRowCount()+1,e.getMaNhanVien(),e.getHoTen(),e.isGioiTinh()?"Nam":"Nữ",e.getPhongBan().getTenPhongBan(),e.getChucVu()});
+        if (nhanVienList != null) {
+            nhanVienList.forEach(e -> {
+                model.addRow(new Object[]{model.getRowCount() + 1, e.getMaNhanVien(), e.getHoTen(), e.isGioiTinh() ? "Nam" : "Nữ", e.getPhongBan().getTenPhongBan(), e.getChucVu()});
             });
         }
     }
+
     public void showLineChart() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.setValue(200,"Amount","1");
-        dataset.setValue(150,"Amount","2");
-        dataset.setValue(18,"Amount","3");
-        dataset.setValue(100,"Amount","4");
-        dataset.setValue(80,"Amount","5");
-        dataset.setValue(250,"Amount","6");
-        dataset.setValue(250,"Amount","7");
-        dataset.setValue(250,"Amount","8");
-        dataset.setValue(250,"Amount","9");
-        dataset.setValue(250,"Amount","10");
-        dataset.setValue(250,"Amount","11");
-        dataset.setValue(250,"Amount","12");
+        dataset.setValue(200, "Amount", "1");
+        dataset.setValue(150, "Amount", "2");
+        dataset.setValue(18, "Amount", "3");
+        dataset.setValue(100, "Amount", "4");
+        dataset.setValue(80, "Amount", "5");
+        dataset.setValue(250, "Amount", "6");
+        dataset.setValue(250, "Amount", "7");
+        dataset.setValue(250, "Amount", "8");
+        dataset.setValue(250, "Amount", "9");
+        dataset.setValue(250, "Amount", "10");
+        dataset.setValue(250, "Amount", "11");
+        dataset.setValue(250, "Amount", "12");
         JFreeChart linechart = ChartFactory.createLineChart("Line char", "Tháng", "Số tiền",
                 dataset, PlotOrientation.VERTICAL, false, true, false);
         CategoryPlot lineCategoryPlot = linechart.getCategoryPlot();
@@ -124,7 +138,7 @@ public class ThongKeNhanVienView extends javax.swing.JPanel {
         HistogramDataset dataset = new HistogramDataset();
         dataset.addSeries("key", values, 20);
 
-        JFreeChart chart = ChartFactory.createHistogram("JFreeChart Histogram", "Data", "Frequency", dataset, PlotOrientation.VERTICAL, false, true, false);
+        JFreeChart chart = ChartFactory.createHistogram("Thống kê nhân viên theo phòng ban", "Phòng Ban", "Số lượng nhân viên", dataset, PlotOrientation.VERTICAL, false, true, false);
         XYPlot plot = chart.getXYPlot();
         plot.setBackgroundPaint(Color.WHITE);
 

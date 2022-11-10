@@ -518,23 +518,6 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
         txtSoLuongCanLam.setEditable(kq);
     }
 
-//    public void phanCong1() {
-//        ToNhom_DAO daoToNhom = new ToNhom_DAO();
-//        ArrayList<ToNhom> toNhomList = daoToNhom.layDanhSachToNhom();
-//        cmbToNhom.removeAllItems();
-//        toNhomList.forEach(e -> {
-//            if (e.getSoLuongCongNhan() > 0) {
-//                cmbToNhom.addItem(e.getTenToNhom());
-//            }
-//        });
-//        ArrayList<PhanCongCongNhan> listPhanCong = daoPhanCong.layDanhSachPhanCongCongNhan();
-//        SanPham sp = daoSanPham.layMotSanPhamTheoMa(tblSanPham.getValueAt(tblSanPham.getSelectedRow(), 1).toString());
-//        ArrayList<CongDoan> listCongDoan = daoCongDoan.layDanhSachCongDoanTheoMaSP(sp.getMaSanPham());
-//        cmbMaCongDoan.removeAllItems();
-//        for (CongDoan congDoan : listCongDoan) {
-//            cmbMaCongDoan.addItem(congDoan.getMaCongDoan());
-//        }
-//    }
     private void tblPhanCongMouseClicked(java.awt.event.MouseEvent evt) {                                         
         ToNhom_DAO daoToNhom = new ToNhom_DAO();
         ArrayList<ToNhom> toNhomList = daoToNhom.layDanhSachToNhom();

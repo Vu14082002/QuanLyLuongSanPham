@@ -70,7 +70,6 @@ public class TimKiemSanPhamView extends javax.swing.JPanel implements ActionList
         for (SanPham sanPham : dsSanPham) {
             if (!ma.equalsIgnoreCase("all") || !ten.equalsIgnoreCase("all")
                     || !kichThuoc.equalsIgnoreCase("all") || !chatLieu.equalsIgnoreCase("all")) {
-                System.out.println("Ma: " + ma + " " + ten + " " + kichThuoc + " " + chatLieu);
                 boolean flag = true;
                 if (!ma.equalsIgnoreCase("all") && !sanPham.getMaSanPham().equalsIgnoreCase(ma)) {
                     flag = false;
@@ -126,9 +125,10 @@ public class TimKiemSanPhamView extends javax.swing.JPanel implements ActionList
         lblMaSanPham = new javax.swing.JLabel();
         btnTimKiem = new javax.swing.JButton();
         lblChatLieu = new javax.swing.JLabel();
-        cmbChatLieu = new javax.swing.JComboBox<>();
         lblKichThuoc = new javax.swing.JLabel();
         cmbKichThuoc = new javax.swing.JComboBox<>();
+        lblBorderMaSP2 = new javax.swing.JLabel();
+        txtChatLieu = new javax.swing.JTextField();
 
         setPreferredSize(new java.awt.Dimension(1200, 700));
         setLayout(new java.awt.BorderLayout());
@@ -178,19 +178,24 @@ public class TimKiemSanPhamView extends javax.swing.JPanel implements ActionList
         jPanel5.add(txtTenSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 40, 270, 40));
 
         lblTenSanPham.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        lblTenSanPham.setText("Tên sản phẩm");
+        lblTenSanPham.setText("Tên sản phẩm:");
         jPanel5.add(lblTenSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 50, 140, 40));
 
         lblBorderMaSP.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lblBorderMaSP.setText("_______________________________");
-        jPanel5.add(lblBorderMaSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 60, 290, 20));
+        jPanel5.add(lblBorderMaSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 110, 290, 30));
 
         txtMaSanPham.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         txtMaSanPham.setBorder(null);
-        jPanel5.add(txtMaSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, 270, 40));
+        txtMaSanPham.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMaSanPhamActionPerformed(evt);
+            }
+        });
+        jPanel5.add(txtMaSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, 270, 40));
 
         lblMaSanPham.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        lblMaSanPham.setText("Mã sản phẩm");
+        lblMaSanPham.setText("Mã sản phẩm:");
         jPanel5.add(lblMaSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 140, 40));
 
         btnTimKiem.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -207,19 +212,22 @@ public class TimKiemSanPhamView extends javax.swing.JPanel implements ActionList
         lblChatLieu.setText("Chất liệu:");
         jPanel5.add(lblChatLieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 110, 140, 40));
 
-        cmbChatLieu.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        cmbChatLieu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Vải Polyester", "Nylon", "Vải 210D", "Vải 420D", "Vải 600D", "Vải 900D", "Vải canvas", "Vải nỉ", "Vải Siminli", "Vải cotton", "Vải kaki", "Vải jeans", "Vải kate", "Vải len", " " }));
-        cmbChatLieu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel5.add(cmbChatLieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 110, 200, 40));
-
         lblKichThuoc.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lblKichThuoc.setText("Kích thước");
-        jPanel5.add(lblKichThuoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 110, 140, 40));
+        jPanel5.add(lblKichThuoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 110, 140, 40));
 
         cmbKichThuoc.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         cmbKichThuoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", " " }));
         cmbKichThuoc.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel5.add(cmbKichThuoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 110, 200, 40));
+
+        lblBorderMaSP2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lblBorderMaSP2.setText("_______________________________");
+        jPanel5.add(lblBorderMaSP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 60, 290, 20));
+
+        txtChatLieu.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtChatLieu.setBorder(null);
+        jPanel5.add(txtChatLieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 90, 270, 40));
 
         add(jPanel5, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
@@ -228,13 +236,17 @@ public class TimKiemSanPhamView extends javax.swing.JPanel implements ActionList
         // TODO add your handling code here:
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
+    private void txtMaSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaSanPhamActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMaSanPhamActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTimKiem;
-    private javax.swing.JComboBox<String> cmbChatLieu;
     private javax.swing.JComboBox<String> cmbKichThuoc;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JLabel lblBorderMaSP;
+    private javax.swing.JLabel lblBorderMaSP2;
     private javax.swing.JLabel lblBorderTenSp;
     private javax.swing.JLabel lblChatLieu;
     private javax.swing.JLabel lblErrTenSanPham;
@@ -243,6 +255,7 @@ public class TimKiemSanPhamView extends javax.swing.JPanel implements ActionList
     private javax.swing.JLabel lblTenSanPham;
     private javax.swing.JScrollPane srcTableSanPham;
     private javax.swing.JTable tblSanPham;
+    private javax.swing.JTextField txtChatLieu;
     private javax.swing.JTextField txtMaSanPham;
     private javax.swing.JTextField txtTenSanPham;
     // End of variables declaration//GEN-END:variables
@@ -253,7 +266,7 @@ public class TimKiemSanPhamView extends javax.swing.JPanel implements ActionList
         if (o.equals(btnTimKiem)){
             String maSanPham = txtMaSanPham.getText().trim();
             String tenSanPham = txtTenSanPham.getText().trim();
-            String chatLieu = cmbChatLieu.getSelectedItem().toString();
+            String chatLieu = txtChatLieu.getText().trim();
             String kichThuoc = cmbKichThuoc.getSelectedItem().toString();
             if (maSanPham.equalsIgnoreCase("")){
                 maSanPham = "all";
@@ -261,7 +274,7 @@ public class TimKiemSanPhamView extends javax.swing.JPanel implements ActionList
             if (tenSanPham.equalsIgnoreCase("")){
                 tenSanPham = "all";
             }
-            if (chatLieu.equalsIgnoreCase("Tất cả")){
+            if (chatLieu.equalsIgnoreCase("")){
                 chatLieu = "all";
             }
             if (kichThuoc.equalsIgnoreCase("Tất cả")){

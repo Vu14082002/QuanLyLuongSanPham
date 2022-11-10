@@ -7,6 +7,7 @@ package view;
 import DAO.CongDoan_DAO;
 import DAO.SanPham_DAO;
 import Entity.CongDoan;
+import Entity.HopDong;
 import Entity.SanPham;
 import java.awt.Color;
 import java.awt.Font;
@@ -14,20 +15,31 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -81,7 +93,7 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
         lblErrSoLuongCan.setText("");
         lblErrThoiHan.setText("");
         lblErrTenCongDoan1.setText("");
-
+        lblErrThuTuLam.setText("");
         moKhoaTextField(false);
 
         excute();
@@ -147,7 +159,7 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
         while (tblCongDoan.getRowCount() != 0) {
             modelTableCongDoan.removeRow(0);
         }
-        
+
         // cột 1 là cột mã sản phẩm
         String maSanPham = tblDanhSachSanPham.getValueAt(tblDanhSachSanPham.getSelectedRow(), 1).toString();
         ArrayList<CongDoan> dsCongDoan = congDoan_DAO.layDanhSachCongDoanTheoMaSP(maSanPham);
@@ -155,7 +167,7 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
             String maCongDoan = congDoan.getMaCongDoan();
             String data[] = {(modelTableCongDoan.getRowCount() + 1) + "", congDoan.getMaCongDoan(), congDoan.getTenCongDoan(),
                 congDoan.getSoLuongCan() + "", congDoan_DAO.laySoLuongLamDuocTheoMaCongDoan(maCongDoan) + "", nf.format(congDoan.getTienLuong()), congDoan.getThoiHan().toString(),
-                String.format("%.2f", congDoan_DAO.layMucDoHoanThanhCuaMotCongDoan(maCongDoan))+"%"};
+                String.format("%.2f", congDoan_DAO.layMucDoHoanThanhCuaMotCongDoan(maCongDoan)) + "%"};
             modelTableCongDoan.addRow(data);
         }
         if (tblCongDoan.getRowCount() != 0) {
@@ -169,6 +181,7 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
 
     public void hienThiCongDoanLenTxt(int row) {
         if (row != -1) {
+            txtSoThuTuLam.setText(tblCongDoan.getValueAt(row, 0).toString());
             double luongTrenSanPham = 0;
             try {
                 luongTrenSanPham = nf.parse(tblCongDoan.getValueAt(row, 5).toString()).doubleValue();
@@ -227,7 +240,10 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
         btnHuy = new javax.swing.JButton();
         lblErrTenCongDoan1 = new javax.swing.JLabel();
         lblThoiHan = new javax.swing.JLabel();
-        cmbSoThuTuCongDoan = new javax.swing.JComboBox<>();
+        btnThemNhieu = new javax.swing.JButton();
+        txtSoThuTuLam = new javax.swing.JTextField();
+        jSeparator5 = new javax.swing.JSeparator();
+        lblErrThuTuLam = new javax.swing.JLabel();
         scrTableCongDoan = new javax.swing.JScrollPane();
         tblCongDoan = new javax.swing.JTable();
 
@@ -297,23 +313,23 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
                 txtTenCongDoanActionPerformed(evt);
             }
         });
-        jPanel5.add(txtTenCongDoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 160, 150, 30));
+        jPanel5.add(txtTenCongDoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 170, 150, 20));
 
         lblErrThoiHan.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lblErrThoiHan.setForeground(new java.awt.Color(204, 0, 0));
         lblErrThoiHan.setText("đây là dòng thông báo lỗi");
-        jPanel5.add(lblErrThoiHan, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 380, 190, -1));
+        jPanel5.add(lblErrThoiHan, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 350, 190, -1));
 
         txtSoLuongCan.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         txtSoLuongCan.setText("0");
         txtSoLuongCan.setBorder(null);
-        jPanel5.add(txtSoLuongCan, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 230, 150, 30));
-        jPanel5.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 260, 180, 10));
+        jPanel5.add(txtSoLuongCan, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 220, 150, 20));
+        jPanel5.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 240, 180, 20));
 
         lblErrSoLuongCan.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lblErrSoLuongCan.setForeground(new java.awt.Color(204, 0, 0));
         lblErrSoLuongCan.setText("đây là dòng thông báo lỗi");
-        jPanel5.add(lblErrSoLuongCan, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 270, 190, -1));
+        jPanel5.add(lblErrSoLuongCan, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 240, 190, -1));
 
         lblMaCongDoan.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lblMaCongDoan.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -328,29 +344,29 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
         lblSoLuongCan.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lblSoLuongCan.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblSoLuongCan.setText("Số lượng cần:");
-        jPanel5.add(lblSoLuongCan, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 220, 170, 40));
+        jPanel5.add(lblSoLuongCan, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 210, 170, 40));
 
         lblSoThuTuCongDoan.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lblSoThuTuCongDoan.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblSoThuTuCongDoan.setText("Thứ tự làm:");
-        jPanel5.add(lblSoThuTuCongDoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 400, 170, 40));
+        jPanel5.add(lblSoThuTuCongDoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 370, 170, 40));
 
         txtGiaTien.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         txtGiaTien.setText("0");
         txtGiaTien.setBorder(null);
-        jPanel5.add(txtGiaTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 290, 150, 30));
+        jPanel5.add(txtGiaTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 270, 150, 20));
 
         lblErrLuongSP.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lblErrLuongSP.setForeground(new java.awt.Color(204, 0, 0));
         lblErrLuongSP.setText("đây là dòng thông báo lỗi");
-        jPanel5.add(lblErrLuongSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 320, 190, -1));
-        jPanel5.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 320, 180, 10));
+        jPanel5.add(lblErrLuongSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 290, 190, -1));
+        jPanel5.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 290, 180, 10));
 
         lblGiaTien.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lblGiaTien.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblGiaTien.setText("Lương / 1 Sản phẩm:");
-        jPanel5.add(lblGiaTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 280, 170, 40));
-        jPanel5.add(dcsThoiHan, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 350, 190, 30));
+        jPanel5.add(lblGiaTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 260, 170, 40));
+        jPanel5.add(dcsThoiHan, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 320, 190, 30));
 
         btnThem.setBackground(new java.awt.Color(46, 204, 113));
         btnThem.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -362,7 +378,7 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
                 btnThemActionPerformed(evt);
             }
         });
-        jPanel5.add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 120, 40));
+        jPanel5.add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 130, 40));
 
         btnXoa.setBackground(new java.awt.Color(41, 128, 185));
         btnXoa.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -376,7 +392,7 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
                 btnXoaActionPerformed(evt);
             }
         });
-        jPanel5.add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 310, 130, 40));
+        jPanel5.add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, 130, 40));
 
         btnCapNhat.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         btnCapNhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/update.png"))); // NOI18N
@@ -389,7 +405,7 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
                 btnCapNhatActionPerformed(evt);
             }
         });
-        jPanel5.add(btnCapNhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 310, 130, 40));
+        jPanel5.add(btnCapNhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 310, 140, 40));
 
         btnLuu.setBackground(new java.awt.Color(156, 136, 255));
         btnLuu.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -403,7 +419,7 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
                 btnLuuActionPerformed(evt);
             }
         });
-        jPanel5.add(btnLuu, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 310, 120, 40));
+        jPanel5.add(btnLuu, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 400, 140, 40));
 
         btnHuy.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         btnHuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/delete.png"))); // NOI18N
@@ -411,20 +427,45 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
         btnHuy.setMaximumSize(new java.awt.Dimension(67, 31));
         btnHuy.setMinimumSize(new java.awt.Dimension(67, 31));
         btnHuy.setPreferredSize(new java.awt.Dimension(67, 31));
-        jPanel5.add(btnHuy, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 310, 140, 40));
+        jPanel5.add(btnHuy, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 400, 140, 40));
 
         lblErrTenCongDoan1.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lblErrTenCongDoan1.setForeground(new java.awt.Color(204, 0, 0));
         lblErrTenCongDoan1.setText("đây là dòng thông báo lỗi");
-        jPanel5.add(lblErrTenCongDoan1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 200, 190, -1));
+        jPanel5.add(lblErrTenCongDoan1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 190, 190, -1));
 
         lblThoiHan.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lblThoiHan.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblThoiHan.setText("Thời hạn:");
-        jPanel5.add(lblThoiHan, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 340, 170, 40));
+        jPanel5.add(lblThoiHan, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 310, 170, 40));
 
-        cmbSoThuTuCongDoan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel5.add(cmbSoThuTuCongDoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 410, 190, -1));
+        btnThemNhieu.setBackground(new java.awt.Color(255, 234, 167));
+        btnThemNhieu.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnThemNhieu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/add.png"))); // NOI18N
+        btnThemNhieu.setText("Thêm nhiều");
+        btnThemNhieu.setBorder(null);
+        btnThemNhieu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnThemNhieuMouseClicked(evt);
+            }
+        });
+        btnThemNhieu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemNhieuActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnThemNhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 310, 140, 40));
+
+        txtSoThuTuLam.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtSoThuTuLam.setText("0");
+        txtSoThuTuLam.setBorder(null);
+        jPanel5.add(txtSoThuTuLam, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 380, 150, 20));
+        jPanel5.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 400, 180, 10));
+
+        lblErrThuTuLam.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lblErrThuTuLam.setForeground(new java.awt.Color(204, 0, 0));
+        lblErrThuTuLam.setText("đây là dòng thông báo lỗi");
+        jPanel5.add(lblErrThuTuLam, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 400, 190, -1));
 
         add(jPanel5, java.awt.BorderLayout.PAGE_START);
 
@@ -440,7 +481,7 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "Mã công đoạn", "Tên  công đoạn", "Số lượng cần làm", "Số lương đã làm", "Mức lương / 1 Sản Phẩm", "Thòi hạn", "Mưc độ hoàn thành (%)"
+                "Thứ tự làm", "Mã công đoạn", "Tên  công đoạn", "Số lượng cần làm", "Số lương đã làm", "Mức lương / 1 Sản Phẩm", "Thòi hạn", "Mưc độ hoàn thành (%)"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -477,23 +518,113 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLuuActionPerformed
 
+    private void btnThemNhieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNhieuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnThemNhieuActionPerformed
+
+    private void btnThemNhieuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemNhieuMouseClicked
+        // TODO add your handling code here:
+        
+        JFileChooser fileChooser = new JFileChooser("d:");
+        //        int respone=fileChooser.showOpenDialog(null);
+        fileChooser.setCurrentDirectory(new File(".\\src\\ExcelFile"));
+        fileChooser.removeChoosableFileFilter(fileChooser.getFileFilter());
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel File (.xlsx)", "xlsx");
+        fileChooser.setFileFilter(filter);
+        int count = 0, total = 0;
+        int respone = fileChooser.showSaveDialog(null);
+        if (respone == JFileChooser.APPROVE_OPTION) {
+            File inputFile = fileChooser.getSelectedFile();
+
+            try ( FileInputStream in = new FileInputStream(inputFile)) {
+                XSSFWorkbook importedFile = new XSSFWorkbook(in);
+                XSSFSheet sheet1 = importedFile.getSheetAt(0);
+                Iterator<Row> rowIterator = sheet1.iterator();
+                while (rowIterator.hasNext()) {
+                    total++;
+                    Row row = rowIterator.next();
+                    Iterator<Cell> cellItera = row.cellIterator();
+                    // khai báo biến 
+                    int thuTuLam = 0, soLuongCan = 0;
+                    String tenCongDoan = "";
+                    Date thoiHan = new Date();
+                    String maSanPham = "";
+                    String tinhTrang = "0%";
+                    double tienLuong = 0f;
+                    try {
+                       
+                        while (cellItera.hasNext()) {
+                            Cell cell = cellItera.next();
+                            if (row.getRowNum() == 0) {
+                                continue;
+                            } else {
+                                if (cell.getColumnIndex() == 0) {
+                                    thuTuLam = (int)cell.getNumericCellValue();
+                                } else if (cell.getColumnIndex() == 1) {
+                                    tenCongDoan = cell.getStringCellValue();
+                                } else if (cell.getColumnIndex() == 2) {
+                                   soLuongCan = (int)cell.getNumericCellValue();
+                                } else if (cell.getColumnIndex() == 3) {
+                                    try {
+                                        String chuoiThoiHan = cell.getStringCellValue();
+                                        thoiHan = new SimpleDateFormat("yyyy-MM-dd").parse(chuoiThoiHan);
+                                    } catch (Exception e) {
+                                        System.out.println(e.getMessage());
+                                    }
+                                } else if (cell.getColumnIndex() == 4) {
+                                    maSanPham = cell.getStringCellValue();
+                                } else if (cell.getColumnIndex() == 5) {
+                                    tienLuong = cell.getNumericCellValue();
+                                } 
+                            }
+                        }
+                        
+                        SanPham sanPham = sanPham_DAO.layMotSanPhamTheoMa(maSanPham);
+                        String maCongDoan = congDoan_DAO.layRaMaCongDoanDeThem();
+                        boolean coThemDuoc = congDoan_DAO.themMotCongDoan(new CongDoan(maCongDoan, thuTuLam, tenCongDoan, soLuongCan, tinhTrang, thoiHan, sanPham, tienLuong));
+                        
+                        if (coThemDuoc) {
+                            count++;
+                        }
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
+                in.close();
+                JOptionPane.showMessageDialog(null, "Thêm thành công " + count + " trên " + (--total) + " công đoạn!");
+            } catch (FileNotFoundException ex) {
+                JOptionPane.showMessageDialog(null, "Lỗi không tìm thấy file", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "Lỗi không đọc được file", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            }
+            if (count != 0){
+                try {
+                    taiDuLieuLenBangCongDoan();
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }
+    }//GEN-LAST:event_btnThemNhieuMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCapNhat;
     private javax.swing.JButton btnHuy;
     private javax.swing.JButton btnLuu;
     private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnThemNhieu;
     private javax.swing.JButton btnXoa;
-    private javax.swing.JComboBox<String> cmbSoThuTuCongDoan;
     private com.toedter.calendar.JDateChooser dcsThoiHan;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JLabel lblErrLuongSP;
     private javax.swing.JLabel lblErrSoLuongCan;
     private javax.swing.JLabel lblErrTenCongDoan1;
     private javax.swing.JLabel lblErrThoiHan;
+    private javax.swing.JLabel lblErrThuTuLam;
     private javax.swing.JLabel lblGiaTien;
     private javax.swing.JLabel lblHienThiMaCongDoan;
     private javax.swing.JLabel lblHienThiMaSP;
@@ -511,6 +642,7 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
     private javax.swing.JTable tblDanhSachSanPham;
     private javax.swing.JTextField txtGiaTien;
     private javax.swing.JTextField txtSoLuongCan;
+    private javax.swing.JTextField txtSoThuTuLam;
     private javax.swing.JTextField txtTenCongDoan;
     // End of variables declaration//GEN-END:variables
 
@@ -527,6 +659,7 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
             btnCapNhat.setEnabled(false);
             btnXoa.setEnabled(false);
             btnThem.setEnabled(false);
+            btnThemNhieu.setEnabled(false);
             btnHuy.setEnabled(true);
             btnLuu.setEnabled(true);
 
@@ -536,6 +669,7 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
             // mở | khóa các btn
             btnCapNhat.setEnabled(false);
             btnXoa.setEnabled(false);
+            btnThemNhieu.setEnabled(false);
             btnThem.setEnabled(false);
             btnHuy.setEnabled(true);
             btnLuu.setEnabled(true);
@@ -552,6 +686,7 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
             btnCapNhat.setEnabled(true);
             btnXoa.setEnabled(true);
             btnThem.setEnabled(true);
+            btnThemNhieu.setEnabled(true);
             btnHuy.setEnabled(false);
             btnLuu.setEnabled(false);
 
@@ -559,6 +694,12 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
             lblErrSoLuongCan.setText("");
             lblErrLuongSP.setText("");
             lblErrThoiHan.setText("");
+            lblErrThuTuLam.setText("");
+
+            if (tblCongDoan.getRowCount() == 0) {
+                btnCapNhat.setEnabled(false);
+                btnXoa.setEnabled(false);
+            }
         } else if (o.equals(btnXoa)) {
             int rowSelected = tblCongDoan.getSelectedRow();
             if (rowSelected != -1) {
@@ -576,7 +717,45 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
         } else if (o.equals(btnLuu)) {
 
             if (oFlag.equals(btnThem)) {
-                boolean kiemTra = kiemTraDuLieuHopLe(btnThem);
+                boolean kiemTra = kiemTraDuLieuHopLe();
+                if (!kiemTra) {
+                    return;
+                }
+                lblErrTenCongDoan1.setText("");
+                lblErrSoLuongCan.setText("");
+                lblErrLuongSP.setText("");
+                lblErrThoiHan.setText("");
+
+                int soLuongCan = 0;
+                double tienLuong = 0;
+                int thuTuLam = 0;
+                String maCongDoan = lblHienThiMaCongDoan.getText();
+                String tenCongDoan = txtTenCongDoan.getText();
+                try {
+                    soLuongCan = Integer.parseInt(txtSoLuongCan.getText());
+                    tienLuong = Double.parseDouble(txtGiaTien.getText());
+                    thuTuLam = Integer.parseInt(txtSoThuTuLam.getText());
+                } catch (Exception e2) {
+                    System.out.println(e2.getMessage());
+                }
+                SanPham sanPham = sanPham_DAO.layMotSanPhamTheoMa(lblHienThiMaSP.getText());
+                boolean coThemDuoc = congDoan_DAO.themMotCongDoan(new CongDoan(maCongDoan, thuTuLam, tenCongDoan, soLuongCan, "0%", dcsThoiHan.getDate(), sanPham, tienLuong));
+                if (coThemDuoc) {
+                    moKhoaTextField(false);
+                    taiDuLieuLenBangCongDoan();
+                    btnCapNhat.setEnabled(true);
+                    btnXoa.setEnabled(true);
+                    btnThem.setEnabled(true);
+                    btnThemNhieu.setEnabled(true);
+                    btnHuy.setEnabled(false);
+                    btnLuu.setEnabled(false);
+                    oFlag = null;
+                    JOptionPane.showMessageDialog(null, "Thêm thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Thêm thất bại!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } else if (oFlag.equals(btnCapNhat)) {
+                boolean kiemTra = kiemTraDuLieuHopLe();
                 if (!kiemTra) {
                     return;
                 }
@@ -585,57 +764,26 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
                 lblErrLuongSP.setText("");
                 lblErrThoiHan.setText("");
                 int soLuongCan = 0;
+                int thuTuLam = 0;
                 double tienLuong = 0;
                 String maCongDoan = lblHienThiMaCongDoan.getText();
                 String tenCongDoan = txtTenCongDoan.getText();
                 try {
                     soLuongCan = Integer.parseInt(txtSoLuongCan.getText());
                     tienLuong = Double.parseDouble(txtGiaTien.getText());
+                    thuTuLam = Integer.parseInt(txtSoThuTuLam.getText());
                 } catch (Exception e2) {
                     System.out.println(e2.getMessage());
                 }
                 SanPham sanPham = sanPham_DAO.layMotSanPhamTheoMa(lblHienThiMaSP.getText());
-                boolean coThemDuoc = congDoan_DAO.themMotCongDoan(new CongDoan(maCongDoan,cmbSoThuTuCongDoan.getSelectedIndex() ,tenCongDoan, soLuongCan, "0%", dcsThoiHan.getDate(), sanPham, tienLuong));
-                if (coThemDuoc) {
-                    moKhoaTextField(false);
-                    taiDuLieuLenBangCongDoan();
-                    btnCapNhat.setEnabled(true);
-                    btnXoa.setEnabled(true);
-                    btnThem.setEnabled(true);
-                    btnHuy.setEnabled(false);
-                    btnLuu.setEnabled(false);
-                    oFlag = null;
-                    JOptionPane.showMessageDialog(null, "Thêm thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Thêm thất bại!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                }
-            } else if (oFlag.equals(btnCapNhat)){
-                boolean kiemTra = kiemTraDuLieuHopLe(btnCapNhat);
-                if (!kiemTra){
-                    return;
-                }
-                lblErrTenCongDoan1.setText("");
-                lblErrSoLuongCan.setText("");
-                lblErrLuongSP.setText("");
-                lblErrThoiHan.setText("");
-                int soLuongCan = 0;
-                double tienLuong = 0;
-                String maCongDoan = lblHienThiMaCongDoan.getText();
-                String tenCongDoan = txtTenCongDoan.getText();
-                try {
-                    soLuongCan = Integer.parseInt(txtSoLuongCan.getText());
-                    tienLuong = Double.parseDouble(txtGiaTien.getText());
-                } catch (Exception e2) {
-                    System.out.println(e2.getMessage());
-                }
-                SanPham sanPham = sanPham_DAO.layMotSanPhamTheoMa(lblHienThiMaSP.getText());
-                boolean coSuaDuoc = congDoan_DAO.suaMotCongDoan(new CongDoan(maCongDoan, cmbSoThuTuCongDoan.getSelectedIndex(),tenCongDoan, soLuongCan, "0%", dcsThoiHan.getDate(), sanPham, tienLuong));
+                boolean coSuaDuoc = congDoan_DAO.suaMotCongDoan(new CongDoan(maCongDoan, thuTuLam, tenCongDoan, soLuongCan, "0%", dcsThoiHan.getDate(), sanPham, tienLuong));
                 if (coSuaDuoc) {
                     moKhoaTextField(false);
                     taiDuLieuLenBangCongDoan();
                     btnCapNhat.setEnabled(true);
                     btnXoa.setEnabled(true);
                     btnThem.setEnabled(true);
+                    btnThemNhieu.setEnabled(true);
                     btnHuy.setEnabled(false);
                     btnLuu.setEnabled(false);
                     oFlag = null;
@@ -644,15 +792,16 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
                     JOptionPane.showMessageDialog(null, "Cập nhật thất bại!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
-            
+
         }
     }
 
-    public boolean kiemTraDuLieuHopLe(JButton btnTemp) {
+    public boolean kiemTraDuLieuHopLe() {
         boolean flag = true;
         int soLuongCan = 0;
         double luongSanPham = 0;
-        
+        int thuTuLam = 0;
+
         if (!txtTenCongDoan.getText().matches("^[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯưẠ-ỹ]{2,}(\\s[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯưẠ-ỹ]{1,})*$")) {
             lblErrTenCongDoan1.setText("Chỉ chứa kí tự chữ");
             flag = false;
@@ -665,7 +814,8 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
             lblErrSoLuongCan.setText("Chỉ chứa kí tự số");
             flag = false;
         }
-        if (soLuongCan > 0){
+
+        if (soLuongCan > 0) {
             lblErrSoLuongCan.setText("");
         }
         if (soLuongCan <= 0) {
@@ -674,47 +824,66 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
         } else {
             lblErrSoLuongCan.setText("");
         }
+        SanPham sanPham = sanPham_DAO.layMotSanPhamTheoMa(lblHienThiMaSP.getText());
+        System.out.println(sanPham.getSoLuongSanPham());
+        if (soLuongCan < sanPham.getSoLuongSanPham()){
+            lblErrSoLuongCan.setText("Số lượng làm phải >= "+ sanPham.getSoLuongSanPham());
+            flag = false;
+        } else {
+            lblErrSoLuongCan.setText("");
+        }
+        try {
+            thuTuLam = Integer.parseInt(txtSoThuTuLam.getText());
+        } catch (Exception e) {
+            lblErrThuTuLam.setText("Phải là số nguyên");
+            flag = false;
+        }
+        if (thuTuLam > 0) {
+            lblErrThuTuLam.setText("");
+        } else {
+            lblErrThuTuLam.setText("Thứ tự làm phải >= 1");
+            flag = false;
+        }
+        if (dcsThoiHan.getDate().before(new Date())) {
+            lblErrThoiHan.setText("Phải bằng hoặc sau ngày hiện tại");
+            flag = false;
+        } else {
+            lblErrThoiHan.setText("");
+        }
         try {
             luongSanPham = Double.parseDouble(txtGiaTien.getText());
         } catch (Exception e) {
             lblErrLuongSP.setText("Tiền lương phải là số");
             flag = false;
         }
-        if (luongSanPham > 0){
+        if (luongSanPham > 0) {
             lblErrLuongSP.setText("");
         }
         if (luongSanPham <= 0) {
             lblErrLuongSP.setText("Tiền lương không được <= 0");
             flag = false;
         }
-        if (btnTemp.equals(btnThem)) {
-            if (!dcsThoiHan.getDate().after(new Date())) {
-                lblErrThoiHan.setText("Thời hạn phải sau ngày hiện tại");
-                flag = false;
-            } else {
-                lblErrThoiHan.setText("");
-            }
-            
-        } 
+
         // kiểm tra rỗng
-        if (txtTenCongDoan.getText().equals("")){
+        if (txtTenCongDoan.getText().equals("")) {
             lblErrTenCongDoan1.setText("Không được để trống!");
             flag = false;
         }
-        if (txtGiaTien.getText().equals("")){
+        if (txtGiaTien.getText().equals("")) {
             lblErrLuongSP.setText("Không được để trống!");
             flag = false;
         }
-        if (txtSoLuongCan.getText().equals("")){
+        if (txtSoLuongCan.getText().equals("")) {
             lblErrSoLuongCan.setText("Không được để trống!");
             flag = false;
         }
-        
+
         return flag;
     }
 
     public void xoaTrangTextField() {
         txtTenCongDoan.setText("");
+        txtSoThuTuLam.setText("");
         txtSoLuongCan.setText("");
         txtGiaTien.setText("");
         dcsThoiHan.setDate(new Date());
@@ -728,10 +897,18 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
             int rowSelected = tblCongDoan.getSelectedRow();
             if (rowSelected != -1) {
                 hienThiCongDoanLenTxt(rowSelected);
+                moKhoaTextField(false);
+                btnCapNhat.setEnabled(true);
+                btnXoa.setEnabled(true);
+                btnThem.setEnabled(true);
+                btnThemNhieu.setEnabled(true);
+                btnHuy.setEnabled(false);
+                btnLuu.setEnabled(false);
+
             }
         } else if (o.equals(tblDanhSachSanPham)) {
             int rowSelected = tblDanhSachSanPham.getSelectedRow();
-            
+
             if (rowSelected != -1) {
                 taiDuLieuLenBangCongDoan();
                 hienThiSanPhamLenTxt(rowSelected);
@@ -742,7 +919,7 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
                     xoaTrangTextField();
                 }
             }
-            if (tblCongDoan.getRowCount() == 0){
+            if (tblCongDoan.getRowCount() == 0) {
                 btnCapNhat.setEnabled(false);
                 btnXoa.setEnabled(false);
             } else {

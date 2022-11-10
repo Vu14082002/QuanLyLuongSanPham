@@ -60,6 +60,42 @@ public class SanPham_DAO {
         return dsSanPham;
     }
 
+    public ArrayList<SanPham> layDanhSachSanPhamTheoMaHopDong(String maHopDongTemp) {
+        PreparedStatement stm = null;
+        ArrayList<SanPham> dsSanPham = new ArrayList<SanPham>();
+        HopDong_DAO hopDong_DAO = new HopDong_DAO();
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String truyVan = "select * from SanPham where maHopDong = ?";
+            stm = con.prepareStatement(truyVan);
+            stm.setString(1, maHopDongTemp);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                String maSanPham = rs.getString("maSanPham");
+                String maHopDong = rs.getString("maHopDong");
+                String tenSanPham = rs.getString("tenSanPham");
+                int soLuongSanPham = rs.getInt("soLuongSanPham");
+                String mauSac = rs.getString("mauSac");
+                String chatLieu = rs.getString("chatLieu");
+                int kichThuoc = rs.getInt("kichThuoc");
+                String anhSanPham = rs.getString("anhSanPham");
+                int soLuongCongDoan = rs.getInt("soLuongCongDoan");
+                HopDong hopDong = hopDong_DAO.layRaMotHopDongTheoMaHopDong(maHopDong);
+                dsSanPham.add(new SanPham(maSanPham, tenSanPham, soLuongSanPham, mauSac, chatLieu, kichThuoc, anhSanPham, soLuongCongDoan, hopDong));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                stm.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return dsSanPham;
+    }
+
     public SanPham layMotSanPhamTheoMa(String maSanPham) {
         PreparedStatement stm = null;
         SanPham sanPham = null;
@@ -130,10 +166,11 @@ public class SanPham_DAO {
     public boolean suaMotSanPham(SanPham sanPham) {
         PreparedStatement stm = null;
         int soLuongSuaDuoc = 0;
+        System.out.println(sanPham.toString());
         try {
             ConnectionDB.ConnectDB.getInstance();
             Connection con = ConnectionDB.ConnectDB.getConnection();
-            String truyVan = " UPDATE SanPham"
+            String truyVan = "UPDATE SanPham"
                     + " set tenSanPham = ?, maHopDong = ?, soLuongSanPham = ?,"
                     + " mauSac = ?, chatLieu = ?, kichThuoc = ?,"
                     + " anhSanPham = ?"
@@ -184,7 +221,7 @@ public class SanPham_DAO {
         return soLuongXoaDuoc != 0;
     }
 
-    public String layMaSanPhamDeThem(){
+    public String layMaSanPhamDeThem() {
         Statement stm = null;
         String maSanPham = "";
         try {
@@ -199,7 +236,7 @@ public class SanPham_DAO {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        if (maSanPham == null || maSanPham.equals("")){
+        if (maSanPham == null || maSanPham.equals("")) {
             return "SP100001";
         }
         String chuoiCanLay = maSanPham.split("SP")[1];
@@ -212,6 +249,7 @@ public class SanPham_DAO {
 
         return chuoiCanLay;
     }
+
     public static void main(String[] args) {
         try {
             System.setOut(new PrintStream(System.out, true, "UTF8"));
@@ -234,5 +272,5 @@ public class SanPham_DAO {
 //        System.out.println("\n\n\n Danh sách: " + dao.layDanhSachSanPham().toString());
 //        System.out.println("\n\n\n Lấy 1: " + dao.layMotSanPhamTheoMa("SP123123").toString());
     }
-    
+
 }

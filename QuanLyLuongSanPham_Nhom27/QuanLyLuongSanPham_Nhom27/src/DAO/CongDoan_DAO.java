@@ -40,7 +40,7 @@ public class CongDoan_DAO {
         try {
             ConnectionDB.ConnectDB.getInstance();
             Connection con = ConnectionDB.ConnectDB.getConnection();
-            String truyVan = "SELECT * FROM CongDoan WHERE maSanPham = ?";
+            String truyVan = "SELECT * FROM CongDoan WHERE maSanPham = ? order by thuTu ";
             stm = con.prepareStatement(truyVan);
             stm.setString(1, maSanPham);
             ResultSet rs = stm.executeQuery();
@@ -307,6 +307,45 @@ public class CongDoan_DAO {
         }
 
         return chuoiCanLay;
+    }
+
+    public ArrayList<CongDoan> layDanhSachCongDoanTheoToNhomLam(String maToNhom) {
+        PreparedStatement stm = null;
+        ArrayList<CongDoan> dsCongDoan = new ArrayList<CongDoan>();
+        SanPham_DAO sanPham_DAO = new SanPham_DAO();
+        String tinhTrangKoLay = "100%";
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String truyVan = "select CD.maCongDoan, thuTu, tenCongDoan, soLuongCan, tinhTrang, thoiHan, maSanPham, tienLuong  from CongDoan CD join PhanCongCongNhan PCCC on CD.maCongDoan = PCCC.maCongDoan"
+                    + " where PCCC.maToNhom = ? and tinhTrang != ?"
+                    + " GROUP by CD.maCongDoan, thuTu, tenCongDoan, soLuongCan, tinhTrang, thoiHan, maSanPham, tienLuong";
+            stm = con.prepareStatement(truyVan);
+            stm.setString(1, maToNhom);
+            stm.setString(2, tinhTrangKoLay);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                String maCongDoan = rs.getString("maCongDoan");
+                int thuTuCongDoan = rs.getInt("thuTu");
+                String tenCongDoan = rs.getString("tenCongDoan");
+                int soLuongCan = rs.getInt("soLuongCan");
+                String tinhTrang = rs.getString("tinhTrang");
+                Date thoiHan = rs.getDate("thoiHan");
+                String maSanPhamOb = rs.getString("maSanPham");
+                double tienLuong = rs.getBigDecimal("tienLuong").doubleValue();
+                SanPham sanPham = sanPham_DAO.layMotSanPhamTheoMa(maSanPhamOb);
+                dsCongDoan.add(new CongDoan(maCongDoan, thuTuCongDoan, tenCongDoan, soLuongCan, tinhTrang, thoiHan, sanPham, tienLuong));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                stm.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return dsCongDoan;
     }
 
     public static void main(String[] args) {

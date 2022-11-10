@@ -349,6 +349,15 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
             int row = tblPhongBan.getSelectedRow();
             if (row != -1) {
                 hienThiDuLieuLenTxt(row);
+                if (!btnThem.isEnabled()){
+                    btnThem.setEnabled(true);
+                    btnXoa.setEnabled(true);
+                    btnCapNhat.setEnabled(true);
+                    btnLuu.setEnabled(false);
+                    btnHuy.setEnabled(false);
+                    txtTenPhongBan.setEditable(false);
+                    
+                }
             }
         }
 

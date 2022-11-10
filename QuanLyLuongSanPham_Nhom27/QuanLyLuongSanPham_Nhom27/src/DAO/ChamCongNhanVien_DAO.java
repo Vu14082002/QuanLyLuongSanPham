@@ -27,7 +27,7 @@ public class ChamCongNhanVien_DAO {
 
     public ChamCongNhanVien_DAO() {
     }
-
+    
     public ArrayList<ChamCongNhanVien> danhSachChamCongNhanVien() {
         Statement stm = null;
         NhanVien_DAO nhanVien_Dao = new NhanVien_DAO();

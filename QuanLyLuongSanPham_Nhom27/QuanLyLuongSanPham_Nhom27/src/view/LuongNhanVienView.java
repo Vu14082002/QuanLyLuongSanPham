@@ -326,16 +326,16 @@ public class LuongNhanVienView extends javax.swing.JPanel {
     private void cmbThangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbThangActionPerformed
         taiDuLieuLenBangLuong();
      
-        System.out.println(cmbThang.getSelectedItem().toString() + "-" + cmbNam.getSelectedItem().toString());
-        System.out.println("Local date: " + LocalDate.now().getMonthValue()+"-"+LocalDate.now().getYear());
-        if(LocalDate.now().getMonthValue() == Integer.parseInt(cmbThang.getSelectedItem().toString())){
-            System.out.println("true");
-        }
-        if ( LocalDate.now().getMonthValue() == Integer.parseInt(cmbThang.getSelectedItem().toString()) && LocalDate.now().getDayOfMonth() == Integer.parseInt(cmbNam.getSelectedItem().toString())) {
-            btnTinhLuong.setEnabled(true);
-        } else {
-            btnTinhLuong.setEnabled(false);
-        }
+//        System.out.println(cmbThang.getSelectedItem().toString() + "-" + cmbNam.getSelectedItem().toString());
+//        System.out.println("Local date: " + LocalDate.now().getMonthValue()+"-"+LocalDate.now().getYear());
+//        if(LocalDate.now().getMonthValue() == Integer.parseInt(cmbThang.getSelectedItem().toString())){
+//            System.out.println("true");
+//        }
+//        if ( LocalDate.now().getMonthValue() == Integer.parseInt(cmbThang.getSelectedItem().toString()) && LocalDate.now().getDayOfMonth() == Integer.parseInt(cmbNam.getSelectedItem().toString())) {
+//            btnTinhLuong.setEnabled(true);
+//        } else {
+//            btnTinhLuong.setEnabled(false);
+//        }
     }//GEN-LAST:event_cmbThangActionPerformed
 
     private void btnXuatBaoCaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatBaoCaoActionPerformed
@@ -371,11 +371,6 @@ public class LuongNhanVienView extends javax.swing.JPanel {
     }//GEN-LAST:event_tblBangLuongMousePressed
     private void cmbNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNamActionPerformed
         taiDuLieuLenBangLuong();
-        if (LocalDate.now().getMonthValue() == Integer.parseInt(cmbThang.getSelectedItem().toString()) && LocalDate.now().getDayOfMonth() == Integer.parseInt(cmbNam.getSelectedItem().toString())) {
-            btnTinhLuong.setEnabled(true);
-        } else {
-            btnTinhLuong.setEnabled(false);
-        }
     }//GEN-LAST:event_cmbNamActionPerformed
 
 

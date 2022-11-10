@@ -32,27 +32,27 @@ public class TrangChuView extends javax.swing.JPanel {
      */
     public TrangChuView() {
         initComponents();
-//        tblTrangChu.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
-//        tblTrangChu.getTableHeader().setOpaque(false);
-//        ((DefaultTableCellRenderer) tblTrangChu.getTableHeader().getDefaultRenderer())
-//                .setHorizontalAlignment(JLabel.CENTER);
-////        tbTrangChu.getTableHeader().setForeground(new Color(255,255,255));
-//        tblTrangChu.setRowHeight(25);
-//        try {
-//            ConnectionDB.ConnectDB.getInstance().connect();
-//
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
-//        nhanVien_DAO = new NhanVien_DAO();
-//        phongBan_DAO = new PhongBan_DAO();
-//        congNhan_DAO = new CongNhan_DAO();
-//        modelTableTrangChu = (DefaultTableModel) tblTrangChu.getModel();
-//        excute();
-//        hienThiDuLieuLenBang();
-//        lblTongCongNhan.setText(congNhan_DAO.layRaSoLuongCongNhan()+"");
-//        lblTongNhanVien.setText(nhanVien_DAO.laySoLuongNhanVien()+"");
-//        lblTongPhongBan.setText(phongBan_DAO.layRaSoLuongPhongBan()+"");
+        tblTrangChu.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        tblTrangChu.getTableHeader().setOpaque(false);
+        ((DefaultTableCellRenderer) tblTrangChu.getTableHeader().getDefaultRenderer())
+                .setHorizontalAlignment(JLabel.CENTER);
+//        tbTrangChu.getTableHeader().setForeground(new Color(255,255,255));
+        tblTrangChu.setRowHeight(25);
+        try {
+            ConnectionDB.ConnectDB.getInstance().connect();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        nhanVien_DAO = new NhanVien_DAO();
+        phongBan_DAO = new PhongBan_DAO();
+        congNhan_DAO = new CongNhan_DAO();
+        modelTableTrangChu = (DefaultTableModel) tblTrangChu.getModel();
+        excute();
+        hienThiDuLieuLenBang();
+        lblTongCongNhan.setText(congNhan_DAO.layRaSoLuongCongNhan()+"");
+        lblTongNhanVien.setText(nhanVien_DAO.laySoLuongNhanVien()+"");
+        lblTongPhongBan.setText(phongBan_DAO.layRaSoLuongPhongBan()+"");
     }
 
     public void excute() {

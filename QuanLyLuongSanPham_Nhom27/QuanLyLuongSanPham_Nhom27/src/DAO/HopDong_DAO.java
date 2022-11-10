@@ -4,6 +4,7 @@
  */
 package DAO;
 
+import ConnectionDB.ConnectDB;
 import Entity.HopDong;
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -33,13 +34,14 @@ public class HopDong_DAO {
             ResultSet rs = stm.executeQuery(truyVan);
             while (rs.next()) {
                 String maHopDong = rs.getString("maHopDong");
+                String tenHopDong = rs.getString("tenHopDong");
                 String tenKhachHang = rs.getString("tenKhachHang");
                 double soTienCoc = rs.getBigDecimal("soTienCoc").doubleValue();
                 double tongTien = rs.getBigDecimal("tongTien").doubleValue();
                 Date ngayKyKet = rs.getDate("ngayKyKet");
                 Date hanChot = rs.getDate("hanChot");
                 String yeuCau = rs.getString("yeuCau");
-                dsHopDong.add(new HopDong(maHopDong, tenKhachHang, soTienCoc, tongTien, ngayKyKet, hanChot, yeuCau));
+                dsHopDong.add(new HopDong(maHopDong, tenHopDong, tenKhachHang, soTienCoc, tongTien, ngayKyKet, hanChot, yeuCau));
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -65,13 +67,14 @@ public class HopDong_DAO {
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 String maHopDongTemp = rs.getString("maHopDong");
+                 String tenHopDong = rs.getString("tenHopDong");
                 String tenKhachHang = rs.getString("tenKhachHang");
                 double soTienCoc = rs.getBigDecimal("soTienCoc").doubleValue();
                 double tongTien = rs.getBigDecimal("tongTien").doubleValue();
                 Date ngayKyKet = rs.getDate("ngayKyKet");
                 Date hanChot = rs.getDate("hanChot");
                 String yeuCau = rs.getString("yeuCau");
-                hopDong = new HopDong(maHopDongTemp, tenKhachHang, soTienCoc, tongTien, ngayKyKet, hanChot, yeuCau);
+                hopDong = new HopDong(maHopDongTemp, tenHopDong ,tenKhachHang, soTienCoc, tongTien, ngayKyKet, hanChot, yeuCau);
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -91,16 +94,17 @@ public class HopDong_DAO {
         try {
             ConnectionDB.ConnectDB.getInstance();
             Connection con = ConnectionDB.ConnectDB.getConnection();
-            String truyVan = "insert into HopDong(maHopDong, tenKhachHang, soTienCoc, tongTien ,ngayKyKet ,hanChot, yeuCau)"
-                    + " values(?, ?, ?, ?, ?, ?, ?)";
+            String truyVan = "insert into HopDong(maHopDong, tenHopDong, tenKhachHang, soTienCoc, tongTien ,ngayKyKet ,hanChot, yeuCau)"
+                    + " values(?, ?, ?, ?, ?, ?, ?, ?)";
             stm = con.prepareStatement(truyVan);
             stm.setString(1, hopDong.getMaHopDong());
-            stm.setString(2, hopDong.getTenKhachHang());
-            stm.setBigDecimal(3, new BigDecimal(hopDong.getSoTienCoc()));
-            stm.setBigDecimal(4, new BigDecimal(hopDong.getTongTien()));
-            stm.setDate(5, new java.sql.Date(hopDong.getNgayKyKet().getTime()));
-            stm.setDate(6, new java.sql.Date(hopDong.getHanChot().getTime()));
-            stm.setString(7, hopDong.getYeuCau());
+            stm.setString(2, hopDong.getTenHopDong());
+            stm.setString(3, hopDong.getTenKhachHang());
+            stm.setBigDecimal(4, new BigDecimal(hopDong.getSoTienCoc()));
+            stm.setBigDecimal(5, new BigDecimal(hopDong.getTongTien()));
+            stm.setDate(6, new java.sql.Date(hopDong.getNgayKyKet().getTime()));
+            stm.setDate(7, new java.sql.Date(hopDong.getHanChot().getTime()));
+            stm.setString(8, hopDong.getYeuCau());
             soDongThemDuoc = stm.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -121,17 +125,18 @@ public class HopDong_DAO {
             ConnectionDB.ConnectDB.getInstance();
             Connection con = ConnectionDB.ConnectDB.getConnection();
             String truyVan = "update HopDong"
-                    + " set tenKhachHang = ?, soTienCoc = ?, tongTien = ? ,ngayKyKet = ?"
+                    + " set tenHopDong = ?, tenKhachHang = ?, soTienCoc = ?, tongTien = ? ,ngayKyKet = ?"
                     + " , hanChot = ?, yeuCau = ?"
                     + " where maHopDong = ?";
             stm = con.prepareStatement(truyVan);
-            stm.setString(1, hopDong.getTenKhachHang());
-            stm.setBigDecimal(2, new BigDecimal(hopDong.getSoTienCoc()));
-            stm.setBigDecimal(3, new BigDecimal(hopDong.getTongTien()));
-            stm.setDate(4, new java.sql.Date(hopDong.getNgayKyKet().getTime()));
-            stm.setDate(5, new java.sql.Date(hopDong.getHanChot().getTime()));
-            stm.setString(6, hopDong.getYeuCau());;
-            stm.setString(7, hopDong.getMaHopDong());
+            stm.setString(1, hopDong.getTenHopDong());
+            stm.setString(2, hopDong.getTenKhachHang());
+            stm.setBigDecimal(3, new BigDecimal(hopDong.getSoTienCoc()));
+            stm.setBigDecimal(4, new BigDecimal(hopDong.getTongTien()));
+            stm.setDate(5, new java.sql.Date(hopDong.getNgayKyKet().getTime()));
+            stm.setDate(6, new java.sql.Date(hopDong.getHanChot().getTime()));
+            stm.setString(7, hopDong.getYeuCau());;
+            stm.setString(8, hopDong.getMaHopDong());
             soDongSuaDuoc = stm.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -144,7 +149,7 @@ public class HopDong_DAO {
         }
         return soDongSuaDuoc != 0;
     }
-
+    
     public boolean xoaMotHopDong(String maHopDong) {
         PreparedStatement stm = null;
         int soDongXoaDuoc = 0;
@@ -166,5 +171,33 @@ public class HopDong_DAO {
             }
         }
         return soDongXoaDuoc != 0;
+    }
+    public String layRaMaHopDongDeThem(){
+        Statement stm = null;
+        String maHopDong = "";
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String truyVan = "select top 1 * from HopDong order by len(maHopDong), maHopDong desc ";
+            stm = con.createStatement();
+            ResultSet rs = stm.executeQuery(truyVan);
+            while (rs.next()) {
+                maHopDong = rs.getString("maHopDong");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        if (maHopDong == null || maHopDong.equals("")) {
+            return "HD100001";
+        }
+        String chuoiCanLay = maHopDong.split("HD")[1];
+
+        try {
+            chuoiCanLay = "HD" + (Integer.parseInt(chuoiCanLay) + 1);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return chuoiCanLay;
     }
 }

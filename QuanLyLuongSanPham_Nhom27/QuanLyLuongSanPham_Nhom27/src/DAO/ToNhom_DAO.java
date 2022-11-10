@@ -9,7 +9,6 @@ package DAO;
  * @author Nhóm 27
  */
 import ConnectionDB.ConnectDB;
-import Entity.CongNhan;
 import Entity.ToNhom;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
@@ -184,10 +183,6 @@ public class ToNhom_DAO {
         }
         return toNhom;
     }
-        public ArrayList<CongNhan> layDanhSachCongNhanTrongToNhomTheoTen(String tenTo){
-            
-            return null;
-        }
     public static void main(String[] args) {
         try {
             System.setOut(new PrintStream(System.out, true, "UTF8"));

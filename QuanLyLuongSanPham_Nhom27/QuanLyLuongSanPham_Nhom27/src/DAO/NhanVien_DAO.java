@@ -251,7 +251,8 @@ public class NhanVien_DAO {
         }
         return soDongXoaDuoc != 0;
     }
-    public int laySoLuongNhanVien(){
+
+    public int laySoLuongNhanVien() {
         Statement stm = null;
         int soLuong = 0;
         try {
@@ -260,12 +261,12 @@ public class NhanVien_DAO {
             String truyVan = "select count(maNhanVien) as soLuongNhanVien from NhanVien";
             stm = con.createStatement();
             ResultSet rs = stm.executeQuery(truyVan);
-            while (rs.next()){
+            while (rs.next()) {
                 soLuong = rs.getInt("soLuongNhanVien");
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
-        } finally{
+        } finally {
             try {
                 stm.close();;
             } catch (Exception e) {
@@ -274,6 +275,43 @@ public class NhanVien_DAO {
         }
         return soLuong;
     }
+
+    public String layRaMaCongNhanDeThem() {
+        Statement stm = null;
+        String maNhanVien = "";
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String truyVan = "select top 1 * from NhanVien order by LEN(maNhanVien), maNhanVien desc";
+            stm = con.createStatement();
+            ResultSet rs = stm.executeQuery(truyVan);
+            while (rs.next()) {
+                maNhanVien = rs.getString("maNhanVien");
+
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                stm.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        if (maNhanVien == null || maNhanVien.equals("")) {
+            return "NV100001";
+        }
+        String chuoiCanLay = maNhanVien.split("NV")[1];
+
+        try {
+            chuoiCanLay = "NV" + (Integer.parseInt(chuoiCanLay) + 1);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return chuoiCanLay;
+    }
+
     public static void main(String[] args) {
         try {
             System.setOut(new PrintStream(System.out, true, "UTF8"));
@@ -301,6 +339,6 @@ public class NhanVien_DAO {
         System.out.println("\n\n\nXóa: " + dao.xoaMotNhanVienTheoMa("NV111111"));
         System.out.println("\n\n\nLấy theo PB: " + dao.layDanhSachNhanVienTheoMaPhongBan("PB123123"));
         System.out.println("\n\n\nLấy 1: " + dao.layMotNhanVienTheoMaNhanVien("NV123123"));
-        
+
     }
 }

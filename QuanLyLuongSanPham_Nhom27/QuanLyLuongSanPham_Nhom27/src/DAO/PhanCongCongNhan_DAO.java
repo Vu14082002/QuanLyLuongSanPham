@@ -239,6 +239,48 @@ public class PhanCongCongNhan_DAO {
         return soDongXoaDuoc != 0;
     }
 
+    public ArrayList<CongNhan> layRaDanhSachCongNhanTheoCongDoanVaToNhom(String maCongDoan, String maToNhom) {
+        PreparedStatement stm = null;
+        ArrayList<CongNhan> dsCongNhan = new ArrayList<>();
+        ToNhom_DAO toNhom_DAO = new ToNhom_DAO();
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String sql = "select * from PhanCongCongNhan PCCN join CongNhan CN"
+                    + " on PCCN.maCongNhan = CN.maCongNhan where maCongDoan = ? and maToNhom = ?";
+            stm = con.prepareStatement(sql);
+            stm.setString(1, maCongDoan);
+            stm.setString(2, maToNhom);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                String maCongNhan = rs.getString("maCongNhan");
+                String hoTen = rs.getString("hoTen");
+                Date ngaySinh = rs.getDate("ngaySinh");
+                String maCCCD = rs.getString("maCCCD");
+                String soDienThoai = rs.getString("soDienThoai");
+                String email = rs.getString("email");
+                String matKhau = rs.getString("matKhau");
+                Boolean gioiTinh = rs.getBoolean("gioiTinh");
+                String anhDaiDien = rs.getString("anhDaiDien");
+                String diaChi = rs.getString("diaChi");
+                Date ngayVaoLam = rs.getDate("ngayVaoLam");
+                String maToNhomTemp = rs.getString("toNhom");
+                ToNhom toNhom = toNhom_DAO.layMotToNhomTheoMa(maToNhomTemp);
+                dsCongNhan.add(new CongNhan(maCongNhan, hoTen, ngaySinh, maCCCD, soDienThoai, email, matKhau, ngayVaoLam, gioiTinh, anhDaiDien, diaChi, toNhom));
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                stm.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return dsCongNhan;
+    }
+
     public ArrayList<CongNhan> layRaDanhSachCongNhanTheoCongDoanVaCaLam(String maCongDoan) {
         PreparedStatement stm = null;
         ArrayList<CongNhan> dsCongNhan = new ArrayList<>();
@@ -334,7 +376,7 @@ public class PhanCongCongNhan_DAO {
 
     public boolean checkDuocPhanCong(String maCongDoan, String maToNhom) {
         PreparedStatement stm = null;
-        int sl=0;
+        int sl = 0;
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
@@ -355,8 +397,8 @@ public class PhanCongCongNhan_DAO {
                 System.out.println(e.getMessage());
             }
         }
-         // return true if sl == 0(duoc phan cong) else false
-        return sl==0;
+        // return true if sl == 0(duoc phan cong) else false
+        return sl == 0;
     }
 
     public static void main(String[] args) {

@@ -526,8 +526,8 @@ public class QuanLyThongTinCaNhan extends javax.swing.JPanel implements ActionLi
         if (soDienThoai.equals("")) {
             lblErrSoDienThoai.setText("Số điện thoại không được trông!");
             flag = false;
-        } else if (!soDienThoai.matches("^[0][0-9]{9}$")) {
-            lblErrSoDienThoai.setText("Số điện thoại 10 kí số, bắt đầu = 0");
+        } else if (!soDienThoai.matches("^\\+84[1-9][0-9]{8}$")) {
+            lblErrSoDienThoai.setText("Bắt đầu: +84, theo sau là 9 kí số");
             flag = false;
         } else {
             lblErrSoDienThoai.setText("");
