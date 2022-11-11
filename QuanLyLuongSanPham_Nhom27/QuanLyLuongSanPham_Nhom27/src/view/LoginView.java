@@ -150,7 +150,7 @@ public class LoginView extends javax.swing.JFrame {
         lblTieuDeDangNhap.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTieuDeDangNhap.setText("ĐĂNG NHẬP");
         lblTieuDeDangNhap.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(lblTieuDeDangNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 500, -1));
+        jPanel2.add(lblTieuDeDangNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 470, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -378,7 +378,7 @@ public class LoginView extends javax.swing.JFrame {
     }//GEN-LAST:event_lblNgonNguMouseClicked
 
     private void lblQuenMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuenMatKhauMouseClicked
-        // TODO add your handling code here:
+        new QuenMatKhauView().setVisible(true);
     }//GEN-LAST:event_lblQuenMatKhauMouseClicked
 
     private void cmbNgonNguActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNgonNguActionPerformed

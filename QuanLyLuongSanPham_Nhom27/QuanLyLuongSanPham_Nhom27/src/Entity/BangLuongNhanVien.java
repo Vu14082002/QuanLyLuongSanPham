@@ -20,23 +20,46 @@ public class BangLuongNhanVien {
     private int soNgayNghi;
     private int soPhepNghi;
     private Date ngayTinh;
+    private String luongTheoThang;
     private double tongTien;
     private String donViTien;
 
-    public BangLuongNhanVien(String maBangLuong, NhanVien nhanVien, int soNgayDiLam, int soNgayNghi, int soPhepNghi, Date ngayTinh, double tongTien, String donViTien) {
-        try {
-            setMaBangLuong(maBangLuong);
-            setNhanVien(nhanVien);
-            setSoNgayDiLam(soNgayDiLam);
-            setSoNgayNghi(soNgayNghi);
-            setSoPhepNghi(soPhepNghi);
-            setNgayTinh(ngayTinh);
-            setTongTien(tongTien);
-            setDonViTien(donViTien);
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
+//    public BangLuongNhanVien(String maBangLuong, NhanVien nhanVien, int soNgayDiLam, int soNgayNghi, int soPhepNghi, Date ngayTinh, double tongTien, String donViTien) {
+//        try {
+//            setMaBangLuong(maBangLuong);
+//            setNhanVien(nhanVien);
+//            setSoNgayDiLam(soNgayDiLam);
+//            setSoNgayNghi(soNgayNghi);
+//            setSoPhepNghi(soPhepNghi);
+//            setNgayTinh(ngayTinh);
+//            setTongTien(tongTien);
+//            setDonViTien(donViTien);
+//        } catch (Exception ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//
+//    }
+    public BangLuongNhanVien() {
+    }
 
+    public BangLuongNhanVien(String maBangLuong, NhanVien nhanVien, int soNgayDiLam, int soNgayNghi, int soPhepNghi, Date ngayTinh, String luongTheoThang, double tongTien, String donViTien) {
+        this.maBangLuong = maBangLuong;
+        this.nhanVien = nhanVien;
+        this.soNgayDiLam = soNgayDiLam;
+        this.soNgayNghi = soNgayNghi;
+        this.soPhepNghi = soPhepNghi;
+        this.ngayTinh = ngayTinh;
+        this.luongTheoThang = luongTheoThang;
+        this.tongTien = tongTien;
+        this.donViTien = donViTien;
+    }
+
+    public String getLuongTheoThang() {
+        return luongTheoThang;
+    }
+
+    public void setLuongTheoThang(String luongTheoThang) {
+        this.luongTheoThang = luongTheoThang;
     }
 
     public String getMaBangLuong() {

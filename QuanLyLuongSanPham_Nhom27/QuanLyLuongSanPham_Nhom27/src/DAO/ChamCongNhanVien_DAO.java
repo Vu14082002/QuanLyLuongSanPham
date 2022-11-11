@@ -22,12 +22,14 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ChamCongNhanVien_DAO {
 
     public ChamCongNhanVien_DAO() {
     }
-    
+
     public ArrayList<ChamCongNhanVien> danhSachChamCongNhanVien() {
         Statement stm = null;
         NhanVien_DAO nhanVien_Dao = new NhanVien_DAO();
@@ -221,8 +223,7 @@ public class ChamCongNhanVien_DAO {
         try {
             ConnectionDB.ConnectDB.getInstance();
             Connection con = ConnectionDB.ConnectDB.getConnection();
-            String truyVan = "select * from ChamCongNhanVien\n"
-                    + "where maNhanVien = ? and MONTH(ngayChamCong)= ? and YEAR(ngayChamCong)= ?";
+            String truyVan = "select * from ChamCongNhanVien where maNhanVien= ? and MONTH(ngayChamCong) = ? and YEAR(ngayChamCong)= ? ";
             stm = con.prepareStatement(truyVan);
             stm.setString(1, maNhanVien);
             stm.setString(2, thang);
@@ -249,6 +250,39 @@ public class ChamCongNhanVien_DAO {
             }
         }
         return dsChamCong;
+    }
+
+    public ArrayList<String[]> layDanhSachChamCongTheoMaNhanVienVaThang(String maNhanVien, String thang, String nam) {
+        PreparedStatement stm = null;
+        ArrayList<String[]> arrayList = new ArrayList<>();
+        try {
+            ConnectionDB.ConnectDB.getInstance();
+            Connection con = ConnectionDB.ConnectDB.getConnection();
+            String truyVan = "select caLam , trangThaiDiLam\n"
+                    + "from ChamCongNhanVien  where maNhanVien = ? \n"
+                    + "group by maNhanVien,trangThaiDiLam,caLam,ngayChamCong\n"
+                    + "having Month(ngayChamCong)= ? and year(ngayChamCong)= ?";
+            stm = con.prepareStatement(truyVan);
+            stm.setString(1, maNhanVien);
+            stm.setString(2, thang);
+            stm.setString(3, nam);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                String caLam = rs.getString("caLam");
+                String trangThaiDiLam = rs.getString("trangThaiDiLam");
+                String[] value = {caLam,trangThaiDiLam};
+                arrayList.add(value);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                stm.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return arrayList;
     }
 
     public static void main(String[] args) {

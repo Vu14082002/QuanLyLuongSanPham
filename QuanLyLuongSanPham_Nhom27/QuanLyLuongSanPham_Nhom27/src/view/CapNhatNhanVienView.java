@@ -6,11 +6,16 @@ package view;
 
 import DAO.NhanVien_DAO;
 import DAO.PhongBan_DAO;
+import Entity.CongNhan;
 import Entity.NhanVien;
 import Entity.PhongBan;
+import Entity.ToNhom;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Font;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Array;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -18,6 +23,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,8 +36,17 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -192,7 +207,7 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
         btnCapNhat = new javax.swing.JButton();
         btnLuu = new javax.swing.JButton();
         btnHuy = new javax.swing.JButton();
-        btnThem1 = new javax.swing.JButton();
+        btnThemNhieu = new javax.swing.JButton();
         scroll = new javax.swing.JScrollPane();
         tblNhanVien = new javax.swing.JTable();
 
@@ -471,17 +486,17 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
         });
         jPanel5.add(btnHuy, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 430, 170, 40));
 
-        btnThem1.setBackground(new java.awt.Color(255, 234, 167));
-        btnThem1.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        btnThem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/add.png"))); // NOI18N
-        btnThem1.setText("Thêm nhiều");
-        btnThem1.setBorder(null);
-        btnThem1.addActionListener(new java.awt.event.ActionListener() {
+        btnThemNhieu.setBackground(new java.awt.Color(255, 234, 167));
+        btnThemNhieu.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnThemNhieu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/add.png"))); // NOI18N
+        btnThemNhieu.setText("Thêm nhiều");
+        btnThemNhieu.setBorder(null);
+        btnThemNhieu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThem1ActionPerformed(evt);
+                btnThemNhieuActionPerformed(evt);
             }
         });
-        jPanel5.add(btnThem1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 430, 170, 40));
+        jPanel5.add(btnThemNhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 430, 170, 40));
 
         add(jPanel5, java.awt.BorderLayout.PAGE_START);
 
@@ -677,9 +692,71 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_tblNhanVienMouseClicked
 
-    private void btnThem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnThem1ActionPerformed
+    private void btnThemNhieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNhieuActionPerformed
+        ArrayList<NhanVien> nhanVienList = new ArrayList<>();
+//        JFileChooser openFileChooser = new JFileChooser("D:\\MonHoc\\Nam3_HK1\\PTUD\\Code\\Git\\QuanLyLuongSanPham\\QuanLyLuongSanPham_Nhom27\\QuanLyLuongSanPham_Nhom27\\excelData");
+        JFileChooser openFileChooser = new JFileChooser("../QuanLyLuongSanPham_Nhom27/excelData");
+        openFileChooser.setDialogTitle("Open file");
+        openFileChooser.removeChoosableFileFilter(openFileChooser.getFileFilter());
+        FileFilter filter = new FileNameExtensionFilter("Excel FIle(.xlsx)", "xlsx");
+        openFileChooser.setFileFilter(filter);
+        if (openFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            File inpuFile = openFileChooser.getSelectedFile();
+            try {
+                FileInputStream in = new FileInputStream(inpuFile);
+                try {
+                    XSSFWorkbook importFile = new XSSFWorkbook(in);
+                    XSSFSheet sheeth = importFile.getSheetAt(0);
+                    Row row;
+                    System.out.println(sheeth.getLastRowNum());
+                    for (int i = 1; i <= sheeth.getLastRowNum(); i++) {
+                        row = sheeth.getRow(i);
+                        String hoTen = row.getCell(0).getStringCellValue();
+                        if (hoTen.trim().equals("") || hoTen == null) {
+                            break;
+                        }
+                        String soCCCD = row.getCell(1).getStringCellValue();
+                        String email = row.getCell(2).getStringCellValue();
+                        String sdt = row.getCell(3).getStringCellValue();
+                        String diaChi = row.getCell(4).getStringCellValue();
+                        String ngaySinh = row.getCell(5).getStringCellValue();
+                        String gioiTinh = row.getCell(6).getStringCellValue();
+                        String phongBan = row.getCell(7).getStringCellValue();
+                        String chucVu = row.getCell(8).getStringCellValue();
+                        String ngayVaoLam = row.getCell(9).getStringCellValue();
+                        String luongThoaThuan = row.getCell(10).getStringCellValue();
+                        String maNhanVien = "NV100001";
+                        daoNhanVien = new NhanVien_DAO();
+                        if (daoNhanVien.layDanhSachNhanVien().size() > 0) {
+                            maNhanVien = "NV" + (Integer.parseInt(daoNhanVien.layDanhSachNhanVien().get(daoNhanVien.layDanhSachNhanVien().size() - 1).getMaNhanVien().split("V")[1]) + 1);
+                        }
+                        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                        Date ngaySinh1 = df.parse(ngaySinh);
+                        Date ngayVaoLam1 = df.parse(ngayVaoLam);
+                        PhongBan_DAO phongBanDao = new PhongBan_DAO();
+                        PhongBan phongBan1 = phongBanDao.layMotPhongBanTheoTen(phongBan);
+                        NhanVien nhanVienThem = new NhanVien(maNhanVien, hoTen, ngaySinh1, soCCCD, sdt, email,
+                                "111111", chucVu, ngayVaoLam1, Double.parseDouble(luongThoaThuan), "Nam".equals(gioiTinh) ? true : false, "male.png", diaChi, phongBan1);
+                        if (nhanVienThem != null) {
+                            if (daoNhanVien.themMotNhanVien(nhanVienThem)) {
+                                System.out.println("them thanh cong");
+                            }
+                        }
+                        System.out.println("Import rows " + i);
+                    }
+                    JOptionPane.showMessageDialog(this, "Them thanh cong");
+                    taiDuLieuLenBang();
+                } catch (IOException ex) {
+                    Logger.getLogger(CapNhatNhanVienView.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ParseException ex) {
+                    Logger.getLogger(CapNhatNhanVienView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(CapNhatNhanVienView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }//GEN-LAST:event_btnThemNhieuActionPerformed
 
     public void setHidden(JButton... btnHidden) {
         for (JButton jButton : btnHidden) {
@@ -785,7 +862,7 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
     private javax.swing.JButton btnHuy;
     private javax.swing.JButton btnLuu;
     private javax.swing.JButton btnThem;
-    private javax.swing.JButton btnThem1;
+    private javax.swing.JButton btnThemNhieu;
     private javax.swing.JButton btnXoa;
     private javax.swing.JComboBox<String> cboChucVu;
     private javax.swing.JComboBox<String> cboPhongBan;

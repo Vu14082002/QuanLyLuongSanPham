@@ -24,6 +24,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Map;
 
 public class BangLuongNhanVien_DAO {
 
@@ -47,10 +48,11 @@ public class BangLuongNhanVien_DAO {
                 int soNgayNghi = rs.getInt("soNgayNghi");
                 int soPhepNghi = rs.getInt("soPhepNghi");
                 Date ngayTinh = rs.getDate("ngayTinh");
+                String luongTheoThang = rs.getString("luongTheoThang");
                 double tongTien = rs.getBigDecimal("tongTien").doubleValue();
                 String donViTien = rs.getString("donViTien");
                 NhanVien nhanVien = nhanVien_DAO.layMotNhanVienTheoMaNhanVien(maNhanVien);
-                dsBangLuong.add(new BangLuongNhanVien(maBangLuong, nhanVien, soNgayDiLam, soNgayNghi, soPhepNghi, ngayTinh, tongTien, donViTien));
+                dsBangLuong.add(new BangLuongNhanVien(maBangLuong, nhanVien, soNgayDiLam, soNgayNghi, soPhepNghi, ngayTinh, luongTheoThang, tongTien, donViTien));
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -82,10 +84,11 @@ public class BangLuongNhanVien_DAO {
                 int soNgayNghi = rs.getInt("soNgayNghi");
                 int soPhepNghi = rs.getInt("soPhepNghi");
                 Date ngayTinh = rs.getDate("ngayTinh");
+                String luongTheoThang = rs.getString("luongTheoThang");
                 double tongTien = rs.getBigDecimal("tongTien").doubleValue();
                 String donViTien = rs.getString("donViTien");
                 NhanVien nhanVien = nhanVien_DAO.layMotNhanVienTheoMaNhanVien(maNhanVienOB);
-                dsBangLuong.add(new BangLuongNhanVien(maBangLuong, nhanVien, soNgayDiLam, soNgayNghi, soPhepNghi, ngayTinh, tongTien, donViTien));
+                dsBangLuong.add(new BangLuongNhanVien(maBangLuong, nhanVien, soNgayDiLam, soNgayNghi, soPhepNghi, ngayTinh, luongTheoThang, tongTien, donViTien));
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -98,54 +101,54 @@ public class BangLuongNhanVien_DAO {
         }
         return dsBangLuong;
     }
- public ArrayList<BangLuongNhanVien> layDanhSachBangLuongTheoThangNam(String thang, String nam) {
-        PreparedStatement stm = null;
-        ArrayList<BangLuongNhanVien> dsBangLuong = new ArrayList<BangLuongNhanVien>();
-        NhanVien_DAO nhanVien_DAO = new NhanVien_DAO();
-        try {
-            ConnectionDB.ConnectDB.getInstance();
-            Connection con = ConnectionDB.ConnectDB.getConnection();
-            String truyVan = "select * from BangLuongNhanVien where MONTH(ngayTinh)= ? and YEAR(ngayTinh)= ?";
-            stm = con.prepareStatement(truyVan);
-            stm.setString(1, thang);
-            stm.setString(2, nam);
-            ResultSet rs = stm.executeQuery();
-            while (rs.next()) {
-                String maBangLuong = rs.getString("maBangLuong");
-                String maNhanVienOB = rs.getString("maNhanVien");
-                int soNgayDiLam = rs.getInt("soNgayDiLam");
-                int soNgayNghi = rs.getInt("soNgayNghi");
-                int soPhepNghi = rs.getInt("soPhepNghi");
-                Date ngayTinh = rs.getDate("ngayTinh");
-                double tongTien = rs.getBigDecimal("tongTien").doubleValue();
-                String donViTien = rs.getString("donViTien");
-                NhanVien nhanVien = nhanVien_DAO.layMotNhanVienTheoMaNhanVien(maNhanVienOB);
-                dsBangLuong.add(new BangLuongNhanVien(maBangLuong, nhanVien, soNgayDiLam, soNgayNghi, soPhepNghi, ngayTinh, tongTien, donViTien));
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        } finally {
-            try {
-                stm.close();
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        return dsBangLuong;
-    }
-    public boolean xoaBangLuongInsert(String thang, String nam, int xoa) {
+// public ArrayList<BangLuongNhanVien> layDanhSachBangLuongTheoThangNam(String thang, String nam) {
+//        PreparedStatement stm = null;
+//        ArrayList<BangLuongNhanVien> dsBangLuong = new ArrayList<BangLuongNhanVien>();
+//        NhanVien_DAO nhanVien_DAO = new NhanVien_DAO();
+//        try {
+//            ConnectionDB.ConnectDB.getInstance();
+//            Connection con = ConnectionDB.ConnectDB.getConnection();
+//            String truyVan = "select * from BangLuongNhanVien where MONTH(ngayTinh)= ? and YEAR(ngayTinh)= ?";
+//            stm = con.prepareStatement(truyVan);
+//            stm.setString(1, thang);
+//            stm.setString(2, nam);
+//            ResultSet rs = stm.executeQuery();
+//            while (rs.next()) {
+//                String maBangLuong = rs.getString("maBangLuong");
+//                String maNhanVienOB = rs.getString("maNhanVien");
+//                int soNgayDiLam = rs.getInt("soNgayDiLam");
+//                int soNgayNghi = rs.getInt("soNgayNghi");
+//                int soPhepNghi = rs.getInt("soPhepNghi");
+//                Date ngayTinh = rs.getDate("ngayTinh");
+//                double tongTien = rs.getBigDecimal("tongTien").doubleValue();
+//                String donViTien = rs.getString("donViTien");
+//                NhanVien nhanVien = nhanVien_DAO.layMotNhanVienTheoMaNhanVien(maNhanVienOB);
+//                dsBangLuong.add(new BangLuongNhanVien(maBangLuong, nhanVien, soNgayDiLam, soNgayNghi, soPhepNghi, ngayTinh, tongTien, donViTien));
+//            }
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        } finally {
+//            try {
+//                stm.close();
+//            } catch (Exception e) {
+//                System.out.println(e.getMessage());
+//            }
+//        }
+//        return dsBangLuong;
+//    }
+//    
+
+    public boolean xoaBangLuongInsert(String thang, String nam) {
         System.out.println("Xoa");
         PreparedStatement stm = null;
-        int soDongXoaDuoc = 0;
-        if (xoa == 0) {
+        int soDongxoa=0;
             try {
                 ConnectionDB.ConnectDB.getInstance();
                 Connection con = ConnectionDB.ConnectDB.getConnection();
-                String truyVan = "delete BangLuongNhanVien where MONTH(ngayTinh)= ? and YEAR(ngayTinh)= ?";
+                String truyVan = "delete from BangLuongNhanVien where luongTheoThang= ? ";
                 stm = con.prepareStatement(truyVan);
-                stm.setString(1, thang);
-                stm.setString(2, nam);
-                soDongXoaDuoc = stm.executeUpdate();
+                stm.setString(1, thang+"-"+nam);
+                soDongxoa=stm.executeUpdate();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             } finally {
@@ -155,8 +158,7 @@ public class BangLuongNhanVien_DAO {
                     System.out.println(e.getMessage());
                 }
             }
-        }
-        return soDongXoaDuoc != 0;
+        return soDongxoa != 0;
     }
 
     public boolean themMotBangLuong(BangLuongNhanVien bangLuongNhanVien, String thang, String nam) {
@@ -165,11 +167,11 @@ public class BangLuongNhanVien_DAO {
         try {
             ConnectionDB.ConnectDB.getInstance();
             Connection con = ConnectionDB.ConnectDB.getConnection();
-            xoaBangLuongInsert(thang, nam,0);
+            xoaBangLuongInsert(thang, nam);
             String truyVan = "INSERT INTO BangLuongNhanVien(maBangLuong, maNhanVien"
-                    + " , soNgayDiLam, soNgayNghi, soPhepNghi, ngayTinh"
+                    + " , soNgayDiLam, soNgayNghi, soPhepNghi, ngayTinh,luongTheoThang"
                     + " , tongTien, donViTien)"
-                    + " values (?, ?, ?, ?, ?, ?, ?, ?)";
+                    + " values (? , ? , ? , ? , ? , ?, ?, ? , ?)";
             stm = con.prepareStatement(truyVan);
             stm.setString(1, bangLuongNhanVien.getMaBangLuong());
             stm.setString(2, bangLuongNhanVien.getNhanVien().getMaNhanVien());
@@ -249,8 +251,8 @@ public class BangLuongNhanVien_DAO {
 
     public static void main(String[] args) {
     }
-    // code by vu
 
+    // code by vu
     public int laySoNgayDilamCuaNhanVien(String maNhanVien, int thang, int nam) {
         PreparedStatement stm = null;
         int soDongSuaDuoc = 0;
@@ -333,15 +335,14 @@ public class BangLuongNhanVien_DAO {
         return dsNhanVien;
     }
 
-    public boolean themMotBangLuongString(String maLuong, String maNhanVien, int soNgayLam, int soNgayNghi, int soPhepNghi, Date ngayTinh,
-            double tongTien, String donViTien, String thang, String nam, int xoa) {
+    public boolean themMotBangLuongString(String maLuong, String maNhanVien, int soNgayLam, int soNgayNghi, int soPhepNghi, Date ngayTinh, 
+            String luongTheoThang,double tongTien, String donViTien) {
         PreparedStatement stm = null;
         int soDongThemDuoc = 0;
         try {
             ConnectionDB.ConnectDB.getInstance();
             Connection con = ConnectionDB.ConnectDB.getConnection();
-            xoaBangLuongInsert(thang, nam, xoa);
-            String truyVan = "INSERT INTO BangLuongNhanVien values ( ? , ? , ? , ? , ? , ? , ? , ?)";
+            String truyVan = "INSERT INTO BangLuongNhanVien values ( ? , ? , ? , ? , ? , ? , ? , ? , ?)";
             stm = con.prepareStatement(truyVan);
             stm.setString(1, maLuong);
             stm.setString(2, maNhanVien);
@@ -349,8 +350,9 @@ public class BangLuongNhanVien_DAO {
             stm.setInt(4, soNgayNghi);
             stm.setInt(5, soPhepNghi);
             stm.setDate(6, new java.sql.Date(ngayTinh.getTime()));
-            stm.setDouble(7, tongTien);
-            stm.setString(8, donViTien);
+            stm.setString(7, luongTheoThang);
+            stm.setDouble(8, tongTien);
+            stm.setString(9, donViTien);
             soDongThemDuoc = stm.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getMessage());

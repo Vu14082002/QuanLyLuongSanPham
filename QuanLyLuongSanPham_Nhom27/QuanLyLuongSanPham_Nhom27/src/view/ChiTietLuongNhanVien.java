@@ -45,10 +45,9 @@ public class ChiTietLuongNhanVien extends javax.swing.JFrame {
     private void execute() {
         Container c = this.getContentPane();
         c.setBackground(Color.white);
-
     }
-
     public void taiDuLieuLenBangChiTietLuong(String maNhanVien, String thang, String nam, String tongTien) {
+        System.out.println(maNhanVien+"-"+thang+"-"+nam);
         DefaultTableModel model = (DefaultTableModel) tblChiTietLuongNhanVien.getModel();
         while (model.getRowCount() > 0) {
             model.removeRow(0);

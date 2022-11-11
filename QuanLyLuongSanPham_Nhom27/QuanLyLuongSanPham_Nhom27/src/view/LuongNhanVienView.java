@@ -33,6 +33,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -55,6 +57,9 @@ public class LuongNhanVienView extends javax.swing.JPanel {
     private DefaultTableModel model;
     private ChamCongNhanVien_DAO daoChamCong;
     private BangLuongNhanVien_DAO daoLuong;
+    private NhanVien_DAO nhanVienDao;
+    private BangLuongNhanVien_DAO bangLuongNhanVienDao;
+    private ChamCongNhanVien_DAO chamCongNhanVienDao;
 
     private double tongLuong = 0;
 
@@ -90,23 +95,22 @@ public class LuongNhanVienView extends javax.swing.JPanel {
             model.removeRow(0);
         }
         daoLuong = new BangLuongNhanVien_DAO();
+        DecimalFormat dfm = new DecimalFormat("###,###,###,###,###.###");
         ArrayList<BangLuongNhanVien> bangLuongNhanVienList = daoLuong.danhSachBangLuong();
         if (bangLuongNhanVienList != null) {
             if (cmbHienThi.getSelectedIndex() == 0) {
                 for (BangLuongNhanVien l : bangLuongNhanVienList) {
                     model.addRow(new Object[]{model.getRowCount() + 1, l.getMaBangLuong(), l.getNhanVien().getMaNhanVien(), l.getNhanVien().getHoTen(),
-                        l.getNhanVien().isGioiTinh() ? "Nam" : "Nữ", l.getNhanVien().getSoDienThoai(), l.getSoNgayDiLam(), l.getSoNgayNghi(), l.getSoPhepNghi(),
-                        l.getTongTien(), l.getDonViTien(), l.getNgayTinh()
+                        l.getNhanVien().isGioiTinh() ? "Nam" : "Nữ", l.getNhanVien().getSoDienThoai(), l.getLuongTheoThang(), l.getSoNgayDiLam(), l.getSoNgayNghi(), l.getSoPhepNghi(),
+                        dfm.format(l.getTongTien()), l.getDonViTien(), l.getNgayTinh()
                     });
                 }
             } else {
-                daoLuong = new BangLuongNhanVien_DAO();
-                ArrayList<BangLuongNhanVien> luongTheoNgayThangList = daoLuong.layDanhSachBangLuongTheoThangNam(cmbThang.getSelectedItem().toString(), cmbNam.getSelectedItem().toString());
-                if (luongTheoNgayThangList != null) {
-                    for (BangLuongNhanVien l : luongTheoNgayThangList) {
+                for (BangLuongNhanVien l : bangLuongNhanVienList) {
+                    if (l.getLuongTheoThang().equalsIgnoreCase(cmbThang.getSelectedItem().toString() + "-" + cmbNam.getSelectedItem().toString())) {
                         model.addRow(new Object[]{model.getRowCount() + 1, l.getMaBangLuong(), l.getNhanVien().getMaNhanVien(), l.getNhanVien().getHoTen(),
-                            l.getNhanVien().isGioiTinh() ? "Nam" : "Nữ", l.getNhanVien().getSoDienThoai(), l.getSoNgayDiLam(), l.getSoNgayNghi(), l.getSoPhepNghi(),
-                            l.getTongTien(), l.getDonViTien(), l.getNgayTinh()
+                            l.getNhanVien().isGioiTinh() ? "Nam" : "Nữ", l.getNhanVien().getSoDienThoai(), l.getLuongTheoThang(), l.getSoNgayDiLam(), l.getSoNgayNghi(), l.getSoPhepNghi(),
+                            dfm.format(l.getTongTien()), l.getDonViTien(), l.getNgayTinh()
                         });
                     }
                 }
@@ -114,7 +118,6 @@ public class LuongNhanVienView extends javax.swing.JPanel {
 
         }
     }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -221,17 +224,17 @@ public class LuongNhanVienView extends javax.swing.JPanel {
         tblBangLuong.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         tblBangLuong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "Mã lương", "Mã nhân viên", "Tên nhân viên", "Giới tính", "Số điện thoại", "Số ngày đi làm", "Số ngày nghỉ", "Số phép nghỉ", "Tổng lương", "Đơn vị tiên", "Ngày tính lương"
+                "STT", "Mã lương", "Mã nhân viên", "Tên nhân viên", "Giới tính", "Số điện thoại", "Lương tháng", "Số ngày đi làm", "Số ngày nghỉ", "Số phép nghỉ", "Tổng lương", "Đơn vị tiên", "Ngày tính lương"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -250,59 +253,101 @@ public class LuongNhanVienView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTinhLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTinhLuongActionPerformed
-        LocalDate local = LocalDate.now();
-        if (Integer.parseInt(cmbThang.getSelectedItem().toString()) > local.getMonthValue()) {
-            JOptionPane.showMessageDialog(this, "Thang cham khong duoc sau thang hien tai");
-            return;
-        }
-        daoLuong = new BangLuongNhanVien_DAO();
-        daoChamCong = new ChamCongNhanVien_DAO();
-        NhanVien_DAO daoNhanVien = new NhanVien_DAO();
-        ArrayList<NhanVien> nhanVienList = daoNhanVien.layDanhSachNhanVien();
-        ArrayList<BangLuongNhanVien> listLuong = daoLuong.danhSachBangLuong();
-        ArrayList<ChamCongNhanVien> listChamCong = daoChamCong.danhSachChamCongNhanVien();
-
-        Date date = new Date();
-        SimpleDateFormat dmyFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String ngayTinhLuong = dmyFormat.format(date);
-
-        int thang = Integer.parseInt(cmbThang.getSelectedItem().toString());
-        int nam = Integer.parseInt(cmbNam.getSelectedItem().toString());
-        System.out.println(thang + " " + nam);
-        ArrayList<String> nhanVienKhongTrungList = daoLuong.layDanhSachMaNhanVienKhongTrung();
-        // lay ngay cuoi thang
-        Calendar date1 = Calendar.getInstance();
-        date1.set(nam, thang, 1);
-
-        int res = date1.getActualMaximum(Calendar.DATE);
-        Calendar date2 = Calendar.getInstance();
-        date2.set(nam, thang, res);
-        int maLuong = 0;
-        BangLuongNhanVien_DAO daoLuong2 = new BangLuongNhanVien_DAO();
-        ArrayList<BangLuongNhanVien> listLuong2 = daoLuong2.danhSachBangLuong();
-        if (!listLuong2.isEmpty()) {
-            maLuong = 1 + Integer.parseInt(listLuong2.get(listLuong.size() - 1).getMaBangLuong().split("N")[1]);
-        } else {
-            maLuong = 100001;
-        }
-        int xoa = 0;
-        for (String nv : nhanVienKhongTrungList) {
-            NhanVien nhanvien = daoNhanVien.layMotNhanVienTheoMaNhanVien(nv);
-            int soNgayDiLam = daoLuong.laySoNgayDilamCuaNhanVien(nv, thang, nam);
-            int soNgayNghiPhep = daoLuong.laySoNgayNghiCoPhepCuaNhanVien(nv, thang, nam);
-            int soNgayNghi = res - sunday(date1.getTime(), date2.getTime()) - soNgayDiLam - soNgayNghiPhep;
-            double luongNhanVien = (nhanvien.getLuongThoaThuan() / 26) * (soNgayDiLam + soNgayNghiPhep);
-            DecimalFormat dfm = new DecimalFormat("###########.##");
-            String tienLuong = dfm.format(luongNhanVien);
-            System.out.println("LN" + maLuong);
-            daoLuong.themMotBangLuongString("LN" + maLuong, nv, soNgayDiLam, soNgayNghi, soNgayNghiPhep, new Date(), luongNhanVien, "VND", cmbThang.getSelectedItem().toString(), cmbNam.getSelectedItem().toString(), xoa);
-            xoa++;
-            System.out.println("Them thanh cong");
-            maLuong++;
-        }
+//        LocalDate local = LocalDate.now();
+//        if (Integer.parseInt(cmbThang.getSelectedItem().toString()) > local.getMonthValue()) {
+//            JOptionPane.showMessageDialog(this, "Thang cham khong duoc sau thang hien tai");
+//            return;
+//        }
+//        daoLuong = new BangLuongNhanVien_DAO();
+//        daoChamCong = new ChamCongNhanVien_DAO();
+//        NhanVien_DAO daoNhanVien = new NhanVien_DAO();
+//        ArrayList<NhanVien> nhanVienList = daoNhanVien.layDanhSachNhanVien();
+//        ArrayList<BangLuongNhanVien> listLuong = daoLuong.danhSachBangLuong();
+//        ArrayList<ChamCongNhanVien> listChamCong = daoChamCong.danhSachChamCongNhanVien();
+//
+//        Date date = new Date();
+//        SimpleDateFormat dmyFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        String ngayTinhLuong = dmyFormat.format(date);
+//
+//        int thang = Integer.parseInt(cmbThang.getSelectedItem().toString());
+//        int nam = Integer.parseInt(cmbNam.getSelectedItem().toString());
+//        System.out.println(thang + " " + nam);
+//        ArrayList<String> nhanVienKhongTrungList = daoLuong.layDanhSachMaNhanVienKhongTrung();
+//        // lay ngay cuoi thang
+//        Calendar date1 = Calendar.getInstance();
+//        date1.set(nam, thang, 1);
+//
+//        int res = date1.getActualMaximum(Calendar.DATE);
+//        Calendar date2 = Calendar.getInstance();
+//        date2.set(nam, thang, res);
+//        int maLuong = 0;
+//        BangLuongNhanVien_DAO daoLuong2 = new BangLuongNhanVien_DAO();
+//        ArrayList<BangLuongNhanVien> listLuong2 = daoLuong2.danhSachBangLuong();
+//        if (!listLuong2.isEmpty()) {
+//            maLuong = 1 + Integer.parseInt(listLuong2.get(listLuong.size() - 1).getMaBangLuong().split("N")[1]);
+//        } else {
+//            maLuong = 100001;
+//        }
+//        int xoa = 0;
+//        for (String nv : nhanVienKhongTrungList) {
+//            NhanVien nhanvien = daoNhanVien.layMotNhanVienTheoMaNhanVien(nv);
+//            int soNgayDiLam = daoLuong.laySoNgayDilamCuaNhanVien(nv, thang, nam);
+//            int soNgayNghiPhep = daoLuong.laySoNgayNghiCoPhepCuaNhanVien(nv, thang, nam);
+//            int soNgayNghi = res - sunday(date1.getTime(), date2.getTime()) - soNgayDiLam - soNgayNghiPhep;
+//            double luongNhanVien = (nhanvien.getLuongThoaThuan() / 26) * (soNgayDiLam + soNgayNghiPhep);
+//            DecimalFormat dfm = new DecimalFormat("###########.##");
+//            String tienLuong = dfm.format(luongNhanVien);
+//            System.out.println("LN" + maLuong);
+//            daoLuong.themMotBangLuongString("LN" + maLuong, nv, soNgayDiLam, soNgayNghi, soNgayNghiPhep, new Date(), luongNhanVien, "VND", cmbThang.getSelectedItem().toString(), cmbNam.getSelectedItem().toString(), xoa);
+//            xoa++;
+//            System.out.println("Them thanh cong");
+//            maLuong++;
+//        }
+        tinhLuongNhanVien2();
         taiDuLieuLenBangLuong();
 
     }//GEN-LAST:event_btnTinhLuongActionPerformed
+    public void tinhLuongNhanVien2() {
+        bangLuongNhanVienDao = new BangLuongNhanVien_DAO();
+        nhanVienDao = new NhanVien_DAO();
+        chamCongNhanVienDao = new ChamCongNhanVien_DAO();
+        NhanVien nhanVienChamCong = nhanVienDao.layMotNhanVienTheoMaNhanVien("NV100001");
+        ArrayList<NhanVien> nhanVienList = nhanVienDao.layDanhSachNhanVien();
+        bangLuongNhanVienDao.xoaBangLuongInsert(cmbThang.getSelectedItem().toString(), cmbNam.getSelectedItem().toString());
+        for (NhanVien nv : nhanVienList) {
+            ArrayList<BangLuongNhanVien> bangLuongList = bangLuongNhanVienDao.danhSachBangLuong();
+            String maBangLuong = "LN100001";
+            if (bangLuongList.size() > 0) {
+                maBangLuong = "LN" + (Integer.parseInt(bangLuongList.get(bangLuongList.size() - 1).getMaBangLuong().split("N")[1]) + 1);
+            }
+            int soNgayDiLam = 0;
+            int soNgayNghi = 0;
+            int soPhepNghi = 0;
+            int soNgayChuNhatDiLam = 0;
+            System.out.println(nv.getMaNhanVien() + " " + cmbThang.getSelectedItem().toString() + " " + cmbNam.getSelectedItem().toString());
+            ArrayList<String[]> danhSach = chamCongNhanVienDao.layDanhSachChamCongTheoMaNhanVienVaThang(nv.getMaNhanVien(),
+                    cmbThang.getSelectedItem().toString(), cmbNam.getSelectedItem().toString());
+            for (String[] string : danhSach) {
+                System.out.println(string[0] + " " + string[1]);
+                if (string[1].contains("Đi")) {
+                    soNgayDiLam++;
+                    if (string[0].contains("chủ nhật")) {
+                        soNgayChuNhatDiLam++;
+                    }
+                }
+                if (string[1].contains("Nghỉ")) {
+                    soNgayNghi++;
+                }
+                if (string[1].contains("Nghỉ có phép")) {
+                    soPhepNghi++;
+                }
+            }
+            String luongTheoThang = cmbThang.getSelectedItem().toString() + "-" + cmbNam.getSelectedItem().toString();
+            double tongTien = nv.getLuongThoaThuan() / 28 * soNgayDiLam + nv.getLuongThoaThuan() / 28 * soNgayChuNhatDiLam;
+            bangLuongNhanVienDao.themMotBangLuongString(maBangLuong, nv.getMaNhanVien(), soNgayDiLam, soNgayNghi, soPhepNghi, new Date(), luongTheoThang, tongTien, "VND");
+        }
+    }
+
     public int sunday(Date d1, Date d2) {
         Calendar c1 = Calendar.getInstance();
         c1.setTime(d1);
@@ -325,34 +370,22 @@ public class LuongNhanVienView extends javax.swing.JPanel {
 
     private void cmbThangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbThangActionPerformed
         taiDuLieuLenBangLuong();
-     
-//        System.out.println(cmbThang.getSelectedItem().toString() + "-" + cmbNam.getSelectedItem().toString());
-//        System.out.println("Local date: " + LocalDate.now().getMonthValue()+"-"+LocalDate.now().getYear());
-//        if(LocalDate.now().getMonthValue() == Integer.parseInt(cmbThang.getSelectedItem().toString())){
-//            System.out.println("true");
-//        }
-//        if ( LocalDate.now().getMonthValue() == Integer.parseInt(cmbThang.getSelectedItem().toString()) && LocalDate.now().getDayOfMonth() == Integer.parseInt(cmbNam.getSelectedItem().toString())) {
-//            btnTinhLuong.setEnabled(true);
-//        } else {
-//            btnTinhLuong.setEnabled(false);
-//        }
     }//GEN-LAST:event_cmbThangActionPerformed
 
     private void btnXuatBaoCaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatBaoCaoActionPerformed
 
-        MessageFormat header = new MessageFormat("Bang luong nhân viên theo tháng...");
+        MessageFormat header = new MessageFormat("Bang luong nhân viên tháng" + cmbThang.getSelectedItem().toString() + "-" + cmbNam.getSelectedItem().toString());
         MessageFormat footer = new MessageFormat("Nhóm 27");
         try {
             tblBangLuong.print(JTable.PrintMode.FIT_WIDTH, header, footer);
         } catch (Exception e) {
             e.getMessage();
         }
-
     }//GEN-LAST:event_btnXuatBaoCaoActionPerformed
 
     private void cmbHienThiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbHienThiActionPerformed
         taiDuLieuLenBangLuong();
-//    
+
     }//GEN-LAST:event_cmbHienThiActionPerformed
 
     private void tblBangLuongMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBangLuongMousePressed
@@ -360,13 +393,9 @@ public class LuongNhanVienView extends javax.swing.JPanel {
         Point point = evt.getPoint();
         int row = table.rowAtPoint(point);
         if (evt.getClickCount() == 2 && tblBangLuong.getSelectedRow() != -1) {
-            int rowSelected = tblBangLuong.getSelectedRow();
-            LocalDate date = LocalDate.parse(tblBangLuong.getValueAt(row, 11).toString());
-            int thang = date.getMonthValue();
-            int nam = date.getYear();
             new ChiTietLuongNhanVien(tblBangLuong.getValueAt(row, 2).toString(), tblBangLuong.getValueAt(row, 3).toString(),
-                    tblBangLuong.getValueAt(row, 9).toString(), tblBangLuong.getValueAt(row, 11).toString().split("-")[1],
-                    tblBangLuong.getValueAt(row, 11).toString().split("-")[0]).setVisible(true);
+                    tblBangLuong.getValueAt(row, 10).toString(), tblBangLuong.getValueAt(row, 6).toString().split("-")[0],
+                    tblBangLuong.getValueAt(row, 6).toString().split("-")[1]).setVisible(true);
         }
     }//GEN-LAST:event_tblBangLuongMousePressed
     private void cmbNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNamActionPerformed
