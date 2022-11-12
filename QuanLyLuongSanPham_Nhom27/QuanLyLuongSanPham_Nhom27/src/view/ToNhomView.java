@@ -93,7 +93,7 @@ public class ToNhomView extends javax.swing.JPanel implements MouseListener, Act
 
         if (toNhomList != null) {
             for (ToNhom toNhom : toNhomList) {
-                 defaultTablePhongBan.addRow(new Object[]{defaultTablePhongBan.getRowCount()+1,toNhom.getMaToNhom(),toNhom.getTenToNhom(),toNhom.getSoLuongCongNhan()});
+                defaultTablePhongBan.addRow(new Object[]{defaultTablePhongBan.getRowCount() + 1, toNhom.getMaToNhom(), toNhom.getTenToNhom(), toNhom.getSoLuongCongNhan()});
             }
             if (tblToNhom.getRowCount() != 0) {
                 tblToNhom.setRowSelectionInterval(0, 0);
@@ -348,7 +348,7 @@ public class ToNhomView extends javax.swing.JPanel implements MouseListener, Act
             int row = tblToNhom.getSelectedRow();
             if (row != -1) {
                 hienThiDuLieuLenTxt(row);
-                if (!btnThem.isEnabled()){
+                if (!btnThem.isEnabled()) {
                     btnThem.setEnabled(true);
                     btnXoa.setEnabled(true);
                     btnCapNhat.setEnabled(true);
@@ -405,26 +405,33 @@ public class ToNhomView extends javax.swing.JPanel implements MouseListener, Act
             toNhom_DAO = new ToNhom_DAO();
             ArrayList<Entity.ToNhom> list = toNhom_DAO.layDanhSachToNhom();
             if (list != null) {
-                txtMaToNhom.setText("TN" + (Integer.parseInt(list.get(list.size() - 1).getMaToNhom().split("N")[1])+1));
+                txtMaToNhom.setText("TN" + (Integer.parseInt(list.get(list.size() - 1).getMaToNhom().split("N")[1]) + 1));
             } else {
                 txtMaToNhom.setText("TN100001");
             }
             txtSoLuongCongNhan.setText("0");
 
         } else if (o.equals(btnLuu)) {
-            // Xử lý sự kiện lưu
-            // Xử lý Thêm phòng ban
-            // btnFlag để lưu các JButton vừa click
             System.out.println(oFlag.equals(btnThem));
             if (oFlag.equals(btnThem)) {
                 String maPhongBan = txtMaToNhom.getText();
                 if (txtTenTo.getText().equals("")) {
                     lbErrTenPhongBan.setText("Tên tổ không được trống!");
                     return;
+                } else if (!txtTenTo.getText().matches("^Tổ [1-9]*$")) {
+                    lbErrTenPhongBan.setText("Tên phải theo mẫu “Tổ STT”!");
+                    return;
                 } else {
                     lbErrTenPhongBan.setText("");
                 }
-                String tenPhongBan = txtTenTo.getText().trim();
+                ToNhom_DAO toNhomDao = new ToNhom_DAO();
+                ArrayList<ToNhom> toNhomList = toNhomDao.layDanhSachToNhom();
+                for (ToNhom toNhom : toNhomList) {
+                    if(toNhom.getTenToNhom().equalsIgnoreCase(txtTenTo.getText())){
+                        JOptionPane.showMessageDialog(this, "Tên tổ/nhóm đã tồn tại","Thông báo",JOptionPane.INFORMATION_MESSAGE);
+                        return;
+                    }
+                }
                 boolean coThemDuoc = toNhom_DAO.themToNhom(new ToNhom(maPhongBan, txtTenTo.getText(), 0));
                 if (coThemDuoc) {
                     // tải dữ liệu lại vào jtable

@@ -132,7 +132,7 @@ public class MainView extends javax.swing.JFrame {
         this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
     }
 
-    private void execute() {
+    private void execute() throws IOException {
         ImageIcon iconHomePage = new ImageIcon(getClass().getResource("/image/icon/homepage.png"));
         ImageIcon iconEmployee = new ImageIcon(getClass().getResource("/image/icon/employee.png"));
         ImageIcon iconWorker = new ImageIcon(getClass().getResource("/image/icon/worker.png"));
@@ -302,7 +302,11 @@ public class MainView extends javax.swing.JFrame {
         // menu
         menuTrangChu = new MenuItem(iconHomePage, lblTrangChu, (ActionEvent e) -> {
             pnBody.removeAll();
-            pnBody.add(new TrangChuView(nhanVienDangNhap,fileName), BorderLayout.CENTER);
+            try {
+                pnBody.add(new TrangChuView(nhanVienDangNhap,fileName), BorderLayout.CENTER);
+            } catch (IOException ex) {
+                Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+            }
             pnBody.repaint();
             pnBody.revalidate();
             setNonSelectMenu(menuTrangChu, meNuHopDong, menuPhongBan, menuToNhom, menuNhanVien, menuCongNhan, menuSanPham, menuThongKe, menuHeThong);

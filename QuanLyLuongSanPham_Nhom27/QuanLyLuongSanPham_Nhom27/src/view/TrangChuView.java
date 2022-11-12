@@ -65,11 +65,12 @@ public class TrangChuView extends javax.swing.JPanel {
         phongBan_DAO = new PhongBan_DAO();
         congNhan_DAO = new CongNhan_DAO();
         modelTableTrangChu = (DefaultTableModel) tblTrangChu.getModel();
-        caiDatNgonNguChoView(fileName);
+
         hienThiDuLieuLenBang();
         lblTongCongNhan.setText(congNhan_DAO.layRaSoLuongCongNhan() + "");
         lblTongNhanVien.setText(nhanVien_DAO.laySoLuongNhanVien() + "");
         lblTongPhongBan.setText(phongBan_DAO.layRaSoLuongPhongBan() + "");
+        caiDatNgonNguChoView(fileName);
     }
 
     public void hienThiDuLieuLenBang() {
@@ -219,9 +220,9 @@ public class TrangChuView extends javax.swing.JPanel {
         FileInputStream fis = new FileInputStream(fileName);
         Properties prop = new Properties();
         prop.load(fis);
-        lblTongCongNhan.setText(prop.getProperty("TrangChu_lblCongNhan"));
-        lblTongNhanVien.setText(prop.getProperty("TrangChu_lblNhanVien"));
-        lblTongPhongBan.setText(prop.getProperty("TrangChu_lblPhongBan"));
+        lblCongNhan.setText(prop.getProperty("TrangChu_lblCongNhan"));
+        lblNhanVien.setText(prop.getProperty("TrangChu_lblNhanVien"));
+        lblPhongBan.setText(prop.getProperty("TrangChu_lblPhongBan"));
         ChangeName(tblTrangChu, 0, prop.getProperty("TrangChu_SoThuTu"));
         ChangeName(tblTrangChu, 1, prop.getProperty("TrangChu_MaNhanVien"));
         ChangeName(tblTrangChu, 2, prop.getProperty("TrangChu_HoTen"));

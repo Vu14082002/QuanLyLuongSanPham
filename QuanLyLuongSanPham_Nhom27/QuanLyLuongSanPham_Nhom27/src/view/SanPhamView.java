@@ -830,9 +830,7 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
                 }
             }
         } else if (o.equals(btnLuu)) {
-
             if (oFlag.equals(btnThem)) {
-
                 boolean hopLe = validateForm();
                 int soLuongSanPham = 0, soCongDoan = 0;
                 if (!hopLe) {
@@ -953,24 +951,14 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
         } else {
             lblErrChatLieu.setText("");
         }
-        try {
-            soLuong = Integer.parseInt(txtSoLuong.getText().trim());
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            lblErrSoLuong.setText("Số lượng là số nguyên");
-            flag = false;
+        if(!txtSoLuong.getText().matches("^[1-9][0-9]*$")){
+            lblErrSoLuong.setText("Số lượng phải là số và >=0");
         }
-        if (soLuong < 0) {
-            lblErrSoLuong.setText("Số lượng phải >= 0");
-            flag = false;
-        }
-        if (flag) {
+        else{
             lblErrSoLuong.setText("");
         }
         return flag;
     }
-
     @Override
     public void mouseClicked(MouseEvent e) {
         Object o = e.getSource();

@@ -131,7 +131,7 @@ public class NhanVien {
     public void setEmail(String email) throws Exception {
         if (email.equals("")) {
             throw new Exception("Địa chỉ email không được để trống");
-        } else if (!email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+        } else if (!email.matches("^^[a-z]\\w*@gmail.com$$")) {
             throw new Exception("Địa chỉ email không hợp lệ, phải đúng định dạng gmail hiện nay, phải có @, tên miền");
         } else {
             this.email = email;

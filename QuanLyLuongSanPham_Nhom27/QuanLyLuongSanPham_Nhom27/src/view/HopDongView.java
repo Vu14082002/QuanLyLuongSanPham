@@ -444,7 +444,6 @@ public class HopDongView extends javax.swing.JPanel {
     }//GEN-LAST:event_txtTenKhachHangActionPerformed
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
-
         if (isThem) {
             boolean isHopLe = checkInput();
             if (!isHopLe) {
@@ -543,12 +542,13 @@ public class HopDongView extends javax.swing.JPanel {
             this.lblErrTienCoc.setText("Không được để trống");
             check = false;
         } else if (!this.txtTienCoc.getText().replaceAll(",", "").matches("^[1-9][0-9]*$")) {
-            this.lblTienCoc.setText("Số tiền nhập không hợp lệ");
+            this.lblErrTienCoc.setText("Số tiền nhập không hợp lệ");
             check = false;
         } else {
             this.lblErrTienCoc.setText("");
             checkTien = true;
         }
+        
         if (txtTenHopDong.getText().equals("")) {
             lblErrTenHopDong.setText("Không được để trống");
             check = false;

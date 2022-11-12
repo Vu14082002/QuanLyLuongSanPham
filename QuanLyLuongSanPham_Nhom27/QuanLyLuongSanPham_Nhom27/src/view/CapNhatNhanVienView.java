@@ -808,14 +808,19 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
             lblErrSoCCCD.setText("");
         }
         if (txtEmail.getText().equals("")) {
-            lblErrEmail.setText("");
-        } else if (!txtEmail.getText().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
-            lblErrEmail.setText("Email không hợp lệ");
+            lblErrEmail.setText("Bắt buộc nhập");
+        } else if (!txtEmail.getText().matches("^[a-z]\\w*@gmail.com$")) {
+            lblErrEmail.setText("Email theo mẫu của google");
             flag = false;
         } else {
             lblErrEmail.setText("");
         }
-
+        if (txtDiaChi.getText().equals("")) {
+            lblErrDiaChi.setText("Bắt buộc nhập");
+            flag = false;
+        } else {
+            lblErrDiaChi.setText("");
+        }
         if (txtSoDienThoai.getText().equals("")) {
             lblErrSoDienThoai.setText("Bắt buộc nhập");
             flag = false;
@@ -825,7 +830,6 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
         } else {
             lblErrSoDienThoai.setText("");
         }
-
         if (new Date().before(dcsNgaySinh.getDate())) {
             lblErrNgaySinh.setText("ngày sinh không hợp lệ");
             flag = false;
@@ -844,14 +848,18 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
         } else {
             lblErrNgayVaoLam.setText("");
         }
-        if (this.txtLuongThoaThuan.getText().equals("")) {
-            this.lblErrLuongThoaThuan.setText("Bắt buộc nhập");
-            flag = false;
-        } else if (!this.txtLuongThoaThuan.getText().replaceAll(",", "").matches("^[1-9][0-9]*$")) {
-            this.lblErrLuongThoaThuan.setText("Số tiền nhập không hợp lệ");
-            flag = false;
-        } else {
-            this.lblErrLuongThoaThuan.setText("");
+        try {
+            if (this.txtLuongThoaThuan.getText().equals("")) {
+                this.lblErrLuongThoaThuan.setText("Bắt buộc nhập");
+                flag = false;
+            } else if (Double.parseDouble(txtLuongThoaThuan.getText()) <= 0) {
+                this.lblErrLuongThoaThuan.setText("Số tiền >0");
+                flag = false;
+            } else {
+                this.lblErrLuongThoaThuan.setText("");
+            }
+        } catch (Exception e) {
+            this.lblErrLuongThoaThuan.setText("Số tiêng không hợp lệ");
         }
         return flag;
     }
