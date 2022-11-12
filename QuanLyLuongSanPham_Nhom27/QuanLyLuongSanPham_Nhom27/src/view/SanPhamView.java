@@ -174,11 +174,9 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
         txtSoLuong.setText(tblDanhSachSanPham.getValueAt(row, 3).toString());
         // hien thi mau
         String mauStr[] = tblDanhSachSanPham.getValueAt(row, 4).toString().split(",");
-
         int mau[] = new int[mauStr.length];
         for (int i = 0; i < mauStr.length; i++) {
             mau[i] = Integer.parseInt(mauStr[i].trim());
-
         }
 
         this.pnlMauSacSanPham.setBackground(new Color(mau[0], mau[1], mau[2]));

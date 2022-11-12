@@ -10,8 +10,13 @@ import DAO.PhongBan_DAO;
 import Entity.NhanVien;
 import java.awt.Color;
 import java.awt.Font;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Properties;
 import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -26,17 +31,29 @@ public class TrangChuView extends javax.swing.JPanel {
     private DefaultTableModel modelTableTrangChu;
     private CongNhan_DAO congNhan_DAO;
     private PhongBan_DAO phongBan_DAO;
+    private NhanVien nhanVienDangNhap;
+    private String fileName;
+    private String stt;
+    private String maNhanVien;
+    private String hoTen;
+    private String soDienThoai;
+    private String email;
+    private String gioiTinh;
+    private String phongBan;
+    private String chucVu;
 
     /**
      * Creates new form TrangChuView
      */
-    public TrangChuView() {
+    public TrangChuView(NhanVien nhanVienDangNhap, String fileName) throws IOException {
+        this.nhanVienDangNhap = nhanVienDangNhap;
+        this.fileName = fileName;
         initComponents();
+
         tblTrangChu.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
         tblTrangChu.getTableHeader().setOpaque(false);
         ((DefaultTableCellRenderer) tblTrangChu.getTableHeader().getDefaultRenderer())
                 .setHorizontalAlignment(JLabel.CENTER);
-//        tbTrangChu.getTableHeader().setForeground(new Color(255,255,255));
         tblTrangChu.setRowHeight(25);
         try {
             ConnectionDB.ConnectDB.getInstance().connect();
@@ -48,15 +65,11 @@ public class TrangChuView extends javax.swing.JPanel {
         phongBan_DAO = new PhongBan_DAO();
         congNhan_DAO = new CongNhan_DAO();
         modelTableTrangChu = (DefaultTableModel) tblTrangChu.getModel();
-        excute();
+        caiDatNgonNguChoView(fileName);
         hienThiDuLieuLenBang();
-        lblTongCongNhan.setText(congNhan_DAO.layRaSoLuongCongNhan()+"");
-        lblTongNhanVien.setText(nhanVien_DAO.laySoLuongNhanVien()+"");
-        lblTongPhongBan.setText(phongBan_DAO.layRaSoLuongPhongBan()+"");
-    }
-
-    public void excute() {
-
+        lblTongCongNhan.setText(congNhan_DAO.layRaSoLuongCongNhan() + "");
+        lblTongNhanVien.setText(nhanVien_DAO.laySoLuongNhanVien() + "");
+        lblTongPhongBan.setText(phongBan_DAO.layRaSoLuongPhongBan() + "");
     }
 
     public void hienThiDuLieuLenBang() {
@@ -66,11 +79,11 @@ public class TrangChuView extends javax.swing.JPanel {
         ArrayList<NhanVien> dsNhanVien = nhanVien_DAO.layDanhSachNhanVien();
         for (NhanVien nhanVien : dsNhanVien) {
             String data[] = {(modelTableTrangChu.getRowCount() + 1) + "", nhanVien.getMaNhanVien(), nhanVien.getHoTen(),
-                 nhanVien.getSoDienThoai(), nhanVien.getEmail(), (nhanVien.isGioiTinh()) ? "Nam" : "Nữ",
-                 nhanVien.getPhongBan().getTenPhongBan(), nhanVien.getChucVu()};
+                nhanVien.getSoDienThoai(), nhanVien.getEmail(), (nhanVien.isGioiTinh()) ? "Nam" : "Nữ",
+                nhanVien.getPhongBan().getTenPhongBan(), nhanVien.getChucVu()};
             modelTableTrangChu.addRow(data);
         }
-        
+
     }
 
     /**
@@ -202,7 +215,26 @@ public class TrangChuView extends javax.swing.JPanel {
         add(scrTableTrangChu, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    public void caiDatNgonNguChoView(String fileName) throws FileNotFoundException, IOException {
+        FileInputStream fis = new FileInputStream(fileName);
+        Properties prop = new Properties();
+        prop.load(fis);
+        lblTongCongNhan.setText(prop.getProperty("TrangChu_lblCongNhan"));
+        lblTongNhanVien.setText(prop.getProperty("TrangChu_lblNhanVien"));
+        lblTongPhongBan.setText(prop.getProperty("TrangChu_lblPhongBan"));
+        ChangeName(tblTrangChu, 0, prop.getProperty("TrangChu_SoThuTu"));
+        ChangeName(tblTrangChu, 1, prop.getProperty("TrangChu_MaNhanVien"));
+        ChangeName(tblTrangChu, 2, prop.getProperty("TrangChu_HoTen"));
+        ChangeName(tblTrangChu, 3, prop.getProperty("TrangChu_SoDienThoai"));
+        ChangeName(tblTrangChu, 4, prop.getProperty("TrangChu_Email"));
+        ChangeName(tblTrangChu, 5, prop.getProperty("TrangChu_GioiTinh"));
+        ChangeName(tblTrangChu, 6, prop.getProperty("TrangChu_PhongBan"));
+        ChangeName(tblTrangChu, 7, prop.getProperty("TrangChu_ChucVu"));
+    }
 
+    public void ChangeName(JTable table, int col_index, String col_name) {
+        table.getColumnModel().getColumn(col_index).setHeaderValue(col_name);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;

@@ -304,7 +304,7 @@ public class LoginView extends javax.swing.JFrame {
         if (loai.equals("CN")) {
             CongNhan congNhan = congNhan_DAO.layMotCongNhanTheoMa(userName);
             if (congNhan != null && congNhan.getMatKhau().equals(password)) {
-                new MainView(congNhan.getMaCongNhan()).setVisible(true);
+                new MainView(congNhan.getMaCongNhan(),ngonNguList.get(cmbNgonNgu.getSelectedIndex())).setVisible(true);
                 this.setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(null, "Tài khoản hoặc Mật khẩu không chính xác!", "Thông Báo Đăng nhập", JOptionPane.ERROR_MESSAGE);
@@ -313,7 +313,7 @@ public class LoginView extends javax.swing.JFrame {
         } else if (loai.equals("NV")) {
             NhanVien nhanVien = nhanVien_DAO.layMotNhanVienTheoMaNhanVien(userName);
             if (nhanVien != null && nhanVien.getMatKhau().equals(password)) {
-                new MainView(nhanVien.getMaNhanVien()).setVisible(true);
+                new MainView(nhanVien.getMaNhanVien(),ngonNguList.get(cmbNgonNgu.getSelectedIndex())).setVisible(true);
                 this.setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(null, "Tài khoản hoặc Mật khẩu không chính xác!", "Thông Báo Đăng nhập", JOptionPane.ERROR_MESSAGE);
@@ -348,15 +348,6 @@ public class LoginView extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDangNhapActionPerformed
 
     private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseClicked
-//        for(double i=0.0; i<=1.0;i=i+0.1){
-//        String val = i+"";
-//        float f= Float.valueOf(val);
-//        this.setOpacity(f);
-//        try{
-//            Thread.sleep(50);
-//        }catch(Exception e){
-//        }
-//    }
         System.exit(0);
     }//GEN-LAST:event_lblExitMouseClicked
     public Preferences pref = Preferences.userRoot().node("Remember");
