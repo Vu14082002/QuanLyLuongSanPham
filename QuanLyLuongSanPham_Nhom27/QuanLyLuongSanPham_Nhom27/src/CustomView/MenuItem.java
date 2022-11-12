@@ -111,6 +111,7 @@ public class MenuItem extends javax.swing.JPanel {
         lbIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/worker.png"))); // NOI18N
         add(lbIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 70));
 
+        lbName.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lbName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lbName.setText("Menu name here....");
         lbName.setPreferredSize(new java.awt.Dimension(113, 50));

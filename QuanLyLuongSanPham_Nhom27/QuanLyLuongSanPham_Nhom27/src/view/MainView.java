@@ -10,6 +10,9 @@ import DAO.NhanVien_DAO;
 import Entity.CongNhan;
 import Entity.NhanVien;
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
@@ -18,7 +21,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 // 1500 - 250 anf 800-75
 
 /**
@@ -56,6 +61,15 @@ public class MainView extends javax.swing.JFrame {
     private NhanVien_DAO nhanVien_DAO;
     private NhanVien nhanVien;
     private CongNhan congNhan;
+    private MenuItem menuTrangChu;
+    private MenuItem meNuHopDong;
+    private MenuItem menuPhongBan;
+    private MenuItem menuToNhom;
+    private MenuItem menuNhanVien;
+    private MenuItem menuCongNhan;
+    private MenuItem menuSanPham;
+    private MenuItem menuThongKe;
+    private MenuItem menuHeThong;
 
     public MainView(String userName) {
         initComponents();
@@ -258,13 +272,17 @@ public class MainView extends javax.swing.JFrame {
         pnBody.repaint();
         pnBody.revalidate();
         // menu
-        MenuItem menuTrangChu = new MenuItem(iconHomePage, "Trang chủ", (ActionEvent e) -> {
+//menuTrangChu,meNuHopDong,menuPhongBan,menuToNhom,menuNhanVien,menuCongNhan,menuSanPham,menuThongKe, menuHeThong
+        menuTrangChu = new MenuItem(iconHomePage, "Trang chủ", (ActionEvent e) -> {
             pnBody.removeAll();
             pnBody.add(new TrangChuView(), BorderLayout.CENTER);
             pnBody.repaint();
             pnBody.revalidate();
+            setNonSelectMenu(menuTrangChu, meNuHopDong, menuPhongBan, menuToNhom, menuNhanVien, menuCongNhan, menuSanPham, menuThongKe, menuHeThong);
+            setSelectMenu(menuTrangChu);
+
         });
-        MenuItem meNuHopDong = new MenuItem(iconContract, "Hợp đồng", (ActionEvent e) -> {
+        meNuHopDong = new MenuItem(iconContract, "Hợp đồng", (ActionEvent e) -> {
             pnBody.removeAll();
             try {
                 pnBody.add(new HopDongView(), BorderLayout.CENTER);
@@ -273,29 +291,76 @@ public class MainView extends javax.swing.JFrame {
             }
             pnBody.repaint();
             pnBody.revalidate();
+            setNonSelectMenu(menuTrangChu, meNuHopDong, menuPhongBan, menuToNhom, menuNhanVien, menuCongNhan, menuSanPham, menuThongKe, menuHeThong);
+            setSelectMenu(meNuHopDong);
         });
-        MenuItem menuPhongBan = new MenuItem(iconDepartment, "Phòng ban", (ActionEvent e) -> {
+        menuPhongBan = new MenuItem(iconDepartment, "Phòng ban", (ActionEvent e) -> {
             pnBody.removeAll();
             pnBody.add(new PhongBanView(), BorderLayout.CENTER);
             pnBody.repaint();
             pnBody.revalidate();
+            setNonSelectMenu(menuTrangChu, meNuHopDong, menuPhongBan, menuToNhom, menuNhanVien, menuCongNhan, menuSanPham, menuThongKe, menuHeThong);
+            setSelectMenu(menuPhongBan);
         });
-        MenuItem menuToNhom = new MenuItem(iconGroup, "Tổ/Nhóm", (ActionEvent e) -> {
+        menuToNhom = new MenuItem(iconGroup, "Tổ/Nhóm", (ActionEvent e) -> {
             pnBody.removeAll();
             pnBody.add(new ToNhomView(), BorderLayout.CENTER);
             pnBody.repaint();
             pnBody.revalidate();
+            setNonSelectMenu(menuTrangChu, meNuHopDong, menuPhongBan, menuToNhom, menuNhanVien, menuCongNhan, menuSanPham, menuThongKe, menuHeThong);
+            setSelectMenu(menuToNhom);
         });
-        MenuItem menuNhanVien = new MenuItem(iconEmployee, "Nhân viên", (ActionEvent e) -> {
+        menuNhanVien = new MenuItem(iconEmployee, "Nhân viên", (ActionEvent e) -> {
             resetSelect();
+            setNonSelectMenu(menuTrangChu, meNuHopDong, menuPhongBan, menuToNhom, menuNhanVien, menuCongNhan, menuSanPham, menuThongKe, menuHeThong);
+            setSelectMenu(menuNhanVien);
         }, capNhatNhanVien, chamCongNhanVien, phanCongCongNhan, tinhLuongNhanVien, timKiemNhanVien);
-        MenuItem menuCongNhan = new MenuItem(iconWorker, "Công nhân", (ActionEvent e) -> {
+        menuCongNhan = new MenuItem(iconWorker, "Công nhân", (ActionEvent e) -> {
             resetSelect();
+            setNonSelectMenu(menuTrangChu, meNuHopDong, menuPhongBan, menuToNhom, menuNhanVien, menuCongNhan, menuSanPham, menuThongKe, menuHeThong);
+            setSelectMenu(menuCongNhan);
         }, capNhatCongNhan, chamCongCongNhan, tinhLuongCongNhan, timKiemCongNhan);
-        MenuItem menuSanPham = new MenuItem(iconProduct, "Sản phẩm", null, capNhatSanPham, phanCongDoanSanPham, timKiemSanPham);
-        MenuItem menuThongKe = new MenuItem(iconThongKe, "Thống kê", null, thongKeNhanVien, thongKeCongNhan);
-        MenuItem menuHeThong = new MenuItem(iconHeThong, "Hệ thống", null, thongTinCaNhan, dangXuat);
-        addMenu(menuTrangChu, menuPhongBan, menuToNhom, meNuHopDong, menuSanPham, menuNhanVien, menuCongNhan, menuThongKe, menuHeThong);
+        menuSanPham = new MenuItem(iconProduct, "Sản phẩm", (ActionEvent e) -> {
+            resetSelect();
+            setNonSelectMenu(menuTrangChu, meNuHopDong, menuPhongBan, menuToNhom, menuNhanVien, menuCongNhan, menuSanPham, menuThongKe, menuHeThong);
+            setSelectMenu(menuSanPham);
+        }, capNhatSanPham, phanCongDoanSanPham, timKiemSanPham);
+        menuThongKe = new MenuItem(iconThongKe, "Thống kê", (ActionEvent e) -> {
+            resetSelect();
+            setNonSelectMenu(menuTrangChu, meNuHopDong, menuPhongBan, menuToNhom, menuNhanVien, menuCongNhan, menuSanPham, menuThongKe, menuHeThong);
+            setSelectMenu(menuThongKe);
+        }, thongKeNhanVien, thongKeCongNhan);
+        menuHeThong = new MenuItem(iconHeThong, "Hệ thống", (ActionEvent e) -> {
+            resetSelect();
+            setNonSelectMenu(menuTrangChu, meNuHopDong, menuPhongBan, menuToNhom, menuNhanVien, menuCongNhan, menuSanPham, menuThongKe, menuHeThong);
+            setSelectMenu(menuHeThong);
+        }, thongTinCaNhan, dangXuat);
+        addMenu(menuHeThong, menuPhongBan, menuToNhom, meNuHopDong, menuSanPham, menuNhanVien, menuCongNhan, menuThongKe, menuHeThong);
+    }
+
+    public void setSelectMenu(JPanel pnelSelect) {
+        pnelSelect.setBackground(new Color(12, 12, 12));
+        for (Component jc : pnelSelect.getComponents()) {
+            if (jc instanceof JLabel) {
+                JLabel label = (JLabel) jc;
+                label.setForeground(new Color(255, 255, 255));
+                label.setFont(new Font("Segoe UI", Font.BOLD, 15));
+            }
+        }
+    }
+
+    public void setNonSelectMenu(JPanel... jPanels) {
+        for (JPanel jPanel : jPanels) {
+            jPanel.setBackground(new Color(255, 255, 255));
+            for (Component jc : jPanel.getComponents()) {
+                if (jc instanceof JLabel) {
+                    JLabel label = (JLabel) jc;
+                    label.setForeground(new Color(12, 12, 12));
+                    label.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+                }
+            }
+        }
+
     }
 
     public void resetSelect() {
