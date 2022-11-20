@@ -37,6 +37,8 @@ public class LoginView extends javax.swing.JFrame {
         ngonNguList = new ArrayList<>();
         ngonNguList.add("./config/VietNam.properties");
         ngonNguList.add("./config/English.properties");
+        ngonNguList.add("./config/France.properties");
+        ngonNguList.add("./config/Malagasy.properties");
 
         initComponents();
         gui();
@@ -63,6 +65,7 @@ public class LoginView extends javax.swing.JFrame {
         btnDangNhap.setText(prop.getProperty("Login_btnDangNhap"));
         lblNgonNgu.setText(prop.getProperty("Login_lblNgonNgu"));
     }
+
     public void getDataRemember() {
         String userName = "";
         userName = pref.get("userName", userName);
@@ -273,7 +276,7 @@ public class LoginView extends javax.swing.JFrame {
         });
         jPanel2.add(lblQuenMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 323, 190, -1));
 
-        cmbNgonNgu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "VietNam", "English" }));
+        cmbNgonNgu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "VietNam", "English", "France", "Malagasy" }));
         cmbNgonNgu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbNgonNguActionPerformed(evt);
@@ -301,19 +304,14 @@ public class LoginView extends javax.swing.JFrame {
             return;
         }
         String loai = userName.substring(0, 2);
-        if (loai.equals("CN")) {
-            CongNhan congNhan = congNhan_DAO.layMotCongNhanTheoMa(userName);
-            if (congNhan != null && congNhan.getMatKhau().equals(password)) {
-                new MainView(congNhan.getMaCongNhan(),ngonNguList.get(cmbNgonNgu.getSelectedIndex())).setVisible(true);
-                this.setVisible(false);
-            } else {
-                JOptionPane.showMessageDialog(null, "Tài khoản hoặc Mật khẩu không chính xác!", "Thông Báo Đăng nhập", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-        } else if (loai.equals("NV")) {
+        if (loai.equals("NV")) {
             NhanVien nhanVien = nhanVien_DAO.layMotNhanVienTheoMaNhanVien(userName);
             if (nhanVien != null && nhanVien.getMatKhau().equals(password)) {
-                new MainView(nhanVien.getMaNhanVien(),ngonNguList.get(cmbNgonNgu.getSelectedIndex())).setVisible(true);
+                try {
+                    new MainView(nhanVien.getMaNhanVien(), ngonNguList.get(cmbNgonNgu.getSelectedIndex())).setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(LoginView.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 this.setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(null, "Tài khoản hoặc Mật khẩu không chính xác!", "Thông Báo Đăng nhập", JOptionPane.ERROR_MESSAGE);

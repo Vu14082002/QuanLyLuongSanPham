@@ -15,6 +15,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
@@ -24,12 +27,17 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+
 
 /**
  *
@@ -41,16 +49,18 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
     private ChamCongCongNhan_DAO chamCongCN_DAO;
     private BangLuongCongNhan_DAO bangLuongCN_DAO;
     private DecimalFormat nf, df;
+    private String fileName;
 
     /**
      * Creates new form NhanVienView
      */
-    public LuongCongNhanView() {
+    public LuongCongNhanView(String fileName) throws IOException {
+        this.fileName=fileName;
         initComponents();
         excute();
         nf = new DecimalFormat("#,###.00");
         df = new DecimalFormat("#");
-        modelTableChamCong = (DefaultTableModel) tblPhanCong.getModel();
+        modelTableChamCong = (DefaultTableModel) tblBangLuong.getModel();
         try {
             ConnectionDB.ConnectDB.getInstance().connect();
 
@@ -59,7 +69,7 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
         }
         chamCongCN_DAO = new ChamCongCongNhan_DAO();
         bangLuongCN_DAO = new BangLuongCongNhan_DAO();
-        btnLuuThongTin.addActionListener(this);
+        btnGuiThongTin.addActionListener(this);
         btnTinhLuong.addActionListener(this);
         btnXuatBaoCao.addActionListener(this);
         btnXuatBaoCao.setEnabled(false);
@@ -67,6 +77,39 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
         cmbThangTinh.addItemListener(this::checkThangChon);
         cmbHienThi.addItemListener(this::hienThiBangLuongTheoNgay);
         taiDuLieuLenBang();
+        caiDatNgonNguChoView(fileName);
+    }
+
+    public void caiDatNgonNguChoView(String fileName) throws FileNotFoundException, IOException {
+        FileInputStream fis = new FileInputStream(fileName);
+        Properties prop = new Properties();
+        prop.load(fis);
+        lblThang.setText(prop.getProperty("lnv_thang"));
+        lblNam.setText(prop.getProperty("lnv_nam"));
+        btnTinhLuong.setText(prop.getProperty("lnv_btnTinhLuong"));
+        btnGuiThongTin.setText(prop.getProperty("lnv_btnGuiThongTin"));
+        btnXuatBaoCao.setText(prop.getProperty("lnv_btnXuatBaoCao"));
+        lblHienThi.setText(prop.getProperty("lnv_hienThi"));
+        cmbHienThi.removeAllItems();
+        cmbHienThi.addItem(prop.getProperty("lnv_cmb0"));
+        cmbHienThi.addItem(prop.getProperty("lnv_cmb1"));
+        scrBangLuong.setBorder(new TitledBorder(prop.getProperty("lnv_tieuDe")));
+
+        ChangeName(tblBangLuong, 0, prop.getProperty("lnv_stt"));
+        ChangeName(tblBangLuong, 1, prop.getProperty("lnv_maLuong"));
+        ChangeName(tblBangLuong, 2, prop.getProperty("maCongNhan"));
+        ChangeName(tblBangLuong, 3, prop.getProperty("tenCongNhan"));
+        ChangeName(tblBangLuong, 4, prop.getProperty("soCCCD"));
+        ChangeName(tblBangLuong, 5, prop.getProperty("lnv_soNgayDiLam"));
+        ChangeName(tblBangLuong, 6, prop.getProperty("lnv_soPhepNghi"));
+        ChangeName(tblBangLuong, 7, prop.getProperty("lcc_nghiKhongPhep"));
+        ChangeName(tblBangLuong, 8, prop.getProperty("lnv_donViTien"));
+        ChangeName(tblBangLuong, 9, prop.getProperty("lnv_ngayTinh"));
+        ChangeName(tblBangLuong, 10, prop.getProperty("lnv_tongLuong"));
+    }
+
+    public void ChangeName(JTable table, int col_index, String col_name) {
+        table.getColumnModel().getColumn(col_index).setHeaderValue(col_name);
     }
 
     public void setNamChoCmbNam() {
@@ -83,18 +126,18 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
                 taiDuLieuLenBang();
             } else {
                 taiDuLieuLenBangTheoNgayThang();
-                if(tblPhanCong.getRowCount() != 0){
+                if (tblBangLuong.getRowCount() != 0) {
                     btnXuatBaoCao.setEnabled(true);
-                } 
+                }
             }
-            
+
         }
     }
 
     public void taiDuLieuLenBangTheoNgayThang() {
         int thang = Integer.parseInt((cmbThangTinh.getSelectedItem().toString()));
         int nam = Integer.parseInt(cmbNamTinh.getSelectedItem().toString());
-        while (tblPhanCong.getRowCount() != 0) {
+        while (tblBangLuong.getRowCount() != 0) {
             modelTableChamCong.removeRow(0);
         }
         ArrayList<BangLuongCongNhan> dsBangLuong = bangLuongCN_DAO.layDanhSachBangLuongTheoThangNam(thang, nam);
@@ -123,7 +166,7 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
     }
 
     public void taiDuLieuLenBang() {
-        while (tblPhanCong.getRowCount() != 0) {
+        while (tblBangLuong.getRowCount() != 0) {
             modelTableChamCong.removeRow(0);
         }
         ArrayList<BangLuongCongNhan> dsBangLuong = bangLuongCN_DAO.layDanhSachBangLuongCongNhan();
@@ -146,11 +189,11 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
 //        ((DefaultTableCellRenderer) tbDanhSachCanChamCong.getTableHeader().getDefaultRenderer())
 //                .setHorizontalAlignment(JLabel.CENTER);
 //        tbDanhSachCanChamCong.setRowHeight(25);
-        tblPhanCong.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
-        tblPhanCong.getTableHeader().setOpaque(false);
-        ((DefaultTableCellRenderer) tblPhanCong.getTableHeader().getDefaultRenderer())
+        tblBangLuong.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        tblBangLuong.getTableHeader().setOpaque(false);
+        ((DefaultTableCellRenderer) tblBangLuong.getTableHeader().getDefaultRenderer())
                 .setHorizontalAlignment(JLabel.CENTER);
-        tblPhanCong.setRowHeight(25);
+        tblBangLuong.setRowHeight(25);
     }
 
     /**
@@ -164,7 +207,7 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
 
         jPanel5 = new javax.swing.JPanel();
         btnTinhLuong = new javax.swing.JButton();
-        btnLuuThongTin = new javax.swing.JButton();
+        btnGuiThongTin = new javax.swing.JButton();
         lblThang = new javax.swing.JLabel();
         cmbThangTinh = new javax.swing.JComboBox<>();
         cmbNamTinh = new javax.swing.JComboBox<>();
@@ -173,7 +216,7 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
         lblHienThi = new javax.swing.JLabel();
         cmbHienThi = new javax.swing.JComboBox<>();
         scrBangLuong = new javax.swing.JScrollPane();
-        tblPhanCong = new javax.swing.JTable();
+        tblBangLuong = new javax.swing.JTable();
 
         setPreferredSize(new java.awt.Dimension(1200, 700));
         setLayout(new java.awt.BorderLayout());
@@ -194,16 +237,16 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
         });
         jPanel5.add(btnTinhLuong, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 100, 170, 40));
 
-        btnLuuThongTin.setBackground(new java.awt.Color(156, 136, 255));
-        btnLuuThongTin.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        btnLuuThongTin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/save.png"))); // NOI18N
-        btnLuuThongTin.setText("Gửi thông tin");
-        btnLuuThongTin.addActionListener(new java.awt.event.ActionListener() {
+        btnGuiThongTin.setBackground(new java.awt.Color(156, 136, 255));
+        btnGuiThongTin.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnGuiThongTin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/save.png"))); // NOI18N
+        btnGuiThongTin.setText("Gửi thông tin");
+        btnGuiThongTin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLuuThongTinActionPerformed(evt);
+                btnGuiThongTinActionPerformed(evt);
             }
         });
-        jPanel5.add(btnLuuThongTin, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 100, 160, 40));
+        jPanel5.add(btnGuiThongTin, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 100, 160, 40));
 
         lblThang.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lblThang.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -256,8 +299,8 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
         scrBangLuong.setBackground(new java.awt.Color(255, 255, 255));
         scrBangLuong.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Bảng lương", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
 
-        tblPhanCong.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        tblPhanCong.setModel(new javax.swing.table.DefaultTableModel(
+        tblBangLuong.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        tblBangLuong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null, null},
@@ -276,16 +319,16 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
                 return canEdit [columnIndex];
             }
         });
-        tblPhanCong.setSelectionBackground(new java.awt.Color(232, 57, 95));
-        tblPhanCong.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblBangLuong.setSelectionBackground(new java.awt.Color(232, 57, 95));
+        tblBangLuong.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tblPhanCongMousePressed(evt);
+                tblBangLuongMousePressed(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tblPhanCongMouseReleased(evt);
+                tblBangLuongMouseReleased(evt);
             }
         });
-        scrBangLuong.setViewportView(tblPhanCong);
+        scrBangLuong.setViewportView(tblBangLuong);
 
         add(scrBangLuong, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
@@ -294,9 +337,9 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
         // TODO add your handling code here:
     }//GEN-LAST:event_btnTinhLuongActionPerformed
 
-    private void btnLuuThongTinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuThongTinActionPerformed
+    private void btnGuiThongTinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiThongTinActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnLuuThongTinActionPerformed
+    }//GEN-LAST:event_btnGuiThongTinActionPerformed
 
     private void cmbThangTinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbThangTinhActionPerformed
         // TODO add your handling code here:
@@ -305,40 +348,44 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
     private void btnXuatBaoCaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatBaoCaoActionPerformed
         // TODO add your handling code here:
         MessageFormat header = new MessageFormat("Bảng Lương Công Nhân trong tháng " + cmbThangTinh.getSelectedItem()
-        + " năm " + cmbNamTinh.getSelectedItem().toString());
+                + " năm " + cmbNamTinh.getSelectedItem().toString());
         MessageFormat footer = new MessageFormat("Nhóm 27");
         try {
-            tblPhanCong.print(JTable.PrintMode.FIT_WIDTH, header, footer);
+            tblBangLuong.print(JTable.PrintMode.FIT_WIDTH, header, footer);
         } catch (Exception e) {
             e.getMessage();
         }
     }//GEN-LAST:event_btnXuatBaoCaoActionPerformed
 
-    private void tblPhanCongMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPhanCongMousePressed
+    private void tblBangLuongMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBangLuongMousePressed
         JTable table = (JTable) evt.getSource();
         Point point = evt.getPoint();
         int row = table.rowAtPoint(point);
-        if (evt.getClickCount() == 2 && tblPhanCong.getSelectedRow() != -1) {
-            int rowSelected = tblPhanCong.getSelectedRow();
-            LocalDate date = LocalDate.parse(tblPhanCong.getValueAt(row, 9).toString());
+        if (evt.getClickCount() == 2 && tblBangLuong.getSelectedRow() != -1) {
+            int rowSelected = tblBangLuong.getSelectedRow();
+            LocalDate date = LocalDate.parse(tblBangLuong.getValueAt(row, 9).toString());
             int thang = date.getMonthValue();
             int nam = date.getYear();
 
-            new ChiTietLuongCongNhan(tblPhanCong.getValueAt(row, 2).toString(), thang, nam).setVisible(true);
+            try {
+                new ChiTietLuongCongNhan(this.fileName,tblBangLuong.getValueAt(row, 2).toString(), thang, nam).setVisible(true);
+            } catch (IOException ex) {
+                Logger.getLogger(LuongCongNhanView.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-    }//GEN-LAST:event_tblPhanCongMousePressed
+    }//GEN-LAST:event_tblBangLuongMousePressed
 
     private void cmbHienThiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbHienThiActionPerformed
 
     }//GEN-LAST:event_cmbHienThiActionPerformed
 
-    private void tblPhanCongMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPhanCongMouseReleased
+    private void tblBangLuongMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBangLuongMouseReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_tblPhanCongMouseReleased
+    }//GEN-LAST:event_tblBangLuongMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnLuuThongTin;
+    private javax.swing.JButton btnGuiThongTin;
     private javax.swing.JButton btnTinhLuong;
     private javax.swing.JButton btnXuatBaoCao;
     private javax.swing.JComboBox<String> cmbHienThi;
@@ -349,7 +396,7 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
     private javax.swing.JLabel lblNam;
     private javax.swing.JLabel lblThang;
     private javax.swing.JScrollPane scrBangLuong;
-    private javax.swing.JTable tblPhanCong;
+    private javax.swing.JTable tblBangLuong;
     // End of variables declaration//GEN-END:variables
 
     @Override

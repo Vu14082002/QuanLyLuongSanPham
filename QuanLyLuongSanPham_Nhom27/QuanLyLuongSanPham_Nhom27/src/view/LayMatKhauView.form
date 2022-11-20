@@ -203,11 +203,11 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="_____________________________________________________"/>
+            <Property name="text" type="java.lang.String" value="______________________________________________________________"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="60" y="250" width="378" height="-1"/>
+              <AbsoluteConstraints x="60" y="250" width="400" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -268,11 +268,11 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="_____________________________________________________"/>
+            <Property name="text" type="java.lang.String" value="______________________________________________________________"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="60" y="160" width="378" height="-1"/>
+              <AbsoluteConstraints x="60" y="160" width="430" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>

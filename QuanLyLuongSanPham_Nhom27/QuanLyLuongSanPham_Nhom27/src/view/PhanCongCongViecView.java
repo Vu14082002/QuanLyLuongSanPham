@@ -18,11 +18,17 @@ import Entity.SanPham;
 import Entity.ToNhom;
 import java.awt.Color;
 import java.awt.Font;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Properties;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -44,11 +50,92 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
     private NhanVien_DAO daoNhanVien;
     private boolean checkPhanCong = false;
 
-    public PhanCongCongViecView() {
+    private String stErrKhongDeTrong;
+    private String stErrSoLuong;
+    private String stThongbao;
+    private String stBanXacNhanXoa;
+    private String stXoaThanhCong;
+    private String stXoaThatBai;
+    private String stThemThanhCong;
+    private String stThemThatBai;
+    private String stTren;
+    private String stSanPham;
+    private String stKhongTimThayFile;
+    private String stKhongDocDuocFile;
+    private String stCapNhatThanhCong;
+    private String stCapNhatThatBai;
+    private String stChonMauSacChoSanPham;
+    private String stErrChuSo;
+    private String stErr1;
+    private String stErr2;
+    private String stErr3;
+
+    public PhanCongCongViecView(String fileName) throws IOException {
         initComponents();
+        caiDatNgonNguChoView(fileName);
         excute();
         taiDuLieuLenBangSanPham();
         dcsNgayPhanCong.setEnabled(false);
+        btnPhanCong.setEnabled(false);
+    }
+
+    public void caiDatNgonNguChoView(String fileName) throws FileNotFoundException, IOException {
+        FileInputStream fis = new FileInputStream(fileName);
+        Properties prop = new Properties();
+        prop.load(fis);
+        scrDanhSachSanPham.setBorder(new TitledBorder(prop.getProperty("pc_tieudeSanPham")));
+        scrDanhSachPhanCong.setBorder(new TitledBorder(prop.getProperty("pc_tieuDeDanhSachPhanCong")));
+
+        ChangeName(tblSanPham, 0, prop.getProperty("pc_stt"));
+        ChangeName(tblSanPham, 1, prop.getProperty("pc_maSanPham"));
+        ChangeName(tblSanPham, 2, prop.getProperty("pc_tenSanPham"));
+        ChangeName(tblSanPham, 3, prop.getProperty("pc_soLuongCan"));
+
+        ChangeName(tblPhanCong, 0, prop.getProperty("pc_stt"));
+        ChangeName(tblPhanCong, 1, prop.getProperty("pc_maSanPham"));
+        ChangeName(tblPhanCong, 2, prop.getProperty("pc_tenSanPham"));
+        ChangeName(tblPhanCong, 3, prop.getProperty("pc_MaCongDoan"));
+        ChangeName(tblPhanCong, 4, prop.getProperty("pc_TenCongDoan"));
+        ChangeName(tblPhanCong, 5, prop.getProperty("pc_toNhom"));
+        ChangeName(tblPhanCong, 6, prop.getProperty("pc_soLuongCan"));
+        ChangeName(tblPhanCong, 7, prop.getProperty("pc_ngayPhanCong"));
+
+        lblNgayPhanCong.setText(prop.getProperty("pc_ngayPhanCong"));
+        lblMaPhanCong.setText(prop.getProperty("pc_maPhanCong"));
+        lblMaCongDoan.setText(prop.getProperty("pc_MaCongDoan"));
+        lblTenCongDoan.setText(prop.getProperty("pc_TenCongDoan"));
+        lblSoLuongCanLam1.setText(prop.getProperty("pc_soLuongCan"));
+        lblToNhom.setText(prop.getProperty("pc_toNhom"));
+
+        btnPhanCong.setText(prop.getProperty("pc_btnPhanCong"));
+        btnXoa.setText(prop.getProperty("btnXoa"));
+        btnCapNhat.setText(prop.getProperty("btnCapNhat"));
+        btnLuu.setText(prop.getProperty("btnLuu"));
+        btnHuy.setText(prop.getProperty("btnHuy"));
+
+        stThongbao = prop.getProperty("thongBao");
+        stBanXacNhanXoa = prop.getProperty("banXacNhanXoa");
+        stXoaThanhCong = prop.getProperty("xoaThanhCong");
+        stXoaThatBai = prop.getProperty("xoaThatBai");
+        stThemThanhCong = prop.getProperty("themThanhCong");
+        stThemThatBai = prop.getProperty("themThatBai");
+        stTren = prop.getProperty("tren");
+        stSanPham = prop.getProperty("sp_SanPham");
+        stKhongDocDuocFile = prop.getProperty("khongDocDuocFile");
+        stKhongTimThayFile = prop.getProperty("khongTimThayFile");
+        stCapNhatThanhCong = prop.getProperty("capNhatThanhCong");
+        stCapNhatThatBai = prop.getProperty("capNhatThatBai");
+        stChonMauSacChoSanPham = prop.getProperty("sp_chonMauSacChoSanPham");
+        stErrSoLuong = prop.getProperty("sp_lblErrSoLuong");
+        stErrKhongDeTrong = prop.getProperty("KhongDeTrong");
+        stErrChuSo = prop.getProperty("pc_errKytuso");
+        stErr1 = prop.getProperty("pc_err1");
+        stErr2 = prop.getProperty("pc_err2");
+        stErr3 = prop.getProperty("pc_err3");
+    }
+
+    public void ChangeName(JTable table, int col_index, String col_name) {
+        table.getColumnModel().getColumn(col_index).setHeaderValue(col_name);
     }
 
     public void excute() {
@@ -100,15 +187,7 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
                 }
             });
         }
-//        if (tblSanPham.getRowCount() != 0) {
-//            tblSanPham.setRowSelectionInterval(0, 0);
-//            taiDuLieuLenBangPhanCong();
-//        }
-//        daoToNhom = new ToNhom_DAO();
-//        ArrayList<ToNhom> toNhomList = daoToNhom.layDanhSachToNhom();
-//        for (ToNhom toNhom : toNhomList) {
-//            cmbToNhom.addItem(toNhom.getTenToNhom());
-//        }
+
         setTblClick(false);
     }
 
@@ -231,22 +310,22 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
 
         tblSanPham.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         tblSanPham.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "STT", "Mã sản phẩm", "Tên sản phẩm", "Số lượng cần"
-            }
+                new Object[][]{
+                    {null, null, null, null},
+                    {null, null, null, null},
+                    {null, null, null, null},
+                    {null, null, null, null}
+                },
+                new String[]{
+                    "STT", "Mã sản phẩm", "Tên sản phẩm", "Số lượng cần"
+                }
         ) {
-            boolean[] canEdit = new boolean [] {
+            boolean[] canEdit = new boolean[]{
                 false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         tblSanPham.setSelectionBackground(new java.awt.Color(232, 57, 95));
@@ -259,7 +338,7 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
 
         jPanel5.add(scrDanhSachSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 660, 270));
 
-        cmbToNhom.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tổ 1", "Tổ 2", "Tổ 3", "Tổ 4", "Tổ 5", "Tổ 6", "Tổ 7", "Tổ 8", "Tổ 9", "Tổ 10" }));
+        cmbToNhom.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Tổ 1", "Tổ 2", "Tổ 3", "Tổ 4", "Tổ 5", "Tổ 6", "Tổ 7", "Tổ 8", "Tổ 9", "Tổ 10"}));
         cmbToNhom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbToNhomActionPerformed(evt);
@@ -267,7 +346,7 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
         });
         jPanel5.add(cmbToNhom, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 290, 140, 40));
 
-        cmbMaCongDoan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CD001", "CD002", "CD003" }));
+        cmbMaCongDoan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"CD001", "CD002", "CD003"}));
         cmbMaCongDoan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbMaCongDoanActionPerformed(evt);
@@ -361,22 +440,22 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
 
         tblPhanCong.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         tblPhanCong.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Mã phân công", "Mã sản phẩm", "Tên sản phẩm", "Mã công đoạn", "Tên  công đoạn", "Tổ/Nhóm", "Số lượng cần làm", "Ngày phân công"
-            }
+                new Object[][]{
+                    {null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null}
+                },
+                new String[]{
+                    "Mã phân công", "Mã sản phẩm", "Tên sản phẩm", "Mã công đoạn", "Tên  công đoạn", "Tổ/Nhóm", "Số lượng cần làm", "Ngày phân công"
+                }
         ) {
-            boolean[] canEdit = new boolean [] {
+            boolean[] canEdit = new boolean[]{
                 false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         tblPhanCong.setSelectionBackground(new java.awt.Color(232, 57, 95));
@@ -390,7 +469,7 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
         add(scrDanhSachPhanCong, java.awt.BorderLayout.CENTER);
     }// </editor-fold>                        
 
-    private void btnPhanCongActionPerformed(java.awt.event.ActionEvent evt) {                                            
+    private void btnPhanCongActionPerformed(java.awt.event.ActionEvent evt) {
         setHidden(btnCapNhat, btnPhanCong, btnXoa);
         setShow(btnLuu, btnHuy);
         checkPhanCong = true;
@@ -406,10 +485,10 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
             maPhanCong = "PC" + maSo;
         }
         lblValueMaPhanCong.setText(maPhanCong);
-    }                                           
+    }
 
-    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {                                       
-        if (JOptionPane.showConfirmDialog(null, "Bạn xác nhận muốn xóa", null, JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {
+        if (JOptionPane.showConfirmDialog(null, stBanXacNhanXoa, stThongbao, JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             daoPhanCong = new PhanCongCongNhan_DAO();
             daoToNhom = new ToNhom_DAO();
             ToNhom toNhom = daoToNhom.layMotToNhomTheoTen(tblPhanCong.getValueAt(tblPhanCong.getSelectedRow(), 5).toString());
@@ -419,31 +498,34 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
                 if (modelPhanCong.getRowCount() != 0) {
                     tblPhanCong.setRowSelectionInterval(0, 0);
                 }
-                JOptionPane.showMessageDialog(null, "Thành công");
+                JOptionPane.showMessageDialog(null, stXoaThanhCong);
             }
         }
         setHidden(btnPhanCong, btnXoa, btnCapNhat, btnLuu, btnPhanCong);
-    }                                      
+    }
 
-    private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {                                           
+    private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {
         setTblClick(true);
         setShow(btnHuy, btnLuu);
         setHidden(btnCapNhat, btnXoa, btnPhanCong);
         dcsNgayPhanCong.setEnabled(false);
         cmbMaCongDoan.setEnabled(false);
         cmbToNhom.setEnabled(false);
-    }                                          
+    }
+
     public boolean checkSoLuongCanLam() {
         if (txtSoLuongCanLam.getText().trim().equals("")) {
-            lblErrSoLuongCanLam.setText("bat buoc nhap");
-        } else if (txtSoLuongCanLam.getText().matches("^[1-9][0-9]*$")) {
-            lblErrSoLuongCanLam.setText("");
-            return true;
+            lblErrSoLuongCanLam.setText(stErrKhongDeTrong);
+            return false;
+        } else if (!txtSoLuongCanLam.getText().matches("^[1-9][0-9]*$")) {
+            lblErrSoLuongCanLam.setText(stErrChuSo);
+            return false;
         }
-        lblErrSoLuongCanLam.setText("Chi dc la ki tu so va >=0");
-        return false;
+        lblErrSoLuongCanLam.setText("");
+        return true;
     }
-    private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {                                       
+
+    private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {
         daoCongNhan = new CongNhan_DAO();
         daoToNhom = new ToNhom_DAO();
         daoNhanVien = new NhanVien_DAO();
@@ -471,33 +553,34 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
                         PhanCongCongNhan phanCong = new PhanCongCongNhan(maPhanCong, congNhanTheoToNhom, congDoan, nhanVienChamCong, ngayPhanCong, soLuongCanLham, toNhom);
                         daoPhanCong.themMotPhanCongNhan(phanCong);
                         taiDuLieuLenBangPhanCong();
-                        setHidden(btnPhanCong, btnXoa, btnCapNhat, btnLuu, btnPhanCong, btnHuy);
+                        JOptionPane.showMessageDialog(this, stThemThanhCong);
+                        setShow(btnPhanCong, btnXoa, btnCapNhat);
+                        setHidden(btnLuu, btnHuy);
                     }
                 }
-                JOptionPane.showMessageDialog(this, "Thanh cong");
             } else {
-                JOptionPane.showMessageDialog(this, "Khong the phan ma " + congDoan.getMaCongDoan() + " cho " + toNhom.getTenToNhom() + " vi da dc phan cong");
+                JOptionPane.showMessageDialog(this, stErr1 + congDoan.getMaCongDoan() + stErr2 + toNhom.getTenToNhom() + stErr3);
             }
         } else {
             if (checkSoLuongCanLam()) {
                 daoPhanCong.suaMotPhanCongNhanTheoMaCongDoan(toNhom.getMaToNhom(), Integer.parseInt(txtSoLuongCanLam.getText()), cmbMaCongDoan.getSelectedItem().toString());
                 taiDuLieuLenBangPhanCong();
-                JOptionPane.showMessageDialog(this, "Cap nhat thanh cong");
-
+                JOptionPane.showMessageDialog(this, stCapNhatThanhCong);
+                setShow(btnPhanCong, btnXoa, btnCapNhat);
+                setHidden(btnLuu, btnHuy);
             }
         }
-        setHidden(btnPhanCong, btnXoa, btnCapNhat, btnLuu, btnPhanCong, btnHuy);
         checkPhanCong = false;
-    }                                      
+    }
 
-    private void tblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {                                        
+    private void tblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {
         taiDuLieuLenBangPhanCong();
         setShow(btnPhanCong);
         setHidden(btnCapNhat, btnXoa, btnHuy, btnLuu);
         setTblClick(false);
-    }                                       
+    }
 
-    private void cmbMaCongDoanActionPerformed(java.awt.event.ActionEvent evt) {                                              
+    private void cmbMaCongDoanActionPerformed(java.awt.event.ActionEvent evt) {
         daoCongDoan = new CongDoan_DAO();
         try {
             CongDoan cd = daoCongDoan.layMotCongDoanTheoMaCongDoan(cmbMaCongDoan.getSelectedItem().toString());
@@ -506,11 +589,12 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
             }
         } catch (Exception e) {
         }
-    }                                             
+    }
 
-    private void cmbToNhomActionPerformed(java.awt.event.ActionEvent evt) {                                          
+    private void cmbToNhomActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-    }                                         
+    }
+
     public void setTblClick(boolean kq) {
         dcsNgayPhanCong.setEnabled(kq);
         cmbMaCongDoan.setEnabled(kq);
@@ -518,7 +602,7 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
         txtSoLuongCanLam.setEditable(kq);
     }
 
-    private void tblPhanCongMouseClicked(java.awt.event.MouseEvent evt) {                                         
+    private void tblPhanCongMouseClicked(java.awt.event.MouseEvent evt) {
         ToNhom_DAO daoToNhom = new ToNhom_DAO();
         ArrayList<ToNhom> toNhomList = daoToNhom.layDanhSachToNhom();
         cmbToNhom.removeAllItems();
@@ -543,22 +627,21 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
         setShow(btnCapNhat, btnXoa);
         setTblClick(false);
 
-    }                                        
+    }
 
-    private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {                                       
+    private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {
         setShow(btnPhanCong);
         setHidden(btnHuy, btnLuu, btnCapNhat, btnXoa);
         setTblClick(false);
         taiDuLieuLenBangSanPham();
 
-    }                                      
+    }
 
-    private void scrDanhSachSanPhamMouseClicked(java.awt.event.MouseEvent evt) {                                                
+    private void scrDanhSachSanPhamMouseClicked(java.awt.event.MouseEvent evt) {
         setHidden(btnCapNhat, btnHuy, btnLuu, btnCapNhat);
         setShow(btnPhanCong);
         setTblClick(false);
-    }                                               
-
+    }
 
     // Variables declaration - do not modify                     
     private javax.swing.JButton btnCapNhat;

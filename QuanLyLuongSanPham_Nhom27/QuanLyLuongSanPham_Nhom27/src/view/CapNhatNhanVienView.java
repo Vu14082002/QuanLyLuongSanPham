@@ -24,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,7 +36,9 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -68,12 +71,109 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
     private boolean isThem = false;
     private boolean isCapNhat = false;
 
-    public CapNhatNhanVienView() throws Exception {
+    private String stErrKhongDeTrong;
+    private String stErrSoLuong;
+    private String stThongbao;
+    private String stBanXacNhanXoa;
+    private String stXoaThanhCong;
+    private String stXoaThatBai;
+    private String stThemThanhCong;
+    private String stThemThatBai;
+    private String stTren;
+    private String stSanPham;
+    private String stKhongTimThayFile;
+    private String stKhongDocDuocFile;
+    private String stCapNhatThanhCong;
+    private String stCapNhatThatBai;
+    private String stChonMauSacChoSanPham;
+    private String stErrHoTen;
+    private String stErrSoCCCD;
+    private String stErrEmail;
+    private String stErrSdt;
+    private String stErrNgaySinh;
+    private String stErrNgayVaoLam;
+    private String stErrNhanVienKhongDuTuoi;
+    private String stErrTienKhongHopLe;
+    private String stSoTienLonHonKhong;
+
+    public CapNhatNhanVienView(String fileName) throws Exception {
         initComponents();
+        caiDatNgonNguChoView(fileName);
         excute();
         taiDuLieuLenBang();
         this.txtMaNhanVien.setEditable(false);
+    }
 
+    public void caiDatNgonNguChoView(String fileName) throws FileNotFoundException, IOException {
+        FileInputStream fis = new FileInputStream(fileName);
+        Properties prop = new Properties();
+        prop.load(fis);
+        btnThemNhieu.setText(prop.getProperty("btnThemNhieu"));
+        btnThem.setText(prop.getProperty("btnThem"));
+        btnXoa.setText(prop.getProperty("btnXoa"));
+        btnCapNhat.setText(prop.getProperty("btnCapNhat"));
+        btnLuu.setText(prop.getProperty("btnLuu"));
+        btnHuy.setText(prop.getProperty("btnHuy"));
+
+        lblMaNhanVien.setText(prop.getProperty("maNhanVien"));
+        lblHoVaTen.setText(prop.getProperty("hoTen"));
+        lblSoCCCD.setText(prop.getProperty("soCCCD"));
+        lblEmail.setText(prop.getProperty("email"));
+        lblSoDienThoai.setText(prop.getProperty("sdt"));
+        lblDiaChi.setText(prop.getProperty("diaChi"));
+        lblNgaySinh.setText(prop.getProperty("ngaySinh"));
+        lblGioiTinh.setText(prop.getProperty("gioiTinh"));
+        lblPhongBan.setText(prop.getProperty("phongBan"));
+        lblChucVu.setText(prop.getProperty("chucVu"));
+        lblNgayVaoLam.setText(prop.getProperty("ngayVaoLam"));
+        lblLuongThoaThuan.setText(prop.getProperty("luongThoaThuan"));
+        lblAnhDaiDien.setText(prop.getProperty("anhDaiDien"));
+        rdoNam.setText(prop.getProperty("nam"));
+        rdoNu.setText(prop.getProperty("nu"));
+
+        ChangeName(tblNhanVien, 0, prop.getProperty("pcd_stt"));
+        ChangeName(tblNhanVien, 1, lblMaNhanVien.getText());
+        ChangeName(tblNhanVien, 2, lblHoVaTen.getText());
+        ChangeName(tblNhanVien, 3, lblSoCCCD.getText());
+        ChangeName(tblNhanVien, 4, lblGioiTinh.getText());
+        ChangeName(tblNhanVien, 5, lblNgaySinh.getText());
+        ChangeName(tblNhanVien, 6, lblSoDienThoai.getText());
+        ChangeName(tblNhanVien, 7, lblDiaChi.getText());
+        ChangeName(tblNhanVien, 8, lblAnhDaiDien.getText());
+        ChangeName(tblNhanVien, 9, lblEmail.getText());
+        ChangeName(tblNhanVien, 10, lblPhongBan.getText());
+        ChangeName(tblNhanVien, 11, lblChucVu.getText());
+        ChangeName(tblNhanVien, 12, lblNgayVaoLam.getText());
+        ChangeName(tblNhanVien, 13, lblLuongThoaThuan.getText());
+
+        stThongbao = prop.getProperty("thongBao");
+        stBanXacNhanXoa = prop.getProperty("banXacNhanXoa");
+        stXoaThanhCong = prop.getProperty("xoaThanhCong");
+        stXoaThatBai = prop.getProperty("xoaThatBai");
+        stThemThanhCong = prop.getProperty("themThanhCong");
+        stThemThatBai = prop.getProperty("themThatBai");
+        stTren = prop.getProperty("tren");
+        stSanPham = prop.getProperty("sp_SanPham");
+        stKhongDocDuocFile = prop.getProperty("khongDocDuocFile");
+        stKhongTimThayFile = prop.getProperty("khongTimThayFile");
+        stCapNhatThanhCong = prop.getProperty("capNhatThanhCong");
+        stCapNhatThatBai = prop.getProperty("capNhatThatBai");
+        stChonMauSacChoSanPham = prop.getProperty("sp_chonMauSacChoSanPham");
+        stErrSoLuong = prop.getProperty("sp_lblErrSoLuong");
+        stErrKhongDeTrong = prop.getProperty("KhongDeTrong");
+        stErrHoTen = prop.getProperty("hoTenKhongHopLe");
+        stErrSoCCCD = prop.getProperty("soCCCDKhongHopLe");
+        stErrEmail = prop.getProperty("emailKhongHopLe");
+        stErrSdt = prop.getProperty("sdtKhongHopLe");
+        stErrNgaySinh = prop.getProperty("ngaySinhKhongHopLe");
+        stErrNgayVaoLam = prop.getProperty("ngayVaoLamKhongHopLe");
+        stErrNhanVienKhongDuTuoi = prop.getProperty("nhanVienChuaDuTuoi");
+        stErrTienKhongHopLe = prop.getProperty("soTienKhongHople");
+        stSoTienLonHonKhong = prop.getProperty("soTienLonHonKhong");
+    }
+
+    public void ChangeName(JTable table, int col_index, String col_name) {
+        table.getColumnModel().getColumn(col_index).setHeaderValue(col_name);
     }
 
     public void excute() throws Exception {
@@ -104,7 +204,6 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
         lblErrNgaySinh.setText("");
         lblErrNgayVaoLam.setText("");
         lblErrLuongThoaThuan.setText("");
-
     }
 
     public void taiDuLieuLenBang() throws ParseException {
@@ -196,7 +295,7 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
         cboPhongBan = new javax.swing.JComboBox<>();
         cboChucVu = new javax.swing.JComboBox<>();
         lblSoDienThoai = new javax.swing.JLabel();
-        lbTenSanPham10 = new javax.swing.JLabel();
+        lblNgaySinh = new javax.swing.JLabel();
         lblErrSoDienThoai = new javax.swing.JLabel();
         lblPhongBan = new javax.swing.JLabel();
         dcsNgayVaoLam = new com.toedter.calendar.JDateChooser();
@@ -405,9 +504,9 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
         lblSoDienThoai.setText("Số điện thoại:");
         jPanel5.add(lblSoDienThoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, 140, 40));
 
-        lbTenSanPham10.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        lbTenSanPham10.setText("Ngày sinh:");
-        jPanel5.add(lbTenSanPham10, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 220, 140, 40));
+        lblNgaySinh.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lblNgaySinh.setText("Ngày sinh:");
+        jPanel5.add(lblNgaySinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 220, 140, 40));
 
         lblErrSoDienThoai.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lblErrSoDienThoai.setForeground(new java.awt.Color(204, 0, 0));
@@ -586,18 +685,15 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         int rowSelected = tblNhanVien.getSelectedRow();
         if (rowSelected != -1) {
-            //                int coXacNhanXoa = JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa?", "Xóa nhân viên", JOptionPane.YES_NO_OPTION);
-            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa?", "Xóa nhân viên", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            if (JOptionPane.showConfirmDialog(null, stBanXacNhanXoa, stThongbao, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 if (daoNhanVien.xoaMotNhanVienTheoMa(tblNhanVien.getValueAt(tblNhanVien.getSelectedRow(), 1).toString())) {
-                    JOptionPane.showMessageDialog(null, "Xóa thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, stXoaThanhCong, stThongbao, JOptionPane.INFORMATION_MESSAGE);
                     try {
                         taiDuLieuLenBang();
                     } catch (ParseException ex) {
-                        Logger.getLogger(CapNhatNhanVienView.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, "Erro (T_T)(T_T)", stThongbao, JOptionPane.INFORMATION_MESSAGE);
                     }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Hệ thống gặp lỗi ^.^. Bạn vui lòng khởi dộng lại chương trình!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                }
+                } 
             }
         }
     }//GEN-LAST:event_btnXoaActionPerformed
@@ -611,11 +707,6 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
         try {
-            String them = isThem ? "Thêm" : "Không thêm";
-            String capNhat = isCapNhat ? "Cập nhật" : "Không cập nhật";
-            System.out.println("Ban đang " + them + " Và " + capNhat);
-            System.out.println(cboChucVu.getSelectedItem());
-            System.out.println(cboPhongBan.getSelectedItem());
             if (kiemTraNhap()) {
                 PhongBan_DAO dao = new PhongBan_DAO();
                 PhongBan pb = dao.layMotPhongBanTheoTen(cboPhongBan.getSelectedItem().toString());
@@ -632,36 +723,35 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
                 if (isThem) {
                     if (this.daoNhanVien.themMotNhanVien(nhanvienEntity)) {
                         taiDuLieuLenBang();
-                        JOptionPane.showMessageDialog(this, "Thêm thành công");
+                        JOptionPane.showMessageDialog(this, stThemThanhCong);
                         setHidden(btnLuu, btnHuy);
                         setShow(btnThem, btnXoa, btnCapNhat);
                         setEnableForInput(false);
                         isThem = false;
                         isCapNhat = false;
                     } else {
-                        JOptionPane.showMessageDialog(null, "Lỗi vui thêm nhân viên lại lòng thử lại sau");
+                        JOptionPane.showMessageDialog(null, stThemThatBai);
                         isThem = false;
                         isCapNhat = false;
                     }
                 } else {
                     if (this.daoNhanVien.suaThongTinMotNhanVien(nhanvienEntity)) {
                         taiDuLieuLenBang();
-                        JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+                        JOptionPane.showMessageDialog(this, stCapNhatThanhCong,stThongbao,JOptionPane.INFORMATION_MESSAGE);
                         setHidden(btnLuu, btnHuy);
                         setShow(btnThem, btnXoa, btnCapNhat);
                         setEnableForInput(false);
                         isThem = false;
                         isCapNhat = false;
                     } else {
-                        JOptionPane.showMessageDialog(null, "Lỗi vui lòng cập nhật nhân viên thử lại sau");
+                        JOptionPane.showMessageDialog(null, stCapNhatThatBai,stThongbao,JOptionPane.INFORMATION_MESSAGE);
                         isThem = false;
                         isCapNhat = false;
                     }
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Hệ thống đang bị lỗi, quý khách làm phiền thoát chương tình");
+            JOptionPane.showMessageDialog(null, "ERRO,please Resset (T_T)(T_T)");
         }
     }//GEN-LAST:event_btnLuuActionPerformed
 
@@ -687,14 +777,13 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
             hienThiDuLieuLenTxt(tblNhanVien.getSelectedRow());
             setEnableForInput(false);
         } catch (ParseException ex) {
-            JOptionPane.showMessageDialog(null, "Hệ thống đang bị lỗi, quý khách làm phiền thoát chương tình");
+            JOptionPane.showMessageDialog(null, "ERRO,please Resset (T_T)(T_T)");
 
         }
     }//GEN-LAST:event_tblNhanVienMouseClicked
 
     private void btnThemNhieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNhieuActionPerformed
         ArrayList<NhanVien> nhanVienList = new ArrayList<>();
-//        JFileChooser openFileChooser = new JFileChooser("D:\\MonHoc\\Nam3_HK1\\PTUD\\Code\\Git\\QuanLyLuongSanPham\\QuanLyLuongSanPham_Nhom27\\QuanLyLuongSanPham_Nhom27\\excelData");
         JFileChooser openFileChooser = new JFileChooser("../QuanLyLuongSanPham_Nhom27/excelData");
         openFileChooser.setDialogTitle("Open file");
         openFileChooser.removeChoosableFileFilter(openFileChooser.getFileFilter());
@@ -739,12 +828,11 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
                                 "111111", chucVu, ngayVaoLam1, Double.parseDouble(luongThoaThuan), "Nam".equals(gioiTinh) ? true : false, "male.png", diaChi, phongBan1);
                         if (nhanVienThem != null) {
                             if (daoNhanVien.themMotNhanVien(nhanVienThem)) {
-                                System.out.println("them thanh cong");
                             }
                         }
                         System.out.println("Import rows " + i);
                     }
-                    JOptionPane.showMessageDialog(this, "Them thanh cong");
+                    JOptionPane.showMessageDialog(this, stThemThanhCong);
                     taiDuLieuLenBang();
                 } catch (IOException ex) {
                     Logger.getLogger(CapNhatNhanVienView.class.getName()).log(Level.SEVERE, null, ex);
@@ -789,49 +877,49 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
     public boolean kiemTraNhap() throws ParseException {
         boolean flag = true;
         if (this.txtHoVaTen.getText().equals("")) {
-            this.lblErrHoVaTen.setText("Bắt buộc nhập");
+            this.lblErrHoVaTen.setText(stErrKhongDeTrong);
             flag = false;
         } else if (!this.txtHoVaTen.getText().matches("^([A-ZĐÂÁƯ][a-zỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổ"
                 + "ẵẻỡơôưăêâđ]+)((\\s[A-ZĐÂÁƯ][a-zỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]+){1,})$")) {
-            this.lblErrHoVaTen.setText("Họ tên không hợp lệ");
+            this.lblErrHoVaTen.setText(stErrHoTen);
             flag = false;
         } else {
             this.lblErrHoVaTen.setText("");
         }
         if (txtSoCCCD.getText().equals("")) {
-            lblErrSoCCCD.setText("Bắt buộc nhập");
+            lblErrSoCCCD.setText(stErrKhongDeTrong);
             flag = false;
         } else if (!txtSoCCCD.getText().matches("^[0-9]{12}$")) {
-            lblErrSoCCCD.setText("Số CCCD không hợp lệ");
+            lblErrSoCCCD.setText(stErrSoCCCD);
             flag = false;
         } else {
             lblErrSoCCCD.setText("");
         }
         if (txtEmail.getText().equals("")) {
-            lblErrEmail.setText("Bắt buộc nhập");
+            lblErrEmail.setText(stErrKhongDeTrong);
         } else if (!txtEmail.getText().matches("^[a-z]\\w*@gmail.com$")) {
-            lblErrEmail.setText("Email theo mẫu của google");
+            lblErrEmail.setText(stErrEmail);
             flag = false;
         } else {
             lblErrEmail.setText("");
         }
         if (txtDiaChi.getText().equals("")) {
-            lblErrDiaChi.setText("Bắt buộc nhập");
+            lblErrDiaChi.setText(stErrKhongDeTrong);
             flag = false;
         } else {
             lblErrDiaChi.setText("");
         }
         if (txtSoDienThoai.getText().equals("")) {
-            lblErrSoDienThoai.setText("Bắt buộc nhập");
+            lblErrSoDienThoai.setText(stErrKhongDeTrong);
             flag = false;
         } else if (!txtSoDienThoai.getText().matches("^\\+[0-9]{11}$")) {
-            lblErrSoDienThoai.setText("Số điện thoại không hợp lệ");
+            lblErrSoDienThoai.setText(stErrSdt);
             flag = false;
         } else {
             lblErrSoDienThoai.setText("");
         }
         if (new Date().before(dcsNgaySinh.getDate())) {
-            lblErrNgaySinh.setText("ngày sinh không hợp lệ");
+            lblErrNgaySinh.setText(stErrNgaySinh);
             flag = false;
         } else {
             lblErrNgaySinh.setText("");
@@ -840,30 +928,30 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
         long khoangCach2Ngay = sdf.parse(sdf.format(dcsNgayVaoLam.getDate())).getTime() - sdf.parse(sdf.format(dcsNgaySinh.getDate())).getTime();
         long getYearDiff = TimeUnit.MILLISECONDS.toDays(khoangCach2Ngay) / 365;
         if (new Date().before(dcsNgayVaoLam.getDate())) {
-            lblErrNgayVaoLam.setText("ngày vào làm không hợp lệ");
+            lblErrNgayVaoLam.setText(stErrNgayVaoLam);
             flag = false;
         } else if (getYearDiff < 18) {
-            lblErrNgayVaoLam.setText("Nhân viên chưa đủ tuổi để làm việc");
+            lblErrNgayVaoLam.setText(stErrNhanVienKhongDuTuoi);
             flag = false;
         } else {
             lblErrNgayVaoLam.setText("");
         }
         try {
             if (this.txtLuongThoaThuan.getText().equals("")) {
-                this.lblErrLuongThoaThuan.setText("Bắt buộc nhập");
+                this.lblErrLuongThoaThuan.setText(stErrKhongDeTrong);
                 flag = false;
             } else if (Double.parseDouble(txtLuongThoaThuan.getText()) <= 0) {
-                this.lblErrLuongThoaThuan.setText("Số tiền >0");
+                this.lblErrLuongThoaThuan.setText(stSoTienLonHonKhong);
                 flag = false;
             } else {
                 this.lblErrLuongThoaThuan.setText("");
             }
         } catch (Exception e) {
-            this.lblErrLuongThoaThuan.setText("Số tiêng không hợp lệ");
+            this.lblErrLuongThoaThuan.setText(stErrTienKhongHopLe);
+            flag = false;
         }
         return flag;
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnAnhSanPham;
     private javax.swing.JButton btnCapNhat;
@@ -884,7 +972,6 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JLabel lbTenSanPham10;
     private javax.swing.JLabel lblAnhDaiDien;
     private javax.swing.JLabel lblChucVu;
     private javax.swing.JLabel lblDiaChi;
@@ -902,6 +989,7 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
     private javax.swing.JLabel lblHoVaTen;
     private javax.swing.JLabel lblLuongThoaThuan;
     private javax.swing.JLabel lblMaNhanVien;
+    private javax.swing.JLabel lblNgaySinh;
     private javax.swing.JLabel lblNgayVaoLam;
     private javax.swing.JLabel lblPhongBan;
     private javax.swing.JLabel lblSoCCCD;

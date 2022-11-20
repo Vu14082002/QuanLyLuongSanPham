@@ -12,6 +12,7 @@ import DAO.ToNhom_DAO;
 import Entity.ChamCongCongNhan;
 import Entity.CongDoan;
 import Entity.CongNhan;
+import Entity.NhanVien;
 import Entity.PhanCongCongNhan;
 import Entity.SanPham;
 import Entity.ToNhom;
@@ -26,17 +27,22 @@ import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -62,7 +68,34 @@ public class ChamCongCongNhanView extends javax.swing.JPanel implements ActionLi
     private ChamCongCongNhan_DAO chamCongCN_DAO;
     private ItemListener itemMaCongDoan, itemTenCongDoan;
 
-    public ChamCongCongNhanView() {
+    private String stErrKhongDeTrong;
+    private String stErrSoLuong;
+    private String stThongbao;
+    private String stBanXacNhanXoa;
+    private String stXoaThanhCong;
+    private String stXoaThatBai;
+    private String stThemThanhCong;
+    private String stThemThatBai;
+    private String stTren;
+    private String stSanPham;
+    private String stKhongTimThayFile;
+    private String stKhongDocDuocFile;
+    private String stCapNhatThanhCong;
+    private String stCapNhatThatBai;
+    private String stChonMauSacChoSanPham;
+    private String stErrHoTen;
+    private String stErrSoCCCD;
+    private String stErrEmail;
+    private String stErrSdt;
+    private String stErrNgaySinh;
+    private String stErrNgayVaoLam;
+    private String stErrNhanVienKhongDuTuoi;
+    private String stErrTienKhongHopLe;
+    private String stSoTienLonHonKhong;
+    private String stChamCongThanhCong;
+    private String stErrNgayChamCong;
+
+    public ChamCongCongNhanView(String fileName) throws IOException {
         initComponents();
         excute();
         lblErrSoLuongSP.setText("");
@@ -150,13 +183,98 @@ public class ChamCongCongNhanView extends javax.swing.JPanel implements ActionLi
         cmbTrangThai.addItemListener(this::toggleCmbTrangThai);
 
         setCmbGio("Sáng");
+        caiDatNgonNguChoView(fileName);
 
+    }
+
+    public void caiDatNgonNguChoView(String fileName) throws FileNotFoundException, IOException {
+        FileInputStream fis = new FileInputStream(fileName);
+        Properties prop = new Properties();
+        prop.load(fis);
+        btnCapNhat.setText(prop.getProperty("btnCapNhat"));
+        btnLuu.setText(prop.getProperty("btnLuu"));
+        btnHuy.setText(prop.getProperty("btnHuy"));
+        btnXoa.setText(prop.getProperty("btnXoa"));
+        btnChamCong.setText(prop.getProperty("chamCong_btnChamCong"));
+        btnLayDanhSach.setText(prop.getProperty("cccc_layDanhSach"));
+
+        lblToNhom.setText(prop.getProperty("cccc_toNhom"));
+        lblNgayChamCong.setText(prop.getProperty("cccc_ngayCham"));
+        lblMaSanPham.setText(prop.getProperty("cccc_maSanPham"));
+        lblTenSanPham.setText(prop.getProperty("cccc_tenSanPham"));
+        lblMaCongDoan.setText(prop.getProperty("cccc_maCongDoan"));
+        lblTenCongDoan.setText(prop.getProperty("cccc_tenCongDoan"));
+        lblMaCongNhan.setText(prop.getProperty("cccc_maCongNhan"));
+        lblHoTen.setText(prop.getProperty("cccc_hoVaTen"));
+        lblTrangThai.setText(prop.getProperty("cccc_trangThai"));
+        lblCaLam.setText(prop.getProperty("cccc_caLam"));
+        lblGioDiLam.setText(prop.getProperty("cccc_gioLam"));
+        lblPhut.setText(prop.getProperty("cccc_phut"));
+        lblTenSanPhamRight.setText(prop.getProperty("cccc_sanPham"));
+        lblTenCongDoanRight.setText(prop.getProperty("cccc_congDoanLam"));
+        lblSoLuongSanPham.setText(prop.getProperty("cccc_soLuongLam"));
+        lblHienThi.setText(prop.getProperty("chamCong_hienThi"));
+
+        scrTableCongNhan.setBorder(new TitledBorder(prop.getProperty("cccc_tieuDe1")));
+        scrChamCong.setBorder(new TitledBorder(prop.getProperty("cccc_tieuDe2")));
+
+        cmbHienThi.removeAllItems();
+        cmbHienThi.addItem(prop.getProperty("cmbHienThiAll"));
+        cmbHienThi.addItem(prop.getProperty("cmbHienThiLoc"));
+
+        ChangeName(tblCongNhan, 0, prop.getProperty("cccc_stt"));
+        ChangeName(tblCongNhan, 1, lblMaCongNhan.getText());
+        ChangeName(tblCongNhan, 2, lblHoTen.getText());
+
+        ChangeName(tblChamCong, 0, prop.getProperty("cccc_stt"));
+        ChangeName(tblChamCong, 1, prop.getProperty("cccc_maPhanCong"));
+        ChangeName(tblChamCong, 2, lblMaCongNhan.getText());
+        ChangeName(tblChamCong, 3, lblHoTen.getText());
+        ChangeName(tblChamCong, 4, lblToNhom.getText());
+        ChangeName(tblChamCong, 5, lblNgayChamCong.getText());
+        ChangeName(tblChamCong, 6, lblCaLam.getText());
+        ChangeName(tblChamCong, 7, lblTrangThai.getText());
+        ChangeName(tblChamCong, 8, lblGioDiLam.getText());
+        ChangeName(tblChamCong, 9, lblMaSanPham.getText());
+        ChangeName(tblChamCong, 10, lblTenSanPham.getText());
+        ChangeName(tblChamCong, 11, lblMaCongDoan.getText());
+        ChangeName(tblChamCong, 12, lblTenCongDoan.getText());
+        ChangeName(tblChamCong, 13, lblSoLuongSanPham.getText());
+
+        stThongbao = prop.getProperty("thongBao");
+        stBanXacNhanXoa = prop.getProperty("banXacNhanXoa");
+        stXoaThanhCong = prop.getProperty("xoaThanhCong");
+        stXoaThatBai = prop.getProperty("xoaThatBai");
+        stThemThanhCong = prop.getProperty("themThanhCong");
+        stThemThatBai = prop.getProperty("themThatBai");
+        stTren = prop.getProperty("tren");
+        stSanPham = prop.getProperty("sp_SanPham");
+        stKhongDocDuocFile = prop.getProperty("khongDocDuocFile");
+        stKhongTimThayFile = prop.getProperty("khongTimThayFile");
+        stCapNhatThanhCong = prop.getProperty("capNhatThanhCong");
+        stCapNhatThatBai = prop.getProperty("capNhatThatBai");
+        stChonMauSacChoSanPham = prop.getProperty("sp_chonMauSacChoSanPham");
+        stErrSoLuong = prop.getProperty("sp_lblErrSoLuong");
+        stErrKhongDeTrong = prop.getProperty("KhongDeTrong");
+        stErrHoTen = prop.getProperty("hoTenKhongHopLe");
+        stErrSoCCCD = prop.getProperty("soCCCDKhongHopLe");
+        stErrEmail = prop.getProperty("emailKhongHopLe");
+        stErrSdt = prop.getProperty("sdtKhongHopLe");
+        stErrNgaySinh = prop.getProperty("ngaySinhKhongHopLe");
+        stErrNgayVaoLam = prop.getProperty("ngayVaoLamKhongHopLe");
+        stErrNhanVienKhongDuTuoi = prop.getProperty("nhanVienChuaDuTuoi");
+        stErrTienKhongHopLe = prop.getProperty("soTienKhongHople");
+        stSoTienLonHonKhong = prop.getProperty("soTienLonHonKhong");
+    }
+
+    public void ChangeName(JTable table, int col_index, String col_name) {
+        table.getColumnModel().getColumn(col_index).setHeaderValue(col_name);
     }
 
     public void hienThiChamCongTheoYeuCau(ItemEvent e) {
         if (e.getStateChange() == ItemEvent.SELECTED) {
             String item = e.getItem().toString();
-            if (item.equalsIgnoreCase("Tất cả")) {
+            if (cmbHienThi.getSelectedIndex() == 0) {
                 taiDuLieuChamCongLenBang();
             } else {
                 hienThiChamCongTheoNgay();
@@ -289,7 +407,7 @@ public class ChamCongCongNhanView extends javax.swing.JPanel implements ActionLi
                 cmbGioDiLam.removeItem("0");
                 cmbGioDiLam.setEnabled(true);
                 cmbPhutDiLam.setEnabled(true);
-                
+
                 txtSoLuongLam.setEditable(true);
             }
 
@@ -371,7 +489,7 @@ public class ChamCongCongNhanView extends javax.swing.JPanel implements ActionLi
         cmbCaLam = new javax.swing.JComboBox<>();
         cmbGioDiLam = new javax.swing.JComboBox<>();
         lblGioDiLam = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
+        lblPhut = new javax.swing.JLabel();
         cmbPhutDiLam = new javax.swing.JComboBox<>();
         cmbTrangThai = new javax.swing.JComboBox<>();
         lblCaLam = new javax.swing.JLabel();
@@ -380,7 +498,7 @@ public class ChamCongCongNhanView extends javax.swing.JPanel implements ActionLi
         lblTenSanPham = new javax.swing.JLabel();
         cmbTenCongDoan = new javax.swing.JComboBox<>();
         lblTenCongDoan = new javax.swing.JLabel();
-        lblTrangThai1 = new javax.swing.JLabel();
+        lblHienThi = new javax.swing.JLabel();
         cmbHienThi = new javax.swing.JComboBox<>();
         cmbTenToNhom = new javax.swing.JComboBox<>();
         lblToNhom = new javax.swing.JLabel();
@@ -516,10 +634,10 @@ public class ChamCongCongNhanView extends javax.swing.JPanel implements ActionLi
         lblGioDiLam.setText("Giờ đi làm:");
         jPanel5.add(lblGioDiLam, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 180, 90, 30));
 
-        jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel22.setText("Phút:");
-        jPanel5.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 180, 40, 30));
+        lblPhut.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblPhut.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblPhut.setText("Phút:");
+        jPanel5.add(lblPhut, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 180, 40, 30));
 
         cmbPhutDiLam.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         cmbPhutDiLam.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "15", "30", "45" }));
@@ -563,10 +681,10 @@ public class ChamCongCongNhanView extends javax.swing.JPanel implements ActionLi
         lblTenCongDoan.setText("Công đoạn:");
         jPanel5.add(lblTenCongDoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 140, 120, 40));
 
-        lblTrangThai1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lblTrangThai1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblTrangThai1.setText("Hiển thị");
-        jPanel5.add(lblTrangThai1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 60, 30));
+        lblHienThi.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblHienThi.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblHienThi.setText("Hiển thị");
+        jPanel5.add(lblHienThi, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 60, 30));
 
         cmbHienThi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Theo ngày chấm công" }));
         cmbHienThi.addActionListener(new java.awt.event.ActionListener() {
@@ -701,7 +819,7 @@ public class ChamCongCongNhanView extends javax.swing.JPanel implements ActionLi
         }
         Date ngayChon = dtcNgayChamCong.getDate();
         if (ngayChon.after(new Date())) {
-            JOptionPane.showMessageDialog(null, "Ngày Chấm công phải bằng hoặc trước ngày hiện tại!", "Thông Báo", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, stErrNgayChamCong, stThongbao, JOptionPane.INFORMATION_MESSAGE);
             dtcNgayChamCong.setDate(new Date());
         }
     }//GEN-LAST:event_dtcNgayChamCongPropertyChange
@@ -755,12 +873,12 @@ public class ChamCongCongNhanView extends javax.swing.JPanel implements ActionLi
     private javax.swing.JComboBox<String> cmbTenToNhom;
     private javax.swing.JComboBox<String> cmbTrangThai;
     private com.toedter.calendar.JDateChooser dtcNgayChamCong;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblCaLam;
     private javax.swing.JLabel lblErrSoLuongSP;
     private javax.swing.JLabel lblGioDiLam;
+    private javax.swing.JLabel lblHienThi;
     private javax.swing.JLabel lblHoTen;
     private javax.swing.JLabel lblHoVaTenHienThi;
     private javax.swing.JLabel lblMaCongDoan;
@@ -769,6 +887,7 @@ public class ChamCongCongNhanView extends javax.swing.JPanel implements ActionLi
     private javax.swing.JLabel lblMaSanPham;
     private javax.swing.JLabel lblMaSanPhamTrai;
     private javax.swing.JLabel lblNgayChamCong;
+    private javax.swing.JLabel lblPhut;
     private javax.swing.JLabel lblSoLuongSanPham;
     private javax.swing.JLabel lblTenCongDoan;
     private javax.swing.JLabel lblTenCongDoanOutput;
@@ -779,7 +898,6 @@ public class ChamCongCongNhanView extends javax.swing.JPanel implements ActionLi
     private javax.swing.JLabel lblTenSanPhamTrai;
     private javax.swing.JLabel lblToNhom;
     private javax.swing.JLabel lblTrangThai;
-    private javax.swing.JLabel lblTrangThai1;
     private javax.swing.JScrollPane scrChamCong;
     private javax.swing.JScrollPane scrTableCongNhan;
     private javax.swing.JTable tblChamCong;
@@ -830,10 +948,10 @@ public class ChamCongCongNhanView extends javax.swing.JPanel implements ActionLi
             boolean chamDuoc = chamCongCN_DAO
                     .themMotChamCongCongNhan(new ChamCongCongNhan(phanCong, caLamFlag, ngayChamCongFlag, soLuongLam, cmbTrangThai.getSelectedItem().toString(), gioDiLam));
             if (chamDuoc) {
-                JOptionPane.showMessageDialog(null, "Chấm công thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, stThemThanhCong, stThongbao, JOptionPane.INFORMATION_MESSAGE);
                 taiDuLieuChamCongLenBang();
             } else {
-                JOptionPane.showMessageDialog(null, "Chấm công thất bại!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null,stThemThatBai, stThongbao, JOptionPane.INFORMATION_MESSAGE);
             }
 
         } else if (o.equals(btnCapNhat)) {
@@ -877,11 +995,11 @@ public class ChamCongCongNhanView extends javax.swing.JPanel implements ActionLi
             String trangThaiDiLam = cmbTrangThai.getSelectedItem().toString();
             String gioDiLam = cmbGioDiLam.getSelectedItem().toString() + "h" + cmbPhutDiLam.getSelectedItem().toString();
             ChamCongCongNhan cccn = new ChamCongCongNhan(phanCong, caLam, ngayChamCong, soLuongLam, trangThaiDiLam, gioDiLam);
-          
+
             boolean isCapNhat = chamCongCN_DAO.suaMotChamCongCongNhan(cccn);
             if (isCapNhat) {
                 taiDuLieuChamCongLenBang();
-                JOptionPane.showMessageDialog(null, "Cập nhật thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null,stCapNhatThanhCong,stThongbao, JOptionPane.INFORMATION_MESSAGE);
                 cmbCaLam.setEnabled(false);
                 cmbTrangThai.setEnabled(false);
                 cmbGioDiLam.setEnabled(false);
@@ -892,12 +1010,12 @@ public class ChamCongCongNhanView extends javax.swing.JPanel implements ActionLi
                 btnLuu.setEnabled(false);
                 btnHuy.setEnabled(false);
             } else {
-                JOptionPane.showMessageDialog(null, "Cập nhật thất bại!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, stCapNhatThatBai,stThongbao ,JOptionPane.INFORMATION_MESSAGE);
             }
         } else if (o.equals(btnXoa)) {
             int rowChamCongSelect = tblChamCong.getSelectedRow();
             if (rowChamCongSelect != -1) {
-                int isAccept = JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa không", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                int isAccept = JOptionPane.showConfirmDialog(null, stBanXacNhanXoa,stThongbao, JOptionPane.INFORMATION_MESSAGE);
                 if (isAccept == 0) {
                     String maPhanCong = tblChamCong.getValueAt(rowChamCongSelect, 1).toString();
                     String caLam = tblChamCong.getValueAt(rowChamCongSelect, 6).toString();
@@ -909,11 +1027,11 @@ public class ChamCongCongNhanView extends javax.swing.JPanel implements ActionLi
                         System.out.println("đổi chuỗi ngày sang object date ngày lỗi tại view cham cong nhan vien");
                     }
                     boolean coXoaDuoc = chamCongCN_DAO.xoaChamCongCongNhanTheoMa(maPhanCong, caLam, ngayChamCong);
-                    if (coXoaDuoc){
-                        JOptionPane.showMessageDialog(null, "Xóa thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    if (coXoaDuoc) {
+                        JOptionPane.showMessageDialog(null, stXoaThanhCong, stThongbao, JOptionPane.INFORMATION_MESSAGE);
                         taiDuLieuChamCongLenBang();
                     } else {
-                        JOptionPane.showMessageDialog(null, "Xóa thất bại", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, stXoaThatBai, stThongbao, JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
             }
@@ -922,18 +1040,18 @@ public class ChamCongCongNhanView extends javax.swing.JPanel implements ActionLi
 
     public boolean validateForm() {
         if (txtSoLuongLam.getText().trim().equals("")) {
-            lblErrSoLuongSP.setText("Không được để trống");
+            lblErrSoLuongSP.setText(stErrKhongDeTrong);
             return false;
         }
         int soLuong = -1;
         try {
             soLuong = Integer.parseInt(txtSoLuongLam.getText().trim());
         } catch (Exception e) {
-            lblErrSoLuongSP.setText("Phải là số nguyên!");
+            lblErrSoLuongSP.setText(stErrSoLuong);
             return false;
         }
         if (soLuong < 0) {
-            lblErrSoLuongSP.setText("Số lượng làm phải >= 0");
+            lblErrSoLuongSP.setText(stErrSoLuong);
             return false;
         }
         lblErrSoLuongSP.setText("");

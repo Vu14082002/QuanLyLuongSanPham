@@ -13,21 +13,26 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Properties;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
  * @author December
  */
-public class QuanLyThongTinCaNhan extends javax.swing.JPanel implements ActionListener{
+public class QuanLyThongTinCaNhan extends javax.swing.JPanel implements ActionListener {
 
     /**
      * Creates new form NhanVienView
@@ -36,8 +41,35 @@ public class QuanLyThongTinCaNhan extends javax.swing.JPanel implements ActionLi
     private NhanVien_DAO nhanVien_DAO;
     private boolean isNhanVien;
     private String username;
-   
-    public QuanLyThongTinCaNhan(String username) {
+
+    private String stErrKhongDeTrong;
+    private String stErrSoLuong;
+    private String stThongbao;
+    private String stBanXacNhanXoa;
+    private String stXoaThanhCong;
+    private String stXoaThatBai;
+    private String stThemThanhCong;
+    private String stThemThatBai;
+    private String stTren;
+    private String stSanPham;
+    private String stKhongTimThayFile;
+    private String stKhongDocDuocFile;
+    private String stCapNhatThanhCong;
+    private String stCapNhatThatBai;
+    private String stChonMauSacChoSanPham;
+    private String stErrHoTen;
+    private String stErrSoCCCD;
+    private String stErrEmail;
+    private String stErrSdt;
+    private String stErrNgaySinh;
+    private String stErrNgayVaoLam;
+    private String stErrNhanVienKhongDuTuoi;
+    private String stErrTienKhongHopLe;
+    private String stSoTienLonHonKhong;
+    private String stErrBanChuaDu18Tuoi;
+    private String stErrMatKhau;
+
+    public QuanLyThongTinCaNhan(String fileName,String username) throws IOException {
         initComponents();
         excute();
         this.username = username;
@@ -50,7 +82,7 @@ public class QuanLyThongTinCaNhan extends javax.swing.JPanel implements ActionLi
         congNhan_DAO = new CongNhan_DAO();
         nhanVien_DAO = new NhanVien_DAO();
         String loai = username.substring(0, 2);
-        if (loai.equals("NV")){
+        if (loai.equals("NV")) {
             isNhanVien = true;
         } else {
             isNhanVien = false;
@@ -66,10 +98,66 @@ public class QuanLyThongTinCaNhan extends javax.swing.JPanel implements ActionLi
         lblErrNgayVaoLam.setText("");
         lblErrMatKhau.setText("");
         taiDuLieuLenTrang();
-        
+        caiDatNgonNguChoView(fileName);
+
     }
-    public void taiDuLieuLenTrang(){
-        if (isNhanVien){
+
+    public void caiDatNgonNguChoView(String fileName) throws FileNotFoundException, IOException {
+        FileInputStream fis = new FileInputStream(fileName);
+        Properties prop = new Properties();
+        prop.load(fis);
+
+        btnLuu.setText(prop.getProperty("btnLuu"));
+
+        lblTenDangNhap.setText(prop.getProperty("qlttcn_tenDangNhap"));
+        lblMatKhau.setText(prop.getProperty("qlttcn_matKhau"));
+        lblHoTen.setText(prop.getProperty("hoTen"));
+        lblSoCCCD.setText(prop.getProperty("soCCCD"));
+        lblEmail.setText(prop.getProperty("email"));
+        lblSoDienThoai.setText(prop.getProperty("sdt"));
+        lblDiaChi.setText(prop.getProperty("diaChi"));
+        lblNgaySinh.setText(prop.getProperty("ngaySinh"));
+        lblGioiTinh.setText(prop.getProperty("gioiTinh"));
+        lblNgayVaoLam.setText(prop.getProperty("ngayVaoLam"));
+        btnAnhDaiDien.setText(prop.getProperty("anhDaiDien"));
+        lblHoSoCuaToi.setText(prop.getProperty("qlttcn_hoSo"));
+        lblTitle.setText(prop.getProperty("qlttcn_quanlythongtindebaomat"));
+        
+        rdoNam.setText(prop.getProperty("nam"));
+        rdoNu.setText(prop.getProperty("nu"));
+        
+        stErrBanChuaDu18Tuoi=prop.getProperty("qlttcn_khongDuTuoi");
+        stErrMatKhau=prop.getProperty("qlttcn_errMatKhau");
+        stThongbao = prop.getProperty("thongBao");
+        stBanXacNhanXoa = prop.getProperty("banXacNhanXoa");
+        stXoaThanhCong = prop.getProperty("xoaThanhCong");
+        stXoaThatBai = prop.getProperty("xoaThatBai");
+        stThemThanhCong = prop.getProperty("themThanhCong");
+        stThemThatBai = prop.getProperty("themThatBai");
+        stTren = prop.getProperty("tren");
+        stSanPham = prop.getProperty("sp_SanPham");
+        stKhongDocDuocFile = prop.getProperty("khongDocDuocFile");
+        stKhongTimThayFile = prop.getProperty("khongTimThayFile");
+        stCapNhatThanhCong = prop.getProperty("capNhatThanhCong");
+        stCapNhatThatBai = prop.getProperty("capNhatThatBai");
+        stChonMauSacChoSanPham = prop.getProperty("sp_chonMauSacChoSanPham");
+        stErrSoLuong = prop.getProperty("sp_lblErrSoLuong");
+        stErrKhongDeTrong = prop.getProperty("KhongDeTrong");
+        stErrHoTen = prop.getProperty("hoTenKhongHopLe");
+        stErrSoCCCD = prop.getProperty("soCCCDKhongHopLe");
+        stErrEmail = prop.getProperty("emailKhongHopLe");
+        stErrSdt = prop.getProperty("sdtKhongHopLe");
+        stErrNgaySinh = prop.getProperty("ngaySinhKhongHopLe");
+        stErrNgayVaoLam = prop.getProperty("ngayVaoLamKhongHopLe");
+        stErrNhanVienKhongDuTuoi = prop.getProperty("nhanVienChuaDuTuoi");
+        stErrTienKhongHopLe = prop.getProperty("soTienKhongHople");
+        stSoTienLonHonKhong = prop.getProperty("soTienLonHonKhong");
+    }
+
+
+
+    public void taiDuLieuLenTrang() {
+        if (isNhanVien) {
             NhanVien nhanVien = nhanVien_DAO.layMotNhanVienTheoMaNhanVien(username);
             lblTenDangNhapOutput.setText(nhanVien.getMaNhanVien());
             lblCCCDOutput.setText(nhanVien.getMaCCCD());
@@ -79,13 +167,13 @@ public class QuanLyThongTinCaNhan extends javax.swing.JPanel implements ActionLi
             txtDiaChi.setText(nhanVien.getDiaChi());
             dtcNgaySinh.setDate(nhanVien.getNgaySinh());
             dtcNgayVaoLam.setDate(nhanVien.getNgayVaoLam());
-            if (nhanVien.isGioiTinh()){
-                radNam.setSelected(true);
+            if (nhanVien.isGioiTinh()) {
+                rdoNam.setSelected(true);
             } else {
-                radNu.setSelected(true);
+                rdoNu.setSelected(true);
             }
             txtPassword.setText(nhanVien.getMatKhau());
-            lblAnhDaiDien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Anh/"+ nhanVien.getAnhDaiDien()))); 
+            lblAnhDaiDien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Anh/" + nhanVien.getAnhDaiDien())));
         } else {
             CongNhan congNhan = congNhan_DAO.layMotCongNhanTheoMa(username);
             lblTenDangNhapOutput.setText(congNhan.getMaCongNhan());
@@ -96,21 +184,22 @@ public class QuanLyThongTinCaNhan extends javax.swing.JPanel implements ActionLi
             txtDiaChi.setText(congNhan.getDiaChi());
             dtcNgaySinh.setDate(congNhan.getNgaySinh());
             dtcNgayVaoLam.setDate(congNhan.getNgayVaoLam());
-            if (congNhan.isGioiTinh()){
-                radNam.setSelected(true);
+            if (congNhan.isGioiTinh()) {
+                rdoNam.setSelected(true);
             } else {
-                radNu.setSelected(true);
+                rdoNu.setSelected(true);
             }
             txtPassword.setText(congNhan.getMatKhau());
-            lblAnhDaiDien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Anh/"+ congNhan.getAnhDaiDien()))); 
+            lblAnhDaiDien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Anh/" + congNhan.getAnhDaiDien())));
         }
     }
+
     public void excute() {
 
         // custom table
         ButtonGroup btnGroup = new ButtonGroup();
-        btnGroup.add(radNam);
-        btnGroup.add(radNu);
+        btnGroup.add(rdoNam);
+        btnGroup.add(rdoNu);
     }
 
     /**
@@ -127,12 +216,12 @@ public class QuanLyThongTinCaNhan extends javax.swing.JPanel implements ActionLi
         jSeparator1 = new javax.swing.JSeparator();
         lblTenDangNhap = new javax.swing.JLabel();
         lblTenDangNhapOutput = new javax.swing.JLabel();
-        lblCCCD = new javax.swing.JLabel();
+        lblSoCCCD = new javax.swing.JLabel();
         lblCCCDOutput = new javax.swing.JLabel();
         lblSoDienThoai = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtSoDienThoai = new javax.swing.JTextField();
-        lbTenSanPham10 = new javax.swing.JLabel();
+        lblNgaySinh = new javax.swing.JLabel();
         lblErrSoDienThoai = new javax.swing.JLabel();
         dtcNgaySinh = new com.toedter.calendar.JDateChooser();
         lblErrNgaySinh = new javax.swing.JLabel();
@@ -141,8 +230,8 @@ public class QuanLyThongTinCaNhan extends javax.swing.JPanel implements ActionLi
         lblErrNgayVaoLam = new javax.swing.JLabel();
         btnLuu = new javax.swing.JButton();
         lblGioiTinh = new javax.swing.JLabel();
-        radNam = new javax.swing.JRadioButton();
-        radNu = new javax.swing.JRadioButton();
+        rdoNam = new javax.swing.JRadioButton();
+        rdoNu = new javax.swing.JRadioButton();
         txtDiaChi = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         lblDiaChi = new javax.swing.JLabel();
@@ -186,9 +275,9 @@ public class QuanLyThongTinCaNhan extends javax.swing.JPanel implements ActionLi
         lblTenDangNhapOutput.setText("NV0001");
         add(lblTenDangNhapOutput, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 190, 140, 40));
 
-        lblCCCD.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        lblCCCD.setText("Số CCCD:");
-        add(lblCCCD, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, 140, 40));
+        lblSoCCCD.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lblSoCCCD.setText("Số CCCD:");
+        add(lblSoCCCD, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, 140, 40));
 
         lblCCCDOutput.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lblCCCDOutput.setText("012345678911");
@@ -206,9 +295,9 @@ public class QuanLyThongTinCaNhan extends javax.swing.JPanel implements ActionLi
         txtSoDienThoai.setBorder(null);
         add(txtSoDienThoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 330, 210, 40));
 
-        lbTenSanPham10.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        lbTenSanPham10.setText("Ngày sinh:");
-        add(lbTenSanPham10, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 400, 140, 40));
+        lblNgaySinh.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lblNgaySinh.setText("Ngày sinh:");
+        add(lblNgaySinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 400, 140, 40));
 
         lblErrSoDienThoai.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lblErrSoDienThoai.setForeground(new java.awt.Color(204, 0, 0));
@@ -246,14 +335,14 @@ public class QuanLyThongTinCaNhan extends javax.swing.JPanel implements ActionLi
         lblGioiTinh.setText("Giới tính");
         add(lblGioiTinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 400, 140, 40));
 
-        radNam.setSelected(true);
-        radNam.setText("Nam");
-        radNam.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        add(radNam, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 410, -1, -1));
+        rdoNam.setSelected(true);
+        rdoNam.setText("Nam");
+        rdoNam.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        add(rdoNam, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 410, -1, -1));
 
-        radNu.setText("Nữ");
-        radNu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        add(radNu, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 410, -1, -1));
+        rdoNu.setText("Nữ");
+        rdoNu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        add(rdoNu, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 410, -1, -1));
 
         txtDiaChi.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         txtDiaChi.setBorder(null);
@@ -426,9 +515,7 @@ public class QuanLyThongTinCaNhan extends javax.swing.JPanel implements ActionLi
     private javax.swing.JLabel jLabel8;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lbPassword02;
-    private javax.swing.JLabel lbTenSanPham10;
     private javax.swing.JLabel lblAnhDaiDien;
-    private javax.swing.JLabel lblCCCD;
     private javax.swing.JLabel lblCCCDOutput;
     private javax.swing.JLabel lblDiaChi;
     private javax.swing.JLabel lblEmail;
@@ -443,13 +530,15 @@ public class QuanLyThongTinCaNhan extends javax.swing.JPanel implements ActionLi
     private javax.swing.JLabel lblHoSoCuaToi;
     private javax.swing.JLabel lblHoTen;
     private javax.swing.JLabel lblMatKhau;
+    private javax.swing.JLabel lblNgaySinh;
     private javax.swing.JLabel lblNgayVaoLam;
+    private javax.swing.JLabel lblSoCCCD;
     private javax.swing.JLabel lblSoDienThoai;
     private javax.swing.JLabel lblTenDangNhap;
     private javax.swing.JLabel lblTenDangNhapOutput;
     private javax.swing.JLabel lblTitle;
-    private javax.swing.JRadioButton radNam;
-    private javax.swing.JRadioButton radNu;
+    private javax.swing.JRadioButton rdoNam;
+    private javax.swing.JRadioButton rdoNu;
     private javax.swing.JLabel show;
     private javax.swing.JTextField txtDiaChi;
     private javax.swing.JTextField txtEmail;
@@ -461,41 +550,42 @@ public class QuanLyThongTinCaNhan extends javax.swing.JPanel implements ActionLi
     @Override
     public void actionPerformed(ActionEvent e) {
         Object o = e.getSource();
-        if (o.equals(btnLuu)){
-            boolean isValid =  validateForm();
-            if (!isValid){
+        if (o.equals(btnLuu)) {
+            boolean isValid = validateForm();
+            if (!isValid) {
                 return;
             }
-            if (isNhanVien){
+            if (isNhanVien) {
                 NhanVien nhanVienOld = nhanVien_DAO.layMotNhanVienTheoMaNhanVien(username);
-                boolean coSuaDuoc = nhanVien_DAO.suaThongTinMotNhanVien(new NhanVien(nhanVienOld.getMaNhanVien()
-                , txtHoTen.getText() ,dtcNgaySinh.getDate(), lblCCCDOutput.getText(), txtSoDienThoai.getText()
-                , txtEmail.getText(), new String(txtPassword.getPassword()), nhanVienOld.getChucVu(), nhanVienOld.getNgayVaoLam()
-                , nhanVienOld.getLuongThoaThuan(), radNam.isSelected() ? true : false
-                , lblAnhDaiDien.getIcon().toString().split("Anh/")[1], txtDiaChi.getText(), nhanVienOld.getPhongBan()));
-                if (coSuaDuoc){
-                    JOptionPane.showMessageDialog(null, "Cập nhật thông tin thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                boolean coSuaDuoc = nhanVien_DAO.suaThongTinMotNhanVien(new NhanVien(nhanVienOld.getMaNhanVien(),
+                        txtHoTen.getText(), dtcNgaySinh.getDate(), lblCCCDOutput.getText(), txtSoDienThoai.getText(),
+                        txtEmail.getText(), new String(txtPassword.getPassword()), nhanVienOld.getChucVu(), nhanVienOld.getNgayVaoLam(),
+                        nhanVienOld.getLuongThoaThuan(), rdoNam.isSelected() ? true : false,
+                        lblAnhDaiDien.getIcon().toString().split("Anh/")[1], txtDiaChi.getText(), nhanVienOld.getPhongBan()));
+                if (coSuaDuoc) {
+                    JOptionPane.showMessageDialog(null,stCapNhatThanhCong, stThongbao, JOptionPane.INFORMATION_MESSAGE);
                     taiDuLieuLenTrang();
                 } else {
-                    JOptionPane.showMessageDialog(null, "Cập nhật thông tin thất bại!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null,stCapNhatThatBai,stThongbao, JOptionPane.INFORMATION_MESSAGE);
                 }
             } else {
                 CongNhan congNhanOld = congNhan_DAO.layMotCongNhanTheoMa(username);
-                boolean coSuaDuoc = congNhan_DAO.capNhatMotCongNhan(new CongNhan(congNhanOld.getMaCongNhan(), 
-                txtHoTen.getText(), dtcNgaySinh.getDate(), lblCCCDOutput.getText(), txtSoDienThoai.getText()
-                , txtEmail.getText(), new String(txtPassword.getPassword()), congNhanOld.getNgayVaoLam(), radNam.isSelected() ? true : false
-                , lblAnhDaiDien.getIcon().toString().split("Anh/")[1], txtDiaChi.getText(), congNhanOld.getToNhom()));
-                if (coSuaDuoc){
-                    JOptionPane.showMessageDialog(null, "Cập nhật thông tin thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                boolean coSuaDuoc = congNhan_DAO.capNhatMotCongNhan(new CongNhan(congNhanOld.getMaCongNhan(),
+                        txtHoTen.getText(), dtcNgaySinh.getDate(), lblCCCDOutput.getText(), txtSoDienThoai.getText(),
+                        txtEmail.getText(), new String(txtPassword.getPassword()), congNhanOld.getNgayVaoLam(), rdoNam.isSelected() ? true : false,
+                        lblAnhDaiDien.getIcon().toString().split("Anh/")[1], txtDiaChi.getText(), congNhanOld.getToNhom()));
+                if (coSuaDuoc) {
+                    JOptionPane.showMessageDialog(null, stCapNhatThanhCong, stThongbao, JOptionPane.INFORMATION_MESSAGE);
                     taiDuLieuLenTrang();
                 } else {
-                    JOptionPane.showMessageDialog(null, "Cập nhật thông tin thất bại!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, stCapNhatThanhCong,stThongbao, JOptionPane.INFORMATION_MESSAGE);
                 }
             }
-            
+
         }
     }
-    public boolean validateForm(){
+
+    public boolean validateForm() {
         Boolean flag = true;
         String hoTen = txtHoTen.getText().trim();
         String email = txtEmail.getText().trim();
@@ -505,61 +595,62 @@ public class QuanLyThongTinCaNhan extends javax.swing.JPanel implements ActionLi
         Date ngaySinh = dtcNgaySinh.getDate();
 
         if (hoTen.equals("")) {
-            lblErrHoTen.setText("Họ Tên không được để trống!");
+            lblErrHoTen.setText(stErrKhongDeTrong);
             flag = false;
         } else if (!hoTen.matches("^([A-ZĐÂÁƯ]{1}[a-zvxyỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]+)"
                 + "((\\s{1}[A-ZĐÂÁƯ][{1}a-vxyỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]+){1,})$")) {
-            lblErrHoTen.setText("Bắt đầu là In hoa, chỉ chứa kí tự chữ");
+            lblErrHoTen.setText(stErrHoTen);
             flag = false;
         } else {
             lblErrHoTen.setText("");
         }
         if (email.equals("")) {
-            lblErrEmail.setText("Email không được để trống!");
+            lblErrEmail.setText(stErrKhongDeTrong);
             flag = false;
         } else if (!email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
-            lblErrEmail.setText("Email không đúng chuẩn");
+            lblErrEmail.setText(stErrEmail);
             flag = false;
         } else {
             lblErrEmail.setText("");
         }
         if (soDienThoai.equals("")) {
-            lblErrSoDienThoai.setText("Số điện thoại không được trông!");
+            lblErrSoDienThoai.setText(stErrKhongDeTrong);
             flag = false;
         } else if (!soDienThoai.matches("^\\+84[1-9][0-9]{8}$")) {
-            lblErrSoDienThoai.setText("Bắt đầu: +84, theo sau là 9 kí số");
+            lblErrSoDienThoai.setText(stErrSdt);
             flag = false;
         } else {
             lblErrSoDienThoai.setText("");
         }
         if (diaChi.equals("")) {
-            lblErrDiaChi.setText("Địa chỉ không được trống!");
+            lblErrDiaChi.setText(stErrKhongDeTrong);
             flag = false;
         } else {
             lblErrDiaChi.setText("");
         }
         if (!ngaySinh.before(new Date())) {
-            lblErrNgaySinh.setText("Ngày sinh phải trước hiện tại");
+            lblErrNgaySinh.setText(stErrNgaySinh);
             flag = false;
         } else if (calculateAgeWithJava7(ngaySinh, new Date()) < 18) {
-            lblErrNgaySinh.setText("Phải từ 18 tuổi trở lên!");
+            lblErrNgaySinh.setText(stErrBanChuaDu18Tuoi);
             flag = false;
         } else {
             lblErrNgaySinh.setText("");
         }
-       
-        if (matKhau.equals("")){
-            lblErrMatKhau.setText("Mật khẩu không được trống!");
+
+        if (matKhau.equals("")) {
+            lblErrMatKhau.setText(stErrKhongDeTrong);
             flag = false;
-        } else if (matKhau.length() < 6){
-            lblErrMatKhau.setText("Mật khẩu phải >= 6 kí tự");
+        } else if (matKhau.length() < 6) {
+            lblErrMatKhau.setText(stErrMatKhau);
             flag = false;
-        }else {
+        } else {
             lblErrMatKhau.setText("");
         }
         return flag;
     }
-      public int calculateAgeWithJava7(Date birthDate, Date currentDate) {
+
+    public int calculateAgeWithJava7(Date birthDate, Date currentDate) {
         // validate inputs ...                                                                               
         DateFormat formatter = new SimpleDateFormat("yyyyMMdd");
         int d1 = Integer.parseInt(formatter.format(birthDate));

@@ -4,7 +4,6 @@
  */
 package view;
 
-
 import DAO.CongNhan_DAO;
 import DAO.ToNhom_DAO;
 import Entity.CongNhan;
@@ -26,11 +25,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Properties;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -50,10 +51,36 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
     private Object oFlag;
     private DefaultTableModel modelTableCongNhan;
 
+    private String stErrKhongDeTrong;
+    private String stErrSoLuong;
+    private String stThongbao;
+    private String stBanXacNhanXoa;
+    private String stXoaThanhCong;
+    private String stXoaThatBai;
+    private String stThemThanhCong;
+    private String stThemThatBai;
+    private String stTren;
+    private String stSanPham;
+    private String stKhongTimThayFile;
+    private String stKhongDocDuocFile;
+    private String stCapNhatThanhCong;
+    private String stCapNhatThatBai;
+    private String stChonMauSacChoSanPham;
+    private String stErrHoTen;
+    private String stErrSoCCCD;
+    private String stErrEmail;
+    private String stErrSdt;
+    private String stErrNgaySinh;
+    private String stErrNgayVaoLam;
+    private String stErrCongNhanKhongDuTuoi;
+    private String stErrTienKhongHopLe;
+    private String stSoTienLonHonKhong;
+    private String stCongNhan;
+
     /**
      * Creates new form NhanVienView
      */
-    public CapNhatCongNhanView() {
+    public CapNhatCongNhanView(String fileName) throws IOException {
         initComponents();
         excute();
 
@@ -88,7 +115,76 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
         btnHuy.addActionListener(this);
         btnLuu.addActionListener(this);
         btnXoa.addActionListener(this);
+        caiDatNgonNguChoView(fileName);
 
+    }
+    public void caiDatNgonNguChoView(String fileName) throws FileNotFoundException, IOException {
+        FileInputStream fis = new FileInputStream(fileName);
+        Properties prop = new Properties();
+        prop.load(fis);
+        btnThemNhieu.setText(prop.getProperty("btnThemNhieu"));
+        btnThem.setText(prop.getProperty("btnThem"));
+        btnXoa.setText(prop.getProperty("btnXoa"));
+        btnCapNhat.setText(prop.getProperty("btnCapNhat"));
+        btnLuu.setText(prop.getProperty("btnLuu"));
+        btnHuy.setText(prop.getProperty("btnHuy"));
+
+        lblMaCongNhan.setText(prop.getProperty("maCongNhan"));
+        lblHoVaTen.setText(prop.getProperty("hoTen"));
+        lblSoCCCD.setText(prop.getProperty("soCCCD"));
+        lblEmail.setText(prop.getProperty("email"));
+        lblSoDienThoai.setText(prop.getProperty("sdt"));
+        lblDiaChi.setText(prop.getProperty("diaChi"));
+        lblNgaySinh.setText(prop.getProperty("ngaySinh"));
+        lblGioiTinh.setText(prop.getProperty("gioiTinh"));
+        lblToNhom.setText(prop.getProperty("toNhom"));
+        lblNgayVaoLam.setText(prop.getProperty("ngayVaoLam"));
+        lblAnhDaiDienOfPn.setText(prop.getProperty("anhDaiDien"));
+        rdoNam.setText(prop.getProperty("nam"));
+        rdoNu.setText(prop.getProperty("nu"));
+        stCongNhan=prop.getProperty("congNhan");
+
+        ChangeName(tblCongNhan, 0, prop.getProperty("pcd_stt"));
+        ChangeName(tblCongNhan, 1, lblMaCongNhan.getText());
+        ChangeName(tblCongNhan, 2, lblHoVaTen.getText());
+        ChangeName(tblCongNhan, 3, lblSoCCCD.getText());
+        ChangeName(tblCongNhan, 4, lblGioiTinh.getText());
+        ChangeName(tblCongNhan, 5, lblNgaySinh.getText());
+        ChangeName(tblCongNhan, 6, lblSoDienThoai.getText());
+        ChangeName(tblCongNhan, 7, lblDiaChi.getText());
+        ChangeName(tblCongNhan, 8, lblAnhDaiDienOfPn.getText());
+        ChangeName(tblCongNhan, 9, lblEmail.getText());
+        ChangeName(tblCongNhan, 10, lblToNhom.getText());
+        ChangeName(tblCongNhan, 11, lblNgayVaoLam.getText());
+
+        stThongbao = prop.getProperty("thongBao");
+        stBanXacNhanXoa = prop.getProperty("banXacNhanXoa");
+        stXoaThanhCong = prop.getProperty("xoaThanhCong");
+        stXoaThatBai = prop.getProperty("xoaThatBai");
+        stThemThanhCong = prop.getProperty("themThanhCong");
+        stThemThatBai = prop.getProperty("themThatBai");
+        stTren = prop.getProperty("tren");
+        stSanPham = prop.getProperty("sp_SanPham");
+        stKhongDocDuocFile = prop.getProperty("khongDocDuocFile");
+        stKhongTimThayFile = prop.getProperty("khongTimThayFile");
+        stCapNhatThanhCong = prop.getProperty("capNhatThanhCong");
+        stCapNhatThatBai = prop.getProperty("capNhatThatBai");
+        stChonMauSacChoSanPham = prop.getProperty("sp_chonMauSacChoSanPham");
+        stErrSoLuong = prop.getProperty("sp_lblErrSoLuong");
+        stErrKhongDeTrong = prop.getProperty("KhongDeTrong");
+        stErrHoTen = prop.getProperty("hoTenKhongHopLe");
+        stErrSoCCCD = prop.getProperty("soCCCDKhongHopLe");
+        stErrEmail = prop.getProperty("emailKhongHopLe");
+        stErrSdt = prop.getProperty("sdtKhongHopLe");
+        stErrNgaySinh = prop.getProperty("ngaySinhKhongHopLe");
+        stErrNgayVaoLam = prop.getProperty("ngayVaoLamKhongHopLe");
+        stErrCongNhanKhongDuTuoi = prop.getProperty("congNhanChuaDuTuoi");
+        stErrTienKhongHopLe = prop.getProperty("soTienKhongHople");
+        stSoTienLonHonKhong = prop.getProperty("soTienLonHonKhong");
+    }
+
+    public void ChangeName(JTable table, int col_index, String col_name) {
+        table.getColumnModel().getColumn(col_index).setHeaderValue(col_name);
     }
 
     public void excute() {
@@ -100,8 +196,8 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
                 .setHorizontalAlignment(JLabel.CENTER);
         tblCongNhan.setRowHeight(25);
         ButtonGroup btnGroup = new ButtonGroup();
-        btnGroup.add(radNam);
-        btnGroup.add(radNu);
+        btnGroup.add(rdoNam);
+        btnGroup.add(rdoNu);
     }
 
     public void hienThiDuLieuLen() {
@@ -132,9 +228,9 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
         txtHoTen.setText(tblCongNhan.getValueAt(row, 2).toString());
         txtCCCD.setText(tblCongNhan.getValueAt(row, 3).toString());
         if (tblCongNhan.getValueAt(row, 4).toString().equalsIgnoreCase("Nam")) {
-            radNam.setSelected(true);
+            rdoNam.setSelected(true);
         } else {
-            radNu.setSelected(true);
+            rdoNu.setSelected(true);
         }
         try {
             dtcNgaySinh.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(tblCongNhan.getValueAt(row, 5).toString()));
@@ -158,8 +254,8 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
         txtSoDienThoai.setEditable(b);
         txtDiaChi.setEditable(b);
         dtcNgaySinh.setEnabled(b);
-        radNam.setEnabled(b);
-        radNu.setEnabled(b);
+        rdoNam.setEnabled(b);
+        rdoNu.setEnabled(b);
         cmbToNhom.setEnabled(b);
         dtcNgayVaoLam.setEnabled(b);
 
@@ -188,7 +284,7 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
         jPanel5 = new javax.swing.JPanel();
         lblAnhDaiDien = new javax.swing.JLabel();
         btnAnhSanPham = new javax.swing.JPanel();
-        lbAnhSanPhamOfbtn = new javax.swing.JLabel();
+        lblAnhDaiDienOfPn = new javax.swing.JLabel();
         lblErrHoTen = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtHoTen = new javax.swing.JTextField();
@@ -212,8 +308,8 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
         txtDiaChi = new javax.swing.JTextField();
         lblGioiTinh = new javax.swing.JLabel();
         lblDiaChi = new javax.swing.JLabel();
-        radNam = new javax.swing.JRadioButton();
-        radNu = new javax.swing.JRadioButton();
+        rdoNam = new javax.swing.JRadioButton();
+        rdoNu = new javax.swing.JRadioButton();
         dtcNgaySinh = new com.toedter.calendar.JDateChooser();
         cmbToNhom = new javax.swing.JComboBox<>();
         lblSoDienThoai = new javax.swing.JLabel();
@@ -228,7 +324,7 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
         btnCapNhat = new javax.swing.JButton();
         btnLuu = new javax.swing.JButton();
         btnHuy = new javax.swing.JButton();
-        btnThem1 = new javax.swing.JButton();
+        btnThemNhieu = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(1200, 700));
         setLayout(new java.awt.BorderLayout());
@@ -269,11 +365,11 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
         lblAnhDaiDien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Anh/male.png"))); // NOI18N
         jPanel5.add(lblAnhDaiDien, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
 
-        lbAnhSanPhamOfbtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbAnhSanPhamOfbtn.setText("Ảnh đại diện");
-        lbAnhSanPhamOfbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblAnhDaiDienOfPn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblAnhDaiDienOfPn.setText("Ảnh đại diện");
+        lblAnhDaiDienOfPn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lbAnhSanPhamOfbtnMouseClicked(evt);
+                lblAnhDaiDienOfPnMouseClicked(evt);
             }
         });
 
@@ -283,13 +379,13 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
             btnAnhSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnAnhSanPhamLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lbAnhSanPhamOfbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblAnhDaiDienOfPn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         btnAnhSanPhamLayout.setVerticalGroup(
             btnAnhSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnAnhSanPhamLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lbAnhSanPhamOfbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblAnhDaiDienOfPn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel5.add(btnAnhSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, -1, -1));
@@ -391,24 +487,24 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
         lblDiaChi.setText("Địa chỉ:");
         jPanel5.add(lblDiaChi, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 160, 140, 40));
 
-        radNam.setSelected(true);
-        radNam.setText("Nam");
-        radNam.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        radNam.addActionListener(new java.awt.event.ActionListener() {
+        rdoNam.setSelected(true);
+        rdoNam.setText("Nam");
+        rdoNam.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rdoNam.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radNamActionPerformed(evt);
+                rdoNamActionPerformed(evt);
             }
         });
-        jPanel5.add(radNam, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 230, -1, -1));
+        jPanel5.add(rdoNam, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 230, -1, -1));
 
-        radNu.setText("Nữ");
-        radNu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        radNu.addActionListener(new java.awt.event.ActionListener() {
+        rdoNu.setText("Nữ");
+        rdoNu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rdoNu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radNuActionPerformed(evt);
+                rdoNuActionPerformed(evt);
             }
         });
-        jPanel5.add(radNu, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 230, -1, -1));
+        jPanel5.add(rdoNu, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 230, -1, -1));
 
         dtcNgaySinh.setDateFormatString("yyyy-MM-dd");
         jPanel5.add(dtcNgaySinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 220, 280, 40));
@@ -497,27 +593,27 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
         btnHuy.setBorder(null);
         jPanel5.add(btnHuy, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 410, 170, 40));
 
-        btnThem1.setBackground(new java.awt.Color(255, 234, 167));
-        btnThem1.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        btnThem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/add.png"))); // NOI18N
-        btnThem1.setText("Thêm nhiều");
-        btnThem1.setBorder(null);
-        btnThem1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnThemNhieu.setBackground(new java.awt.Color(255, 234, 167));
+        btnThemNhieu.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnThemNhieu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/add.png"))); // NOI18N
+        btnThemNhieu.setText("Thêm nhiều");
+        btnThemNhieu.setBorder(null);
+        btnThemNhieu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnThem1MouseClicked(evt);
+                btnThemNhieuMouseClicked(evt);
             }
         });
-        btnThem1.addActionListener(new java.awt.event.ActionListener() {
+        btnThemNhieu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThem1ActionPerformed(evt);
+                btnThemNhieuActionPerformed(evt);
             }
         });
-        jPanel5.add(btnThem1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 410, 170, 40));
+        jPanel5.add(btnThemNhieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 410, 170, 40));
 
         add(jPanel5, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void lbAnhSanPhamOfbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbAnhSanPhamOfbtnMouseClicked
+    private void lblAnhDaiDienOfPnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAnhDaiDienOfPnMouseClicked
         JFileChooser fileChooser = new JFileChooser("d:");
         //        int respone=fileChooser.showOpenDialog(null);
         fileChooser.setCurrentDirectory(new File(".\\src\\image\\Anh"));
@@ -530,15 +626,15 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
             this.lblAnhDaiDien.setIcon(new ImageIcon(this.getClass().getResource(path)));
             System.out.println(this.lblAnhDaiDien.getIcon().toString());
         }
-    }//GEN-LAST:event_lbAnhSanPhamOfbtnMouseClicked
+    }//GEN-LAST:event_lblAnhDaiDienOfPnMouseClicked
 
-    private void radNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radNamActionPerformed
+    private void rdoNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoNamActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_radNamActionPerformed
+    }//GEN-LAST:event_rdoNamActionPerformed
 
-    private void radNuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radNuActionPerformed
+    private void rdoNuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoNuActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_radNuActionPerformed
+    }//GEN-LAST:event_rdoNuActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
@@ -556,11 +652,11 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLuuActionPerformed
 
-    private void btnThem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem1ActionPerformed
+    private void btnThemNhieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNhieuActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnThem1ActionPerformed
+    }//GEN-LAST:event_btnThemNhieuActionPerformed
 
-    private void btnThem1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThem1MouseClicked
+    private void btnThemNhieuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemNhieuMouseClicked
         // TODO add your handling code here:
         JFileChooser fileChooser = new JFileChooser("d:");
         //        int respone=fileChooser.showOpenDialog(null);
@@ -583,7 +679,7 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
                     Iterator<Cell> cellItera = row.cellIterator();
                     // khai báo biến 
                     try {
-                        String hoTen = "", maCCCD = "", soDienThoai = "", email = "", matKhau = "111111", anhDaiDien = "", diaChi="";
+                        String hoTen = "", maCCCD = "", soDienThoai = "", email = "", matKhau = "111111", anhDaiDien = "", diaChi = "";
                         String maToNhom = "";
                         Date ngaySinh = new Date(), ngayVaoLam = new Date();
                         Boolean gioiTinh = false;
@@ -596,7 +692,7 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
                                     hoTen = cell.getStringCellValue();
                                     System.out.println("HoTen" + hoTen);
                                 } else if (cell.getColumnIndex() == 1) {
-                                   String chuoiNgaySinh = cell.getStringCellValue();
+                                    String chuoiNgaySinh = cell.getStringCellValue();
                                     try {
                                         ngaySinh = new SimpleDateFormat("yyyy-MM-dd").parse(chuoiNgaySinh);
                                         System.out.println("Ngay Sinh" + ngaySinh);
@@ -604,21 +700,21 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
                                         System.out.println(ex.getMessage());
                                     }
                                 } else if (cell.getColumnIndex() == 2) {
-                                   maCCCD = cell.getStringCellValue();
+                                    maCCCD = cell.getStringCellValue();
                                     System.out.println("Ma cccd" + maCCCD);
                                 } else if (cell.getColumnIndex() == 3) {
-                                   soDienThoai = cell.getStringCellValue();
+                                    soDienThoai = cell.getStringCellValue();
                                     System.out.println("sdt" + soDienThoai);
                                 } else if (cell.getColumnIndex() == 4) {
-                                   email = cell.getStringCellValue();
+                                    email = cell.getStringCellValue();
                                     System.out.println("email" + email);
                                 } else if (cell.getColumnIndex() == 5) {
-                                    int matKhauInt = (int)cell.getNumericCellValue();
-                                    matKhau = matKhauInt +"";
+                                    int matKhauInt = (int) cell.getNumericCellValue();
+                                    matKhau = matKhauInt + "";
                                     System.out.println("mat khau" + matKhau);
                                 } else if (cell.getColumnIndex() == 6) {
                                     String gioiTinhStr = cell.getStringCellValue();
-                                    if (gioiTinhStr.equalsIgnoreCase("Nữ") || gioiTinhStr.equalsIgnoreCase("Nu")){
+                                    if (gioiTinhStr.equalsIgnoreCase("Nữ") || gioiTinhStr.equalsIgnoreCase("Nu")) {
                                         gioiTinh = false;
                                     } else {
                                         gioiTinh = true;
@@ -638,17 +734,17 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
                                         System.out.println(ex.getMessage());
                                     }
                                     System.out.println("nvl " + ngayVaoLam);
-                                } else if (cell.getColumnIndex()== 10){
+                                } else if (cell.getColumnIndex() == 10) {
                                     maToNhom = cell.getStringCellValue();
                                 }
                             }
 
                         }
-                        
+
                         String maCongNhan = congNhan_DAO.layRaMaCongNhanDeThem();
                         ToNhom toNhom = toNhom_DAO.layMotToNhomTheoMa(maToNhom);
-                        boolean coThemDuoc = 
-                                congNhan_DAO.themMotCongNhan(new CongNhan(maCongNhan, hoTen, ngaySinh, maCCCD, 
+                        boolean coThemDuoc
+                                = congNhan_DAO.themMotCongNhan(new CongNhan(maCongNhan, hoTen, ngaySinh, maCCCD,
                                         soDienThoai, email, matKhau, ngayVaoLam, gioiTinh, anhDaiDien, diaChi, toNhom));
                         if (coThemDuoc) {
                             count++;
@@ -658,13 +754,13 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
                     }
                 }
                 in.close();
-                JOptionPane.showMessageDialog(null, "Thêm thành công " + count + " trên " + (--total) + " công nhân!");
+                JOptionPane.showMessageDialog(null, stThemThanhCong + count + stTren + (--total) + stCongNhan);
             } catch (FileNotFoundException ex) {
-                JOptionPane.showMessageDialog(null, "Lỗi không tìm thấy file", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, stKhongTimThayFile, stThongbao, JOptionPane.ERROR_MESSAGE);
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "Lỗi không đọc được file", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, stKhongDocDuocFile, stThongbao, JOptionPane.ERROR_MESSAGE);
             }
-            if (count != 0){
+            if (count != 0) {
                 try {
                     hienThiDuLieuLen();
                 } catch (Exception e) {
@@ -672,7 +768,7 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
                 }
             }
         }
-    }//GEN-LAST:event_btnThem1MouseClicked
+    }//GEN-LAST:event_btnThemNhieuMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -681,7 +777,7 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
     private javax.swing.JButton btnHuy;
     private javax.swing.JButton btnLuu;
     private javax.swing.JButton btnThem;
-    private javax.swing.JButton btnThem1;
+    private javax.swing.JButton btnThemNhieu;
     private javax.swing.JButton btnXoa;
     private javax.swing.JComboBox<String> cmbToNhom;
     private com.toedter.calendar.JDateChooser dtcNgaySinh;
@@ -693,8 +789,8 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JLabel lbAnhSanPhamOfbtn;
     private javax.swing.JLabel lblAnhDaiDien;
+    private javax.swing.JLabel lblAnhDaiDienOfPn;
     private javax.swing.JLabel lblDiaChi;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblErrCCCD;
@@ -712,8 +808,8 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
     private javax.swing.JLabel lblSoCCCD;
     private javax.swing.JLabel lblSoDienThoai;
     private javax.swing.JLabel lblToNhom;
-    private javax.swing.JRadioButton radNam;
-    private javax.swing.JRadioButton radNu;
+    private javax.swing.JRadioButton rdoNam;
+    private javax.swing.JRadioButton rdoNu;
     private javax.swing.JScrollPane scrTableCongNhan;
     private javax.swing.JTable tblCongNhan;
     private javax.swing.JTextField txtCCCD;
@@ -740,7 +836,7 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
             dongMoBtnEdit(false);
             dongMoTxt(true);
             txtHoTen.requestFocus();
-            
+
         } else if (o.equals(btnHuy)) {
             dongMoBtnEdit(true);
             dongMoTxt(false);
@@ -769,7 +865,7 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
                 Date ngaySinh = dtcNgaySinh.getDate();
                 Date ngayVaoLam = dtcNgayVaoLam.getDate();
                 String matKhau = "111111";
-                boolean isGioiTinh = radNam.isSelected() ? true : false;
+                boolean isGioiTinh = rdoNam.isSelected() ? true : false;
                 ToNhom toNhom = null;
                 ArrayList<ToNhom> dsToNhom = toNhom_DAO.layDanhSachToNhom();
                 for (ToNhom toNhomTemp : dsToNhom) {
@@ -778,16 +874,16 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
                     }
                 }
                 boolean coThemDuoc = congNhan_DAO.themMotCongNhan(new CongNhan(txtMaCongNhan.getText(), hoTen, ngaySinh, soCCCD,
-                         soDienThoai, email, matKhau, ngayVaoLam, isGioiTinh, lblAnhDaiDien.getIcon().toString().split("Anh/")[1], diaChi, toNhom));
+                        soDienThoai, email, matKhau, ngayVaoLam, isGioiTinh, lblAnhDaiDien.getIcon().toString().split("Anh/")[1], diaChi, toNhom));
                 if (coThemDuoc) {
-                    JOptionPane.showMessageDialog(null, "Thêm công nhân thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, stThemThanhCong, stThongbao, JOptionPane.INFORMATION_MESSAGE);
                     hienThiDuLieuLen();
                     dongMoBtnEdit(true);
                     dongMoTxt(false);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Thêm công nhân thất bại!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, stThemThatBai, stThongbao, JOptionPane.INFORMATION_MESSAGE);
                 }
-            } else if (oFlag.equals(btnCapNhat)){
+            } else if (oFlag.equals(btnCapNhat)) {
                 boolean coHopLe = validateForm();
                 if (!coHopLe) {
                     return;
@@ -800,7 +896,7 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
                 Date ngaySinh = dtcNgaySinh.getDate();
                 Date ngayVaoLam = dtcNgayVaoLam.getDate();
                 String matKhau = "111111";
-                boolean isGioiTinh = radNam.isSelected() ? true : false;
+                boolean isGioiTinh = rdoNam.isSelected() ? true : false;
                 ToNhom toNhom = null;
                 ArrayList<ToNhom> dsToNhom = toNhom_DAO.layDanhSachToNhom();
                 for (ToNhom toNhomTemp : dsToNhom) {
@@ -809,30 +905,30 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
                     }
                 }
                 boolean coSuaDuoc = congNhan_DAO.capNhatMotCongNhan(new CongNhan(txtMaCongNhan.getText(), hoTen, ngaySinh, soCCCD,
-                         soDienThoai, email, matKhau, ngayVaoLam, isGioiTinh, lblAnhDaiDien.getIcon().toString().split("Anh/")[1], diaChi, toNhom));
+                        soDienThoai, email, matKhau, ngayVaoLam, isGioiTinh, lblAnhDaiDien.getIcon().toString().split("Anh/")[1], diaChi, toNhom));
                 if (coSuaDuoc) {
-                    JOptionPane.showMessageDialog(null, "Cập nhật công nhân thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, stCapNhatThanhCong,stThongbao, JOptionPane.INFORMATION_MESSAGE);
                     hienThiDuLieuLen();
                     dongMoBtnEdit(true);
                     dongMoTxt(false);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Cập nhật công nhân thất bại!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, stCapNhatThatBai, stThongbao, JOptionPane.INFORMATION_MESSAGE);
                 }
             }
 
         } else if (o.equals(btnXoa)) {
             int row = tblCongNhan.getSelectedRow();
-            if (row != -1){
-                 int coXacNhanXoa = JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa?", "Xóa Phòng ban", JOptionPane.ERROR_MESSAGE);
-                 if (coXacNhanXoa == 0){
-                     boolean coXoaDuoc = congNhan_DAO.xoaCongNhanTheoMa(tblCongNhan.getValueAt(row, 1).toString());
-                     if (coXoaDuoc){
-                        JOptionPane.showMessageDialog(null, "Xóa thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            if (row != -1) {
+                int coXacNhanXoa = JOptionPane.showConfirmDialog(null, stBanXacNhanXoa, stThongbao, JOptionPane.ERROR_MESSAGE);
+                if (coXacNhanXoa == 0) {
+                    boolean coXoaDuoc = congNhan_DAO.xoaCongNhanTheoMa(tblCongNhan.getValueAt(row, 1).toString());
+                    if (coXoaDuoc) {
+                        JOptionPane.showMessageDialog(null,stXoaThanhCong,stThongbao, JOptionPane.INFORMATION_MESSAGE);
                         hienThiDuLieuLen();
-                     } else {
-                          JOptionPane.showMessageDialog(null, "Xóa thất bại!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                     }
-                 }
+                    } else {
+                        JOptionPane.showMessageDialog(null,stXoaThatBai,stThongbao, JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
             }
         }
     }
@@ -848,59 +944,59 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
         Date ngayVaoLam = dtcNgayVaoLam.getDate();
 
         if (hoTen.equals("")) {
-            lblErrHoTen.setText("Họ Tên không được để trống!");
+            lblErrHoTen.setText(stErrKhongDeTrong);
             flag = false;
         } else if (!hoTen.matches("^([A-ZĐÂÁƯ]{1}[a-zvxyỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]+)"
                 + "((\\s{1}[A-ZĐÂÁƯ][{1}a-vxyỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]+){1,})$")) {
-            lblErrHoTen.setText("Bắt đầu là In hoa, chỉ chứa kí tự chữ");
+            lblErrHoTen.setText(stErrHoTen);
             flag = false;
         } else {
             lblErrHoTen.setText("");
         }
         if (soCCCD.equals("")) {
-            lblErrCCCD.setText("CCCD không được để trống!");
+            lblErrCCCD.setText(stErrKhongDeTrong);
             flag = false;
         } else if (!soCCCD.matches("^[0-9]{12}$")) {
-            lblErrCCCD.setText("Phải đúng 12 kí tự số");
+            lblErrCCCD.setText(stErrSoCCCD);
             flag = false;
         } else {
             lblErrCCCD.setText("");
         }
         if (email.equals("")) {
-            lblErrEmail.setText("Email không được để trống!");
+            lblErrEmail.setText(stErrKhongDeTrong);
             flag = false;
         } else if (!email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
-            lblErrEmail.setText("Email không đúng chuẩn");
+            lblErrEmail.setText(stErrEmail);
             flag = false;
         } else {
             lblErrEmail.setText("");
         }
         if (soDienThoai.equals("")) {
-            lblErrSoDienThoai.setText("Số điện thoại không được trông!");
+            lblErrSoDienThoai.setText(stErrKhongDeTrong);
             flag = false;
         } else if (!soDienThoai.matches("^\\+84[1-9][0-9]{8}$")) {
-            lblErrSoDienThoai.setText("Bắt đầu: +84, theo sau là 9 kí số");
+            lblErrSoDienThoai.setText(stErrSdt);
             flag = false;
         } else {
             lblErrSoDienThoai.setText("");
         }
         if (diaChi.equals("")) {
-            lblErrDiaChi.setText("Địa chỉ không được trống!");
+            lblErrDiaChi.setText(stErrKhongDeTrong);
             flag = false;
         } else {
             lblErrDiaChi.setText("");
         }
         if (!ngaySinh.before(new Date())) {
-            lblErrNgaySinh.setText("Ngày sinh phải trước hiện tại");
+            lblErrNgaySinh.setText(stErrNgaySinh);
             flag = false;
         } else if (calculateAgeWithJava7(ngaySinh, new Date()) < 18) {
-            lblErrNgaySinh.setText("Phải từ 18 tuổi trở lên!");
+            lblErrNgaySinh.setText(stErrCongNhanKhongDuTuoi);
             flag = false;
         } else {
             lblErrNgaySinh.setText("");
         }
         if (ngayVaoLam.after(new Date())) {
-            lblErrNgayVaoLam.setText("Phải <= Ngày hiện tại");
+            lblErrNgayVaoLam.setText(stErrNgayVaoLam);
             flag = false;
         } else {
             lblErrNgayVaoLam.setText("");
@@ -925,7 +1021,7 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
         txtSoDienThoai.setText("");
         txtDiaChi.setText("");
         dtcNgaySinh.setDate(new Date());
-        radNam.setSelected(true);
+        rdoNam.setSelected(true);
         if (cmbToNhom.getItemCount() != 0) {
             cmbToNhom.setSelectedIndex(0);
         }

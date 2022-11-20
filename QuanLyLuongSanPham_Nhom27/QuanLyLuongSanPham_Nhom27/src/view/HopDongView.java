@@ -6,6 +6,7 @@ package view;
 
 import DAO.HopDong_DAO;
 import Entity.HopDong;
+import Entity.NhanVien;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.File;
@@ -19,12 +20,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -45,13 +48,86 @@ public class HopDongView extends javax.swing.JPanel {
     private DefaultTableModel model;
     private HopDong_DAO hopDongDao;
     private boolean isThem = false;
-
-    public HopDongView() throws ParseException {
+    private String stErrKhongDeTrong;
+    private String stErrTenKhachHangKhongHopLe;
+    private String stErrTien;
+    private String stErrTongTien;
+    private String stErrNgayKyKet;
+    private String stErrHanHopDong;
+    private String stThongbao;
+    private String stBanXacNhanXoa;
+    private String stXoaThanhCong;
+    private String stXoaThatBai;
+    private String stThemThanhCong;
+    private String stThemThatBai;
+    private String stTren;
+    private String stHopDong;
+    private String stKhongTimThayFile;
+    private String stKhongDocDuocFile;
+    private String stCapNhatThanhCong;
+    private String stCapNhatThatBai;
+    
+    
+    private NhanVien nhanVienDangNhap;
+    private String fileName;
+    public HopDongView(NhanVien nv, String fileName) throws ParseException, IOException {
+        this.nhanVienDangNhap=nv;
+        this.fileName=fileName;
         initComponents();
+        caiDatNgonNguChoView(fileName);
         excute();
         taiDuLieuLenTable();
     }
+   public void caiDatNgonNguChoView(String fileName) throws FileNotFoundException, IOException {
+        FileInputStream fis = new FileInputStream(fileName);
+        Properties prop = new Properties();
+        prop.load(fis);
+        lblMaHopDong.setText(prop.getProperty("HopDong_MahopDong"));
+        lbltenKhachHang.setText(prop.getProperty("HopDong_TenKhachHang"));
+        lblTenHopDong.setText(prop.getProperty("HopDong_TenHopDong"));
+        lblTongTien.setText(prop.getProperty("HopDong_TongTien"));
+        lblTienCoc.setText(prop.getProperty("HopDong_TienCoc"));
+        lblNgayKyKet.setText(prop.getProperty("HopDong_NgayKyKet"));
+        lblHanHopDong.setText(prop.getProperty("HopDong_HanHopDong"));
+        lblYeuCau.setText(prop.getProperty("HopDong_YeuCau"));
+        this.stErrKhongDeTrong=prop.getProperty("KhongDeTrong");
+        this.stErrTenKhachHangKhongHopLe=prop.getProperty("HopDong_lblErrTenKhachHangKhongHopLe");
+        this.stErrTien=prop.getProperty("HopDong_lblErrTien");
+        this.stErrTongTien=prop.getProperty("HopDong_lblErrTongTienLonHonTienCoc");
+        this.stErrNgayKyKet=prop.getProperty("HopDong_lblErrNgayKyKet");
+        this.stErrHanHopDong=prop.getProperty("HopDong_lblErrHanHopDong");
+        btnThemNhieu.setText(prop.getProperty("btnThemNhieu"));
+        btnThem.setText(prop.getProperty("btnThem"));
+        btnXoa.setText(prop.getProperty("btnXoa"));
+        btnCapNhat.setText(prop.getProperty("btnCapNhat"));
+        btnLuu.setText(prop.getProperty("btnLuu"));
+        btnHuy.setText(prop.getProperty("btnHuy"));
+        ChangeName(tblHopDong, 0, prop.getProperty("HopDong_tblStt"));
+        ChangeName(tblHopDong, 1, prop.getProperty("HopDong_tblMaHopDong"));
+        ChangeName(tblHopDong, 2, prop.getProperty("HopDong_tblTenHopDong"));
+        ChangeName(tblHopDong, 3, prop.getProperty("HopDong_tblTenKhachHang"));
+        ChangeName(tblHopDong, 4, prop.getProperty("HopDong_tblTienCoc"));
+        ChangeName(tblHopDong, 5, prop.getProperty("HopDong_tblTongTien"));
+        ChangeName(tblHopDong, 6, prop.getProperty("HopDong_tblNgayKy"));
+        ChangeName(tblHopDong, 7, prop.getProperty("HopDong_tblHanChot"));
+        stThongbao=prop.getProperty("thongBao");
+        stBanXacNhanXoa=prop.getProperty("banXacNhanXoa");
+        stXoaThanhCong=prop.getProperty("xoaThanhCong");
+        stXoaThatBai=prop.getProperty("xoaThatBai");
+        stThemThanhCong=prop.getProperty("themThanhCong");
+        stThemThatBai=prop.getProperty("themThatBai");
+        stTren=prop.getProperty("tren");
+        stHopDong=prop.getProperty("hopDong");
+        stKhongDocDuocFile=prop.getProperty("khongDocDuocFile");
+        stKhongTimThayFile=prop.getProperty("khongTimThayFile");
+        stCapNhatThanhCong = prop.getProperty("capNhatThanhCong");
+        stCapNhatThatBai = prop.getProperty("capNhatThatBai");
+        
+   }
 
+    public void ChangeName(JTable table, int col_index, String col_name) {
+        table.getColumnModel().getColumn(col_index).setHeaderValue(col_name);
+    }
     public void excute() {
         model = (DefaultTableModel) tblHopDong.getModel();
         tblHopDong.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
@@ -154,7 +230,7 @@ public class HopDongView extends javax.swing.JPanel {
         btnCapNhat = new javax.swing.JButton();
         lblErrTongTien = new javax.swing.JLabel();
         lblMaHopDong = new javax.swing.JLabel();
-        lblSoLuongNhanVien = new javax.swing.JLabel();
+        lblYeuCau = new javax.swing.JLabel();
         txtTienCoc = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
         btnHuy = new javax.swing.JButton();
@@ -271,9 +347,9 @@ public class HopDongView extends javax.swing.JPanel {
         lblMaHopDong.setText("Mã hợp đồng:");
         pnlPhongBan.add(lblMaHopDong, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 50, 170, 20));
 
-        lblSoLuongNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lblSoLuongNhanVien.setText("Yêu cầu:");
-        pnlPhongBan.add(lblSoLuongNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 260, 170, 30));
+        lblYeuCau.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblYeuCau.setText("Yêu cầu:");
+        pnlPhongBan.add(lblYeuCau, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 260, 170, 30));
 
         txtTienCoc.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtTienCoc.setText("0");
@@ -464,7 +540,7 @@ public class HopDongView extends javax.swing.JPanel {
             String yeuCau = txtAreaYeuCau.getText().trim();
             boolean isThemDuoc = hopDongDao.themMotHopDong(new HopDong(maHopDong, tenHopDong, tenKhachHang, tienCoc, tongTien, ngayKyKet, hanChot, yeuCau));
             if (isThemDuoc) {
-                JOptionPane.showMessageDialog(null, "Thêm hợp đồng mới thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null,stThemThanhCong, stThongbao, JOptionPane.INFORMATION_MESSAGE);
                 try {
                     taiDuLieuLenTable();
                 } catch (Exception e) {
@@ -475,7 +551,7 @@ public class HopDongView extends javax.swing.JPanel {
                 setHidden(btnLuu, btnHuy);
                 isThem = false;
             } else {
-                JOptionPane.showMessageDialog(null, "Thêm hợp đồng mới thất bại!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, stThemThatBai, stThongbao, JOptionPane.INFORMATION_MESSAGE);
             }
         } else {
             boolean isHopLe = checkInput();
@@ -497,7 +573,7 @@ public class HopDongView extends javax.swing.JPanel {
             String yeuCau = txtAreaYeuCau.getText().trim();
             boolean isSuaDuoc = hopDongDao.suaMotHopDong(new HopDong(maHopDong, tenHopDong, tenKhachHang, tienCoc, tongTien, ngayKyKet, hanChot, yeuCau));
             if (isSuaDuoc) {
-                JOptionPane.showMessageDialog(null, "Cập nhật hợp đồng thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, stCapNhatThanhCong, stThongbao, JOptionPane.INFORMATION_MESSAGE);
                 try {
                     taiDuLieuLenTable();
                 } catch (Exception e) {
@@ -507,7 +583,7 @@ public class HopDongView extends javax.swing.JPanel {
                 setShow(btnThem, btnCapNhat, btnXoa, btnThemNhieu);
                 setHidden(btnLuu, btnHuy);
             } else {
-                JOptionPane.showMessageDialog(null, "Cập nhật hợp đồng thất bại!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, stCapNhatThatBai, stThongbao, JOptionPane.INFORMATION_MESSAGE);
             }
         }
 
@@ -528,43 +604,43 @@ public class HopDongView extends javax.swing.JPanel {
     public boolean checkInput() {
         boolean check = true;
         if (txtTenKhachHang.getText().equals("")) {
-            lblErrTenKhachHang.setText("Không được để trống!");
+            lblErrTenKhachHang.setText(stErrKhongDeTrong);
             check = false;
         } else if (!txtTenKhachHang.getText().matches("^([A-ZĐÂÁƯ][a-zỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổ"
                 + "ẵẻỡơôưăêâđ]+)((\\s[A-ZĐÂÁƯ][a-zỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]+){0,})$")) {
-            lblErrTenKhachHang.setText("Họ Tên chỉ có kí tự chữ");
+            lblErrTenKhachHang.setText(stErrTenKhachHangKhongHopLe);
             check = false;
         } else {
             lblErrTenKhachHang.setText("");
         }
         boolean checkTien = false;
         if (this.txtTienCoc.getText().equals("")) {
-            this.lblErrTienCoc.setText("Không được để trống");
+            this.lblErrTienCoc.setText(stErrKhongDeTrong);
             check = false;
         } else if (!this.txtTienCoc.getText().replaceAll(",", "").matches("^[1-9][0-9]*$")) {
-            this.lblErrTienCoc.setText("Số tiền nhập không hợp lệ");
+            this.lblErrTienCoc.setText(stErrTien);
             check = false;
         } else {
             this.lblErrTienCoc.setText("");
             checkTien = true;
         }
-        
+
         if (txtTenHopDong.getText().equals("")) {
-            lblErrTenHopDong.setText("Không được để trống");
+            lblErrTenHopDong.setText(stErrKhongDeTrong);
             check = false;
         } else {
             lblErrTenHopDong.setText("");
         }
         if (txtTongTien.getText().equals("")) {
-            this.lblErrTongTien.setText("Không được để trống");
+            this.lblErrTongTien.setText(stErrKhongDeTrong);
             check = false;
         } else if (!this.txtTongTien.getText().replaceAll(",", "").matches("^[1-9][0-9]*$")) {
-            this.lblErrTongTien.setText("Số tiền nhập không hợp lệ");
+            this.lblErrTongTien.setText(stErrTien);
             check = false;
         } else {
             if (checkTien) {
                 if (Double.parseDouble(txtTienCoc.getText()) >= Double.parseDouble(txtTongTien.getText())) {
-                    this.lblErrTongTien.setText("Tổng tiền phải >= Tiền cọc");
+                    this.lblErrTongTien.setText(stErrTongTien);
                     check = false;
                 } else {
                     lblErrTongTien.setText("");
@@ -575,13 +651,13 @@ public class HopDongView extends javax.swing.JPanel {
             }
         }
         if (dcsNgayKyKet.getDate().after(new Date())) {
-            lblErrNgayKiKet.setText("Ngày phải trước hoặc bằng hiện tại");
+            lblErrNgayKiKet.setText(stErrNgayKyKet);
             check = false;
         } else {
             lblErrNgayKiKet.setText("");
         }
         if (!dcsHanHopDong.getDate().after(new Date())) {
-            lblErrHanHopDong.setText("Phải sau ngày hiện tại");
+            lblErrHanHopDong.setText(stErrHanHopDong);
             check = false;
         } else {
             lblErrHanHopDong.setText("");
@@ -603,17 +679,17 @@ public class HopDongView extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa?", "Thông báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+        if (JOptionPane.showConfirmDialog(null, stBanXacNhanXoa,stThongbao, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             hopDongDao = new HopDong_DAO();
             if (hopDongDao.xoaMotHopDong(tblHopDong.getValueAt(tblHopDong.getSelectedRow(), 1).toString())) {
-                JOptionPane.showMessageDialog(this, "Xóa thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, stXoaThanhCong,stThongbao, JOptionPane.INFORMATION_MESSAGE);
                 try {
                     taiDuLieuLenTable();
                 } catch (ParseException ex) {
                     Logger.getLogger(HopDongView.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Xóa thất bại", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, stXoaThatBai, stThongbao, JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnXoaActionPerformed
@@ -759,13 +835,13 @@ public class HopDongView extends javax.swing.JPanel {
                     }
                 }
                 in.close();
-                JOptionPane.showMessageDialog(null, "Thêm thành công " + count + " trên " + (--total) + " hợp đồng!");
+                JOptionPane.showMessageDialog(null, stThemThanhCong + count + stTren + (--total) + stHopDong);
             } catch (FileNotFoundException ex) {
-                JOptionPane.showMessageDialog(null, "Lỗi không tìm thấy file", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, stKhongTimThayFile, stThongbao, JOptionPane.ERROR_MESSAGE);
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "Lỗi không đọc được file", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, stKhongDocDuocFile, stThongbao, JOptionPane.ERROR_MESSAGE);
             }
-            if (count != 0){
+            if (count != 0) {
                 try {
                     taiDuLieuLenTable();
                 } catch (Exception e) {
@@ -801,10 +877,10 @@ public class HopDongView extends javax.swing.JPanel {
     private javax.swing.JLabel lblHanHopDong;
     private javax.swing.JLabel lblMaHopDong;
     private javax.swing.JLabel lblNgayKyKet;
-    private javax.swing.JLabel lblSoLuongNhanVien;
     private javax.swing.JLabel lblTenHopDong;
     private javax.swing.JLabel lblTienCoc;
     private javax.swing.JLabel lblTongTien;
+    private javax.swing.JLabel lblYeuCau;
     private javax.swing.JLabel lbltenKhachHang;
     private javax.swing.JPanel pnlPhongBan;
     private javax.swing.JScrollPane scrHopDong;

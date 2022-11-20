@@ -16,8 +16,12 @@ import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Properties;
 import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -32,7 +36,7 @@ public class ChiTietLuongNhanVien extends javax.swing.JFrame {
     /**
      * Creates new form ChiTietLuongCongNhan
      */
-    public ChiTietLuongNhanVien(String maNhanVien, String hoVaTen, String tongTien, String thang, String nam) {
+    public ChiTietLuongNhanVien(String fileName,String maNhanVien, String hoVaTen, String tongTien, String thang, String nam) throws IOException {
         initComponents();
         execute();
         lblValueMaNhanVien.setText(maNhanVien);
@@ -40,14 +44,16 @@ public class ChiTietLuongNhanVien extends javax.swing.JFrame {
         lblValueTongTien.setText(tongTien);
         lblTitle.setText("Chi tiết lương nhân viên trong tháng " + thang + "-" + nam);
         taiDuLieuLenBangChiTietLuong(maNhanVien, thang, nam, tongTien);
+        caiDatNgonNguChoView(fileName);
     }
 
     private void execute() {
         Container c = this.getContentPane();
         c.setBackground(Color.white);
     }
+
     public void taiDuLieuLenBangChiTietLuong(String maNhanVien, String thang, String nam, String tongTien) {
-        System.out.println(maNhanVien+"-"+thang+"-"+nam);
+        System.out.println(maNhanVien + "-" + thang + "-" + nam);
         DefaultTableModel model = (DefaultTableModel) tblChiTietLuongNhanVien.getModel();
         while (model.getRowCount() > 0) {
             model.removeRow(0);
@@ -58,6 +64,26 @@ public class ChiTietLuongNhanVien extends javax.swing.JFrame {
             model.addRow(new Object[]{model.getRowCount() + 1, chamCong.getNgayChamCong(), chamCong.getCaLam(), chamCong.getTrangThaiDiLam(), chamCong.getGioDiLam()});
         }
 
+    }
+
+    public void caiDatNgonNguChoView(String fileName) throws FileNotFoundException, IOException {
+        FileInputStream fis = new FileInputStream(fileName);
+        Properties prop = new Properties();
+        prop.load(fis);
+        lblMaNhanVien.setText(prop.getProperty("maNhanVien"));
+        lblHoVaTen.setText(prop.getProperty("hoTen"));
+        lblTongTienNhan.setText(prop.getProperty("ctlnv_tongTienNhan"));
+        lblTitle.setText(prop.getProperty("ctlnv_tieuDe"));
+        btnXuatBaoCao.setText(prop.getProperty("ctlnv_btnXuatBaoCao"));
+        ChangeName(tblChiTietLuongNhanVien, 0, prop.getProperty("pcd_stt"));
+        ChangeName(tblChiTietLuongNhanVien, 1, prop.getProperty("ctlnv_ngayLam"));
+        ChangeName(tblChiTietLuongNhanVien, 2, prop.getProperty("ctlnv_caLam"));
+        ChangeName(tblChiTietLuongNhanVien, 3, prop.getProperty("ctlnv_trangThai"));
+        ChangeName(tblChiTietLuongNhanVien, 4, prop.getProperty("ctlnv_gioDiLam"));
+    }
+
+    public void ChangeName(JTable table, int col_index, String col_name) {
+        table.getColumnModel().getColumn(col_index).setHeaderValue(col_name);
     }
 
     /**
@@ -74,10 +100,10 @@ public class ChiTietLuongNhanVien extends javax.swing.JFrame {
         tblChiTietLuongNhanVien = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         lblValueMaNhanVien = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
+        lblHoVaTen = new javax.swing.JLabel();
         lblValueHoVaTen = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
+        lblMaNhanVien = new javax.swing.JLabel();
+        lblTongTienNhan = new javax.swing.JLabel();
         lblValueTongTien = new javax.swing.JLabel();
         btnXuatBaoCao = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -130,25 +156,25 @@ public class ChiTietLuongNhanVien extends javax.swing.JFrame {
         lblValueMaNhanVien.setText("NV001");
         jPanel2.add(lblValueMaNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 270, 40));
 
-        jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel19.setText("Họ và tên:");
-        jPanel2.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 130, 40));
+        lblHoVaTen.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblHoVaTen.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblHoVaTen.setText("Họ và tên:");
+        jPanel2.add(lblHoVaTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 130, 40));
 
         lblValueHoVaTen.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lblValueHoVaTen.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblValueHoVaTen.setText("Nguyễn Van A");
         jPanel2.add(lblValueHoVaTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, 300, 40));
 
-        jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel21.setText("Mã nhân viên");
-        jPanel2.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 130, 40));
+        lblMaNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblMaNhanVien.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblMaNhanVien.setText("Mã nhân viên");
+        jPanel2.add(lblMaNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 130, 40));
 
-        jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel22.setText("Tổng tiền nhận:");
-        jPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 130, 40));
+        lblTongTienNhan.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblTongTienNhan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblTongTienNhan.setText("Tổng tiền nhận:");
+        jPanel2.add(lblTongTienNhan, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 130, 40));
 
         lblValueTongTien.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lblValueTongTien.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -273,13 +299,13 @@ public class ChiTietLuongNhanVien extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnXuatBaoCao;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblHoVaTen;
+    private javax.swing.JLabel lblMaNhanVien;
     private javax.swing.JLabel lblTitle;
+    private javax.swing.JLabel lblTongTienNhan;
     private javax.swing.JLabel lblValueHoVaTen;
     private javax.swing.JLabel lblValueMaNhanVien;
     private javax.swing.JLabel lblValueTongTien;

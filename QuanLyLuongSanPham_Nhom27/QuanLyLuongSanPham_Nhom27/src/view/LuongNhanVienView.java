@@ -19,8 +19,10 @@ import com.lowagie.text.pdf.PdfWriter;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.MessageFormat;
 import java.text.ParseException;
@@ -34,6 +36,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,6 +44,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -60,17 +64,55 @@ public class LuongNhanVienView extends javax.swing.JPanel {
     private NhanVien_DAO nhanVienDao;
     private BangLuongNhanVien_DAO bangLuongNhanVienDao;
     private ChamCongNhanVien_DAO chamCongNhanVienDao;
-
+    
     private double tongLuong = 0;
-
-    public LuongNhanVienView() {
+    private String fileName;
+    
+    public LuongNhanVienView(String fileName) throws IOException {
+        this.fileName=fileName;
         initComponents();
         excute();
         taiDuLieuLenBangLuong();
+        caiDatNgonNguChoView(fileName);
     }
-
+    
+    public void caiDatNgonNguChoView(String fileName) throws FileNotFoundException, IOException {
+        FileInputStream fis = new FileInputStream(fileName);
+        Properties prop = new Properties();
+        prop.load(fis);
+        lblThang.setText(prop.getProperty("lnv_thang"));
+        lblNam.setText(prop.getProperty("lnv_nam"));
+        btnTinhLuong.setText(prop.getProperty("lnv_btnTinhLuong"));
+        btnGuiThongTin.setText(prop.getProperty("lnv_btnGuiThongTin"));
+        btnXuatBaoCao.setText(prop.getProperty("lnv_btnXuatBaoCao"));
+        lblHIenThi.setText(prop.getProperty("lnv_hienThi"));
+        cmbHienThi.removeAllItems();
+        cmbHienThi.addItem(prop.getProperty("lnv_cmb0"));
+        cmbHienThi.addItem(prop.getProperty("lnv_cmb1"));
+        scrBangLuong.setBorder(new TitledBorder(prop.getProperty("lnv_tieuDe")));
+        
+        ChangeName(tblBangLuong, 0, prop.getProperty("lnv_stt"));
+        ChangeName(tblBangLuong, 1, prop.getProperty("lnv_maLuong"));
+        ChangeName(tblBangLuong, 2, prop.getProperty("lnv_maNhanVien"));
+        ChangeName(tblBangLuong, 3, prop.getProperty("lnv_tenNhanVien"));
+        ChangeName(tblBangLuong, 4, prop.getProperty("lnv_gioiTinh"));
+        ChangeName(tblBangLuong, 5, prop.getProperty("lnv_soDienThoai"));
+        ChangeName(tblBangLuong, 6, prop.getProperty("lnv_luongThang"));
+        ChangeName(tblBangLuong, 7, prop.getProperty("lnv_soNgayDiLam"));
+        ChangeName(tblBangLuong, 8, prop.getProperty("lnv_soNgayNghi"));
+        ChangeName(tblBangLuong, 9, prop.getProperty("lnv_soPhepNghi"));
+        ChangeName(tblBangLuong, 10, prop.getProperty("lnv_tongLuong"));
+        ChangeName(tblBangLuong, 11, prop.getProperty("lnv_donViTien"));
+        ChangeName(tblBangLuong, 12, prop.getProperty("lnv_ngayTinh"));
+        
+    }
+    
+    public void ChangeName(JTable table, int col_index, String col_name) {
+        table.getColumnModel().getColumn(col_index).setHeaderValue(col_name);
+    }
+    
     public void excute() {
-
+        
         model = (DefaultTableModel) tblBangLuong.getModel();
         // custom table
         while (model.getRowCount() > 0) {
@@ -82,14 +124,14 @@ public class LuongNhanVienView extends javax.swing.JPanel {
                 .setHorizontalAlignment(JLabel.CENTER);
         tblBangLuong.setRowHeight(25);
         cmbNam.removeAllItems();
-
+        
         LocalDate lcDate = LocalDate.now();
-
+        
         for (int i = 2000; i <= lcDate.getYear(); i++) {
             cmbNam.addItem(i + "");
         }
     }
-
+    
     public void taiDuLieuLenBangLuong() {
         while (model.getRowCount() != 0) {
             model.removeRow(0);
@@ -115,9 +157,10 @@ public class LuongNhanVienView extends javax.swing.JPanel {
                     }
                 }
             }
-
+            
         }
     }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -132,7 +175,7 @@ public class LuongNhanVienView extends javax.swing.JPanel {
         btnXuatBaoCao = new javax.swing.JButton();
         cmbHienThi = new javax.swing.JComboBox<>();
         lblThang = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        scrBangLuong = new javax.swing.JScrollPane();
         tblBangLuong = new javax.swing.JTable();
 
         setPreferredSize(new java.awt.Dimension(1200, 700));
@@ -218,8 +261,8 @@ public class LuongNhanVienView extends javax.swing.JPanel {
 
         add(jPanel5, java.awt.BorderLayout.PAGE_START);
 
-        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Bảng lương", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
+        scrBangLuong.setBackground(new java.awt.Color(255, 255, 255));
+        scrBangLuong.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Bảng lương", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
 
         tblBangLuong.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         tblBangLuong.setModel(new javax.swing.table.DefaultTableModel(
@@ -247,9 +290,9 @@ public class LuongNhanVienView extends javax.swing.JPanel {
                 tblBangLuongMousePressed(evt);
             }
         });
-        jScrollPane1.setViewportView(tblBangLuong);
+        scrBangLuong.setViewportView(tblBangLuong);
 
-        add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        add(scrBangLuong, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTinhLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTinhLuongActionPerformed
@@ -347,7 +390,7 @@ public class LuongNhanVienView extends javax.swing.JPanel {
             bangLuongNhanVienDao.themMotBangLuongString(maBangLuong, nv.getMaNhanVien(), soNgayDiLam, soNgayNghi, soPhepNghi, new Date(), luongTheoThang, tongTien, "VND");
         }
     }
-
+    
     public int sunday(Date d1, Date d2) {
         Calendar c1 = Calendar.getInstance();
         c1.setTime(d1);
@@ -373,7 +416,7 @@ public class LuongNhanVienView extends javax.swing.JPanel {
     }//GEN-LAST:event_cmbThangActionPerformed
 
     private void btnXuatBaoCaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatBaoCaoActionPerformed
-
+        
         MessageFormat header = new MessageFormat("Bang luong nhân viên tháng" + cmbThang.getSelectedItem().toString() + "-" + cmbNam.getSelectedItem().toString());
         MessageFormat footer = new MessageFormat("Nhóm 27");
         try {
@@ -393,9 +436,13 @@ public class LuongNhanVienView extends javax.swing.JPanel {
         Point point = evt.getPoint();
         int row = table.rowAtPoint(point);
         if (evt.getClickCount() == 2 && tblBangLuong.getSelectedRow() != -1) {
-            new ChiTietLuongNhanVien(tblBangLuong.getValueAt(row, 2).toString(), tblBangLuong.getValueAt(row, 3).toString(),
-                    tblBangLuong.getValueAt(row, 10).toString(), tblBangLuong.getValueAt(row, 6).toString().split("-")[0],
-                    tblBangLuong.getValueAt(row, 6).toString().split("-")[1]).setVisible(true);
+            try {
+                new ChiTietLuongNhanVien(fileName,tblBangLuong.getValueAt(row, 2).toString(), tblBangLuong.getValueAt(row, 3).toString(),
+                        tblBangLuong.getValueAt(row, 10).toString(), tblBangLuong.getValueAt(row, 6).toString().split("-")[0],
+                        tblBangLuong.getValueAt(row, 6).toString().split("-")[1]).setVisible(true);
+            } catch (IOException ex) {
+                Logger.getLogger(LuongNhanVienView.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_tblBangLuongMousePressed
     private void cmbNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNamActionPerformed
@@ -411,10 +458,10 @@ public class LuongNhanVienView extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cmbNam;
     private javax.swing.JComboBox<String> cmbThang;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblHIenThi;
     private javax.swing.JLabel lblNam;
     private javax.swing.JLabel lblThang;
+    private javax.swing.JScrollPane scrBangLuong;
     private javax.swing.JTable tblBangLuong;
     // End of variables declaration//GEN-END:variables
 }

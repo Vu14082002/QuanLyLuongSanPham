@@ -382,14 +382,6 @@
         </Component>
         <Component class="javax.swing.JComboBox" name="cmbPhongBan">
           <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="T&#x1ea5;t c&#x1ea3;"/>
-                <StringItem index="1" value="Ph&#xf2;ng t&#xe0;i ch&#xed;nh"/>
-                <StringItem index="2" value="Ph&#xf2;ng kinh doanh"/>
-                <StringItem index="3" value="Ph&#xf2;ng nh&#xe2;n s&#x1ef1;"/>
-              </StringArray>
-            </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Hand Cursor"/>
             </Property>

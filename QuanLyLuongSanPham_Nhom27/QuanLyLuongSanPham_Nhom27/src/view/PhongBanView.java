@@ -5,6 +5,7 @@
 package view;
 
 import DAO.PhongBan_DAO;
+import Entity.NhanVien;
 import Entity.PhongBan;
 
 import java.awt.BorderLayout;
@@ -14,7 +15,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Properties;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -39,9 +44,30 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
     private PhongBan_DAO phongBan_DAO;
     private DefaultTableModel defaultTablePhongBan;
     private Object oFlag;
-    public PhongBanView() {
+    private NhanVien nhanVienDangNhap;
+    private String fileName;
+    private String khongDeTrong;
+
+    private String stErrKhongDeTrong;
+    private String stErrSoLuong;
+    private String stThongbao;
+    private String stBanXacNhanXoa;
+    private String stXoaThanhCong;
+    private String stXoaThatBai;
+    private String stThemThanhCong;
+    private String stThemThatBai;
+    private String stTren;
+    private String stSanPham;
+    private String stKhongTimThayFile;
+    private String stKhongDocDuocFile;
+    private String stCapNhatThanhCong;
+    private String stCapNhatThatBai;
+    private String stChonMauSacChoSanPham;
+
+    public PhongBanView(NhanVien nhanVienDangNhap, String fileName) throws IOException {
         oFlag = null;
         initComponents();
+        caiDatNgonNguChoView(fileName);
         tblPhongBan.addMouseListener(this);
         tblPhongBan.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
         tblPhongBan.getTableHeader().setOpaque(false);
@@ -65,9 +91,47 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
         btnLuu.addActionListener(this);
         btnLuu.setEnabled(false);
         btnHuy.setEnabled(false);
-
         execute();
 
+    }
+
+    public void caiDatNgonNguChoView(String fileName) throws FileNotFoundException, IOException {
+        FileInputStream fis = new FileInputStream(fileName);
+        Properties prop = new Properties();
+        prop.load(fis);
+        this.khongDeTrong = prop.getProperty("PhongBan_khongDeTrong");
+        lblMaPhongBan.setText(prop.getProperty("PhongBan_MaPhongBan"));
+        lblTenPhongBan.setText(prop.getProperty("PhongBan_TenPhongBan"));
+        lblSoLuongNhanVien.setText(prop.getProperty("PhongBan_SoLuongNhanVien"));
+        ChangeName(tblPhongBan, 0, prop.getProperty("PhongBan_STT"));
+        ChangeName(tblPhongBan, 1, lblMaPhongBan.getText());
+        ChangeName(tblPhongBan, 2, lblTenPhongBan.getText());
+        ChangeName(tblPhongBan, 3, lblSoLuongNhanVien.getText());
+        btnThem.setText(prop.getProperty("btnThem"));
+        btnXoa.setText(prop.getProperty("btnXoa"));
+        btnCapNhat.setText(prop.getProperty("btnCapNhat"));
+        btnLuu.setText(prop.getProperty("btnLuu"));
+        btnHuy.setText(prop.getProperty("btnHuy"));
+
+        stThongbao = prop.getProperty("thongBao");
+        stBanXacNhanXoa = prop.getProperty("banXacNhanXoa");
+        stXoaThanhCong = prop.getProperty("xoaThanhCong");
+        stXoaThatBai = prop.getProperty("xoaThatBai");
+        stThemThanhCong = prop.getProperty("themThanhCong");
+        stThemThatBai = prop.getProperty("themThatBai");
+        stTren = prop.getProperty("tren");
+        stSanPham = prop.getProperty("sp_SanPham");
+        stKhongDocDuocFile = prop.getProperty("khongDocDuocFile");
+        stKhongTimThayFile = prop.getProperty("khongTimThayFile");
+        stCapNhatThanhCong = prop.getProperty("capNhatThanhCong");
+        stCapNhatThatBai = prop.getProperty("capNhatThatBai");
+        stChonMauSacChoSanPham = prop.getProperty("sp_chonMauSacChoSanPham");
+        stErrSoLuong = prop.getProperty("sp_lblErrSoLuong");
+        stErrKhongDeTrong = prop.getProperty("KhongDeTrong");
+    }
+
+    public void ChangeName(JTable table, int col_index, String col_name) {
+        table.getColumnModel().getColumn(col_index).setHeaderValue(col_name);
     }
 
     public void execute() {
@@ -349,14 +413,14 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
             int row = tblPhongBan.getSelectedRow();
             if (row != -1) {
                 hienThiDuLieuLenTxt(row);
-                if (!btnThem.isEnabled()){
+                if (!btnThem.isEnabled()) {
                     btnThem.setEnabled(true);
                     btnXoa.setEnabled(true);
                     btnCapNhat.setEnabled(true);
                     btnLuu.setEnabled(false);
                     btnHuy.setEnabled(false);
                     txtTenPhongBan.setEditable(false);
-                    
+
                 }
             }
         }
@@ -390,7 +454,7 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+
         Object o = e.getSource();
         if (o.equals(btnThem)) {
             // gán cờ 
@@ -414,7 +478,7 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
             if (oFlag.equals(btnThem)) {
                 String maPhongBan = txtMaPhongBan.getText();
                 if (txtTenPhongBan.getText().equals("")) {
-                    lbErrTenPhongBan.setText("Tên phòng không được trống!");
+                    lbErrTenPhongBan.setText(stErrKhongDeTrong);
                     return;
                 } else {
                     lbErrTenPhongBan.setText("");
@@ -432,14 +496,14 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
                     btnHuy.setEnabled(false);
                     oFlag = null;
                     khoaMoTxt(false); // false là khóa lại, true là mở ra
-                    JOptionPane.showMessageDialog(null, "Thêm thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, stThemThanhCong,stThongbao, JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Thêm thất bại!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null,stThemThatBai, stThongbao, JOptionPane.INFORMATION_MESSAGE);
                 }
             } else if (oFlag.equals(btnCapNhat)) {
                 String maPhongBan = txtMaPhongBan.getText();
                 if (txtTenPhongBan.getText().equals("")) {
-                    lbErrTenPhongBan.setText("Tên phòng không được trống!");
+                    lbErrTenPhongBan.setText(stErrKhongDeTrong);
                     return;
                 } else {
                     lbErrTenPhongBan.setText("");
@@ -462,11 +526,11 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
                     oFlag = null;
                     khoaMoTxt(false);
                     taiDuLieuLenBang();
-                    JOptionPane.showMessageDialog(null, "Cập nhật thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, stCapNhatThanhCong,stThongbao, JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Cập nhật thất bại!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null,stCapNhatThatBai, stThongbao, JOptionPane.INFORMATION_MESSAGE);
                 }
-            } 
+            }
 //            if (btnThem.getText().equalsIgnoreCase("Hủy cập nhật")) {
 //
 //            } else if (btnCapNhat.getText().equalsIgnoreCase("Hủy Sửa")) {
@@ -511,14 +575,14 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
 
             int rowSelected = tblPhongBan.getSelectedRow();
             if (rowSelected != -1) {
-                int coXacNhanXoa = JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa?", "Xóa Phòng ban", JOptionPane.ERROR_MESSAGE);
+                int coXacNhanXoa = JOptionPane.showConfirmDialog(null, stBanXacNhanXoa, stThongbao, JOptionPane.ERROR_MESSAGE);
                 if (coXacNhanXoa == 0) {
                     boolean coXoaDuoc = phongBan_DAO.xoaMotPhongBanTheoMa(tblPhongBan.getValueAt(tblPhongBan.getSelectedRow(), 1).toString());
                     if (coXoaDuoc) {
-                        JOptionPane.showMessageDialog(null, "Xóa thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, stXoaThanhCong, stThongbao, JOptionPane.INFORMATION_MESSAGE);
                         taiDuLieuLenBang();
                     } else {
-                        JOptionPane.showMessageDialog(null, "Xóa thất bại!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, stXoaThatBai, stThongbao, JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
             }

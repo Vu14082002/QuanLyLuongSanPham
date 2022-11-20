@@ -6,17 +6,18 @@ package view;
 
 import DAO.SanPham_DAO;
 import Entity.SanPham;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Properties;
 import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,16 +25,19 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author December
  */
-public class TimKiemSanPhamView extends javax.swing.JPanel implements ActionListener{
+public class TimKiemSanPhamView extends javax.swing.JPanel implements ActionListener {
 
     /**
      * Creates new form NhanVienView
      */
     private SanPham_DAO sanPham_DAO;
     private DefaultTableModel modelTableSanPham;
+    private String stThongBao;
+    private String stTimKiemKhongThay;
 
-    public TimKiemSanPhamView() {
+    public TimKiemSanPhamView(String fileName) throws IOException {
         initComponents();
+        caiDatNgonNguChoView(fileName);
         modelTableSanPham = (DefaultTableModel) tblSanPham.getModel();
         try {
             ConnectionDB.ConnectDB.getInstance().connect();
@@ -46,6 +50,34 @@ public class TimKiemSanPhamView extends javax.swing.JPanel implements ActionList
         excute();
         lblErrTenSanPham.setText("");
         taiDuLieuLenBang("all", "all", "all", "all");
+    }
+
+    public void caiDatNgonNguChoView(String fileName) throws FileNotFoundException, IOException {
+        FileInputStream fis = new FileInputStream(fileName);
+        Properties prop = new Properties();
+        prop.load(fis);
+        lblMaSanPham.setText(prop.getProperty("sp_maSanPham"));
+        lblTenSanPham.setText(prop.getProperty("sp_tenSanPham"));
+        lblChatLieu.setText(prop.getProperty("sp_chatLieu"));
+        lblKichThuoc.setText(prop.getProperty("sp_kichThuoc"));
+        ChangeName(tblSanPham, 0, prop.getProperty("sp_stt"));
+        ChangeName(tblSanPham, 1, prop.getProperty("sp_maSanPham"));
+        ChangeName(tblSanPham, 2, prop.getProperty("sp_tenSanPham"));
+        ChangeName(tblSanPham, 3, prop.getProperty("sp_soLuong"));
+        ChangeName(tblSanPham, 4, prop.getProperty("sp_mauSac"));
+        ChangeName(tblSanPham, 5, prop.getProperty("sp_chatLieu"));
+        ChangeName(tblSanPham, 6, prop.getProperty("sp_kichThuoc"));
+        ChangeName(tblSanPham, 7, prop.getProperty("sp_anhSanPham"));
+        btnTimKiem.setText(prop.getProperty("Main_lblTimKiem"));
+        stThongBao = prop.getProperty("thongBao");
+        stTimKiemKhongThay=prop.getProperty("timKiem_KhongThay");
+        cmbKichThuoc.removeItemAt(cmbKichThuoc.getItemCount()-1);
+        cmbKichThuoc.addItem(prop.getProperty("cmbTatCa"));
+        cmbKichThuoc.setSelectedIndex(cmbKichThuoc.getItemCount()-1);
+    }
+
+    public void ChangeName(JTable table, int col_index, String col_name) {
+        table.getColumnModel().getColumn(col_index).setHeaderValue(col_name);
     }
 
     public void excute() {
@@ -65,8 +97,7 @@ public class TimKiemSanPhamView extends javax.swing.JPanel implements ActionList
             modelTableSanPham.removeRow(0);
         }
         ArrayList<SanPham> dsSanPham = sanPham_DAO.layDanhSachSanPham();
-        
-        
+
         for (SanPham sanPham : dsSanPham) {
             if (!ma.equalsIgnoreCase("all") || !ten.equalsIgnoreCase("all")
                     || !kichThuoc.equalsIgnoreCase("all") || !chatLieu.equalsIgnoreCase("all")) {
@@ -95,8 +126,8 @@ public class TimKiemSanPhamView extends javax.swing.JPanel implements ActionList
                 modelTableSanPham.addRow(data);
             }
         }
-        if (tblSanPham.getRowCount() == 0){
-            JOptionPane.showMessageDialog(null, "Không tìm thấy kết quả nào có yêu cầu này!", "Kết quả tìm kiếm", JOptionPane.INFORMATION_MESSAGE);
+        if (tblSanPham.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, stTimKiemKhongThay, stThongBao, JOptionPane.INFORMATION_MESSAGE);
         }
         if (tblSanPham.getRowCount() != 0) {
 
@@ -217,7 +248,7 @@ public class TimKiemSanPhamView extends javax.swing.JPanel implements ActionList
         jPanel5.add(lblKichThuoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 110, 140, 40));
 
         cmbKichThuoc.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        cmbKichThuoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", " " }));
+        cmbKichThuoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "Tất cả" }));
         cmbKichThuoc.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel5.add(cmbKichThuoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 110, 200, 40));
 
@@ -263,21 +294,21 @@ public class TimKiemSanPhamView extends javax.swing.JPanel implements ActionList
     @Override
     public void actionPerformed(ActionEvent e) {
         Object o = e.getSource();
-        if (o.equals(btnTimKiem)){
+        if (o.equals(btnTimKiem)) {
             String maSanPham = txtMaSanPham.getText().trim();
             String tenSanPham = txtTenSanPham.getText().trim();
             String chatLieu = txtChatLieu.getText().trim();
             String kichThuoc = cmbKichThuoc.getSelectedItem().toString();
-            if (maSanPham.equalsIgnoreCase("")){
+            if (maSanPham.trim().equalsIgnoreCase("")) {
                 maSanPham = "all";
             }
-            if (tenSanPham.equalsIgnoreCase("")){
+            if (tenSanPham.equalsIgnoreCase("")) {
                 tenSanPham = "all";
             }
-            if (chatLieu.equalsIgnoreCase("")){
+            if (chatLieu.equalsIgnoreCase("")) {
                 chatLieu = "all";
             }
-            if (kichThuoc.equalsIgnoreCase("Tất cả")){
+            if (cmbKichThuoc.getSelectedIndex()==cmbKichThuoc.getItemCount()-1) {
                 kichThuoc = "all";
             }
             taiDuLieuLenBang(maSanPham, tenSanPham, kichThuoc, chatLieu);

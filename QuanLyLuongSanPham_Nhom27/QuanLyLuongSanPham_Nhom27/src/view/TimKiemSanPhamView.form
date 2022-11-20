@@ -232,23 +232,22 @@
               <Font name="Segoe UI" size="16" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="16">
-                <StringItem index="0" value="T&#x1ea5;t c&#x1ea3;"/>
-                <StringItem index="1" value="35"/>
-                <StringItem index="2" value="36"/>
-                <StringItem index="3" value="37"/>
-                <StringItem index="4" value="38"/>
-                <StringItem index="5" value="39"/>
-                <StringItem index="6" value="40"/>
-                <StringItem index="7" value="41"/>
-                <StringItem index="8" value="42"/>
-                <StringItem index="9" value="43"/>
-                <StringItem index="10" value="44"/>
-                <StringItem index="11" value="45"/>
-                <StringItem index="12" value="46"/>
-                <StringItem index="13" value="47"/>
-                <StringItem index="14" value="48"/>
-                <StringItem index="15" value=" "/>
+              <StringArray count="15">
+                <StringItem index="0" value="35"/>
+                <StringItem index="1" value="36"/>
+                <StringItem index="2" value="37"/>
+                <StringItem index="3" value="38"/>
+                <StringItem index="4" value="39"/>
+                <StringItem index="5" value="40"/>
+                <StringItem index="6" value="41"/>
+                <StringItem index="7" value="42"/>
+                <StringItem index="8" value="43"/>
+                <StringItem index="9" value="44"/>
+                <StringItem index="10" value="45"/>
+                <StringItem index="11" value="46"/>
+                <StringItem index="12" value="47"/>
+                <StringItem index="13" value="48"/>
+                <StringItem index="14" value="T&#x1ea5;t c&#x1ea3;"/>
               </StringArray>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">

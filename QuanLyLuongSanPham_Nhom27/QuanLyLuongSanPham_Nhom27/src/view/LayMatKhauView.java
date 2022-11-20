@@ -167,8 +167,8 @@ public class LayMatKhauView extends javax.swing.JFrame {
         jPanel2.add(btnXacNhan, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 405, 47));
 
         lbPassword02.setForeground(new java.awt.Color(255, 255, 255));
-        lbPassword02.setText("_____________________________________________________");
-        jPanel2.add(lbPassword02, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 378, -1));
+        lbPassword02.setText("______________________________________________________________");
+        jPanel2.add(lbPassword02, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 400, -1));
 
         txtXacNhanMatKhau.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtXacNhanMatKhau.setForeground(new java.awt.Color(255, 255, 255));
@@ -186,8 +186,8 @@ public class LayMatKhauView extends javax.swing.JFrame {
         jPanel2.add(txtMatKhauMoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, 360, 30));
 
         lbPassword3.setForeground(new java.awt.Color(255, 255, 255));
-        lbPassword3.setText("_____________________________________________________");
-        jPanel2.add(lbPassword3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 378, -1));
+        lbPassword3.setText("______________________________________________________________");
+        jPanel2.add(lbPassword3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 430, -1));
 
         disableMatKhauMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/icons8_invisible_20px_1.png"))); // NOI18N
         disableMatKhauMoi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));

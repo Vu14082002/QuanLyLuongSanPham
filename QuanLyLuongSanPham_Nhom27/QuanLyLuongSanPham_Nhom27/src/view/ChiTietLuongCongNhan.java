@@ -11,9 +11,13 @@ import Entity.ChamCongCongNhan;
 import Entity.CongNhan;
 import java.awt.Color;
 import java.awt.Container;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Properties;
 import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -35,7 +39,8 @@ public class ChiTietLuongCongNhan extends javax.swing.JFrame {
     private ChamCongCongNhan_DAO chamCongCN_DAO;
     private DecimalFormat nf, df;
     private DefaultTableModel modelTableChiTiet;
-    public ChiTietLuongCongNhan(String maCongNhan, int thang, int nam) {
+
+    public ChiTietLuongCongNhan(String fileName,String maCongNhan, int thang, int nam) throws IOException {
         this.maCongNhan = maCongNhan;
         this.thang = thang;
         this.nam = nam;
@@ -56,9 +61,35 @@ public class ChiTietLuongCongNhan extends javax.swing.JFrame {
         lblTitle.setText("Chi tiết Lương trong tháng " + thang + " năm " + nam);
         hienThiLenLabel();
         taiDuLieuLenBang();
-        
+        caiDatNgonNguChoView(fileName);
     }
-    public void hienThiLenLabel(){
+
+    public void caiDatNgonNguChoView(String fileName) throws FileNotFoundException, IOException {
+        FileInputStream fis = new FileInputStream(fileName);
+        Properties prop = new Properties();
+        prop.load(fis);
+        lblMaCongNhan.setText(prop.getProperty("maCongNhan"));
+        lblHoTen.setText(prop.getProperty("hoTen"));
+        lblTongTien.setText(prop.getProperty("ctlnv_tongTienNhan"));
+        lblTitle.setText(prop.getProperty("ctlnv_tieuDeCongNhan"));
+        btnXuatBaoCao.setText(prop.getProperty("ctlnv_btnXuatBaoCao"));
+        ChangeName(tblBangLuongChiTiet, 0, prop.getProperty("pcd_stt"));
+        ChangeName(tblBangLuongChiTiet, 1, prop.getProperty("ctlnv_ngayLam"));
+        ChangeName(tblBangLuongChiTiet, 2, prop.getProperty("ctlnv_trangThai"));
+        ChangeName(tblBangLuongChiTiet, 3, prop.getProperty("ctlcn_maSanPham"));
+        ChangeName(tblBangLuongChiTiet, 4, prop.getProperty("ctlcn_tenSanPham"));
+        ChangeName(tblBangLuongChiTiet, 5, prop.getProperty("ctlcn_maCongDoan"));
+        ChangeName(tblBangLuongChiTiet, 6, prop.getProperty("ctlcn_tenCongDoan"));
+        ChangeName(tblBangLuongChiTiet, 7, prop.getProperty("ctlnv_caLam"));
+        ChangeName(tblBangLuongChiTiet, 8, prop.getProperty("ctlcn_soLuong"));
+        ChangeName(tblBangLuongChiTiet, 9, prop.getProperty("ctlcn_thanhTien"));
+    }
+
+    public void ChangeName(JTable table, int col_index, String col_name) {
+        table.getColumnModel().getColumn(col_index).setHeaderValue(col_name);
+    }
+
+    public void hienThiLenLabel() {
         CongNhan congNhan = congNhan_DAO.layMotCongNhanTheoMa(maCongNhan);
         Double tongLuong = bangLuongCN_DAO.layRaTongTienTheoMaCongNhan(maCongNhan, thang, nam);
         lblMaCongNhanOutput.setText(congNhan.getMaCongNhan());
@@ -66,26 +97,29 @@ public class ChiTietLuongCongNhan extends javax.swing.JFrame {
         String tienLuong = nf.format(tongLuong) + " VND";
         lblTongTienNhan.setText(tienLuong);
     }
-    private void execute(){
+
+    private void execute() {
         Container c = this.getContentPane();
         c.setBackground(Color.white);
     }
-    public void taiDuLieuLenBang(){
-        while(tblBangLuongChiTiet.getRowCount() != 0){
+
+    public void taiDuLieuLenBang() {
+        while (tblBangLuongChiTiet.getRowCount() != 0) {
             modelTableChiTiet.removeRow(0);
         }
         ArrayList<ChamCongCongNhan> dsChamCong = chamCongCN_DAO.layDanhSachChamCongTheoMaCongNhan(maCongNhan, thang, nam);
-        for (ChamCongCongNhan chamCong : dsChamCong){
+        for (ChamCongCongNhan chamCong : dsChamCong) {
             double tongTien = chamCong.getSoLuongLam() * chamCong.getPhanCong().getCongDoan().getTienLuong();
-            String data[] = {(modelTableChiTiet.getRowCount() + 1) + "", chamCong.getNgayChamCong().toString()
-            , chamCong.getTrangThaiDiLam(), chamCong.getPhanCong().getCongDoan().getSanPham().getMaSanPham()
-            ,  chamCong.getPhanCong().getCongDoan().getSanPham().getTenSanPham()
-            , chamCong.getPhanCong().getCongDoan().getMaCongDoan()
-            , chamCong.getPhanCong().getCongDoan().getTenCongDoan()
-            , chamCong.getCaLam(), chamCong.getSoLuongLam()+"", nf.format(tongTien)};
+            String data[] = {(modelTableChiTiet.getRowCount() + 1) + "", chamCong.getNgayChamCong().toString(),
+                chamCong.getTrangThaiDiLam(), chamCong.getPhanCong().getCongDoan().getSanPham().getMaSanPham(),
+                chamCong.getPhanCong().getCongDoan().getSanPham().getTenSanPham(),
+                chamCong.getPhanCong().getCongDoan().getMaCongDoan(),
+                chamCong.getPhanCong().getCongDoan().getTenCongDoan(),
+                chamCong.getCaLam(), chamCong.getSoLuongLam() + "", nf.format(tongTien)};
             modelTableChiTiet.addRow(data);
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -214,7 +248,7 @@ public class ChiTietLuongCongNhan extends javax.swing.JFrame {
 
     private void btnXuatBaoCaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatBaoCaoActionPerformed
         // TODO add your handling code here:
-        MessageFormat header = new MessageFormat("Lương " + lblHoTenOutPut.getText()+ "(" + lblMaCongNhanOutput.getText() + ") " +  thang + "/" + nam);
+        MessageFormat header = new MessageFormat("Lương " + lblHoTenOutPut.getText() + "(" + lblMaCongNhanOutput.getText() + ") " + thang + "/" + nam);
         MessageFormat footer = new MessageFormat("Tổng lương: " + lblTongTienNhan.getText());
         try {
             tblBangLuongChiTiet.print(JTable.PrintMode.FIT_WIDTH, header, footer);
@@ -237,40 +271,40 @@ public class ChiTietLuongCongNhan extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ChiTietLuongCongNhan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ChiTietLuongCongNhan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ChiTietLuongCongNhan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ChiTietLuongCongNhan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ChiTietLuongCongNhan("NV100001", 10, 2022).setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(ChiTietLuongCongNhan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(ChiTietLuongCongNhan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(ChiTietLuongCongNhan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(ChiTietLuongCongNhan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//        //</editor-fold>
+//        //</editor-fold>
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+////                new ChiTietLuongCongNhan("NV100001", 10, 2022).setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnXuatBaoCao;

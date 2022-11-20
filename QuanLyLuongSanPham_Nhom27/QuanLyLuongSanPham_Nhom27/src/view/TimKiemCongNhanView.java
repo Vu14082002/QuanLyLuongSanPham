@@ -13,11 +13,16 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Properties;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -34,7 +39,7 @@ public class TimKiemCongNhanView extends javax.swing.JPanel implements ActionLis
     private DefaultTableModel modelCongNhan;
     private ToNhom_DAO toNhom_DAO;
 
-    public TimKiemCongNhanView() {
+    public TimKiemCongNhanView(String fileName) throws IOException {
         initComponents();
         excute();
         try {
@@ -49,7 +54,50 @@ public class TimKiemCongNhanView extends javax.swing.JPanel implements ActionLis
         btnTimKiem.addActionListener(this);
         taiDuLieuLenBang("all", "all", "all", "all", "all", "all", "all");
         loadCmbToNhom();
+        cmbToNhom.removeItemAt(0);
+        caiDatNgonNguChoView(fileName);
 
+    }
+    public void caiDatNgonNguChoView(String fileName) throws FileNotFoundException, IOException {
+        FileInputStream fis = new FileInputStream(fileName);
+        Properties prop = new Properties();
+        prop.load(fis);
+        lblMaCongNhan.setText(prop.getProperty("maCongNhan"));
+        lblHoTen.setText(prop.getProperty("hoTen"));
+        lblSoCCCD.setText(prop.getProperty("soCCCD"));
+        lblEmail.setText(prop.getProperty("email"));
+        lblSoDienThoai.setText(prop.getProperty("sdt"));
+        lblGioiTinh.setText(prop.getProperty("gioiTinh"));
+        lblToNhom.setText(prop.getProperty("toNhom"));
+        cmbGioiTinh.removeAllItems();
+        cmbGioiTinh.addItem(prop.getProperty("nam"));
+        cmbGioiTinh.addItem(prop.getProperty("nu"));
+        cmbGioiTinh.addItem(prop.getProperty("cmbTatCa"));
+        cmbToNhom.addItem("hello");
+        
+        cmbToNhom.removeItemAt(cmbToNhom.getItemCount() - 1);
+        cmbToNhom.addItem(prop.getProperty("cmbTatCa"));
+        cmbToNhom.setSelectedIndex(cmbToNhom.getItemCount() - 1);
+
+        cmbGioiTinh.setSelectedIndex(cmbGioiTinh.getItemCount() - 1);
+        btnTimKiem.setText(prop.getProperty("Main_lblTimKiem"));
+        ChangeName(tblCongNhan, 0, prop.getProperty("pcd_stt"));
+        ChangeName(tblCongNhan, 1, lblMaCongNhan.getText());
+        ChangeName(tblCongNhan, 2, lblHoTen.getText());
+        ChangeName(tblCongNhan, 3, lblSoCCCD.getText());
+        ChangeName(tblCongNhan, 4, lblGioiTinh.getText());
+        ChangeName(tblCongNhan, 5, prop.getProperty("ngaySinh"));
+        ChangeName(tblCongNhan, 6, lblSoDienThoai.getText());
+        ChangeName(tblCongNhan, 7, prop.getProperty("diaChi"));
+        ChangeName(tblCongNhan, 8, prop.getProperty("anhDaiDien"));
+        ChangeName(tblCongNhan, 9, lblEmail.getText());
+        ChangeName(tblCongNhan, 10, lblToNhom.getText());
+        ChangeName(tblCongNhan, 11, prop.getProperty("ngayVaoLam"));
+
+    }
+
+    public void ChangeName(JTable table, int col_index, String col_name) {
+        table.getColumnModel().getColumn(col_index).setHeaderValue(col_name);
     }
 
     public void loadCmbToNhom() {

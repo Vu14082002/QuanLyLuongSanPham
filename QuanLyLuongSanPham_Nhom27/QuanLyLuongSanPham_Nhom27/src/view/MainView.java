@@ -101,6 +101,10 @@ public class MainView extends javax.swing.JFrame {
     public MainView(String userName, String fileName) throws IOException {
         this.fileName = fileName;
         this.userName = userName;
+        System.out.println(fileName);
+        congNhan_DAO = new CongNhan_DAO();
+        nhanVien_DAO = new NhanVien_DAO();
+        nhanVienDangNhap = nhanVien_DAO.layMotNhanVienTheoMaNhanVien(userName);
         initComponents();
         caiDatNgonNguChoView(fileName);
         execute();
@@ -111,8 +115,6 @@ public class MainView extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
 
-        congNhan_DAO = new CongNhan_DAO();
-        nhanVien_DAO = new NhanVien_DAO();
         String loai = userName.substring(0, 2);
         if (loai.equals("CN")) {
             congNhan = congNhan_DAO.layMotCongNhanTheoMa(userName);
@@ -149,28 +151,44 @@ public class MainView extends javax.swing.JFrame {
         //sub menuCongNhan
         capNhatCongNhan = new MenuItem(iconSubMenuNonSelect, lblCapNhat, ((e) -> {
             pnBody.removeAll();
-            pnBody.add(new CapNhatCongNhanView(), BorderLayout.CENTER);
+            try {
+                pnBody.add(new CapNhatCongNhanView(fileName), BorderLayout.CENTER);
+            } catch (IOException ex) {
+                Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+            }
             pnBody.repaint();
             pnBody.revalidate();
             macDinh(capNhatCongNhan);
         }));
         chamCongCongNhan = new MenuItem(iconSubMenuNonSelect, lblChamCong, ((e) -> {
             pnBody.removeAll();
-            pnBody.add(new ChamCongCongNhanView(), BorderLayout.CENTER);
+            try {
+                pnBody.add(new ChamCongCongNhanView(fileName), BorderLayout.CENTER);
+            } catch (IOException ex) {
+                Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+            }
             pnBody.repaint();
             pnBody.revalidate();
             macDinh(chamCongCongNhan);
         }));
         timKiemCongNhan = new MenuItem(iconSubMenuNonSelect, lblTimKiem, ((e) -> {
             pnBody.removeAll();
-            pnBody.add(new TimKiemCongNhanView(), BorderLayout.CENTER);
+            try {
+                pnBody.add(new TimKiemCongNhanView(fileName), BorderLayout.CENTER);
+            } catch (IOException ex) {
+                Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+            }
             pnBody.repaint();
             pnBody.revalidate();
             macDinh(timKiemCongNhan);
         }));
         tinhLuongCongNhan = new MenuItem(iconSubMenuNonSelect, lblLuong, ((e) -> {
             pnBody.removeAll();
-            pnBody.add(new LuongCongNhanView(), BorderLayout.CENTER);
+            try {
+                pnBody.add(new LuongCongNhanView(fileName), BorderLayout.CENTER);
+            } catch (IOException ex) {
+                Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+            }
             pnBody.repaint();
             pnBody.revalidate();
             macDinh((tinhLuongCongNhan));
@@ -180,7 +198,7 @@ public class MainView extends javax.swing.JFrame {
         capNhatNhanVien = new MenuItem(iconSubMenuNonSelect, lblCapNhat, (ActionEvent e) -> {
             pnBody.removeAll();
             try {
-                pnBody.add(new CapNhatNhanVienView(), BorderLayout.CENTER);
+                pnBody.add(new CapNhatNhanVienView(fileName), BorderLayout.CENTER);
             } catch (Exception ex) {
                 Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -191,7 +209,7 @@ public class MainView extends javax.swing.JFrame {
         chamCongNhanVien = new MenuItem(iconSubMenuNonSelect, lblChamCong, (ActionEvent e) -> {
             pnBody.removeAll();
             try {
-                pnBody.add(new ChamCongNhanVienView(), BorderLayout.CENTER);
+                pnBody.add(new ChamCongNhanVienView(nhanVienDangNhap, fileName), BorderLayout.CENTER);
             } catch (Exception ex) {
                 Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -203,7 +221,11 @@ public class MainView extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 pnBody.removeAll();
-                pnBody.add(new LuongNhanVienView(), BorderLayout.CENTER);
+                try {
+                    pnBody.add(new LuongNhanVienView(fileName), BorderLayout.CENTER);
+                } catch (IOException ex) {
+                    Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 pnBody.repaint();
                 pnBody.revalidate();
                 macDinh(tinhLuongNhanVien);
@@ -214,7 +236,11 @@ public class MainView extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 pnBody.removeAll();
-                pnBody.add(new TimKiemNhanVienView(), BorderLayout.CENTER);
+                try {
+                    pnBody.add(new TimKiemNhanVienView(fileName), BorderLayout.CENTER);
+                } catch (IOException ex) {
+                    Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 pnBody.repaint();
                 pnBody.revalidate();
                 macDinh(timKiemNhanVien);
@@ -223,7 +249,11 @@ public class MainView extends javax.swing.JFrame {
         });
         phanCongCongNhan = new MenuItem(iconSubMenuNonSelect, lblPhanCong, ((e) -> {
             pnBody.removeAll();
-            pnBody.add(new PhanCongCongViecView(), BorderLayout.CENTER);
+            try {
+                pnBody.add(new PhanCongCongViecView(fileName), BorderLayout.CENTER);
+            } catch (IOException ex) {
+                Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+            }
             pnBody.repaint();
             pnBody.revalidate();
             macDinh(phanCongCongNhan);
@@ -234,7 +264,11 @@ public class MainView extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 pnBody.removeAll();
-                pnBody.add(new SanPhamView(), BorderLayout.CENTER);
+                try {
+                    pnBody.add(new SanPhamView(fileName), BorderLayout.CENTER);
+                } catch (IOException ex) {
+                    Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 pnBody.repaint();
                 pnBody.revalidate();
                 macDinh(capNhatSanPham);
@@ -242,14 +276,22 @@ public class MainView extends javax.swing.JFrame {
         });
         phanCongDoanSanPham = new MenuItem(iconSubMenuNonSelect, lblPhanCongDoanSanPham, ((e) -> {
             pnBody.removeAll();
-            pnBody.add(new PhanCongDoanView(), BorderLayout.CENTER);
+            try {
+                pnBody.add(new PhanCongDoanView(fileName), BorderLayout.CENTER);
+            } catch (IOException ex) {
+                Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+            }
             pnBody.repaint();
             pnBody.revalidate();
             macDinh(phanCongDoanSanPham);
         }));
         timKiemSanPham = new MenuItem(iconSubMenuNonSelect, lblTimKiem, ((e) -> {
             pnBody.removeAll();
-            pnBody.add(new TimKiemSanPhamView(), BorderLayout.CENTER);
+            try {
+                pnBody.add(new TimKiemSanPhamView(fileName), BorderLayout.CENTER);
+            } catch (IOException ex) {
+                Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+            }
             pnBody.repaint();
             pnBody.revalidate();
             macDinh(timKiemSanPham);
@@ -264,7 +306,11 @@ public class MainView extends javax.swing.JFrame {
             } else if (nhanVien != null) {
                 username = nhanVien.getMaNhanVien();
             }
-            pnBody.add(new QuanLyThongTinCaNhan(username), BorderLayout.CENTER);
+            try {
+                pnBody.add(new QuanLyThongTinCaNhan(this.fileName,username), BorderLayout.CENTER);
+            } catch (IOException ex) {
+                Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+            }
             pnBody.repaint();
             pnBody.revalidate();
             macDinh((thongTinCaNhan));
@@ -281,7 +327,7 @@ public class MainView extends javax.swing.JFrame {
         thongKeNhanVien = new MenuItem(iconSubMenuNonSelect, lblNhanVien, ((e) -> {
             try {
                 pnBody.removeAll();
-                pnBody.add(new ThongKeNhanVienView(), BorderLayout.CENTER);
+                pnBody.add(new ThongKeNhanVienView(fileName), BorderLayout.CENTER);
                 pnBody.repaint();
                 pnBody.revalidate();
                 macDinh((thongKeNhanVien));
@@ -291,7 +337,11 @@ public class MainView extends javax.swing.JFrame {
         }));
         thongKeCongNhan = new MenuItem(iconSubMenuNonSelect, lblCongNhan, ((e) -> {
             pnBody.removeAll();
-            pnBody.add(new ThongKeCongNhanView(), BorderLayout.CENTER);
+            try {
+                pnBody.add(new ThongKeCongNhanView(fileName), BorderLayout.CENTER);
+            } catch (IOException ex) {
+                Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+            }
             pnBody.repaint();
             pnBody.revalidate();
             macDinh((thongKeCongNhan));
@@ -303,7 +353,7 @@ public class MainView extends javax.swing.JFrame {
         menuTrangChu = new MenuItem(iconHomePage, lblTrangChu, (ActionEvent e) -> {
             pnBody.removeAll();
             try {
-                pnBody.add(new TrangChuView(nhanVienDangNhap,fileName), BorderLayout.CENTER);
+                pnBody.add(new TrangChuView(nhanVienDangNhap, fileName), BorderLayout.CENTER);
             } catch (IOException ex) {
                 Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -316,8 +366,10 @@ public class MainView extends javax.swing.JFrame {
         meNuHopDong = new MenuItem(iconContract, lblHopDong, (ActionEvent e) -> {
             pnBody.removeAll();
             try {
-                pnBody.add(new HopDongView(), BorderLayout.CENTER);
+                pnBody.add(new HopDongView(nhanVienDangNhap, fileName), BorderLayout.CENTER);
             } catch (ParseException ex) {
+                Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
                 Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
             }
             pnBody.repaint();
@@ -327,7 +379,11 @@ public class MainView extends javax.swing.JFrame {
         });
         menuPhongBan = new MenuItem(iconDepartment, lblPhongBan, (ActionEvent e) -> {
             pnBody.removeAll();
-            pnBody.add(new PhongBanView(), BorderLayout.CENTER);
+            try {
+                pnBody.add(new PhongBanView(nhanVienDangNhap, fileName), BorderLayout.CENTER);
+            } catch (IOException ex) {
+                Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+            }
             pnBody.repaint();
             pnBody.revalidate();
             setNonSelectMenu(menuTrangChu, meNuHopDong, menuPhongBan, menuToNhom, menuNhanVien, menuCongNhan, menuSanPham, menuThongKe, menuHeThong);
@@ -335,7 +391,11 @@ public class MainView extends javax.swing.JFrame {
         });
         menuToNhom = new MenuItem(iconGroup, lblToNhom, (ActionEvent e) -> {
             pnBody.removeAll();
-            pnBody.add(new ToNhomView(), BorderLayout.CENTER);
+            try {
+                pnBody.add(new ToNhomView(fileName), BorderLayout.CENTER);
+            } catch (IOException ex) {
+                Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+            }
             pnBody.repaint();
             pnBody.revalidate();
             setNonSelectMenu(menuTrangChu, meNuHopDong, menuPhongBan, menuToNhom, menuNhanVien, menuCongNhan, menuSanPham, menuThongKe, menuHeThong);
@@ -382,17 +442,21 @@ public class MainView extends javax.swing.JFrame {
         } else {
             iconSubMenuNonSelect = new ImageIcon(getClass().getResource("/image/icon/worker.png"));
             thongTinCaNhan = new MenuItem(iconSubMenuNonSelect, lblThongTinCaNhan, ((e) -> {
-                pnBody.removeAll();
-                String username = "";
-                if (congNhan != null) {
-                    username = congNhan.getMaCongNhan();
-
-                } else if (nhanVien != null) {
-                    username = nhanVien.getMaNhanVien();
+                try {
+                    pnBody.removeAll();
+                    String username = "";
+                    if (congNhan != null) {
+                        username = congNhan.getMaCongNhan();
+                        
+                    } else if (nhanVien != null) {
+                        username = nhanVien.getMaNhanVien();
+                    }
+                    pnBody.add(new QuanLyThongTinCaNhan(this.fileName,username), BorderLayout.CENTER);
+                    pnBody.repaint();
+                    pnBody.revalidate();
+                } catch (IOException ex) {
+                    Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                pnBody.add(new QuanLyThongTinCaNhan(username), BorderLayout.CENTER);
-                pnBody.repaint();
-                pnBody.revalidate();
             }));
             iconSubMenuNonSelect = new ImageIcon(getClass().getResource("/image/icon/logout.png"));
             dangXuat = new MenuItem(iconSubMenuNonSelect, lblDangXuat, ((e) -> {
@@ -402,7 +466,7 @@ public class MainView extends javax.swing.JFrame {
                 }
             }));
             pnBody.removeAll();
-            pnBody.add(new QuanLyThongTinCaNhan(userName), BorderLayout.CENTER);
+            pnBody.add(new QuanLyThongTinCaNhan(this.fileName,userName), BorderLayout.CENTER);
             pnBody.repaint();
             pnBody.revalidate();
             setSelectMenu(thongTinCaNhan);
@@ -511,7 +575,6 @@ public class MainView extends javax.swing.JFrame {
         pnHeader = new javax.swing.JPanel();
         lblTieuDe = new javax.swing.JLabel();
         lblXinChao = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
         pnMenu = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         menus = new javax.swing.JPanel();
@@ -537,18 +600,6 @@ public class MainView extends javax.swing.JFrame {
         lblXinChao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblXinChao.setText("Hello, Admin");
         pnHeader.add(lblXinChao, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 4, 244, 70));
-
-        jComboBox1.setBackground(new java.awt.Color(248, 194, 145));
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tiếng Việt", "Tiếng Anh" }));
-        jComboBox1.setBorder(null);
-        jComboBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
-        pnHeader.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1370, 18, 130, 51));
 
         getContentPane().add(pnHeader, java.awt.BorderLayout.PAGE_START);
 
@@ -582,10 +633,6 @@ public class MainView extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(1516, 839));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        JOptionPane.showMessageDialog(this, "Su kien thay odi");        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -630,7 +677,6 @@ public class MainView extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblTieuDe;
     private javax.swing.JLabel lblXinChao;

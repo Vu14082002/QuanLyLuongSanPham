@@ -13,14 +13,19 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Properties;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -28,7 +33,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author December
  */
-public class TimKiemNhanVienView extends javax.swing.JPanel implements ActionListener{
+public class TimKiemNhanVienView extends javax.swing.JPanel implements ActionListener {
 
     private NhanVien_DAO daoNhanVien;
     private PhongBan_DAO daoPhongBan;
@@ -39,9 +44,10 @@ public class TimKiemNhanVienView extends javax.swing.JPanel implements ActionLis
     /**
      * Creates new form NhanVienView
      */
-    public TimKiemNhanVienView() {
+    public TimKiemNhanVienView(String fileName) throws IOException {
         initComponents();
         excute();
+
         try {
             ConnectionDB.ConnectDB.getInstance().connect();
 
@@ -53,7 +59,6 @@ public class TimKiemNhanVienView extends javax.swing.JPanel implements ActionLis
         dcf = new DecimalFormat("###,###,###,###,###.###");
         model = (DefaultTableModel) tblNhanVien.getModel();
         taiDuLieuLenBang("all", "all", "all", "all", "all", "all", "all");
-
         // bắt sự kiện cho btnTimkiem
         btnTimKiem.addActionListener(this);
         // xóa trắng các error field
@@ -61,6 +66,50 @@ public class TimKiemNhanVienView extends javax.swing.JPanel implements ActionLis
         lblErrHoTen.setText("");
         lblErrSoCCCD.setText("");
         lblErrSoDienThoai.setText("");
+        cmbPhongBan.removeItemAt(0);
+        caiDatNgonNguChoView(fileName);
+    }
+
+    public void caiDatNgonNguChoView(String fileName) throws FileNotFoundException, IOException {
+        FileInputStream fis = new FileInputStream(fileName);
+        Properties prop = new Properties();
+        prop.load(fis);
+        lblMaNhanVien.setText(prop.getProperty("maNhanVien"));
+        lblHoTen.setText(prop.getProperty("hoTen"));
+        lblSoCCCD.setText(prop.getProperty("soCCCD"));
+        lblEmail.setText(prop.getProperty("email"));
+        lblSoDienThoai.setText(prop.getProperty("sdt"));
+        lblGioiTinh.setText(prop.getProperty("gioiTinh"));
+        lblPhongBan.setText(prop.getProperty("phongBan"));
+        cmbGioiTinh.removeAllItems();
+        cmbGioiTinh.addItem(prop.getProperty("nam"));
+        cmbGioiTinh.addItem(prop.getProperty("nu"));
+        cmbGioiTinh.addItem(prop.getProperty("cmbTatCa"));
+        cmbPhongBan.addItem("hello");
+        cmbPhongBan.removeItemAt(cmbPhongBan.getItemCount() - 1);
+        cmbPhongBan.addItem(prop.getProperty("cmbTatCa"));
+        cmbPhongBan.setSelectedIndex(cmbPhongBan.getItemCount() - 1);
+
+        cmbGioiTinh.setSelectedIndex(cmbGioiTinh.getItemCount() - 1);
+        btnTimKiem.setText(prop.getProperty("Main_lblTimKiem"));
+        ChangeName(tblNhanVien, 0, prop.getProperty("pcd_stt"));
+        ChangeName(tblNhanVien, 1, lblMaNhanVien.getText());
+        ChangeName(tblNhanVien, 2, lblHoTen.getText());
+        ChangeName(tblNhanVien, 3, lblSoCCCD.getText());
+        ChangeName(tblNhanVien, 4, lblGioiTinh.getText());
+        ChangeName(tblNhanVien, 5, prop.getProperty("ngaySinh"));
+        ChangeName(tblNhanVien, 6, lblSoDienThoai.getText());
+        ChangeName(tblNhanVien, 7, prop.getProperty("diaChi"));
+        ChangeName(tblNhanVien, 8, prop.getProperty("anhDaiDien"));
+        ChangeName(tblNhanVien, 9, lblEmail.getText());
+        ChangeName(tblNhanVien, 10, lblPhongBan.getText());
+        ChangeName(tblNhanVien, 11, prop.getProperty("chucVu"));
+        ChangeName(tblNhanVien, 12, prop.getProperty("ngayVaoLam"));
+
+    }
+
+    public void ChangeName(JTable table, int col_index, String col_name) {
+        table.getColumnModel().getColumn(col_index).setHeaderValue(col_name);
     }
 
     public void taiDuLieuLenBang(String maNhanVien, String hoTen, String cccd, String email, String soDienThoai, String gioiTinh, String tenPhongBan) {
@@ -118,7 +167,7 @@ public class TimKiemNhanVienView extends javax.swing.JPanel implements ActionLis
                     model.addRow(data);
                 }
             }
-            if (tblNhanVien.getRowCount() == 0){
+            if (tblNhanVien.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(null, "Không tìm thấy kết quả nào có yêu cầu này!", "Kết quả tìm kiếm", JOptionPane.INFORMATION_MESSAGE);
             }
             if (tblNhanVien.getRowCount() != 0) {
@@ -289,7 +338,6 @@ public class TimKiemNhanVienView extends javax.swing.JPanel implements ActionLis
         });
         jPanel5.add(btnTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 290, 230, 40));
 
-        cmbPhongBan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Phòng tài chính", "Phòng kinh doanh", "Phòng nhân sự" }));
         cmbPhongBan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel5.add(cmbPhongBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 220, 280, 40));
 
@@ -353,33 +401,35 @@ public class TimKiemNhanVienView extends javax.swing.JPanel implements ActionLis
     @Override
     public void actionPerformed(ActionEvent e) {
         Object o = e.getSource();
-        if(o.equals(btnTimKiem)){
+        if (o.equals(btnTimKiem)) {
             String maNhanVien = txtMaNhanVien.getText().trim();
             String hoTen = txtHoTen.getText().trim();
             String soCCCD = txtSoCCCD.getText().trim();
             String email = txtEmail.getText().trim();
             String soDienThoai = txtSoDienThoai.getText().trim();
             String gioiTinh = cmbGioiTinh.getSelectedItem().toString();
-            if (gioiTinh.equalsIgnoreCase("Tất cả")){
+            if (cmbGioiTinh.getSelectedIndex() == cmbGioiTinh.getItemCount() - 1) {
+                System.out.println(cmbGioiTinh.getItemAt(cmbGioiTinh.getItemCount() - 1));
+                System.out.println(cmbGioiTinh.getItemAt(cmbGioiTinh.getSelectedIndex()));
                 gioiTinh = "all";
             }
             String phongBan = cmbPhongBan.getSelectedItem().toString();
-            if (phongBan.equalsIgnoreCase("Tất cả")){
+            if (cmbPhongBan.getSelectedIndex() == cmbPhongBan.getItemCount() - 1) {
                 phongBan = "all";
             }
-            if (maNhanVien.equalsIgnoreCase("")){
+            if (maNhanVien.equalsIgnoreCase("")) {
                 maNhanVien = "all";
             }
-            if (hoTen.equals("")){
+            if (hoTen.equals("")) {
                 hoTen = "all";
             }
-            if (soCCCD.equals("")){
+            if (soCCCD.equals("")) {
                 soCCCD = "all";
             }
-            if (email.equals("")){
+            if (email.equals("")) {
                 email = "all";
             }
-            if (soDienThoai.equals("")){
+            if (soDienThoai.equals("")) {
                 soDienThoai = "all";
             }
             taiDuLieuLenBang(maNhanVien, hoTen, soCCCD, email, soDienThoai, gioiTinh, phongBan);

@@ -16,13 +16,20 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import org.jfree.chart.ChartFactory;
@@ -48,8 +55,10 @@ public class ThongKeNhanVienView extends javax.swing.JPanel {
      * Creates new form NhanVienView
      */
     private DefaultTableModel model;
+    private String fileName;
 
-    public ThongKeNhanVienView() {
+    public ThongKeNhanVienView(String fileName) throws IOException {
+        this.fileName = fileName;
         initComponents();
         cmbNam.removeAllItems();
         for (int i = 2000; i <= LocalDate.now().getYear(); i++) {
@@ -61,6 +70,23 @@ public class ThongKeNhanVienView extends javax.swing.JPanel {
         thongKeTongLuongNhanVienTheoThangNam();
         thongKeNhanVienTheoPhongBan();
         taiDuLieuLenBangNhanVien();
+        caiDatNgonNguChoView(fileName);
+    }
+
+    public void caiDatNgonNguChoView(String fileName) throws FileNotFoundException, IOException {
+        FileInputStream fis = new FileInputStream(fileName);
+        Properties prop = new Properties();
+        prop.load(fis);
+        ChangeName(tblNhanVien, 0, prop.getProperty("pcd_stt"));
+        ChangeName(tblNhanVien, 1, prop.getProperty("maNhanVien"));
+        ChangeName(tblNhanVien, 2, prop.getProperty("hoTen"));
+        ChangeName(tblNhanVien, 3, prop.getProperty("gioiTinh"));
+        ChangeName(tblNhanVien, 4, prop.getProperty("phongBan"));
+        ChangeName(tblNhanVien, 5, prop.getProperty("chucVu"));
+    }
+
+    public void ChangeName(JTable table, int col_index, String col_name) {
+        table.getColumnModel().getColumn(col_index).setHeaderValue(col_name);
     }
 
     public void excute() {
@@ -68,7 +94,10 @@ public class ThongKeNhanVienView extends javax.swing.JPanel {
         model = (DefaultTableModel) tblNhanVien.getModel();
     }
 
-    public void thongKeTiLeGioiTinhNhanVien() {
+    public void thongKeTiLeGioiTinhNhanVien() throws FileNotFoundException, IOException {
+        FileInputStream fis = new FileInputStream(fileName);
+        Properties prop = new Properties();
+        prop.load(fis);
         NhanVien_DAO daoNhanVien = new NhanVien_DAO();
         ArrayList<NhanVien> nhanVienList = daoNhanVien.layDanhSachNhanVien();
         double soLuongNam = 0;
@@ -83,9 +112,11 @@ public class ThongKeNhanVienView extends javax.swing.JPanel {
             }
         }
         DefaultPieDataset barDataset = new DefaultPieDataset();
-        barDataset.setValue("Nam", soLuongNam);
-        barDataset.setValue("Nữ", soLuongNu);
-        JFreeChart piechart = ChartFactory.createPieChart("Giới tính", barDataset, true, true, true);
+        String nam =prop.getProperty("nam");
+        String nu =prop.getProperty("nu");
+        barDataset.setValue(nam, soLuongNam);
+        barDataset.setValue(nu, soLuongNu);
+        JFreeChart piechart = ChartFactory.createPieChart(prop.getProperty("gioiTinh"), barDataset, true, true, true);
         PiePlot piePlot = (PiePlot) piechart.getPlot();
         piePlot.setBackgroundPaint(Color.white);
         ChartPanel barChartPanel = new ChartPanel(piechart);
@@ -163,7 +194,7 @@ public class ThongKeNhanVienView extends javax.swing.JPanel {
 //    }
 
     /*========================================================================================*/
-    public void thongKeTongLuongNhanVienTheoThangNam() {
+    public void thongKeTongLuongNhanVienTheoThangNam() throws FileNotFoundException, IOException {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         BangLuongNhanVien_DAO luongNhanVienDao = new BangLuongNhanVien_DAO();
         ArrayList<BangLuongNhanVien> bangLuongList = luongNhanVienDao.danhSachBangLuong();
@@ -189,8 +220,10 @@ public class ThongKeNhanVienView extends javax.swing.JPanel {
             }
             dataset.setValue(tongLuong, "Amount", i + "");
         }
-
-        JFreeChart chart = ChartFactory.createBarChart("Thống kê tổng tiền phải chi theo tháng", "Tháng", "Số tiền",
+        FileInputStream fis = new FileInputStream(fileName);
+        Properties prop = new Properties();
+        prop.load(fis);
+        JFreeChart chart = ChartFactory.createBarChart(prop.getProperty("tk_tieudeThongeKeNhanVien"), prop.getProperty("tk_thang"), prop.getProperty("tk_soTien"),
                 dataset, PlotOrientation.VERTICAL, false, true, false);
 
         CategoryPlot categoryPlot = chart.getCategoryPlot();
@@ -206,7 +239,7 @@ public class ThongKeNhanVienView extends javax.swing.JPanel {
 
     }
 
-    public void thongKeNhanVienTheoPhongBan() {
+    public void thongKeNhanVienTheoPhongBan() throws FileNotFoundException, IOException {
         PhongBan_DAO phongBanDao = new PhongBan_DAO();
         ArrayList<PhongBan> phongBanList = phongBanDao.layDanhSachPhongBan();
         DefaultPieDataset barDataset = new DefaultPieDataset();
@@ -215,7 +248,10 @@ public class ThongKeNhanVienView extends javax.swing.JPanel {
                 barDataset.setValue(e.getTenPhongBan(), new Double(e.getSoLuongNhanVien()));
             });
         }
-        JFreeChart piechart = ChartFactory.createPieChart("Thống kê nhân viên theo phòng ban", barDataset, true, true, true);//explain
+        FileInputStream fis = new FileInputStream(fileName);
+        Properties prop = new Properties();
+        prop.load(fis);
+        JFreeChart piechart = ChartFactory.createPieChart(prop.getProperty("tk_tieudeThongeKeNhanVienPhongBan"), barDataset, true, true, true);//explain
         PiePlot piePlot = (PiePlot) piechart.getPlot();
         piePlot.setBackgroundPaint(Color.white);
         ChartPanel barChartPanel = new ChartPanel(piechart);
@@ -284,7 +320,11 @@ public class ThongKeNhanVienView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmbNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNamActionPerformed
-        thongKeTongLuongNhanVienTheoThangNam();
+        try {
+            thongKeTongLuongNhanVienTheoThangNam();
+        } catch (IOException ex) {
+            Logger.getLogger(ThongKeNhanVienView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_cmbNamActionPerformed
 
 
