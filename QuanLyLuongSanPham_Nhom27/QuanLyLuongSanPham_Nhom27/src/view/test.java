@@ -4,6 +4,8 @@
  */
 package view;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -14,7 +16,7 @@ import java.net.URLEncoder;
  */
 public class test {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         try {
 
             String username = "admin";
@@ -35,5 +37,6 @@ public class test {
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
+
     }
 }

@@ -4,15 +4,22 @@
  */
 package view;
 
+import ConnectionDB.ConnectDB;
 import DAO.CongNhan_DAO;
 import DAO.NhanVien_DAO;
+import Entity.BangLuongCongNhan;
 import Entity.CongNhan;
 import Entity.NhanVien;
 import java.awt.Color;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Properties;
 import java.util.Random;
 import java.util.logging.Level;
@@ -47,6 +54,7 @@ public class QuenMatKhauView extends javax.swing.JFrame {
         congNhan_DAO = new CongNhan_DAO();
         nhanVien_DAO = new NhanVien_DAO();
     }
+
     public void caiDatNgonNguChoView(String fileName) throws FileNotFoundException, IOException {
         FileInputStream fis = new FileInputStream(fileName);
         Properties prop = new Properties();
@@ -56,11 +64,12 @@ public class QuenMatKhauView extends javax.swing.JFrame {
 //        lblMatKhau.setText(prop.getProperty("Login_lblMatKhau"));
 //        btnDangNhap.setText(prop.getProperty("Login_btnDangNhap"));
     }
-    
+
     public void gui() {
         this.txtDangNhap.setBackground(new Color(0, 0, 0, 1));
         this.txtSoDienThoaiDangKy.setBackground(new Color(0, 0, 0, 1));
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -106,7 +115,7 @@ public class QuenMatKhauView extends javax.swing.JFrame {
         lblQuenMatKhau.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblQuenMatKhau.setText("Quên mật khẩu");
         lblQuenMatKhau.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(lblQuenMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 470, -1));
+        jPanel2.add(lblQuenMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 400, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -121,7 +130,7 @@ public class QuenMatKhauView extends javax.swing.JFrame {
                 lblExitMouseClicked(evt);
             }
         });
-        jPanel2.add(lblExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, -1, -1));
+        jPanel2.add(lblExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 20, -1, -1));
 
         lblTenDangNhap.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lblTenDangNhap.setForeground(new java.awt.Color(255, 255, 255));
@@ -145,7 +154,7 @@ public class QuenMatKhauView extends javax.swing.JFrame {
 
         btnGuiMa.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnGuiMa.setForeground(new java.awt.Color(0, 102, 102));
-        btnGuiMa.setText("Gửi mã");
+        btnGuiMa.setText("Xác nhận");
         btnGuiMa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGuiMa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,8 +195,26 @@ public class QuenMatKhauView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuiMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiMaActionPerformed
-        this.setVisible(false);
-        new  LayMatKhauView().setVisible(true);
+        String maNhanVien = this.txtDangNhap.getText();
+        String soDitenThoai = this.txtSoDienThoaiDangKy.getText();
+        PreparedStatement stm = null;
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String truyVan = "SELECT * FROM BangLuongCongNhan where maCongNhan = ?";
+            stm = con.prepareStatement(truyVan);
+//            stm.setString(1, maCongNhan);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                String maBangLuong = rs.getString("maBangLuong");
+                String maCongNhanOb = rs.getString("maCongNhan");
+                Date ngayTinh = rs.getDate("ngayTinh");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        this.dispose();
+        new NhapMaXacNhanView().setVisible(true);
     }//GEN-LAST:event_btnGuiMaActionPerformed
 
     private void txtSoDienThoaiDangKyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSoDienThoaiDangKyActionPerformed
