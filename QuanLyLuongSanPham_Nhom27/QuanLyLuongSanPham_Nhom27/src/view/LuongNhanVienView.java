@@ -64,18 +64,18 @@ public class LuongNhanVienView extends javax.swing.JPanel {
     private NhanVien_DAO nhanVienDao;
     private BangLuongNhanVien_DAO bangLuongNhanVienDao;
     private ChamCongNhanVien_DAO chamCongNhanVienDao;
-    
+
     private double tongLuong = 0;
     private String fileName;
-    
+
     public LuongNhanVienView(String fileName) throws IOException {
-        this.fileName=fileName;
+        this.fileName = fileName;
         initComponents();
         excute();
         taiDuLieuLenBangLuong();
         caiDatNgonNguChoView(fileName);
     }
-    
+
     public void caiDatNgonNguChoView(String fileName) throws FileNotFoundException, IOException {
         FileInputStream fis = new FileInputStream(fileName);
         Properties prop = new Properties();
@@ -90,7 +90,7 @@ public class LuongNhanVienView extends javax.swing.JPanel {
         cmbHienThi.addItem(prop.getProperty("lnv_cmb0"));
         cmbHienThi.addItem(prop.getProperty("lnv_cmb1"));
         scrBangLuong.setBorder(new TitledBorder(prop.getProperty("lnv_tieuDe")));
-        
+
         ChangeName(tblBangLuong, 0, prop.getProperty("lnv_stt"));
         ChangeName(tblBangLuong, 1, prop.getProperty("lnv_maLuong"));
         ChangeName(tblBangLuong, 2, prop.getProperty("lnv_maNhanVien"));
@@ -104,15 +104,15 @@ public class LuongNhanVienView extends javax.swing.JPanel {
         ChangeName(tblBangLuong, 10, prop.getProperty("lnv_tongLuong"));
         ChangeName(tblBangLuong, 11, prop.getProperty("lnv_donViTien"));
         ChangeName(tblBangLuong, 12, prop.getProperty("lnv_ngayTinh"));
-        
+
     }
-    
+
     public void ChangeName(JTable table, int col_index, String col_name) {
         table.getColumnModel().getColumn(col_index).setHeaderValue(col_name);
     }
-    
+
     public void excute() {
-        
+
         model = (DefaultTableModel) tblBangLuong.getModel();
         // custom table
         while (model.getRowCount() > 0) {
@@ -124,14 +124,14 @@ public class LuongNhanVienView extends javax.swing.JPanel {
                 .setHorizontalAlignment(JLabel.CENTER);
         tblBangLuong.setRowHeight(25);
         cmbNam.removeAllItems();
-        
+
         LocalDate lcDate = LocalDate.now();
-        
+
         for (int i = 2000; i <= lcDate.getYear(); i++) {
             cmbNam.addItem(i + "");
         }
     }
-    
+
     public void taiDuLieuLenBangLuong() {
         while (model.getRowCount() != 0) {
             model.removeRow(0);
@@ -157,10 +157,10 @@ public class LuongNhanVienView extends javax.swing.JPanel {
                     }
                 }
             }
-            
+
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -390,7 +390,7 @@ public class LuongNhanVienView extends javax.swing.JPanel {
             bangLuongNhanVienDao.themMotBangLuongString(maBangLuong, nv.getMaNhanVien(), soNgayDiLam, soNgayNghi, soPhepNghi, new Date(), luongTheoThang, tongTien, "VND");
         }
     }
-    
+
     public int sunday(Date d1, Date d2) {
         Calendar c1 = Calendar.getInstance();
         c1.setTime(d1);
@@ -416,7 +416,7 @@ public class LuongNhanVienView extends javax.swing.JPanel {
     }//GEN-LAST:event_cmbThangActionPerformed
 
     private void btnXuatBaoCaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatBaoCaoActionPerformed
-        
+
         MessageFormat header = new MessageFormat("Bang luong nhân viên tháng" + cmbThang.getSelectedItem().toString() + "-" + cmbNam.getSelectedItem().toString());
         MessageFormat footer = new MessageFormat("Nhóm 27");
         try {
@@ -427,6 +427,11 @@ public class LuongNhanVienView extends javax.swing.JPanel {
     }//GEN-LAST:event_btnXuatBaoCaoActionPerformed
 
     private void cmbHienThiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbHienThiActionPerformed
+        if (cmbHienThi.getSelectedIndex() == 0) {
+            btnXuatBaoCao.setEnabled(false);
+        } else {
+            btnXuatBaoCao.setEnabled(true);
+        }
         taiDuLieuLenBangLuong();
 
     }//GEN-LAST:event_cmbHienThiActionPerformed
@@ -437,7 +442,7 @@ public class LuongNhanVienView extends javax.swing.JPanel {
         int row = table.rowAtPoint(point);
         if (evt.getClickCount() == 2 && tblBangLuong.getSelectedRow() != -1) {
             try {
-                new ChiTietLuongNhanVien(fileName,tblBangLuong.getValueAt(row, 2).toString(), tblBangLuong.getValueAt(row, 3).toString(),
+                new ChiTietLuongNhanVien(fileName, tblBangLuong.getValueAt(row, 2).toString(), tblBangLuong.getValueAt(row, 3).toString(),
                         tblBangLuong.getValueAt(row, 10).toString(), tblBangLuong.getValueAt(row, 6).toString().split("-")[0],
                         tblBangLuong.getValueAt(row, 6).toString().split("-")[1]).setVisible(true);
             } catch (IOException ex) {

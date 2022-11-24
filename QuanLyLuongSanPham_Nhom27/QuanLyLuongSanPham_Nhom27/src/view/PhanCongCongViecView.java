@@ -485,6 +485,7 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
             maPhanCong = "PC" + maSo;
         }
         lblValueMaPhanCong.setText(maPhanCong);
+        txtSoLuongCanLam.setText("");
     }
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {
@@ -511,6 +512,7 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
         dcsNgayPhanCong.setEnabled(false);
         cmbMaCongDoan.setEnabled(false);
         cmbToNhom.setEnabled(false);
+        checkPhanCong=false;
     }
 
     public boolean checkSoLuongCanLam() {
@@ -534,43 +536,57 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
         daoCongDoan = new CongDoan_DAO();
         NhanVien nhanVienChamCong = daoNhanVien.layMotNhanVienTheoMaNhanVien("NV100001");
         ToNhom toNhom = daoToNhom.layMotToNhomTheoTen(cmbToNhom.getSelectedItem().toString());
-        if (checkPhanCong) {
-            ArrayList<CongNhan> congNhanList = daoCongNhan.layDanhSachCongNhanTheoMaTo(toNhom.getMaToNhom());
-            String maCongDoan = cmbMaCongDoan.getSelectedItem().toString();
-            CongDoan congDoan = daoCongDoan.layMotCongDoanTheoMaCongDoan(maCongDoan);
-            Date ngayPhanCong = dcsNgayPhanCong.getDate();
-            if (daoPhanCong.checkDuocPhanCong(maCongDoan, toNhom.getMaToNhom())) {
-                for (CongNhan congNhanTheoToNhom : congNhanList) {
-                    String maPhanCong = "";
-                    if (daoPhanCong.layDanhSachPhanCongCongNhan().size() < 1) {
-                        maPhanCong = "PC100001";
-                    } else {
-                        int maSo = Integer.parseInt(daoPhanCong.layDanhSachPhanCongCongNhan().get(daoPhanCong.layDanhSachPhanCongCongNhan().size() - 1).getMaPhanCong().split("C")[1]) + 1;
-                        maPhanCong = "PC" + maSo;
+        if (checkSoLuongCanLam()) {
+            if (checkPhanCong) {
+                ArrayList<CongNhan> congNhanList = daoCongNhan.layDanhSachCongNhanTheoMaTo(toNhom.getMaToNhom());
+                String maCongDoan = cmbMaCongDoan.getSelectedItem().toString();
+                CongDoan congDoan = daoCongDoan.layMotCongDoanTheoMaCongDoan(maCongDoan);
+                Date ngayPhanCong = dcsNgayPhanCong.getDate();
+                boolean check = false;
+                if (daoPhanCong.checkDuocPhanCong(maCongDoan, toNhom.getMaToNhom())) {
+                    for (CongNhan congNhanTheoToNhom : congNhanList) {
+                        String maPhanCong = "";
+                        if (daoPhanCong.layDanhSachPhanCongCongNhan().size() < 1) {
+                            maPhanCong = "PC100001";
+                        } else {
+                            int maSo = Integer.parseInt(daoPhanCong.layDanhSachPhanCongCongNhan().get(daoPhanCong.layDanhSachPhanCongCongNhan().size() - 1).getMaPhanCong().split("C")[1]) + 1;
+                            maPhanCong = "PC" + maSo;
+                        }
+                        if (checkSoLuongCanLam()) {
+                            int soLuongCanLham = Integer.parseInt(txtSoLuongCanLam.getText());
+                            PhanCongCongNhan phanCong = new PhanCongCongNhan(maPhanCong, congNhanTheoToNhom, congDoan, nhanVienChamCong, ngayPhanCong, soLuongCanLham, toNhom);
+                            if (daoPhanCong.themMotPhanCongNhan(phanCong)) {
+                                check = true;
+                            }
+                        }
                     }
-                    if (checkSoLuongCanLam()) {
-                        int soLuongCanLham = Integer.parseInt(txtSoLuongCanLam.getText());
-                        PhanCongCongNhan phanCong = new PhanCongCongNhan(maPhanCong, congNhanTheoToNhom, congDoan, nhanVienChamCong, ngayPhanCong, soLuongCanLham, toNhom);
-                        daoPhanCong.themMotPhanCongNhan(phanCong);
+                    if (check) {
                         taiDuLieuLenBangPhanCong();
-                        JOptionPane.showMessageDialog(this, stThemThanhCong);
-                        setShow(btnPhanCong, btnXoa, btnCapNhat);
-                        setHidden(btnLuu, btnHuy);
+                        JOptionPane.showMessageDialog(this, stThemThanhCong, stThongbao, JOptionPane.INFORMATION_MESSAGE);
+                        setShow(btnPhanCong);
+                        setHidden(btnLuu, btnHuy, btnXoa, btnCapNhat);
+                        checkPhanCong = false;
+                        dcsNgayPhanCong.setEnabled(false);
+                        cmbMaCongDoan.setEnabled(false);
+                        cmbToNhom.setEnabled(false);
+                        txtSoLuongCanLam.setEditable(false);
+                    } else {
+                        JOptionPane.showMessageDialog(this, stThemThatBai, stThongbao, JOptionPane.INFORMATION_MESSAGE);
+                        setShow(btnPhanCong);
+                        setHidden(btnLuu, btnHuy, btnXoa, btnCapNhat);
+                        checkPhanCong = false;
                     }
+                } else {
+                    JOptionPane.showMessageDialog(this, stErr1 + congDoan.getMaCongDoan() + stErr2 + toNhom.getTenToNhom() + stErr3);
                 }
             } else {
-                JOptionPane.showMessageDialog(this, stErr1 + congDoan.getMaCongDoan() + stErr2 + toNhom.getTenToNhom() + stErr3);
-            }
-        } else {
-            if (checkSoLuongCanLam()) {
                 daoPhanCong.suaMotPhanCongNhanTheoMaCongDoan(toNhom.getMaToNhom(), Integer.parseInt(txtSoLuongCanLam.getText()), cmbMaCongDoan.getSelectedItem().toString());
                 taiDuLieuLenBangPhanCong();
                 JOptionPane.showMessageDialog(this, stCapNhatThanhCong);
-                setShow(btnPhanCong, btnXoa, btnCapNhat);
-                setHidden(btnLuu, btnHuy);
+                setHidden(btnPhanCong, btnLuu, btnHuy,btnCapNhat,btnXoa);
             }
         }
-        checkPhanCong = false;
+
     }
 
     private void tblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {
@@ -578,6 +594,7 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
         setShow(btnPhanCong);
         setHidden(btnCapNhat, btnXoa, btnHuy, btnLuu);
         setTblClick(false);
+        lblErrSoLuongCanLam.setText("");
     }
 
     private void cmbMaCongDoanActionPerformed(java.awt.event.ActionEvent evt) {
@@ -603,6 +620,7 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
     }
 
     private void tblPhanCongMouseClicked(java.awt.event.MouseEvent evt) {
+        lblErrSoLuongCanLam.setText("");
         ToNhom_DAO daoToNhom = new ToNhom_DAO();
         ArrayList<ToNhom> toNhomList = daoToNhom.layDanhSachToNhom();
         cmbToNhom.removeAllItems();
@@ -626,14 +644,19 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
         setHidden(btnLuu, btnHuy, btnPhanCong);
         setShow(btnCapNhat, btnXoa);
         setTblClick(false);
-
     }
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {
         setShow(btnPhanCong);
-        setHidden(btnHuy, btnLuu, btnCapNhat, btnXoa);
+        setHidden(btnHuy, btnLuu, btnCapNhat, btnXoa, btnPhanCong);
         setTblClick(false);
-        taiDuLieuLenBangSanPham();
+//        taiDuLieuLenBangSanPham();
+        lblErrSoLuongCanLam.setText("");
+        dcsNgayPhanCong.setEnabled(false);
+        cmbMaCongDoan.setEnabled(false);
+        cmbToNhom.setEnabled(false);
+        txtSoLuongCanLam.setEditable(false);
+        txtSoLuongCanLam.setText("");
 
     }
 

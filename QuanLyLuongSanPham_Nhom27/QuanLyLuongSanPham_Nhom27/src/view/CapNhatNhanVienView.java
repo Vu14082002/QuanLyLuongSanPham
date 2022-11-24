@@ -660,7 +660,7 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
     }//GEN-LAST:event_cboChucVuActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        setHidden(btnThem, btnXoa, btnCapNhat);
+        setHidden(btnThem, btnXoa, btnCapNhat, btnThemNhieu);
         setShow(btnLuu, btnHuy);
         int maNhaNVien = Integer.parseInt(tblNhanVien.getValueAt(tblNhanVien.getRowCount() - 1, 1).toString().split("V")[1]);
         //        String maNhaNVien=tblNhanVien.getValueAt(tblNhanVien.getRowCount()-1, 1).toString().split("V")[1];
@@ -693,7 +693,7 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
                     } catch (ParseException ex) {
                         JOptionPane.showMessageDialog(null, "Erro (T_T)(T_T)", stThongbao, JOptionPane.INFORMATION_MESSAGE);
                     }
-                } 
+                }
             }
         }
     }//GEN-LAST:event_btnXoaActionPerformed
@@ -715,7 +715,6 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
                 if (txtLuongThoaThuan.getText().contains(",")) {
                     tienLuong = txtLuongThoaThuan.getText().replaceAll(",", "");
                 }
-                System.out.println(tienLuong);
                 nhanvienEntity = new NhanVien(txtMaNhanVien.getText(), txtHoVaTen.getText(), dcsNgaySinh.getDate(),
                         txtSoCCCD.getText(), txtSoDienThoai.getText(), txtEmail.getText(), "111111", cboChucVu.getSelectedItem().toString(),
                         dcsNgayVaoLam.getDate(), Double.parseDouble(tienLuong), rdoNam.isSelected(), lblHinhAnh.getIcon().toString().split("Anh/")[1], txtDiaChi.getText(), pb);
@@ -724,29 +723,23 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
                     if (this.daoNhanVien.themMotNhanVien(nhanvienEntity)) {
                         taiDuLieuLenBang();
                         JOptionPane.showMessageDialog(this, stThemThanhCong);
-                        setHidden(btnLuu, btnHuy);
-                        setShow(btnThem, btnXoa, btnCapNhat);
+                        setHidden(btnLuu, btnHuy,btnXoa);
+                        setShow(btnThem, btnCapNhat, btnThemNhieu);
                         setEnableForInput(false);
                         isThem = false;
-                        isCapNhat = false;
                     } else {
                         JOptionPane.showMessageDialog(null, stThemThatBai);
                         isThem = false;
-                        isCapNhat = false;
                     }
                 } else {
                     if (this.daoNhanVien.suaThongTinMotNhanVien(nhanvienEntity)) {
                         taiDuLieuLenBang();
-                        JOptionPane.showMessageDialog(this, stCapNhatThanhCong,stThongbao,JOptionPane.INFORMATION_MESSAGE);
-                        setHidden(btnLuu, btnHuy);
-                        setShow(btnThem, btnXoa, btnCapNhat);
+                        JOptionPane.showMessageDialog(this, stCapNhatThanhCong, stThongbao, JOptionPane.INFORMATION_MESSAGE);
+                        setHidden(btnLuu, btnHuy,btnXoa);
+                        setShow(btnThem, btnCapNhat, btnThemNhieu);
                         setEnableForInput(false);
-                        isThem = false;
-                        isCapNhat = false;
                     } else {
-                        JOptionPane.showMessageDialog(null, stCapNhatThatBai,stThongbao,JOptionPane.INFORMATION_MESSAGE);
-                        isThem = false;
-                        isCapNhat = false;
+                        JOptionPane.showMessageDialog(null, stCapNhatThatBai, stThongbao, JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
             }
@@ -757,7 +750,7 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
         setHidden(btnLuu, btnHuy);
-        setShow(btnThem, btnXoa, btnCapNhat);
+        setShow( btnXoa, btnCapNhat,btnThemNhieu);
         tblNhanVien.setRowSelectionInterval(0, 0);
         setEnableForInput(false);
         try {
@@ -771,6 +764,14 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
     }//GEN-LAST:event_btnHuyActionPerformed
 
     private void tblNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNhanVienMouseClicked
+        lblErrHoVaTen.setText("");
+        lblErrSoCCCD.setText("");
+        lblErrSoDienThoai.setText("");
+        lblErrEmail.setText("");
+        lblErrNgaySinh.setText("");
+        lblErrNgayVaoLam.setText("");
+        lblErrLuongThoaThuan.setText("");
+        lblErrDiaChi.setText("");
         try {
             setHidden(btnLuu, btnHuy);
             setShow(btnThem, btnXoa, btnCapNhat);
@@ -789,6 +790,8 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
         openFileChooser.removeChoosableFileFilter(openFileChooser.getFileFilter());
         FileFilter filter = new FileNameExtensionFilter("Excel FIle(.xlsx)", "xlsx");
         openFileChooser.setFileFilter(filter);
+        int count = 0;
+        int total;
         if (openFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             File inpuFile = openFileChooser.getSelectedFile();
             try {
@@ -796,14 +799,16 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
                 try {
                     XSSFWorkbook importFile = new XSSFWorkbook(in);
                     XSSFSheet sheeth = importFile.getSheetAt(0);
+                    Iterator<Row> rowIterator = sheeth.iterator();
                     Row row;
                     System.out.println(sheeth.getLastRowNum());
+                    System.out.println("ehell");
+//                    int i = 0;
+//                    while (sheeth.iterator().hasNext()) {
                     for (int i = 1; i <= sheeth.getLastRowNum(); i++) {
+//                        i++;
                         row = sheeth.getRow(i);
                         String hoTen = row.getCell(0).getStringCellValue();
-                        if (hoTen.trim().equals("") || hoTen == null) {
-                            break;
-                        }
                         String soCCCD = row.getCell(1).getStringCellValue();
                         String email = row.getCell(2).getStringCellValue();
                         String sdt = row.getCell(3).getStringCellValue();
@@ -828,11 +833,11 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
                                 "111111", chucVu, ngayVaoLam1, Double.parseDouble(luongThoaThuan), "Nam".equals(gioiTinh) ? true : false, "male.png", diaChi, phongBan1);
                         if (nhanVienThem != null) {
                             if (daoNhanVien.themMotNhanVien(nhanVienThem)) {
+                                count++;
                             }
                         }
-                        System.out.println("Import rows " + i);
                     }
-                    JOptionPane.showMessageDialog(this, stThemThanhCong);
+                    JOptionPane.showMessageDialog(null, stThemThanhCong + count + stTren + sheeth.getLastRowNum());
                     taiDuLieuLenBang();
                 } catch (IOException ex) {
                     Logger.getLogger(CapNhatNhanVienView.class.getName()).log(Level.SEVERE, null, ex);
@@ -843,7 +848,6 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
                 Logger.getLogger(CapNhatNhanVienView.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
     }//GEN-LAST:event_btnThemNhieuActionPerformed
 
     public void setHidden(JButton... btnHidden) {
@@ -937,10 +941,10 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
             lblErrNgayVaoLam.setText("");
         }
         try {
-            if (this.txtLuongThoaThuan.getText().equals("")) {
+            if (txtLuongThoaThuan.getText().replaceAll(",", "").equals("")) {
                 this.lblErrLuongThoaThuan.setText(stErrKhongDeTrong);
                 flag = false;
-            } else if (Double.parseDouble(txtLuongThoaThuan.getText()) <= 0) {
+            } else if (Double.parseDouble(txtLuongThoaThuan.getText().replaceAll(",", "")) <= 0) {
                 this.lblErrLuongThoaThuan.setText(stSoTienLonHonKhong);
                 flag = false;
             } else {

@@ -82,7 +82,6 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
         nhanvienDangNhap = nhanVien;
         ConnectionDB.ConnectDB.getInstance().connect();
         initComponents();
-
         excute();
         taiDuLieuLenBangNhanVien();
         while (modelChamCong.getRowCount() != 0) {
@@ -92,6 +91,7 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
         btnChamCongTatCa.setEnabled(false);
         cmbCaLam.setSelectedIndex(0);
         caiDatNgonNguChoView(fileName);
+        btnChamCong.setEnabled(false);
     }
 
     public void caiDatNgonNguChoView(String fileName) throws FileNotFoundException, IOException {
@@ -269,7 +269,7 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
             tblChamCong.setRowSelectionInterval(0, 0);
             hienThiDuLieuLenTxtBangNhanVien(0);
             setEditInput(false);
-            btnChamCong.setEnabled(true);
+            btnChamCong.setEnabled(false);
         } else {
             btnChamCong.setEnabled(false);
         }
@@ -605,12 +605,7 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
     private void tblNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNhanVienMouseClicked
         try {
             String ngayCham = tblNhanVien.getValueAt(tblNhanVien.getSelectedRow(), 7).toString();
-//            SimpleDateFormat dfm = new SimpleDateFormat("yyyy-MM-dd");
-//            Date kq = null;
-//            kq = dfm.parse(ngayCham);
-//            dcsNgayChamCong.setDate(kq);
             capNhatCmbGio();
-//            cmbCaLam.setSelectedItem(tblNhanVien.getValueAt(tblNhanVien.getSelectedRow(), 8).toString());
             hienThiDuLieuLenTxtBangNhanVien(tblNhanVien.getSelectedRow());
             setEditInput(false);
             setShow(btnCapNhat);
@@ -685,7 +680,7 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
             Logger.getLogger(ChamCongNhanVienView.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (tblChamCong.getRowCount() != 0) {
-            setShow(btnChamCong, btnChamCongTatCa);
+            setShow(btnChamCongTatCa);
         } else {
             setHidden(btnChamCong, btnChamCongTatCa);
         }
@@ -737,7 +732,7 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
     }//GEN-LAST:event_btnChamCongTatCaActionPerformed
 
     private void cmbTrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTrangThaiActionPerformed
-        if (cmbTrangThai.getSelectedIndex() == 2 || cmbTrangThai.getSelectedIndex() == 3) {
+        if (cmbTrangThai.getSelectedIndex() == 0 || cmbTrangThai.getSelectedIndex() == 2 || cmbTrangThai.getSelectedIndex() == 3) {
             cmbGio.setEnabled(false);
             cmbPhut.setEnabled(false);
         } else {
@@ -782,7 +777,9 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
     }//GEN-LAST:event_cmbCaLamActionPerformed
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
         String gioLam = "";
-        if (cmbGio.isEnabled()) {
+        if (cmbTrangThai.getSelectedIndex() == 0) {
+            gioLam = cmbGio.getSelectedItem().toString() + "h" + cmbPhut.getSelectedItem();
+        } else if (cmbGio.isEnabled()) {
             gioLam = cmbGio.getSelectedItem().toString() + "h" + cmbPhut.getSelectedItem();
         } else {
             gioLam = "";
@@ -806,9 +803,9 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
                     Logger.getLogger(ChamCongNhanVienView.class.getName()).log(Level.SEVERE, null, ex);
                 } finally {
                     if (modelChamCong.getRowCount() > 0) {
-                        setShow(btnChamCong, btnChamCongTatCa);
+                        setShow(btnChamCongTatCa);
                     }
-                    setHidden(btnLuu, btnHuy, btnCapNhat);
+                    setHidden(btnLuu, btnHuy, btnCapNhat,btnChamCong);
                     checkChamCong = false;
                 }
             }
@@ -834,8 +831,6 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
                 setHidden(btnLuu, btnHuy, btnCapNhat);
             }
         }
-        setShow(btnChamCongTatCa, btnChamCong);
-        setHidden(btnCapNhat, btnHuy, btnLuu);
     }//GEN-LAST:event_btnLuuActionPerformed
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
@@ -854,6 +849,7 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
         setHidden(btnChamCong, btnCapNhat, btnChamCongTatCa);
         setEditInput(true);
         checkChamCong = true;
+        cmbTrangThai.setSelectedIndex(0);
     }//GEN-LAST:event_btnChamCongActionPerformed
 
 
