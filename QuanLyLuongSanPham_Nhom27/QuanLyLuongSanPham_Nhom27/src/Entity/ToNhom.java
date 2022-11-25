@@ -13,7 +13,6 @@ public class ToNhom {
     private String maToNhom;
     private String tenToNhom;
     private int soLuongCongNhan;
-    
 
     public ToNhom(String maToNhom, String tenToNhom, int soLuongCongNhan) {
         try {
@@ -47,6 +46,8 @@ public class ToNhom {
     public void setTenToNhom(String tenToNhom) throws Exception {
         if (tenToNhom.equals("")) {
             throw new Exception("Tên tổ nhóm không được bỏ trống");
+        } else if (!tenToNhom.toLowerCase().matches("^tổ [1-9][0-9]*$")) {
+            return;
         } else {
             this.tenToNhom = tenToNhom;
         }
@@ -57,9 +58,9 @@ public class ToNhom {
     }
 
     public void setSoLuongCongNhan(int soLuongCongNhan) throws Exception {
-        if (soLuongCongNhan < 0){
+        if (soLuongCongNhan < 0) {
             throw new Exception("Số lượng công nhân không được < 0");
-        }  else {
+        } else {
             this.soLuongCongNhan = soLuongCongNhan;
         }
     }
@@ -68,9 +69,5 @@ public class ToNhom {
     public String toString() {
         return "ToNhom{" + "maToNhom=" + maToNhom + ", tenToNhom=" + tenToNhom + ", soLuongCongNhan=" + soLuongCongNhan + '}';
     }
-    
-    
-
-    
 
 }

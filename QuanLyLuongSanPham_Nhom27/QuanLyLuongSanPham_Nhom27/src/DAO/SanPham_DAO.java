@@ -250,6 +250,36 @@ public class SanPham_DAO {
         return chuoiCanLay;
     }
 
+    public ArrayList<SanPham> layDanhSachSanPhamDuocPhanCongChoTo(String maToNhom) {
+        PreparedStatement stm = null;
+        ArrayList<SanPham> dsSanPham = new ArrayList<SanPham>();
+        
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String truyVan = "SELECT SP.maSanPham FROM ToNhom TN JOIN PhanCongCongNhan PCCN ON TN.maToNhom = PCCN.maToNhom"
+                    + " JOIN CongDoan CD ON PCCN.maCongDoan = CD.maCongDoan"
+                    + " JOIN SanPham SP ON SP.maSanPham = CD.maSanPham WHERE TN.maToNhom = ? group by SP.maSanPham";
+            stm = con.prepareStatement(truyVan);
+            stm.setString(1, maToNhom);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()){
+                String maSanPham = rs.getString("maSanPham");
+               
+                dsSanPham.add(layMotSanPhamTheoMa(maSanPham));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                stm.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return dsSanPham;
+    }
+
     public static void main(String[] args) {
         try {
             System.setOut(new PrintStream(System.out, true, "UTF8"));
@@ -264,7 +294,9 @@ public class SanPham_DAO {
             // TODO: handle exception
             System.out.println(e);
         }
-//        SanPham_DAO dao = new SanPham_DAO();
+        SanPham_DAO dao = new SanPham_DAO();
+        ArrayList<SanPham> dsSanPham = dao.layDanhSachSanPhamDuocPhanCongChoTo("TN100001");
+//        
 //        System.out.println("Thêm: " + dao.themMotSanPham(new SanPham("SP111111", "HD100001", "Giay Nika", 321, "Đỏ", "Poly", 12, "anh1.png", 0)));
 //        System.out.println("\n\n\n Danh sách: " + dao.layDanhSachSanPham().toString());
 //        System.out.println("\n\n\n Sửa: " + dao.suaMotSanPham(new SanPham("SP111111", "Giay Nika", 323, "Đỏ", "Poly", 12, "anh1.png", 0)));

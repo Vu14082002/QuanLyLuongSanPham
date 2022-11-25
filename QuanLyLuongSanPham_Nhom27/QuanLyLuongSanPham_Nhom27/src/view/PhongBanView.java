@@ -7,8 +7,6 @@ package view;
 import DAO.PhongBan_DAO;
 import Entity.NhanVien;
 import Entity.PhongBan;
-
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -20,17 +18,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 /**
  *
@@ -47,7 +39,7 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
     private NhanVien nhanVienDangNhap;
     private String fileName;
     private String khongDeTrong;
-
+    
     private String stErrKhongDeTrong;
     private String stErrSoLuong;
     private String stThongbao;
@@ -63,7 +55,7 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
     private String stCapNhatThanhCong;
     private String stCapNhatThatBai;
     private String stChonMauSacChoSanPham;
-
+    
     public PhongBanView(NhanVien nhanVienDangNhap, String fileName) throws IOException {
         oFlag = null;
         initComponents();
@@ -77,7 +69,7 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
         tblPhongBan.setRowHeight(25);
         try {
             ConnectionDB.ConnectDB.getInstance().connect();
-
+            
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -92,9 +84,8 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
         btnLuu.setEnabled(false);
         btnHuy.setEnabled(false);
         execute();
-
     }
-
+    
     public void caiDatNgonNguChoView(String fileName) throws FileNotFoundException, IOException {
         FileInputStream fis = new FileInputStream(fileName);
         Properties prop = new Properties();
@@ -112,7 +103,7 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
         btnCapNhat.setText(prop.getProperty("btnCapNhat"));
         btnLuu.setText(prop.getProperty("btnLuu"));
         btnHuy.setText(prop.getProperty("btnHuy"));
-
+        
         stThongbao = prop.getProperty("thongBao");
         stBanXacNhanXoa = prop.getProperty("banXacNhanXoa");
         stXoaThanhCong = prop.getProperty("xoaThanhCong");
@@ -129,11 +120,11 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
         stErrSoLuong = prop.getProperty("sp_lblErrSoLuong");
         stErrKhongDeTrong = prop.getProperty("KhongDeTrong");
     }
-
+    
     public void ChangeName(JTable table, int col_index, String col_name) {
         table.getColumnModel().getColumn(col_index).setHeaderValue(col_name);
     }
-
+    
     public void execute() {
         this.txtMaPhongBan.setBackground(new Color(0, 0, 0, 1));
         this.txtMaPhongBan.setText("");
@@ -146,13 +137,13 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
         defaultTablePhongBan = (DefaultTableModel) tblPhongBan.getModel();
         taiDuLieuLenBang();
     }
-
+    
     public void taiDuLieuLenBang() {
         while (tblPhongBan.getRowCount() != 0) {
             defaultTablePhongBan.removeRow(0);
         }
         ArrayList<PhongBan> danhSachPhongBan = phongBan_DAO.layDanhSachPhongBan();
-
+        
         for (PhongBan phongBan : danhSachPhongBan) {
             String data[] = {(defaultTablePhongBan.getRowCount() + 1) + "", phongBan.getMaPhongBan(), phongBan.getTenPhongBan(), phongBan.getSoLuongNhanVien() + ""};
             defaultTablePhongBan.addRow(data);
@@ -162,7 +153,7 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
             hienThiDuLieuLenTxt(0);
         }
     }
-
+    
     public void hienThiDuLieuLenTxt(int dong) {
         txtMaPhongBan.setText(tblPhongBan.getValueAt(dong, 1).toString());
         txtTenPhongBan.setText(tblPhongBan.getValueAt(dong, 2).toString());
@@ -379,7 +370,7 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
     }//GEN-LAST:event_txtSoLuongNhanVienActionPerformed
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
-        // TODO add your handling code here:
+       txtTenPhongBan.setEditable(false);
     }//GEN-LAST:event_btnHuyActionPerformed
 
 
@@ -409,7 +400,7 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
     public void mouseClicked(MouseEvent e) {
         Object o = e.getSource();
         if (o.equals(tblPhongBan)) {
-
+            
             int row = tblPhongBan.getSelectedRow();
             if (row != -1) {
                 hienThiDuLieuLenTxt(row);
@@ -420,41 +411,42 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
                     btnLuu.setEnabled(false);
                     btnHuy.setEnabled(false);
                     txtTenPhongBan.setEditable(false);
-
+                    lbErrTenPhongBan.setText("");
+                    
                 }
             }
         }
-
+        
     }
-
+    
     @Override
     public void mousePressed(MouseEvent e) {
-
+        
     }
-
+    
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        
     }
-
+    
     @Override
     public void mouseEntered(MouseEvent e) {
-
+        
     }
-
+    
     @Override
     public void mouseExited(MouseEvent e) {
-
+        
     }
-
+    
     public void xoaTrang() {
         txtTenPhongBan.setText("");
-
+        
     }
-
+    
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        
         Object o = e.getSource();
         if (o.equals(btnThem)) {
             // gán cờ 
@@ -469,16 +461,18 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
             btnLuu.setEnabled(true);
             txtMaPhongBan.setText(phongBan_DAO.layRaMaPhongBanDeThem());
             txtSoLuongNhanVien.setText("0");
-
+            
         } else if (o.equals(btnLuu)) {
             // Xử lý sự kiện lưu
             // Xử lý Thêm phòng ban
             // btnFlag để lưu các JButton vừa click
-            System.out.println(oFlag.equals(btnThem));
             if (oFlag.equals(btnThem)) {
                 String maPhongBan = txtMaPhongBan.getText();
                 if (txtTenPhongBan.getText().equals("")) {
                     lbErrTenPhongBan.setText(stErrKhongDeTrong);
+                    return;
+                } else if (!txtTenPhongBan.getText().toLowerCase().matches("^([a-vxyỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]+)((\\s{1}[a-vxyỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]+){0,})$")) {
+                    lbErrTenPhongBan.setText("Chỉ chứa kí tự chữ");
                     return;
                 } else {
                     lbErrTenPhongBan.setText("");
@@ -496,16 +490,19 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
                     btnHuy.setEnabled(false);
                     oFlag = null;
                     khoaMoTxt(false); // false là khóa lại, true là mở ra
-                    JOptionPane.showMessageDialog(null, stThemThanhCong,stThongbao, JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, stThemThanhCong, stThongbao, JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(null,stThemThatBai, stThongbao, JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, stThemThatBai, stThongbao, JOptionPane.INFORMATION_MESSAGE);
                 }
             } else if (oFlag.equals(btnCapNhat)) {
                 String maPhongBan = txtMaPhongBan.getText();
                 if (txtTenPhongBan.getText().equals("")) {
                     lbErrTenPhongBan.setText(stErrKhongDeTrong);
                     return;
-                } else {
+                } else if (!txtTenPhongBan.getText().toLowerCase().matches("^([a-vxyỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]+)((\\s{1}[a-vxyỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]+){0,})$")) {
+                    lbErrTenPhongBan.setText("Chỉ chứa kí tự chữ");
+                    return;
+                }else {
                     lbErrTenPhongBan.setText("");
                 }
                 int soLuongNhanVien = 0;
@@ -526,9 +523,9 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
                     oFlag = null;
                     khoaMoTxt(false);
                     taiDuLieuLenBang();
-                    JOptionPane.showMessageDialog(null, stCapNhatThanhCong,stThongbao, JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, stCapNhatThanhCong, stThongbao, JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(null,stCapNhatThatBai, stThongbao, JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, stCapNhatThatBai, stThongbao, JOptionPane.INFORMATION_MESSAGE);
                 }
             }
 //            if (btnThem.getText().equalsIgnoreCase("Hủy cập nhật")) {
@@ -572,7 +569,7 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
             // gán cờ
             oFlag = btnCapNhat;
         } else if (o.equals(btnXoa)) {
-
+            
             int rowSelected = tblPhongBan.getSelectedRow();
             if (rowSelected != -1) {
                 int coXacNhanXoa = JOptionPane.showConfirmDialog(null, stBanXacNhanXoa, stThongbao, JOptionPane.ERROR_MESSAGE);
@@ -586,7 +583,7 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
                     }
                 }
             }
-
+            
         } else if (o.equals(btnHuy)) {
             btnThem.setEnabled(true);
             btnCapNhat.setEnabled(true);
@@ -599,10 +596,10 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
             }
         }
     }
-
+    
     public void khoaMoTxt(boolean b) {
         txtTenPhongBan.setEditable(b);
         txtTenPhongBan.requestFocus();
-
+        
     }
 }

@@ -6,17 +6,13 @@ package view;
 
 import DAO.NhanVien_DAO;
 import DAO.PhongBan_DAO;
-import Entity.CongNhan;
 import Entity.NhanVien;
 import Entity.PhongBan;
-import Entity.ToNhom;
-import com.toedter.calendar.JDateChooser;
 import java.awt.Font;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.Array;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -28,25 +24,17 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.control.ComboBox;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JRadioButton;
 import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -702,6 +690,7 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
         setHidden(btnThem, btnXoa, btnCapNhat);
         setShow(btnLuu, btnHuy);
         setEnableForInput(true);
+        txtLuongThoaThuan.setText(txtLuongThoaThuan.getText().replaceAll(",", ""));
         isCapNhat = true;
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
@@ -723,34 +712,45 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
                     if (this.daoNhanVien.themMotNhanVien(nhanvienEntity)) {
                         taiDuLieuLenBang();
                         JOptionPane.showMessageDialog(this, stThemThanhCong);
-                        setHidden(btnLuu, btnHuy,btnXoa);
-                        setShow(btnThem, btnCapNhat, btnThemNhieu);
+                        setHidden(btnLuu, btnHuy, btnXoa, btnCapNhat);
+                        setShow(btnThem, btnThemNhieu);
                         setEnableForInput(false);
                         isThem = false;
                     } else {
                         JOptionPane.showMessageDialog(null, stThemThatBai);
-                        isThem = false;
+                        setHidden(btnLuu, btnHuy, btnXoa, btnCapNhat);
+                        setShow(btnThem, btnThemNhieu);
+                        setEnableForInput(false);
                     }
                 } else {
                     if (this.daoNhanVien.suaThongTinMotNhanVien(nhanvienEntity)) {
                         taiDuLieuLenBang();
                         JOptionPane.showMessageDialog(this, stCapNhatThanhCong, stThongbao, JOptionPane.INFORMATION_MESSAGE);
-                        setHidden(btnLuu, btnHuy,btnXoa);
-                        setShow(btnThem, btnCapNhat, btnThemNhieu);
+                        setHidden(btnLuu, btnHuy, btnXoa, btnCapNhat);
+                        setShow(btnThem, btnThemNhieu);
                         setEnableForInput(false);
+
                     } else {
                         JOptionPane.showMessageDialog(null, stCapNhatThatBai, stThongbao, JOptionPane.INFORMATION_MESSAGE);
+                        setHidden(btnLuu, btnHuy, btnXoa, btnCapNhat);
+                        setShow(btnThem, btnThemNhieu);
+                        setEnableForInput(false);
                     }
                 }
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "ERRO,please Resset (T_T)(T_T)");
+        } finally {
+            setHidden(btnLuu, btnHuy, btnXoa, btnCapNhat);
+            setShow(btnThem, btnThemNhieu);
+            setEnableForInput(false);   
         }
+
     }//GEN-LAST:event_btnLuuActionPerformed
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
         setHidden(btnLuu, btnHuy);
-        setShow( btnXoa, btnCapNhat,btnThemNhieu);
+        setShow(btnXoa, btnCapNhat, btnThemNhieu, btnThem);
         tblNhanVien.setRowSelectionInterval(0, 0);
         setEnableForInput(false);
         try {
@@ -774,7 +774,7 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
         lblErrDiaChi.setText("");
         try {
             setHidden(btnLuu, btnHuy);
-            setShow(btnThem, btnXoa, btnCapNhat);
+            setShow(btnThem, btnXoa, btnCapNhat, btnThemNhieu);
             hienThiDuLieuLenTxt(tblNhanVien.getSelectedRow());
             setEnableForInput(false);
         } catch (ParseException ex) {
@@ -941,10 +941,10 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
             lblErrNgayVaoLam.setText("");
         }
         try {
-            if (txtLuongThoaThuan.getText().replaceAll(",", "").equals("")) {
+            if (txtLuongThoaThuan.getText().trim().equals("")) {
                 this.lblErrLuongThoaThuan.setText(stErrKhongDeTrong);
                 flag = false;
-            } else if (Double.parseDouble(txtLuongThoaThuan.getText().replaceAll(",", "")) <= 0) {
+            } else if (Double.parseDouble(txtLuongThoaThuan.getText()) <= 0) {
                 this.lblErrLuongThoaThuan.setText(stSoTienLonHonKhong);
                 flag = false;
             } else {

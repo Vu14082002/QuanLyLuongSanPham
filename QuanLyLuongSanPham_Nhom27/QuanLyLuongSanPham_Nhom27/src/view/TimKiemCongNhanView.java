@@ -22,6 +22,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -121,19 +122,19 @@ public class TimKiemCongNhanView extends javax.swing.JPanel implements ActionLis
                     || !soDienThoai.equalsIgnoreCase("all") || !gioiTinh.equalsIgnoreCase("all") || !toNhom.equalsIgnoreCase("all")) {
                 boolean flag = true;
                 String gioiTinhStr = congNhan.isGioiTinh() ? "Nam" : "Nữ";
-                if (!maCongNhan.equalsIgnoreCase("all") && !congNhan.getMaCongNhan().equalsIgnoreCase(maCongNhan)) {
+                if (!maCongNhan.equalsIgnoreCase("all") && !congNhan.getMaCongNhan().toLowerCase().contains(maCongNhan.toLowerCase())) {
                     flag = false;
                 }
-                if (!hoTen.equalsIgnoreCase("all") && !congNhan.getHoTen().equalsIgnoreCase(hoTen)) {
+                if (!hoTen.equalsIgnoreCase("all") && !congNhan.getHoTen().toLowerCase().contains(hoTen.toLowerCase())) {
                     flag = false;
                 }
-                if (!soCCCD.equalsIgnoreCase("all") && !congNhan.getMaCCCD().equalsIgnoreCase(soCCCD)) {
+                if (!soCCCD.equalsIgnoreCase("all") && !congNhan.getMaCCCD().toLowerCase().contains(soCCCD.toLowerCase())) {
                     flag = false;
                 }
-                if (!email.equalsIgnoreCase("all") && !congNhan.getEmail().equalsIgnoreCase(email)) {
+                if (!email.equalsIgnoreCase("all") && !congNhan.getEmail().toLowerCase().contains(email.toLowerCase())) {
                     flag = false;
                 }
-                if (!soDienThoai.equalsIgnoreCase("all") && !congNhan.getSoDienThoai().equalsIgnoreCase(soDienThoai)) {
+                if (!soDienThoai.equalsIgnoreCase("all") && !congNhan.getSoDienThoai().toLowerCase().contains(soDienThoai.toLowerCase())) {
                     flag = false;
                 }
                 if (!gioiTinh.equalsIgnoreCase("all") && !gioiTinhStr.equalsIgnoreCase(gioiTinh)) {
@@ -155,6 +156,9 @@ public class TimKiemCongNhanView extends javax.swing.JPanel implements ActionLis
                     congNhan.getAnhDaiDien(), congNhan.getEmail(), congNhan.getToNhom().getTenToNhom(), congNhan.getNgayVaoLam().toString()};
                 modelCongNhan.addRow(data);
             }
+        }
+        if (tblCongNhan.getRowCount() == 0){
+            JOptionPane.showMessageDialog(null, "Không có công nhân nào thỏa các tiêu chí trên!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 

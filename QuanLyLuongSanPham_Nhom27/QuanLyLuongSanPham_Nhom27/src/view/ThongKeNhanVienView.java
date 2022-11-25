@@ -4,33 +4,25 @@
  */
 package view;
 
-import DAO.BangLuongCongNhan_DAO;
 import DAO.BangLuongNhanVien_DAO;
 import DAO.NhanVien_DAO;
 import DAO.PhongBan_DAO;
-import DAO.ThongKeNhanVien_DAO;
 import Entity.BangLuongNhanVien;
 import Entity.NhanVien;
 import Entity.PhongBan;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.Array;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -38,12 +30,9 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.category.BarRenderer;
-import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
-import org.jfree.data.statistics.HistogramDataset;
 
 /**
  *
@@ -218,7 +207,7 @@ public class ThongKeNhanVienView extends javax.swing.JPanel {
                     tongLuong += e.getTongTien();
                 }
             }
-            dataset.setValue(tongLuong, "Amount", i + "");
+            dataset.setValue(new BigDecimal(tongLuong), "Amount", i + "");
         }
         FileInputStream fis = new FileInputStream(fileName);
         Properties prop = new Properties();

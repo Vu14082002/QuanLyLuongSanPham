@@ -21,8 +21,9 @@ public class BangLuongCongNhan {
     private Date ngayTinh;
     private double tongLuong;
     private String donViTien;
+    private String luongTheoThang;
 
-    public BangLuongCongNhan(String maBangLuong, CongNhan congNhan, int soLuongSanPhamLam, int soNgayDiLam, int soNgayNghi, int soPhepNghi, Date ngayTinh, double tongLuong, String donViTien) {
+    public BangLuongCongNhan(String maBangLuong, CongNhan congNhan, int soLuongSanPhamLam, int soNgayDiLam, int soNgayNghi, int soPhepNghi, Date ngayTinh, double tongLuong, String donViTien, String luongTheoThang) {
         try {
             setMaBangLuong(maBangLuong);
             setCongNhan(congNhan);
@@ -33,10 +34,12 @@ public class BangLuongCongNhan {
             setNgayTinh(ngayTinh);
             setTongLuong(tongLuong);
             setDonViTien(donViTien);
+            setLuongTheoThang(luongTheoThang);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
     }
+    
 
     public String getMaBangLuong() {
         return maBangLuong;
@@ -146,9 +149,19 @@ public class BangLuongCongNhan {
         }
     }
 
+    public String getLuongTheoThang() {
+        return luongTheoThang;
+    }
+
+    public void setLuongTheoThang(String luongTheoThang) {
+        this.luongTheoThang = luongTheoThang;
+    }
+
     @Override
     public String toString() {
-        return "BangLuongCongNhan{" + "maBangLuong=" + maBangLuong + ", congNhan=" + congNhan + ", soLuongSanPhamLam=" + soLuongSanPhamLam + ", soNgayDiLam=" + soNgayDiLam + ", soNgayNghi=" + soNgayNghi + ", soPhepNghi=" + soPhepNghi + ", ngayTinh=" + ngayTinh + ", tongLuong=" + tongLuong + ", donViTien=" + donViTien + '}';
+        return "BangLuongCongNhan{" + "maBangLuong=" + maBangLuong + ", congNhan=" + congNhan + ", soLuongSanPhamLam=" + soLuongSanPhamLam + ", soNgayDiLam=" + soNgayDiLam + ", soNgayNghi=" + soNgayNghi + ", soPhepNghi=" + soPhepNghi + ", ngayTinh=" + ngayTinh + ", tongLuong=" + tongLuong + ", donViTien=" + donViTien + ", luongTheoThang=" + luongTheoThang + '}';
     }
+    
+    
     
 }

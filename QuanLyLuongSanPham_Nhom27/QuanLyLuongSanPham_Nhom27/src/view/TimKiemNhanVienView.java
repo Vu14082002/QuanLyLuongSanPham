@@ -58,6 +58,13 @@ public class TimKiemNhanVienView extends javax.swing.JPanel implements ActionLis
         daoPhongBan = new PhongBan_DAO();
         dcf = new DecimalFormat("###,###,###,###,###.###");
         model = (DefaultTableModel) tblNhanVien.getModel();
+        cmbPhongBan.removeAllItems();
+        ArrayList<PhongBan> phongBan = daoPhongBan.layDanhSachPhongBan();
+        for (PhongBan pb : phongBan) {
+            cmbPhongBan.addItem(pb.getTenPhongBan());
+
+        }
+        cmbPhongBan.setSelectedItem("Tất cả");
         taiDuLieuLenBang("all", "all", "all", "all", "all", "all", "all");
         // bắt sự kiện cho btnTimkiem
         btnTimKiem.addActionListener(this);
@@ -116,16 +123,9 @@ public class TimKiemNhanVienView extends javax.swing.JPanel implements ActionLis
         while (tblNhanVien.getRowCount() != 0) {
             model.removeRow(0);
         }
-        cmbPhongBan.removeAllItems();
         ArrayList<PhongBan> phongBan = daoPhongBan.layDanhSachPhongBan();
         if (phongBan.size() > 0) {
-            cmbPhongBan.addItem("Tất cả");
 
-            for (PhongBan pb : phongBan) {
-                cmbPhongBan.addItem(pb.getTenPhongBan());
-
-            }
-            cmbPhongBan.setSelectedItem("Tất cả");
             ArrayList<NhanVien> danhSachNhanVien = daoNhanVien.layDanhSachNhanVien();
             for (NhanVien nv : danhSachNhanVien) {
                 String gioiTinhStr = nv.isGioiTinh() ? "Nam" : "Nữ";
@@ -133,19 +133,19 @@ public class TimKiemNhanVienView extends javax.swing.JPanel implements ActionLis
                         || !email.equalsIgnoreCase("all") || !soDienThoai.equalsIgnoreCase("all") || !gioiTinh.equalsIgnoreCase("all")
                         || !tenPhongBan.equalsIgnoreCase("all")) {
                     boolean flag = true;
-                    if (!maNhanVien.equalsIgnoreCase("all") && !nv.getMaNhanVien().equalsIgnoreCase(maNhanVien)) {
+                    if (!maNhanVien.equalsIgnoreCase("all") && !nv.getMaNhanVien().toLowerCase().contains(maNhanVien.toLowerCase())) {
                         flag = false;
                     }
-                    if (!hoTen.equalsIgnoreCase("all") && !nv.getHoTen().equalsIgnoreCase(hoTen)) {
+                    if (!hoTen.equalsIgnoreCase("all") && !nv.getHoTen().toLowerCase().contains(hoTen.toLowerCase())) {
                         flag = false;
                     }
-                    if (!cccd.equalsIgnoreCase("all") && !nv.getMaCCCD().equalsIgnoreCase(cccd)) {
+                    if (!cccd.equalsIgnoreCase("all") && !nv.getMaCCCD().toLowerCase().contains(cccd.toLowerCase())) {
                         flag = false;
                     }
-                    if (!email.equalsIgnoreCase("all") && !nv.getEmail().equalsIgnoreCase(email)) {
+                    if (!email.equalsIgnoreCase("all") && !nv.getEmail().toLowerCase().contains(email.toLowerCase())) {
                         flag = false;
                     }
-                    if (!soDienThoai.equalsIgnoreCase("all") && !nv.getSoDienThoai().equalsIgnoreCase(soDienThoai)) {
+                    if (!soDienThoai.equalsIgnoreCase("all") && !nv.getSoDienThoai().toLowerCase().contains(soDienThoai.toLowerCase())) {
                         flag = false;
                     }
                     if (!gioiTinh.equalsIgnoreCase("all") && !gioiTinhStr.equalsIgnoreCase(gioiTinh)) {
@@ -408,12 +408,12 @@ public class TimKiemNhanVienView extends javax.swing.JPanel implements ActionLis
             String email = txtEmail.getText().trim();
             String soDienThoai = txtSoDienThoai.getText().trim();
             String gioiTinh = cmbGioiTinh.getSelectedItem().toString();
+            String phongBan = cmbPhongBan.getSelectedItem().toString();
             if (cmbGioiTinh.getSelectedIndex() == cmbGioiTinh.getItemCount() - 1) {
                 System.out.println(cmbGioiTinh.getItemAt(cmbGioiTinh.getItemCount() - 1));
                 System.out.println(cmbGioiTinh.getItemAt(cmbGioiTinh.getSelectedIndex()));
                 gioiTinh = "all";
             }
-            String phongBan = cmbPhongBan.getSelectedItem().toString();
             if (cmbPhongBan.getSelectedIndex() == cmbPhongBan.getItemCount() - 1) {
                 phongBan = "all";
             }
@@ -432,6 +432,14 @@ public class TimKiemNhanVienView extends javax.swing.JPanel implements ActionLis
             if (soDienThoai.equals("")) {
                 soDienThoai = "all";
             }
+            System.out.println(maNhanVien);
+            System.out.println(hoTen);
+            System.out.println(soCCCD);
+            System.out.println(email);
+            System.out.println(soDienThoai);
+            System.out.println(gioiTinh);
+            System.out.println(phongBan);
+
             taiDuLieuLenBang(maNhanVien, hoTen, soCCCD, email, soDienThoai, gioiTinh, phongBan);
         }
     }

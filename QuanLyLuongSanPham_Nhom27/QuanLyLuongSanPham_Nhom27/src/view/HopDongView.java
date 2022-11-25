@@ -10,7 +10,6 @@ import Entity.NhanVien;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -66,19 +65,21 @@ public class HopDongView extends javax.swing.JPanel {
     private String stKhongDocDuocFile;
     private String stCapNhatThanhCong;
     private String stCapNhatThatBai;
-    
-    
+    private String stErrTienKhongHopLe;
+
     private NhanVien nhanVienDangNhap;
     private String fileName;
+
     public HopDongView(NhanVien nv, String fileName) throws ParseException, IOException {
-        this.nhanVienDangNhap=nv;
-        this.fileName=fileName;
+        this.nhanVienDangNhap = nv;
+        this.fileName = fileName;
         initComponents();
         caiDatNgonNguChoView(fileName);
         excute();
         taiDuLieuLenTable();
     }
-   public void caiDatNgonNguChoView(String fileName) throws FileNotFoundException, IOException {
+
+    public void caiDatNgonNguChoView(String fileName) throws FileNotFoundException, IOException {
         FileInputStream fis = new FileInputStream(fileName);
         Properties prop = new Properties();
         prop.load(fis);
@@ -90,12 +91,12 @@ public class HopDongView extends javax.swing.JPanel {
         lblNgayKyKet.setText(prop.getProperty("HopDong_NgayKyKet"));
         lblHanHopDong.setText(prop.getProperty("HopDong_HanHopDong"));
         lblYeuCau.setText(prop.getProperty("HopDong_YeuCau"));
-        this.stErrKhongDeTrong=prop.getProperty("KhongDeTrong");
-        this.stErrTenKhachHangKhongHopLe=prop.getProperty("HopDong_lblErrTenKhachHangKhongHopLe");
-        this.stErrTien=prop.getProperty("HopDong_lblErrTien");
-        this.stErrTongTien=prop.getProperty("HopDong_lblErrTongTienLonHonTienCoc");
-        this.stErrNgayKyKet=prop.getProperty("HopDong_lblErrNgayKyKet");
-        this.stErrHanHopDong=prop.getProperty("HopDong_lblErrHanHopDong");
+        this.stErrKhongDeTrong = prop.getProperty("KhongDeTrong");
+        this.stErrTenKhachHangKhongHopLe = prop.getProperty("HopDong_lblErrTenKhachHangKhongHopLe");
+        this.stErrTien = prop.getProperty("HopDong_lblErrTien");
+        this.stErrTongTien = prop.getProperty("HopDong_lblErrTongTienLonHonTienCoc");
+        this.stErrNgayKyKet = prop.getProperty("HopDong_lblErrNgayKyKet");
+        this.stErrHanHopDong = prop.getProperty("HopDong_lblErrHanHopDong");
         btnThemNhieu.setText(prop.getProperty("btnThemNhieu"));
         btnThem.setText(prop.getProperty("btnThem"));
         btnXoa.setText(prop.getProperty("btnXoa"));
@@ -110,24 +111,26 @@ public class HopDongView extends javax.swing.JPanel {
         ChangeName(tblHopDong, 5, prop.getProperty("HopDong_tblTongTien"));
         ChangeName(tblHopDong, 6, prop.getProperty("HopDong_tblNgayKy"));
         ChangeName(tblHopDong, 7, prop.getProperty("HopDong_tblHanChot"));
-        stThongbao=prop.getProperty("thongBao");
-        stBanXacNhanXoa=prop.getProperty("banXacNhanXoa");
-        stXoaThanhCong=prop.getProperty("xoaThanhCong");
-        stXoaThatBai=prop.getProperty("xoaThatBai");
-        stThemThanhCong=prop.getProperty("themThanhCong");
-        stThemThatBai=prop.getProperty("themThatBai");
-        stTren=prop.getProperty("tren");
-        stHopDong=prop.getProperty("hopDong");
-        stKhongDocDuocFile=prop.getProperty("khongDocDuocFile");
-        stKhongTimThayFile=prop.getProperty("khongTimThayFile");
+        stThongbao = prop.getProperty("thongBao");
+        stBanXacNhanXoa = prop.getProperty("banXacNhanXoa");
+        stXoaThanhCong = prop.getProperty("xoaThanhCong");
+        stXoaThatBai = prop.getProperty("xoaThatBai");
+        stThemThanhCong = prop.getProperty("themThanhCong");
+        stThemThatBai = prop.getProperty("themThatBai");
+        stTren = prop.getProperty("tren");
+        stHopDong = prop.getProperty("hopDong");
+        stErrTienKhongHopLe = prop.getProperty("soTienKhongHople");
+        stKhongDocDuocFile = prop.getProperty("khongDocDuocFile");
+        stKhongTimThayFile = prop.getProperty("khongTimThayFile");
         stCapNhatThanhCong = prop.getProperty("capNhatThanhCong");
         stCapNhatThatBai = prop.getProperty("capNhatThatBai");
-        
-   }
+
+    }
 
     public void ChangeName(JTable table, int col_index, String col_name) {
         table.getColumnModel().getColumn(col_index).setHeaderValue(col_name);
     }
+
     public void excute() {
         model = (DefaultTableModel) tblHopDong.getModel();
         tblHopDong.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
@@ -540,7 +543,7 @@ public class HopDongView extends javax.swing.JPanel {
             String yeuCau = txtAreaYeuCau.getText().trim();
             boolean isThemDuoc = hopDongDao.themMotHopDong(new HopDong(maHopDong, tenHopDong, tenKhachHang, tienCoc, tongTien, ngayKyKet, hanChot, yeuCau));
             if (isThemDuoc) {
-                JOptionPane.showMessageDialog(null,stThemThanhCong, stThongbao, JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, stThemThanhCong, stThongbao, JOptionPane.INFORMATION_MESSAGE);
                 try {
                     taiDuLieuLenTable();
                 } catch (Exception e) {
@@ -614,41 +617,55 @@ public class HopDongView extends javax.swing.JPanel {
             lblErrTenKhachHang.setText("");
         }
         boolean checkTien = false;
-        if (this.txtTienCoc.getText().equals("")) {
-            this.lblErrTienCoc.setText(stErrKhongDeTrong);
+        try {
+            if (this.txtTienCoc.getText().equals("")) {
+                this.lblErrTienCoc.setText(stErrKhongDeTrong);
+                check = false;
+            } else if (Double.parseDouble(txtTienCoc.getText()) <= 0) {
+                this.lblErrTienCoc.setText(stErrTien);
+                check = false;
+            } else {
+                this.lblErrTienCoc.setText("");
+                checkTien = true;
+            }
+        } catch (Exception e) {
+            this.lblErrTienCoc.setText(stErrTienKhongHopLe);
             check = false;
-        } else if (!this.txtTienCoc.getText().replaceAll(",", "").matches("^[1-9][0-9]*$")) {
-            this.lblErrTienCoc.setText(stErrTien);
-            check = false;
-        } else {
-            this.lblErrTienCoc.setText("");
-            checkTien = true;
         }
 
-        if (txtTenHopDong.getText().equals("")) {
+        if (txtTenHopDong.getText().trim().equals("")) {
             lblErrTenHopDong.setText(stErrKhongDeTrong);
             check = false;
         } else {
             lblErrTenHopDong.setText("");
         }
-        if (txtTongTien.getText().equals("")) {
-            this.lblErrTongTien.setText(stErrKhongDeTrong);
-            check = false;
-        } else if (!this.txtTongTien.getText().replaceAll(",", "").matches("^[1-9][0-9]*$")) {
-            this.lblErrTongTien.setText(stErrTien);
-            check = false;
-        } else {
-            if (checkTien) {
-                if (Double.parseDouble(txtTienCoc.getText()) >= Double.parseDouble(txtTongTien.getText())) {
-                    this.lblErrTongTien.setText(stErrTongTien);
-                    check = false;
-                } else {
-                    lblErrTongTien.setText("");
-                }
-
+        try {
+            if (txtTongTien.getText().trim().equals("")) {
+                this.lblErrTongTien.setText(stErrKhongDeTrong);
+                check = false;
+            } else if (Double.parseDouble(txtTongTien.getText().trim()) <= 0) {
+                this.lblErrTongTien.setText(stErrTien);
+                check = false;
             } else {
-                lblErrTongTien.setText("");
+                try {
+                    if (checkTien) {
+                        if (Double.parseDouble(txtTienCoc.getText().trim()) >= Double.parseDouble(txtTongTien.getText().trim())) {
+                            this.lblErrTongTien.setText(stErrTongTien);
+                            check = false;
+                        } else {
+                            lblErrTongTien.setText("");
+                        }
+                    } else {
+                        lblErrTongTien.setText("");
+                    }
+                } catch (Exception e) {
+                    this.lblErrTienCoc.setText(stErrTienKhongHopLe);
+                    check = false;
+                }
             }
+        } catch (Exception e) {
+            this.lblErrTongTien.setText(stErrTienKhongHopLe);
+            check = false;
         }
         if (dcsNgayKyKet.getDate().after(new Date())) {
             lblErrNgayKiKet.setText(stErrNgayKyKet);
@@ -679,10 +696,10 @@ public class HopDongView extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        if (JOptionPane.showConfirmDialog(null, stBanXacNhanXoa,stThongbao, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+        if (JOptionPane.showConfirmDialog(null, stBanXacNhanXoa, stThongbao, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             hopDongDao = new HopDong_DAO();
             if (hopDongDao.xoaMotHopDong(tblHopDong.getValueAt(tblHopDong.getSelectedRow(), 1).toString())) {
-                JOptionPane.showMessageDialog(this, stXoaThanhCong,stThongbao, JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, stXoaThanhCong, stThongbao, JOptionPane.INFORMATION_MESSAGE);
                 try {
                     taiDuLieuLenTable();
                 } catch (ParseException ex) {
@@ -700,7 +717,8 @@ public class HopDongView extends javax.swing.JPanel {
         setEnableForSelected(true);
         setShow(btnLuu, btnHuy);
         setHidden(btnThem, btnCapNhat, btnXoa, btnThemNhieu);
-
+        txtTienCoc.setText(txtTienCoc.getText().replaceAll(",", "").trim());
+        txtTongTien.setText(txtTongTien.getText().replaceAll(",", "").trim());
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
     private void txtTienCocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTienCocActionPerformed
@@ -742,6 +760,13 @@ public class HopDongView extends javax.swing.JPanel {
                 setEnableForSelected(false);
                 setShow(btnThem, btnCapNhat, btnXoa, btnThemNhieu);
                 setHidden(btnHuy, btnLuu);
+                lblErrTenKhachHang.setText("");
+                lblErrTenHopDong.setText("");
+                lblErrTongTien.setText("");
+                lblErrTienCoc.setText("");
+                lblErrHanHopDong.setText("");
+                lblErrNgayKiKet.setText("");
+
             }
             // TODO add your handling code here:
         } catch (ParseException ex) {

@@ -6,7 +6,6 @@ package DAO;
 
 import ConnectionDB.ConnectDB;
 import Entity.HopDong;
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -100,8 +99,8 @@ public class HopDong_DAO {
             stm.setString(1, hopDong.getMaHopDong());
             stm.setString(2, hopDong.getTenHopDong());
             stm.setString(3, hopDong.getTenKhachHang());
-            stm.setBigDecimal(4, new BigDecimal(hopDong.getSoTienCoc()));
-            stm.setBigDecimal(5, new BigDecimal(hopDong.getTongTien()));
+            stm.setDouble(4, hopDong.getSoTienCoc());
+            stm.setDouble(5, hopDong.getTongTien());
             stm.setDate(6, new java.sql.Date(hopDong.getNgayKyKet().getTime()));
             stm.setDate(7, new java.sql.Date(hopDong.getHanChot().getTime()));
             stm.setString(8, hopDong.getYeuCau());
@@ -131,8 +130,8 @@ public class HopDong_DAO {
             stm = con.prepareStatement(truyVan);
             stm.setString(1, hopDong.getTenHopDong());
             stm.setString(2, hopDong.getTenKhachHang());
-            stm.setBigDecimal(3, new BigDecimal(hopDong.getSoTienCoc()));
-            stm.setBigDecimal(4, new BigDecimal(hopDong.getTongTien()));
+            stm.setDouble(3, hopDong.getSoTienCoc());
+            stm.setDouble(4, hopDong.getTongTien());
             stm.setDate(5, new java.sql.Date(hopDong.getNgayKyKet().getTime()));
             stm.setDate(6, new java.sql.Date(hopDong.getHanChot().getTime()));
             stm.setString(7, hopDong.getYeuCau());;

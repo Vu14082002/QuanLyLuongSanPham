@@ -13,7 +13,6 @@ import Entity.NhanVien;
 import Entity.PhongBan;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -171,7 +170,7 @@ public class NhanVien_DAO {
             stm.setString(7, nhanVien.getMatKhau());
             stm.setString(8, nhanVien.getChucVu());
             stm.setDate(9, new java.sql.Date(nhanVien.getNgayVaoLam().getTime()));
-            stm.setBigDecimal(10, new BigDecimal(nhanVien.getLuongThoaThuan()));
+            stm.setDouble(10,nhanVien.getLuongThoaThuan());
             stm.setBoolean(11, nhanVien.isGioiTinh());
             stm.setString(12, nhanVien.getAnhDaiDien());
             stm.setString(13, nhanVien.getDiaChi());
@@ -211,7 +210,7 @@ public class NhanVien_DAO {
             stm.setString(6, nhanVien.getMatKhau());
             stm.setString(7, nhanVien.getChucVu());
             stm.setDate(8, new java.sql.Date(nhanVien.getNgayVaoLam().getTime()));
-            stm.setBigDecimal(9, new BigDecimal(nhanVien.getLuongThoaThuan()));
+            stm.setDouble(9, nhanVien.getLuongThoaThuan());
             stm.setBoolean(10, nhanVien.isGioiTinh());
             stm.setString(11, nhanVien.getAnhDaiDien());
             stm.setString(12, nhanVien.getDiaChi());

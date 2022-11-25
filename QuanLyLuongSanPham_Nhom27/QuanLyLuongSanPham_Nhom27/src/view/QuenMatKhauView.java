@@ -7,9 +7,6 @@ package view;
 import ConnectionDB.ConnectDB;
 import DAO.CongNhan_DAO;
 import DAO.NhanVien_DAO;
-import Entity.BangLuongCongNhan;
-import Entity.CongNhan;
-import Entity.NhanVien;
 import java.awt.Color;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -17,15 +14,9 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
-import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.prefs.Preferences;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -222,7 +213,7 @@ public class QuenMatKhauView extends javax.swing.JFrame {
     }//GEN-LAST:event_txtSoDienThoaiDangKyActionPerformed
 
     private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseClicked
-        System.exit(0);
+        this.dispose();
     }//GEN-LAST:event_lblExitMouseClicked
 
     private void txtDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDangNhapActionPerformed

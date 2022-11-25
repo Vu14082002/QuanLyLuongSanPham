@@ -5,7 +5,6 @@
 package view;
 
 import DAO.BangLuongCongNhan_DAO;
-import DAO.CongDoan_DAO;
 import DAO.CongNhan_DAO;
 import DAO.ToNhom_DAO;
 import Entity.BangLuongCongNhan;
@@ -13,22 +12,17 @@ import Entity.CongNhan;
 import Entity.ToNhom;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -36,12 +30,9 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.category.BarRenderer;
-import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
-import org.jfree.data.statistics.HistogramDataset;
 
 /**
  *
@@ -110,7 +101,8 @@ public class ThongKeCongNhanView extends javax.swing.JPanel {
         ArrayList<ToNhom> toNhomList = toNhomDao.layDanhSachToNhom();
         DefaultPieDataset barDataset = new DefaultPieDataset();
         toNhomList.forEach(e -> {
-            barDataset.setValue(e.getTenToNhom(), new Double(e.getSoLuongCongNhan()));
+//            barDataset.setValue(e.getTenToNhom(), new Double(e.getSoLuongCongNhan()));
+            barDataset.setValue(e.getTenToNhom(), new BigDecimal(e.getSoLuongCongNhan()));
         });
         FileInputStream fis = new FileInputStream(fileName);
         Properties prop = new Properties();
@@ -180,21 +172,9 @@ public class ThongKeCongNhanView extends javax.swing.JPanel {
                         tongLuong += e.getTongLuong();
                     }
                 }
-                dataset.setValue(tongLuong, "Amount", i + "");
+                dataset.setValue(new BigDecimal(tongLuong), "Amount", i + "");
             }
         }
-//        dataset.setValue(200, "Amount", "1");
-//        dataset.setValue(150, "Amount", "2");
-//        dataset.setValue(18, "Amount", "3");
-//        dataset.setValue(100, "Amount", "4");
-//        dataset.setValue(80, "Amount", "5");
-//        dataset.setValue(250, "Amount", "6");
-//        dataset.setValue(250, "Amount", "7");
-//        dataset.setValue(250, "Amount", "8");
-//        dataset.setValue(250, "Amount", "9");
-//        dataset.setValue(250, "Amount", "10");
-//        dataset.setValue(250, "Amount", "11");
-//        dataset.setValue(250, "Amount", "12");
 
         FileInputStream fis = new FileInputStream(fileName);
         Properties prop = new Properties();

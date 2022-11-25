@@ -48,9 +48,10 @@ public class BangLuongCongNhan_DAO {
                 int soPhepNghi = rs.getInt("soPhepNghi");
                 double tongLuong = rs.getBigDecimal("tongLuong").doubleValue();
                 String donViTien = rs.getString("donViTien");
+                String luongTheoThang = rs.getString("luongTheoThang");
                 CongNhan congNhan = congNhan_DAO.layMotCongNhanTheoMa(maCongNhan);
                 dsBangLuongCongNhan.add(new BangLuongCongNhan(maBangLuong, congNhan,
-                        soLuongSanPhamLam, soNgayDiLam, soNgayNghi, soPhepNghi, ngayTinh, tongLuong, donViTien));
+                        soLuongSanPhamLam, soNgayDiLam, soNgayNghi, soPhepNghi, ngayTinh, tongLuong, donViTien, luongTheoThang));
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -85,9 +86,10 @@ public class BangLuongCongNhan_DAO {
                 int soPhepNghi = rs.getInt("soPhepNghi");
                 double tongLuong = rs.getBigDecimal("tongLuong").doubleValue();
                 String donViTien = rs.getString("donViTien");
+                 String luongTheoThang = rs.getString("luongTheoThang");
                 CongNhan congNhan = congNhan_DAO.layMotCongNhanTheoMa(maCongNhanOb);
                 dsBangLuong.add(new BangLuongCongNhan(maBangLuong, congNhan,
-                        soLuongSanPhamLam, soNgayDiLam, soNgayNghi, soPhepNghi, ngayTinh, tongLuong, donViTien));
+                        soLuongSanPhamLam, soNgayDiLam, soNgayNghi, soPhepNghi, ngayTinh, tongLuong, donViTien, luongTheoThang));
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -122,9 +124,10 @@ public class BangLuongCongNhan_DAO {
                 int soPhepNghi = rs.getInt("soPhepNghi");
                 double tongLuong = rs.getBigDecimal("tongLuong").doubleValue();
                 String donViTien = rs.getString("donViTien");
+                 String luongTheoThang = rs.getString("luongTheoThang");
                 CongNhan congNhan = congNhan_DAO.layMotCongNhanTheoMa(maCongNhan);
                 bangLuongCongNhan = new BangLuongCongNhan(maBangLuongOB, congNhan,
-                        soLuongSanPhamLam, soNgayDiLam, soNgayNghi, soPhepNghi, ngayTinh, tongLuong, donViTien);
+                        soLuongSanPhamLam, soNgayDiLam, soNgayNghi, soPhepNghi, ngayTinh, tongLuong, donViTien, luongTheoThang);
 
             }
         } catch (Exception e) {
@@ -146,8 +149,8 @@ public class BangLuongCongNhan_DAO {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
             String truyVan = "INSERT INTO BangLuongCongNhan(maBangLuong, maCongNhan, ngayTinh"
-                    + ", soLuongSanPhamLam, soNgayDiLam, soNgayNghi, soPhepNghi, tongLuong, donViTien)"
-                    + " VALUES (?, ?, ?, ?, ?, ? ,? ,? ,?)";
+                    + ", soLuongSanPhamLam, soNgayDiLam, soNgayNghi, soPhepNghi, tongLuong, donViTien, luongTheoThang)"
+                    + " VALUES (?, ?, ?, ?, ?, ? ,? ,? ,?, ?)";
             stm = con.prepareStatement(truyVan);
             stm.setString(1, bangLuongCongNhan.getMaBangLuong());
             stm.setString(2, bangLuongCongNhan.getCongNhan().getMaCongNhan());
@@ -158,6 +161,7 @@ public class BangLuongCongNhan_DAO {
             stm.setInt(7, bangLuongCongNhan.getSoPhepNghi());
             stm.setBigDecimal(8, new BigDecimal(bangLuongCongNhan.getTongLuong()));
             stm.setString(9, bangLuongCongNhan.getDonViTien());
+            stm.setString(10, bangLuongCongNhan.getLuongTheoThang());
             soDongThemDuoc = stm.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -181,7 +185,7 @@ public class BangLuongCongNhan_DAO {
                     + " set maCongNhan = ?, ngayTinh = ?,"
                     + " soLuongSanPhamLam = ?, soNgayDiLam = ?,"
                     + " soNgayNghi = ?, soPhepNghi = ?,"
-                    + " tongLuong = ?, donViTien = ?"
+                    + " tongLuong = ?, donViTien = ?, luongTheoThang = ?"
                     + " where maBangLuong = ?";
             stm = con.prepareStatement(truyVan);
             stm.setString(1, bangLuongCongNhan.getCongNhan().getMaCongNhan());
@@ -192,7 +196,9 @@ public class BangLuongCongNhan_DAO {
             stm.setInt(6, bangLuongCongNhan.getSoPhepNghi());
             stm.setBigDecimal(7, new BigDecimal(bangLuongCongNhan.getTongLuong()));
             stm.setString(8, bangLuongCongNhan.getDonViTien());
-            stm.setString(9, bangLuongCongNhan.getMaBangLuong());
+            stm.setString(9, bangLuongCongNhan.getLuongTheoThang());
+            stm.setString(10, bangLuongCongNhan.getMaBangLuong());
+            
             soDongSuaDuoc = stm.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -238,7 +244,7 @@ public class BangLuongCongNhan_DAO {
             Connection con = ConnectDB.getConnection();
             String truyVan = "select CN.maCongNhan from ChamCongCongNhan CCCN JOIN PhanCongCongNhan PCCC on CCCN.maPhanCong = PCCC.maPhanCong"
                     + " join CongNhan CN on CN.maCongNhan = PCCC.maCongNhan"
-                    + " where MONTH(ngayChamCong) = ? and year(ngayChamCong) = ?";
+                    + " where MONTH(ngayChamCong) = ? and year(ngayChamCong) = ? group by CN.maCongNhan";
             stm = con.prepareStatement(truyVan);
             stm.setInt(1, thang);
             stm.setInt(2, nam);
@@ -429,6 +435,7 @@ public class BangLuongCongNhan_DAO {
 
     public boolean tinhLuongCongNhan(int thang, int nam) {
         ArrayList<CongNhan> dsCongNhanDiLamTrongThang = layDanhSachCongNhanLamTrongThang(thang, nam);
+        CongNhan_DAO congNhan_DAO = new CongNhan_DAO();
         boolean flag = false;
         for (CongNhan congNhan : dsCongNhanDiLamTrongThang) {
             double tongLuong = layRaTongTienTheoMaCongNhan(congNhan.getMaCongNhan(), thang, nam);
@@ -438,7 +445,11 @@ public class BangLuongCongNhan_DAO {
             int soLuongSanPhamLam = layRaTongSoLuongSPLam(congNhan.getMaCongNhan(), thang, nam);
 
             flag = themMotBangLuong(new BangLuongCongNhan(layRaMotMaBangLuongDeThem(), congNhan, soLuongSanPhamLam,
-                    soNgayDiLam, soNgayNghi, soPhepNghi, new Date(), tongLuong, "VND"));
+                    soNgayDiLam, soNgayNghi, soPhepNghi, new Date(), tongLuong, "VND", thang+"-"+nam));
+        }
+        ArrayList<CongNhan> dsCongNhanKhongDuocChamCong = congNhan_DAO.layDanhSachCongNhanKhongDiLamTrongThang(thang, nam);
+        for (CongNhan congNhan : dsCongNhanKhongDuocChamCong){
+            flag = themMotBangLuong(new BangLuongCongNhan(layRaMotMaBangLuongDeThem(), congNhan, 0, 0, 0, 0, new Date(), 0, "VND", thang+"-"+nam));
         }
         return flag;
     }
@@ -527,9 +538,10 @@ public class BangLuongCongNhan_DAO {
                 int soPhepNghi = rs.getInt("soPhepNghi");
                 double tongLuong = rs.getBigDecimal("tongLuong").doubleValue();
                 String donViTien = rs.getString("donViTien");
+                String luongTheoThang = rs.getString("luongTheoThang");
                 CongNhan congNhan = congNhan_DAO.layMotCongNhanTheoMa(maCongNhanOb);
                 dsBangLuong.add(new BangLuongCongNhan(maBangLuong, congNhan,
-                        soLuongSanPhamLam, soNgayDiLam, soNgayNghi, soPhepNghi, ngayTinh, tongLuong, donViTien));
+                        soLuongSanPhamLam, soNgayDiLam, soNgayNghi, soPhepNghi, ngayTinh, tongLuong, donViTien, luongTheoThang));
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -556,20 +568,20 @@ public class BangLuongCongNhan_DAO {
             // TODO: handle exception
             System.out.println(e);
         }
-        BangLuongCongNhan_DAO dao = new BangLuongCongNhan_DAO();
-        System.out.println("Thêm một: "
-                + dao.themMotBangLuong(new BangLuongCongNhan("LC111111", new CongNhan("CN123123", "Nguyễn Văn Vũ",
-                        java.sql.Date.valueOf(LocalDate.of(2000, 11, 11)), "111222333444", "0975123123", "hieurio12@gmail.com",
-                        "123123", java.sql.Date.valueOf(LocalDate.of(1999, 12, 12)), false, "anhDaiDien1.png", "Yên bái", new ToNhom("TN123123", "1", 0)), 123,
-                        22, 12, 2, new Date(), 123121, "VND")));
-        System.out.println(dao.layDanhSachBangLuongCongNhan());
-        System.err.println("Sửa:" + dao.suaMotBangLuongCongNhan(new BangLuongCongNhan("LC111111", new CongNhan("CN123123", "Nguyễn Văn Vũ",
-                java.sql.Date.valueOf(LocalDate.of(2000, 11, 11)), "111222333444", "0975123123", "hieurio12@gmail.com",
-                "123123", java.sql.Date.valueOf(LocalDate.of(1999, 12, 12)), false, "anhDaiDien1.png", "Yên bái", new ToNhom("TN123123", "1", 0)), 123,
-                22, 12, 2, new Date(), 123121, "VND")));
-        System.out.println("Xóa: " + dao.xoaBangLuongCongNhanTheoMa("LC111111"));
-        System.out.println(dao.layDanhSachBangLuongCongNhan());
-        System.out.println("\n\nLay mot: " + dao.layMotBangLuongCongNhanTheoMa("LC123123"));
-        System.out.println(dao.layRaMotMaBangLuongDeThem());
+//        BangLuongCongNhan_DAO dao = new BangLuongCongNhan_DAO();
+//        System.out.println("Thêm một: "
+//                + dao.themMotBangLuong(new BangLuongCongNhan("LC111111", new CongNhan("CN123123", "Nguyễn Văn Vũ",
+//                        java.sql.Date.valueOf(LocalDate.of(2000, 11, 11)), "111222333444", "0975123123", "hieurio12@gmail.com",
+//                        "123123", java.sql.Date.valueOf(LocalDate.of(1999, 12, 12)), false, "anhDaiDien1.png", "Yên bái", new ToNhom("TN123123", "1", 0)), 123,
+//                        22, 12, 2, new Date(), 123121, "VND")));
+//        System.out.println(dao.layDanhSachBangLuongCongNhan());
+//        System.err.println("Sửa:" + dao.suaMotBangLuongCongNhan(new BangLuongCongNhan("LC111111", new CongNhan("CN123123", "Nguyễn Văn Vũ",
+//                java.sql.Date.valueOf(LocalDate.of(2000, 11, 11)), "111222333444", "0975123123", "hieurio12@gmail.com",
+//                "123123", java.sql.Date.valueOf(LocalDate.of(1999, 12, 12)), false, "anhDaiDien1.png", "Yên bái", new ToNhom("TN123123", "1", 0)), 123,
+//                22, 12, 2, new Date(), 123121, "VND")));
+//        System.out.println("Xóa: " + dao.xoaBangLuongCongNhanTheoMa("LC111111"));
+//        System.out.println(dao.layDanhSachBangLuongCongNhan());
+//        System.out.println("\n\nLay mot: " + dao.layMotBangLuongCongNhanTheoMa("LC123123"));
+//        System.out.println(dao.layRaMotMaBangLuongDeThem());
     }
 }

@@ -1,6 +1,6 @@
 --drop database THTV_SHOES
-drop  DATABASE THTV_SHOES
--- Tạo database 
+drop DATABASE THTV_SHOES
+-- Tạo database CREATE DATABASE THTV_SHOES
 CREATE DATABASE THTV_SHOES
 GO
 USE THTV_SHOES
@@ -8,7 +8,7 @@ GO
 CREATE TABLE ToNhom
 (
 	maToNhom char(8) COLLATE SQL_Latin1_General_CP1_CS_AS primary key,
-	tenTo nvarchar(50) not null,
+	tenTo nvarchar(50) not null unique,
 	soLuongCongNhan int default 0,
 	constraint CHK_ToNhom_maToNhom_dinhDang check (maToNhom like 'TN[1-9][0-9][0-9][0-9][0-9][0-9]') -- Gồm 8 kí tự bắt đầu bằng TN 6 kí tự sau là số từ 0-9 riêng số đầu tiên bắt đầu bằng 1
 )
@@ -24,7 +24,7 @@ CREATE TABLE CongNhan
 	hoTen nvarchar(50) COLLATE SQL_Latin1_General_CP1_CS_AS not null,
 	ngaySinh date not null,
 	maCCCD char(12) not null,
-	soDienThoai char(10) not null,
+	soDienThoai char(12) not null,
 	email varchar(100) not null,
 	matKhau varchar(30) not null,
 	gioiTinh bit,
@@ -38,11 +38,9 @@ CREATE TABLE CongNhan
 	constraint CHK_CongNhan_ngaySinh_tu18Tuoi check ((DATEDIFF(DD, ngaySinh, getDate()) / 365.25) >= 18), -- tuổi phải từ >= 18 trở lên
 	constraint CHK_CongNhan_cccd_du12KiTu check (len(maCCCD) = 12), -- ma cccd đúng 12 kí tự
 	constraint CHK_CongNhan_cccd_tatCaLaSo  check (maCCCD like '%[0-9]%'), -- mã cccd phải là kí tự số
-	constraint CHK_CongNhan_soDienThoai_hienNhien check (len(soDienThoai) = 10), -- số điện thoại phải 10 chữ só
-	constraint CHK_CongNhan_soDienThoai_tatCaLaSo check (soDienThoai like '%[0-9]%'), -- số điện thoại chỉ chứa kí tự số
-	constraint CHK_CongNhan_soDienThoai_batDauLa0 check ( (substring(soDienThoai, 1, 1)) like '0'), -- số điện thoại bắt đầu bằng 0
+	constraint CHK_CongDoan_soDienThoai_doDai check(len(soDienThoai) = 12), -- gồm 12 kí tự
+	constraint CHK_CongNhan_soDienThoai_batDauLa0 check ( soDienThoai like '+84%'), -- số điện thoại bắt đầu bằng 0
 	constraint CHK_CongNhan_matKhau_itNhat6KiTu check (len(matKhau) >= 6), -- mật khẩu phải từ 6 kí tự trở lên
-	constraint CHK_CongNhan_ngayVoaLam_sauHienTai check (ngayVaoLam <= getDate()) -- ngày vào làm phải trước hoặc bằng ngày hiện tại
 )
 GO
  CREATE TRIGGER capNhatSoLuongCongNhan on CongNhan
@@ -67,34 +65,37 @@ GO
 GO
 
 INSERT CongNhan
-VALUES ('CN100001', N'Nguyễn Văn Hiếu', '2000-12-10', '111122223333', '0975654628', 'hieurio12@gmail.com', '111111', 1, 'male.png', N'Nghệ An', '2022-03-03', 'TN100001')
+VALUES ('CN100001', N'Nguyễn Văn Hiếu', '2000-12-10', '111122223333', '+84975654628', 'hieurio12@gmail.com', '111111', 1, 'male.png', N'Nghệ An', '2022-03-03', 'TN100001')
 GO
 INSERT CongNhan
-VALUES ('CN100002', N'Nguyễn Văn Hậu', '1998-12-10', '111122224444', '0975654622', 'haunguyen@gmail.com', '111111', 1, 'male.png', N'Quãng Ninh', '2022-03-03', 'TN100002')
+VALUES ('CN100002', N'Nguyễn Văn Hậu', '1998-12-10', '111122224444', '+84975654622', 'haunguyen@gmail.com', '111111', 1, 'male.png', N'Quãng Ninh', '2022-03-03', 'TN100002')
 GO
 INSERT CongNhan
-VALUES ('CN100003', N'Nguyễn Thị Hà', '2002-01-01', '222233334444', '0975654623', 'nguyenha@gmail.com', '111111', 0, 'female.png', N'Quãng Bình', '2022-04-01', 'TN100003')
+VALUES ('CN100003', N'Nguyễn Thị Hà', '2002-01-01', '222233334444', '+84975654623', 'nguyenha@gmail.com', '111111', 0, 'female.png', N'Quãng Bình', '2022-04-01', 'TN100003')
 GO
 INSERT CongNhan
-VALUES ('CN100004', N'Phan Văn Đức', '2001-12-10', '333322221111', '0975222622', 'duckot37@gmail.com', '111111', 1, 'male.png', N'Đồng Tháp', '2022-03-02', 'TN100004')
+VALUES ('CN100004', N'Phan Văn Đức', '2001-12-10', '333322221111', '+84975222622', 'duckot37@gmail.com', '111111', 1, 'male.png', N'Đồng Tháp', '2022-03-02', 'TN100004')
 GO
 INSERT CongNhan
-VALUES ('CN100005', N'Nguyễn Xuân Mạnh', '1990-10-10', '555533332222', '0363121424', 'xuanmanhnguyen@gmail.com', '111111', 1, 'male.png', N'Vĩnh Long', '2022-04-10', 'TN100005')
+VALUES ('CN100005', N'Nguyễn Xuân Mạnh', '1990-10-10', '555533332222', '+84363121424', 'xuanmanhnguyen@gmail.com', '111111', 1, 'male.png', N'Vĩnh Long', '2022-04-10', 'TN100005')
 GO
 INSERT CongNhan
-VALUES ('CN100006', N'Trần Ngọc Hoài', '2001-12-10', '222122231111', '0363214224', 'hoaiflower@gmail.com', '111111', 0, 'female.png', N'Hà Tĩnh', '2022-02-05', 'TN100005')
+VALUES ('CN100006', N'Trần Ngọc Hoài', '2001-12-10', '222122231111', '+84363214224', 'hoaiflower@gmail.com', '111111', 0, 'female.png', N'Hà Tĩnh', '2022-02-05', 'TN100005')
 GO
 INSERT CongNhan
-VALUES ('CN100007', N'Lê Hoài Vũ', '1996-06-10', '231223134444', '0363233924', 'vukhongvu@gmail.com', '111111', 1, 'male.png', N'Hà Nội', '2022-01-01', 'TN100004')
+VALUES ('CN100007', N'Lê Hoài Vũ', '1996-06-10', '231223134444', '+84363233924', 'vukhongvu@gmail.com', '111111', 1, 'male.png', N'Hà Nội', '2022-01-01', 'TN100004')
 GO
 INSERT CongNhan
-VALUES ('CN100008', N'Nguyễn Đình Dũng', '1992-12-10', '111132321212', '0363213435', 'dinhdungsoccer@gmail.com', '111111', 1, 'male.png', N'Thái Bình', '2022-03-03', 'TN100003')
+VALUES ('CN100008', N'Nguyễn Đình Dũng', '1992-12-10', '111132321212', '+84363213435', 'dinhdungsoccer@gmail.com', '111111', 1, 'male.png', N'Thái Bình', '2022-03-03', 'TN100003')
 GO
 INSERT CongNhan
-VALUES ('CN100009', N'Nguyễn Quang Hải', '1990-03-09', '299966653332', '0974262444', 'haileague2@gmail.com', '111111', 1, 'male.png', N'Hà Nội', '2022-03-02', 'TN100002')
+VALUES ('CN100009', N'Nguyễn Quang Hải', '1990-03-09', '299966653332', '+84974262444', 'haileague2@gmail.com', '111111', 1, 'male.png', N'Hà Nội', '2022-03-02', 'TN100002')
 GO
 INSERT CongNhan
-VALUES ('CN100010', N'Nguyễn Tiến Linh', '1993-02-10', '222122231111', '0363244224', 'tienwood@gmail.com', '111111', 1, 'male.png', N'Hà Giang', '2022-06-03', 'TN100001')
+VALUES ('CN100010', N'Nguyễn Tiến Linh', '1993-02-10', '222122231111', '+84363244224', 'tienwood@gmail.com', '111111', 1, 'male.png', N'Hà Giang', '2022-06-03', 'TN100001')
+GO
+INSERT CongNhan
+VALUES ('CN100011', N'Nguyễn Tiến Minh', '1991-03-10', '222122231114', '+84363244222', 'minhcui@gmail.com', '111111', 1, 'male.png', N'Hà Giang', '2022-04-03', 'TN100009')
 GO
 CREATE table BangLuongCongNhan 
 (
@@ -107,6 +108,7 @@ CREATE table BangLuongCongNhan
 	soPhepNghi int not null,
 	tongLuong money,
 	donViTien nvarchar(50),
+	luongTheoThang nvarchar(50),
 	constraint CHK_BangLuongCongNhan_maBangLuong_dinhDang check (maBangLuong like 'LC[1-9][0-9][0-9][0-9][0-9][0-9]'), -- Gồm 8 kí tự bắt đầu bằng CN 6 kí tự sau là số từ 0-9 riêng số đầu tiên bắt đầu bằng 1
 	constraint CHK_BangLuongCongNhan_soLuongSanPhamLam_hienNhien check (soLuongSanPhamLam >= 0), -- số lượng sản phẩm làm được phải >= 0
 	constraint CHK_BangLuongCongNhan_soNgayDiLam_hienNhien check (soNgayDiLam >= 0), -- số ngày đi làm phải >= 0
@@ -117,32 +119,32 @@ CREATE table BangLuongCongNhan
 )
 GO
 INSERT BangLuongCongNhan
-VALUES ('LC100001', 'CN100001', '2022-05-05', 221, 25, 5, 4, 6132312, 'vnd'),
-('LC100002', 'CN100002', '2022-05-05', 321, 23, 7, 4, 9132312, 'vnd'),
-('LC100003', 'CN100003', '2022-05-05', 119, 24, 6, 1, 12132312, 'vnd'),
-('LC100004', 'CN100004', '2022-05-05', 23, 26, 4, 2, 16138312, 'vnd'),
-('LC100005', 'CN100005', '2022-05-05', 32, 26, 4, 0, 21312122, 'vnd'),
-('LC100006', 'CN100006', '2022-05-05', 21, 26, 4, 0, 23123123, 'vnd'),
-('LC100007', 'CN100007', '2022-05-05', 33, 19, 11, 1, 21121234, 'vnd'),
-('LC100008', 'CN100008', '2022-05-05', 123, 24, 6, 0, 12314545, 'vnd'),
-('LC100009', 'CN100009', '2022-05-05', 431, 25, 5, 0, 32123124, 'vnd'),
-('LC100010', 'CN100001', '2022-05-05', 89, 21, 9, 1, 7876889, 'vnd'),
-('LC100011', 'CN100002', '2022-09-10', 321, 15, 15, 5, 3331234, 'vnd'),
-('LC100012', 'CN100003', '2022-09-10', 16, 16, 14, 4, 4353451, 'vnd'),
-('LC100013', 'CN100004', '2022-09-10', 45, 21, 9, 0, 15124312, 'vnd'),
-('LC100014', 'CN100005', '2022-09-10', 65, 21, 9, 2, 12354321, 'vnd'),
-('LC100015', 'CN100006', '2022-09-10', 213, 25, 5, 2, 12315431, 'vnd'),
-('LC100016', 'CN100007', '2022-09-10', 54, 23, 7, 1, 43534511, 'vnd'),
-('LC100017', 'CN100008', '2022-09-10', 55, 23, 7, 4, 45643413, 'vnd'),
-('LC100018', 'CN100008', '2022-09-10', 77, 24, 7, 2, 12315831, 'vnd'),
-('LC100019', 'CN100009', '2022-09-10', 44, 25, 6, 1, 12431235, 'vnd'),
-('LC100020', 'CN100010', '2022-09-10', 83, 27, 3, 1, 21243123, 'vnd')
+VALUES ('LC100001', 'CN100001', '2022-05-05', 221, 25, 5, 4, 6132312, 'vnd', '05-2022'),
+('LC100002', 'CN100002', '2022-05-05', 321, 23, 7, 4, 9132312, 'vnd', '05-2022'),
+('LC100003', 'CN100003', '2022-05-05', 119, 24, 6, 1, 12132312, 'vnd', '05-2022'),
+('LC100004', 'CN100004', '2022-05-05', 23, 26, 4, 2, 16138312, 'vnd', '05-2022'),
+('LC100005', 'CN100005', '2022-05-05', 32, 26, 4, 0, 21312122, 'vnd', '05-2022'),
+('LC100006', 'CN100006', '2022-05-05', 21, 26, 4, 0, 23123123, 'vnd', '05-2022'),
+('LC100007', 'CN100007', '2022-05-05', 33, 19, 11, 1, 21121234, 'vnd', '05-2022'),
+('LC100008', 'CN100008', '2022-05-05', 123, 24, 6, 0, 12314545, 'vnd', '05-2022'),
+('LC100009', 'CN100009', '2022-05-05', 431, 25, 5, 0, 32123124, 'vnd', '05-2022'),
+('LC100010', 'CN100001', '2022-05-05', 89, 21, 9, 1, 7876889, 'vnd', '05-2022'),
+('LC100011', 'CN100002', '2022-09-10', 321, 15, 15, 5, 3331234, 'vnd', '09-2022'),
+('LC100012', 'CN100003', '2022-09-10', 16, 16, 14, 4, 4353451, 'vnd', '09-2022'),
+('LC100013', 'CN100004', '2022-09-10', 45, 21, 9, 0, 15124312, 'vnd', '09-2022'),
+('LC100014', 'CN100005', '2022-09-10', 65, 21, 9, 2, 12354321, 'vnd', '09-2022'),
+('LC100015', 'CN100006', '2022-09-10', 213, 25, 5, 2, 12315431, 'vnd', '09-2022'),
+('LC100016', 'CN100007', '2022-09-10', 54, 23, 7, 1, 43534511, 'vnd', '09-2022'),
+('LC100017', 'CN100008', '2022-09-10', 55, 23, 7, 4, 45643413, 'vnd', '09-2022'),
+('LC100018', 'CN100008', '2022-09-10', 77, 24, 7, 2, 12315831, 'vnd', '09-2022'),
+('LC100019', 'CN100009', '2022-09-10', 44, 25, 6, 1, 12431235, 'vnd', '09-2022'),
+('LC100020', 'CN100010', '2022-09-10', 83, 27, 3, 1, 21243123, 'vnd', '09-2022')
 
 GO
 CREATE TABLE PhongBan
 (
 	maPhongBan char(8) COLLATE SQL_Latin1_General_CP1_CS_AS primary key,
-	tenPhongBan nvarchar(50) not null,
+	tenPhongBan nvarchar(50) not null unique,
 	soLuongNhanVien int default 0,
 	constraint CHK_PhongBan_maPhongBan_dinhDang check (maPhongBan like 'PB[1-9][0-9][0-9][0-9][0-9][0-9]') -- Gồm 8 kí tự bắt đầu bằng PB 6 kí tự sau là số từ 0-9 riêng số đầu tiên bắt đầu bằng 1
 )
@@ -165,7 +167,7 @@ CREATE TABLE NhanVien
 	hoTen nvarchar(50) COLLATE SQL_Latin1_General_CP1_CS_AS not null,
 	ngaySinh date not null,
 	maCCCD char(12) not null,
-	soDienThoai char(10) not null,
+	soDienThoai char(12) not null,
 	email varchar(100) not null,
 	matKhau varchar(30) not null,
 	chucVu nvarchar(50) not null,
@@ -181,11 +183,9 @@ CREATE TABLE NhanVien
 	constraint CHK_NhanVien_ngaySinh_tu18Tuoi check ((DATEDIFF(DD, ngaySinh, getDate()) / 365.25) >= 18), -- phải từ >= 18 tuổi trở lên
 	constraint CHK_NhanVien_maCCCD_hienNhien check (len(maCCCD) = 12), -- mã cccd phải đúng 12 kí tự
 	constraint CHK_NhanVien_maCCCD_toanSo check (maCCCD like '%[0-9]%'), -- các kí tự của cccd phải là số
-	constraint CHK_NhanVien_soDienThoai_hienNhien check (len(soDienThoai) = 10), -- số điện thoại phải đúng 10 kí tự
-	constraint CHK_NhanVien_soDienThoai_tatCaLaSo check (soDienThoai like '%[0-9]%'), -- số điện thoại chỉ chứa kí tự số
-	constraint CHK_NhanVien_soDienThoai_batDauLa0 check ( (substring(soDienThoai, 1, 1)) like '0'), -- số bắt đầu bằng 0
+	constraint CHK_NhanVien_soDienThoai_doDai check(len(soDienThoai) = 12), -- gồm 12 kí tự
+	constraint CHK_NhanVien_soDienThoai_batDauLa0 check ( soDienThoai like '+84%'), -- số bắt đầu bằng 0
 	constraint CHK_NhanVien_matKhau_itNhat6KiTu check (len(matKhau) >= 6), -- mật khẩu >= 6 kí tự
-	constraint CHK_NhanVien_ngayVaoLam_sauHienTai check (ngayVaoLam <= getDate()), -- ngày vào làm phải trước hoặc bằng ngày hiện tại
 	constraint CHK_NhanVien_luongThoaThuan_hienNhien check (luongThoaThuan >= 0) -- lương thảo thuận phải >= 0
 )
 GO
@@ -212,34 +212,34 @@ as
 
 GO
 INSERT NhanVien 
-values ('NV100001', N'Nguyễn Văn Vũ', '1995-02-02', '222233334444', '0975123123', 'ngvanvu@gmail.com', '111111', N'Quản Lý', '2022-03-03', 4000000, 1, 'male.png', N'Phú Yên', 'PB100001')
+values ('NV100001', N'Nguyễn Văn Vũ', '1995-02-02', '222233334444', '+84975123123', 'ngvanvu@gmail.com', '111111', N'Quản Lý', '2022-03-03', 4000000, 1, 'male.png', N'Phú Yên', 'PB100001')
 GO
 INSERT NhanVien 
-values ('NV100002', N'Nguyễn Văn Toản', '2001-03-02', '111133334444', '0862170471', 'mmccool12@gmail.com', '111111', N'Quản Lý', '2022-03-03', 3600000, 1, 'male.png', N'Cà Mau', 'PB100002')
+values ('NV100002', N'Nguyễn Văn Toản', '2001-03-02', '111133334444', '+84862170471', 'mmccool12@gmail.com', '111111', N'Quản Lý', '2022-03-03', 3600000, 1, 'male.png', N'Cà Mau', 'PB100002')
 GO
 INSERT NhanVien 
-values ('NV100003', N'Chu Hữu Hạnh', '2000-05-01', '213122313124', '0869094448', 'huhuhanhne@gmail.com', '111111', N'Nhân Viên', '2022-03-03', 2233000, 1, 'male.png', N'Vĩnh Phúc', 'PB100003')
+values ('NV100003', N'Chu Hữu Hạnh', '2000-05-01', '213122313124', '+84869094448', 'huhuhanhne@gmail.com', '111111', N'Nhân Viên', '2022-03-03', 2233000, 1, 'male.png', N'Vĩnh Phúc', 'PB100003')
 GO
 INSERT NhanVien 
-values('NV100004', N'Ưng Trường Phúc', '2002-01-01', '312331234123', '0394710588', 'phucnotalone@gmail.com', '111111', N'Nhân Viên', '2022-03-03', 5500000, 1, 'male.png', N'Hội An', 'PB100004')
+values('NV100004', N'Ưng Trường Phúc', '2002-01-01', '312331234123', '+84394710588', 'phucnotalone@gmail.com', '111111', N'Nhân Viên', '2022-03-03', 5500000, 1, 'male.png', N'Hội An', 'PB100004')
 GO
 INSERT NhanVien 
-values ('NV100005', N'Đặng Ngọc Dương', '1999-11-02', '431521413514', '0352162139', 'ngoctrongda@gmail.com', '111111', N'Nhân Viên', '2022-03-03', 3600000, 1, 'male.png', N'Đà Nẵng', 'PB100005')
+values ('NV100005', N'Đặng Ngọc Dương', '1999-11-02', '431521413514', '+84352162139', 'ngoctrongda@gmail.com', '111111', N'Nhân Viên', '2022-03-03', 3600000, 1, 'male.png', N'Đà Nẵng', 'PB100005')
 GO
 INSERT NhanVien 
-values ('NV100006', N'Lê Văn Hảo', '1994-02-01', '425176362421', '0384177886', 'dinhaobro@gmail.com', '111111', N'Quản lý', '2022-03-05', 3600000, 1, 'male.png', N'Cần Thơ', 'PB100001')
+values ('NV100006', N'Lê Văn Hảo', '1994-02-01', '425176362421', '+84384177886', 'dinhaobro@gmail.com', '111111', N'Quản lý', '2022-03-05', 3600000, 1, 'male.png', N'Cần Thơ', 'PB100001')
 GO
 INSERT NhanVien 
-values ('NV100007', N'Tạ Hoàng Lan', '2002-05-05', '312515451312', '0364248488', 'hoanlan@gmail.com', '111111', N'Nhân Viên', '2022-03-06', 2340000, 1, 'male.png', N'Vũng Tàu', 'PB100001')
+values ('NV100007', N'Tạ Hoàng Lan', '2002-05-05', '312515451312', '+84364248488', 'hoanlan@gmail.com', '111111', N'Nhân Viên', '2022-03-06', 2340000, 1, 'male.png', N'Vũng Tàu', 'PB100001')
 GO
 INSERT NhanVien 
-values ('NV100008', N'Lưu Cát Ly', '2001-12-12', '432514313151', '0325230839', 'catlyluu@gmail.com', '111111', N'Nhân Viên', '2022-03-02', 2350000, 0, 'female.png', N'Dak Nông', 'PB100002')
+values ('NV100008', N'Lưu Cát Ly', '2001-12-12', '432514313151', '+84325230839', 'catlyluu@gmail.com', '111111', N'Nhân Viên', '2022-03-02', 2350000, 0, 'female.png', N'Dak Nông', 'PB100002')
 GO
 INSERT NhanVien 
-values ('NV100009', N'Đặng Mộng Vy', '1998-01-02', '231512355141', '0384910990', 'dangmongvi@gmail.com', '111111', N'Nhân Viên', '2022-03-01', 4333222, 0, 'female.png', N'Đồng Tháp', 'PB100003')
+values ('NV100009', N'Đặng Mộng Vy', '1998-01-02', '231512355141', '+84384910990', 'dangmongvi@gmail.com', '111111', N'Nhân Viên', '2022-03-01', 4333222, 0, 'female.png', N'Đồng Tháp', 'PB100003')
 go
 INSERT NhanVien 
-values ('NV100010', N'Lý Tố Quyên', '1998-01-05', '214515571351', '0397872166', 'lytoquyen12@gmail.com', '111111', N'Nhân Viên', '2022-03-01', 3700000, 0, 'female.png', N'Bình Dương', 'PB100001')
+values ('NV100010', N'Lý Tố Quyên', '1998-01-05', '214515571351', '+84397872166', 'lytoquyen12@gmail.com', '111111', N'Nhân Viên', '2022-03-01', 3700000, 0, 'female.png', N'Bình Dương', 'PB100001')
 GO
 CREATE TABLE BangLuongNhanVien
 (
@@ -249,6 +249,7 @@ CREATE TABLE BangLuongNhanVien
 	soNgayNghi int not null,
 	soPhepNghi int not null,
 	ngayTinh date not null,
+	luongTheoThang NVARCHAR(50),
 	tongTien money,
 	donViTien nvarchar(50),
 	constraint CHK_BangLuongNhanVien_maBangLuong_dinhDang check (maBangLuong like 'LN[1-9][0-9][0-9][0-9][0-9][0-9]'),  -- Gồm 8 kí tự bắt đầu bằng LN 6 kí tự sau là số từ 0-9 riêng số đầu tiên bắt đầu bằng 1
@@ -259,27 +260,7 @@ CREATE TABLE BangLuongNhanVien
 	constraint CHK_BangLuongNhanVien_donViTien_hienNhien check (donViTien in ('VND', 'vnd', 'USD', 'usd')) -- chỉ chấp nhận dạng tiền usd, vnd
 )
 GO
-INSERT BangLuongNhanVien
-values ('LN100001', 'NV100001', 27, 0, 0, '2022-10-11', 7000000, 'VND'),
-('LN100002', 'NV100002', 25, 2, 0, '2022-10-11', 6000000, 'VND'),
-('LN100003', 'NV100003', 23, 4, 0, '2022-10-11', 5500000, 'VND'),
-('LN100004', 'NV100004', 26, 1, 1, '2022-10-11', 6300000, 'VND'),
-('LN100005', 'NV100005', 27, 0, 0, '2022-10-11', 7000000, 'VND'),
-('LN100006', 'NV100006', 27, 0, 0, '2022-10-11', 7000000, 'VND'),
-('LN100007', 'NV100007', 27, 0, 0, '2022-10-11', 7000000, 'VND'),
-('LN100008', 'NV100008', 27, 0, 0, '2022-10-11', 7000000, 'VND'),
-('LN100009', 'NV100009', 27, 0, 0, '2022-10-11', 7000000, 'VND'),
-('LN100010', 'NV100010', 27, 0, 0, '2022-10-11', 7000000, 'VND'),
-('LN100011', 'NV100001', 27, 0, 0, '2022-09-10', 7000000, 'VND'),
-('LN100012', 'NV100002', 27, 0, 0, '2022-09-10', 7000000, 'VND'),
-('LN100013', 'NV100003', 24, 3, 1, '2022-09-10', 6000000, 'VND'),
-('LN100014', 'NV100004', 27, 0, 0, '2022-09-10', 7000000, 'VND'),
-('LN100015', 'NV100005', 23, 4, 0, '2022-09-10', 5400000, 'VND'),
-('LN100016', 'NV100006', 27, 0, 0, '2022-09-10', 7000000, 'VND'),
-('LN100017', 'NV100007', 27, 0, 0, '2022-09-10', 7000000, 'VND'),
-('LN100018', 'NV100008', 22, 5, 3, '2022-09-10', 4900000, 'VND'),
-('LN100019', 'NV100009', 27, 0, 0, '2022-09-10', 7000000, 'VND'),
-('LN100020', 'NV100010', 21, 6, 3, '2022-09-10', 4500000, 'VND')
+
 GO
 CREATE TABLE ChamCongNhanVien
 (
@@ -293,32 +274,40 @@ CREATE TABLE ChamCongNhanVien
 GO
 	alter table ChamCongNhanVien add primary key(maNhanVien, caLam, ngayChamCong)
 GO
-INSERT ChamCongNhanVien
-VALUES ('NV100001', N'Sáng' , '2022-11-02',  N'Đi Làm', '8h00', 'NV100002'),
-('NV100002', N'Đêm', '2022-11-02',  N'Đi Trễ', '8h30', 'NV100002'),
-('NV100003', N'Chiều', '2022-11-02', N'Nghỉ Có Phép', '', 'NV100002'),
-('NV100004', N'Chiều', '2022-11-02', N'Nghỉ Không Phép', '', 'NV100002'),
-('NV100005', N'Chiều', '2022-11-02', N'Đi Làm', '8h00', 'NV100001'),
-('NV100006', N'Sáng', '2022-11-02', N'Đi Làm', '8h00', 'NV100001'),
-('NV100007', N'Sáng' , '2022-11-02', N'Đi Làm', '8h00',  'NV100001'),
-('NV100008', N'Chiều' , '2022-11-02', N'Nghỉ Có Phép', '',  'NV100001'),
-('NV100009', N'Đêm', '2022-11-02',  N'Nghỉ Có Phép', '',  'NV100002'),
-('NV100010', N'Chiều', '2022-11-02', N'Đi Làm', '8h00',  'NV100002'),
-('NV100001', N'Sáng' , '2022-11-01',  N'Đi Làm', '8h00', 'NV100002'),
-('NV100002', N'Đêm', '2022-11-01',  N'Đi Làm', '8h30', 'NV100002'),
-('NV100003', N'Chiều', '2022-11-01', N'Đi Làm', '', 'NV100002'),
-('NV100004', N'Chiều', '2022-11-01', N'Đi Làm', '', 'NV100002'),
-('NV100005', N'Chiều', '2022-11-01', N'Đi Làm', '8h00', 'NV100001'),
-('NV100006', N'Sáng', '2022-11-01', N'Đi Làm', '8h00', 'NV100001'),
-('NV100007', N'Sáng' , '2022-11-01', N'Đi Làm', '8h00',  'NV100001'),
-('NV100008', N'Chiều' , '2022-11-01', N'Đi Làm', '',  'NV100001'),
-('NV100009', N'Đêm', '2022-11-01',  N'Đi Làm', '',  'NV100002'),
-('NV100010', N'Chiều', '2022-11-01', N'Đi Làm', '8h00',  'NV100002')
+CREATE TABLE HopDong
+(
+	maHopDong char(8) COLLATE SQL_Latin1_General_CP1_CS_AS primary key,
+	tenHopDong nvarchar(100) not null,
+	tenKhachHang nvarchar(50) not null,
+	soTienCoc money not null,
+	tongTien money not null,
+	ngayKyKet date not null, 
+	hanChot date not null,
+	yeuCau nvarchar(1000),
+	constraint CHK_HopDong_maHopDong_dingDang check (maHopDong like 'HD[1-9][0-9][0-9][0-9][0-9][0-9]'),
+	constraint CHK_HopDong_tienCoc_hienNhien check (soTienCoc > 0),
+	constraint CHK_HopDong_tongTien_hienNhien check (tongTien > 0)
+)
+GO
+INSERT HopDong
+values 
+('HD100001', N'Hợp đồng gia công Adidas quý 1 2022', 'Adidas', 120000000, 1200000000, '2022-01-01', '2022-12-12', N'3 sản phẩm là: Adidas Yeezy 350 size: 44, chất liệu nilon, số lượng 500; Adidas Prophere size: 39 số lượng: 1400, chất liệu: vải nỉ; Adidas NMD R1 size: vải cotton, size: 41, số lượng 390'),
+('HD100002', N'Hợp đồng sản xuất Adidas quý 4 2022', 'Nike', 100000000, 1000000000, '2022-10-01', '2022-12-29', N'2 sản phầm là: Nike Air Jordan 1 Dior size: 42, chất liệu: cottonm, số lượng 670; Nike Sb Dunk size: 47, chất liệu: vải kate, số lượng 644'),
+('HD100003', N'Hợp đồng sản xuất Puma quý 3 2022', 'Puma', 50000000, 500000000, '2022-09-10', '2023-01-01', N'3 sản phẩm là: Puma Suede Classic size: 40, chất liệu vãi jeans, số lượng 1000; Vans Authentic size: 38, chất liệu: vãi len số lượng 1010; Louis Vuitton Archlight size: 41, vãi cotton, số lượng: 121'),
+('HD100004', N'Hợp đồng sản xuất Balen quý 3 2022', 'Balenciaga', 300000000, 3000000000, '2022-09-01', '2023-04-10', N'2 sản phẩm là: MLB Boston Red Sox size: 41, chất liệu vãi cotton, số lượng 1000; Gucci Chunky size: 44, Vải 210D, số lượng 400'),
+('HD100005', N'Hợp đồng sản xuất Converse quý 3 2022', 'Converse', 15000000, 150000000, '2022-09-01', '2023-04-10', N'2 sản phẩm là: MLB Boston Red Sox size: 41, chất liệu vãi cotton, số lượng 1000; Gucci Chunky size: 44, Vải 210D, số lượng 400'),
+('HD100006', N'Hợp đồng sản xuất Balen quý 1 2022', 'New Balance', 50000000, 500000000, '2022-09-01', '2023-04-10', N'2 sản phẩm là: MLB Boston Red Sox size: 41, chất liệu vãi cotton, số lượng 1000; Gucci Chunky size: 44, Vải 210D, số lượng 400'),
+('HD100007', N'Hợp đồng sản xuất Fila quý 3 2022', 'Fila', 120000000, 1200000000, '2022-09-01', '2023-04-10', N'2 sản phẩm là: MLB Boston Red Sox size: 41, chất liệu vãi cotton, số lượng 1000; Gucci Chunky size: 44, Vải 210D, số lượng 400'),
+('HD100008', N'Hợp đồng sản xuất Reebok quý 1', 'Reebok', 300000000, 3000000000, '2022-09-01', '2023-04-10', N'2 sản phẩm là: MLB Boston Red Sox size: 41, chất liệu vãi cotton, số lượng 1000; Gucci Chunky size: 44, Vải 210D, số lượng 400'),
+('HD100009', N'Hợp đồng sản xuất Chris quý 1', 'Christian Louboutin', 100000000, 1000000000, '2022-09-01', '2023-04-10', N'2 sản phẩm là: MLB Boston Red Sox size: 41, chất liệu vãi cotton, số lượng 1000; Gucci Chunky size: 44, Vải 210D, số lượng 400'),
+('HD100010', N'Hợp đồng sản xuất Asics quý 1', 'Asics', 300000000, 3000000000, '2022-09-01', '2023-04-10', N'2 sản phẩm là: MLB Boston Red Sox size: 41, chất liệu vãi cotton, số lượng 1000; Gucci Chunky size: 44, Vải 210D, số lượng 400')
+
 
 GO
 CREATE TABLE SanPham
 (
 	maSanPham char(8) COLLATE SQL_Latin1_General_CP1_CS_AS primary key,
+	maHopDong char(8) COLLATE SQL_Latin1_General_CP1_CS_AS not null references HopDong(maHopDong),
 	tenSanPham nvarchar(50)  COLLATE SQL_Latin1_General_CP1_CS_AS not null,
 	soLuongSanPham int not null, 
 	mauSac nvarchar(50) not null,
@@ -333,38 +322,39 @@ CREATE TABLE SanPham
 
 GO
 INSERT SanPham
-VALUES ('SP100001', N'MLB Boston Red Sox', 1000, N'214, 214, 214', N'Vải cotton', 41, 'icons8-shoes-64(2).png', 0)
+VALUES ('SP100001','HD100004', N'MLB Boston Red Sox', 1000, N'214, 214, 214', N'Vải cotton', 41, 'icons8-shoes-64(2).png', 0)
 GO
 INSERT SanPham
-VALUES ('SP100002', N'Nike Air Jordan 1 Dior', 670, N'250, 0, 0', N'Vải cotton', 42, 'icons8-shoes-64(3).png', 0)
+VALUES ('SP100002', 'HD100002', N'Nike Air Jordan 1 Dior', 670, N'250, 0, 0', N'Vải cotton', 42, 'icons8-shoes-64(3).png', 0)
 GO
 INSERT SanPham
-VALUES ('SP100003', N'Adidas Yeezy 350', 500, N'250, 0, 51', N'Nylon', 44, 'icons8-shoes-64(5).png', 0)
+VALUES ('SP100003', 'HD100001' ,N'Adidas Yeezy 350', 500, N'250, 0, 51', N'Nylon', 44, 'icons8-shoes-64(5).png', 0)
 GO
 INSERT SanPham
-VALUES ('SP100004', N'Gucci Chunky', 400, N'170, 219, 241', N'Vải 210D', 44, 'icons8-shoes-64(2).png', 0)
+VALUES ('SP100004','HD100004', N'Gucci Chunky', 400, N'170, 219, 241', N'Vải 210D', 44, 'icons8-shoes-64(2).png', 0)
 GO
 INSERT SanPham
-VALUES ('SP100005', N'Adidas Prophere', 1400, N'42, 23, 241', N'Vải nỉ', 39, 'icons8-shoes-64(3).png', 0)
+VALUES ('SP100005', 'HD100001', N'Adidas Prophere', 1400, N'42, 23, 241', N'Vải nỉ', 39, 'icons8-shoes-64(3).png', 0)
 GO
 INSERT SanPham
-VALUES ('SP100006', N'Louis Vuitton Archlight', 121, N'42, 111, 11', N'Vải cotton', 41, 'icons8-shoes-64(3).png', 0)
+VALUES ('SP100006','HD100003', N'Louis Vuitton Archlight', 121, N'42, 111, 11', N'Vải cotton', 41, 'icons8-shoes-64(3).png', 0)
 GO
 INSERT SanPham
-VALUES ('SP100007', N'Adidas NMD R1', 390, N'214, 193, 214', N'Vải cotton', 41, 'icons8-shoes-64(2).png', 0)
+VALUES ('SP100007', 'HD100001', N'Adidas NMD R1', 390, N'214, 193, 214', N'Vải cotton', 41, 'icons8-shoes-64(2).png', 0)
 GO
 INSERT SanPham
-VALUES ('SP100008', N'Nike Sb Dunk', 644, N'250, 214, 51', N'Vải kate', 47, 'icons8-shoes-64(3).png', 0)
+VALUES ('SP100008', 'HD100002' , N'Nike Sb Dunk', 644, N'250, 214, 51', N'Vải kate', 47, 'icons8-shoes-64(3).png', 0)
 GO
 INSERT SanPham
-VALUES ('SP100009', N'Vans Authentic', 1010, N'250, 0, 51', N'Vải len', 38, 'icons8-shoes-64(2).png', 0)
+VALUES ('SP100009', 'HD100003', N'Vans Authentic', 1010, N'250, 0, 51', N'Vải len', 38, 'icons8-shoes-64(2).png', 0)
 GO
 INSERT SanPham
-VALUES ('SP100010', N'Puma Suede Classic', 1000, N'200, 214, 214', N'Vải jeans', 40, 'icons8-shoes-64(5).png', 0)
+VALUES ('SP100010', 'HD100003', N'Puma Suede Classic', 1000, N'200, 214, 214', N'Vải jeans', 40, 'icons8-shoes-64(5).png', 0)
 GO
 CREATE TABLE CongDoan
 (
 	maCongDoan char(8) COLLATE SQL_Latin1_General_CP1_CS_AS primary key,
+	thuTu int not null,
 	tenCongDoan nvarchar(50) COLLATE SQL_Latin1_General_CP1_CS_AS not null,
 	soLuongCan int not null,
 	tinhTrang nvarchar(50),
@@ -374,7 +364,8 @@ CREATE TABLE CongDoan
 	constraint CHK_CongDoan_maCongDoan_dinhDang check (maCongDoan like 'CD[1-9][0-9][0-9][0-9][0-9][0-9]'), -- Gồm 8 kí tự bắt đầu bằng CD 6 kí tự sau là số từ 0-9 riêng số đầu tiên bắt đầu bằng 1
 	constraint CHK_CongDoan_soLuongCan_hienNhien check (soLuongCan > 0), -- số lượng cần phải >= 0
 	constraint CHK_CongDoan_thoiHan_hienNhien check (thoiHan > GETDATE()), -- thời hạn phải sau ngày hiện tại
-	constraint CHK_CongDoan_tienLuong_hienNhien check (tienLuong > 0) -- tiền lương phải >= 0
+	constraint CHK_CongDoan_tienLuong_hienNhien check (tienLuong > 0), -- tiền lương phải >= 0
+	constraint CHK_CongDoan_thuThu check (thuTu > 0)
 )
 
 GO
@@ -399,34 +390,64 @@ as
 	end
 GO
 INSERT CongDoan
-VALUES ('CD100001', N'Lên Khuôn', 1000, N'0%', '2022-12-12', 'SP100001', 1231)
+VALUES ('CD100001', 1 ,N'Lên Khuôn', 1000, N'0%', '2022-12-12', 'SP100001', 1231)
 GO
 INSERT CongDoan
-VALUES('CD100002', N'Khâu dập', 1200, N'0%', '2022-12-12', 'SP100001', 1500)
+VALUES('CD100002', 2,N'Khâu dập', 1200, N'0%', '2022-12-12', 'SP100001', 1500)
 GO
 INSERT CongDoan
-VALUES ('CD100003', N'May da', 800, N'0%', '2022-12-12', 'SP100001', 1300)
+VALUES ('CD100003', 3, N'May da', 800, N'0%', '2022-12-12', 'SP100001', 1300)
 GO
 INSERT CongDoan
-VALUES ('CD100004', N'Làm mũi giày', 1300, N'0%', '2022-12-12', 'SP100001', 1313)
+VALUES ('CD100004', 4, N'Làm mũi giày', 1300, N'0%', '2022-12-12', 'SP100001', 1313)
 GO
 INSERT CongDoan
-VALUES ('CD100005', N'Trang trí', 999, N'0%', '2022-12-12', 'SP100001', 1500)
+VALUES ('CD100005', 5, N'Trang trí', 999, N'0%', '2022-12-12', 'SP100001', 1500)
 GO
 INSERT CongDoan
-VALUES ('CD100006', N'Lên Khuôn', 1000, N'0%', '2022-12-12', 'SP100002', 2000)
+VALUES ('CD100006',1, N'Lên Khuôn', 1000, N'0%', '2022-12-12', 'SP100002', 2000)
 GO
 INSERT CongDoan
-VALUES ('CD100007', N'Khâu dập', 900, N'0%', '2022-12-12', 'SP100002', 3300)
+VALUES ('CD100007',2, N'Khâu dập', 900, N'0%', '2022-12-12', 'SP100002', 3300)
 GO
 INSERT CongDoan
-VALUES ('CD100008', N'May da', 990, N'0%', '2022-12-12', 'SP100002', 1122)
+VALUES ('CD100008',3, N'May da', 990, N'0%', '2022-12-12', 'SP100002', 1122)
 GO
 INSERT CongDoan
-VALUES ('CD100009', N'Làm mũi giày', 1000, N'0%', '2022-12-12', 'SP100002', 3123)
+VALUES ('CD100009',4, N'Làm mũi giày', 1000, N'0%', '2022-12-12', 'SP100002', 3123)
 GO
 INSERT CongDoan
-VALUES ('CD100010', N'Trang trí', 1110, N'0%', '2022-12-12', 'SP100002', 1234)
+VALUES ('CD100010',1, N'Trang trí', 1110, N'0%', '2022-12-12', 'SP100003', 1234)
+GO
+INSERT CongDoan
+VALUES ('CD100011',2, N'Lên Khuôn', 1000, N'0%', '2022-12-12', 'SP100003', 2000)
+GO
+INSERT CongDoan
+VALUES ('CD100012',3, N'Khâu dập', 900, N'0%', '2022-12-12', 'SP100003', 3300)
+GO
+INSERT CongDoan
+VALUES ('CD100013',4, N'May da', 990, N'0%', '2022-12-12', 'SP100003', 1122)
+GO
+INSERT CongDoan
+VALUES ('CD100014',5, N'Làm mũi giày', 1000, N'0%', '2022-12-12', 'SP100003', 3123)
+GO
+INSERT CongDoan
+VALUES ('CD100015',6, N'Trang trí', 1110, N'0%', '2022-12-12', 'SP100003', 1234)
+GO
+INSERT CongDoan
+VALUES ('CD100016',1, N'Lên Khuôn', 1000, N'0%', '2022-12-12', 'SP100004', 2000)
+GO
+INSERT CongDoan
+VALUES ('CD100017',1, N'Khâu dập', 900, N'0%', '2022-12-12', 'SP100004', 3300)
+GO
+INSERT CongDoan
+VALUES ('CD100018',1, N'May da', 990, N'0%', '2022-12-12', 'SP100004', 1122)
+GO
+INSERT CongDoan
+VALUES ('CD100019',1, N'Làm mũi giày', 1000, N'0%', '2022-12-12', 'SP100004', 3123)
+GO
+INSERT CongDoan
+VALUES ('CD100020',1, N'Trang trí', 1110, N'0%', '2022-12-12', 'SP100004', 1234)
 GO
 CREATE TABLE PhanCongCongNhan
 (
@@ -435,22 +456,23 @@ CREATE TABLE PhanCongCongNhan
 	maNguoiPhanCong char(8) COLLATE SQL_Latin1_General_CP1_CS_AS not null references NhanVien(maNhanVien) , -- đã xóa cascade delete
 	maCongDoan char(8) COLLATE SQL_Latin1_General_CP1_CS_AS not null references CongDoan(maCongDoan), -- đã xóa cascade delete
 	ngayPhanCong date,
+	soLuongCanLam int,
 	maToNhom char(8) COLLATE SQL_Latin1_General_CP1_CS_AS not null references ToNhom(maToNhom) ,
 	constraint CHK_PhanCongCongNhan_maPhanCong check (maPhanCong like 'PC[1-9][0-9][0-9][0-9][0-9][0-9]') -- Gồm 8 kí tự bắt đầu bằng PC 6 kí tự sau là số từ 0-9 riêng số đầu tiên bắt đầu bằng 1
 )
 GO
 
 INSERT PhanCongCongNhan
-VALUES ('PC100001', 'CN100001', 'NV100001', 'CD100001' , '2022-05-09', 'TN100001'),
- ('PC100002', 'CN100002', 'NV100002', 'CD100002' ,'2022-05-09', 'TN100002'),
- ('PC100003', 'CN100003', 'NV100001', 'CD100001' ,'2022-05-09', 'TN100003'),
- ('PC100004', 'CN100004', 'NV100002', 'CD100002' ,'2022-05-09', 'TN100004'),
- ('PC100005', 'CN100005', 'NV100001', 'CD100003' ,'2022-05-09', 'TN100005'),
- ('PC100006', 'CN100006', 'NV100002', 'CD100004' ,'2022-05-09', 'TN100005'),
- ('PC100007', 'CN100007', 'NV100001', 'CD100001' ,'2022-05-09', 'TN100004'),
- ('PC100008', 'CN100008', 'NV100002', 'CD100002' ,'2022-05-09', 'TN100003'),
- ('PC100009', 'CN100009', 'NV100001', 'CD100003' ,'2022-05-09', 'TN100002'),
- ('PC100010', 'CN100010', 'NV100002', 'CD100001' ,'2022-05-09', 'TN100001')
+VALUES ('PC100001', 'CN100001', 'NV100001', 'CD100001' , '2022-05-09', 10,'TN100001'),
+ ('PC100002', 'CN100002', 'NV100002', 'CD100002' ,'2022-05-09', 9,'TN100002'),
+ ('PC100003', 'CN100003', 'NV100001', 'CD100001' ,'2022-05-09',9 ,'TN100003'),
+ ('PC100004', 'CN100004', 'NV100002', 'CD100002' ,'2022-05-09',9 ,'TN100004'),
+ ('PC100005', 'CN100005', 'NV100001', 'CD100003' ,'2022-05-09',9 ,'TN100005'),
+ ('PC100006', 'CN100006', 'NV100002', 'CD100004' ,'2022-05-09',9 ,'TN100005'),
+ ('PC100007', 'CN100007', 'NV100001', 'CD100001' ,'2022-05-09',9 ,'TN100004'),
+ ('PC100008', 'CN100008', 'NV100002', 'CD100002' ,'2022-05-09',9 ,'TN100003'),
+ ('PC100009', 'CN100009', 'NV100001', 'CD100003' ,'2022-05-09',9 ,'TN100002'),
+ ('PC100010', 'CN100010', 'NV100002', 'CD100001' ,'2022-05-09', 9,'TN100001')
 GO
 CREATE TABLE ChamCongCongNhan(
 	maPhanCong char(8)  COLLATE SQL_Latin1_General_CP1_CS_AS not null references PhanCongCongNhan(maPhanCong) , -- đã xóa cascade delete
@@ -559,4 +581,18 @@ GO
 			 DELETE CongNhan where maCongNhan in (select maCongNhan from deleted)
 		END
 GO
-delete  ChamCongNhanVien
+	CREATE TRIGGER trigger_XoaP_HD on HopDong
+	INSTEAD OF DELETE
+	AS
+		BEGIN
+			SET NOCOUNT ON;
+			DELETE FROM SanPham WHERE maHopDong IN (SELECT maHopDong FROM deleted)
+			DELETE FROM HopDong WHERE maHopDong IN (SELECT maHopDong from deleted)
+		END
+GO
+delete from PhanCongCongNhan
+delete from ChamCongCongNhan
+delete from BangLuongCongNhan
+delete from ChamCongNhanVien
+delete from BangLuongNhanVien
+

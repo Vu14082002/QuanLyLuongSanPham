@@ -518,7 +518,7 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
                 btnLayDanhSachActionPerformed(evt);
             }
         });
-        jPanel5.add(btnLayDanhSach, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 50, 180, 40));
+        jPanel5.add(btnLayDanhSach, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 50, 210, 40));
 
         lblPhut.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lblPhut.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -842,6 +842,9 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
         }
         setHidden(btnLuu, btnHuy, btnCapNhat);
         checkChamCong = false;
+        this.cmbTrangThai.setEnabled(false);
+        cmbGio.setEnabled(false);
+        cmbPhut.setEnabled(false);
     }//GEN-LAST:event_btnHuyActionPerformed
 
     private void btnChamCongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChamCongActionPerformed

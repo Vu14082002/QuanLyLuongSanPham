@@ -307,6 +307,49 @@ public class CongNhan_DAO {
         return chuoiCanLay;
     }
 
+    public ArrayList<CongNhan> layDanhSachCongNhanKhongDiLamTrongThang(int thang, int nam) {
+        PreparedStatement stm = null;
+        ArrayList<CongNhan> dsCongNhan = new ArrayList<CongNhan>();
+        ToNhom_DAO toNhom_DAO = new ToNhom_DAO();
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String truyVan = "select * from CongNhan CN"
+                    + " where CN.maCongNhan not in (select distinct maCongNhan from PhanCongCongNhan PCCN "
+                    + " join ChamCongCongNhan CCCN on PCCN.maPhanCong = CCCN.maPhanCong"
+                    + " where month(ngayChamCong) = ? and year(ngayChamCong) = ?)";
+            stm = con.prepareCall(truyVan);
+            stm.setInt(1, thang);
+            stm.setInt(2, nam);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                String maCongNhan = rs.getString("maCongNhan");
+                String hoTen = rs.getString("hoTen");
+                Date ngaySinh = rs.getDate("ngaySinh");
+                String maCCCD = rs.getString("maCCCD");
+                String soDienThoai = rs.getString("soDienThoai");
+                String email = rs.getString("email");
+                String matKhau = rs.getString("matKhau");
+                Boolean gioiTinh = rs.getBoolean("gioiTinh");
+                String anhDaiDien = rs.getString("anhDaiDien");
+                String diaChi = rs.getString("diaChi");
+                Date ngayVaoLam = rs.getDate("ngayVaoLam");
+                String maToNhom = rs.getString("toNhom");
+                ToNhom toNhom = toNhom_DAO.layMotToNhomTheoMa(maToNhom);
+                dsCongNhan.add(new CongNhan(maCongNhan, hoTen, ngaySinh, maCCCD, soDienThoai, email, matKhau, ngayVaoLam, gioiTinh, anhDaiDien, diaChi, toNhom));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                stm.close();;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return dsCongNhan;
+    }
+
     public static void main(String[] args) {
         try {
             System.setOut(new PrintStream(System.out, true, "UTF8"));
@@ -330,12 +373,12 @@ public class CongNhan_DAO {
         }
         System.out.println("Lấy 1 công nhân: " + congNhan_DAO.layMotCongNhanTheoMa("CN123123"));
         System.out.println(congNhan_DAO.themMotCongNhan(new CongNhan("CN111111", "Nguyễn Văn Vũ",
-                 ngaySinh, "111222333444", "0975123123", "hieurio12@gmail.com",
-                 "123123", new Date(), false, "anhDaiDien1.png", "Yên bái", new ToNhom("TN123123", "1", 0))));
+                ngaySinh, "111222333444", "0975123123", "hieurio12@gmail.com",
+                "123123", new Date(), false, "anhDaiDien1.png", "Yên bái", new ToNhom("TN123123", "1", 0))));
         System.out.println("Hiển thị: " + congNhan_DAO.layDanhSachCongNhan());
         System.out.println("Sửa: " + congNhan_DAO.capNhatMotCongNhan(new CongNhan("CN111111", "Nguyễn Văn Vũ",
-                 java.sql.Date.valueOf(LocalDate.of(2000, 11, 11)), "111222333444", "0975123123", "hieurio12@gmail.com",
-                 "123123", java.sql.Date.valueOf(LocalDate.of(1999, 12, 12)), false, "anhDaiDien1.png", "Yên bái", new ToNhom("TN123123", "1", 0))));
+                java.sql.Date.valueOf(LocalDate.of(2000, 11, 11)), "111222333444", "0975123123", "hieurio12@gmail.com",
+                "123123", java.sql.Date.valueOf(LocalDate.of(1999, 12, 12)), false, "anhDaiDien1.png", "Yên bái", new ToNhom("TN123123", "1", 0))));
         System.out.println("Hiển thị: " + congNhan_DAO.layDanhSachCongNhan());
         System.out.println("Xóa" + congNhan_DAO.xoaCongNhanTheoMa("CN111111"));
     }

@@ -4,11 +4,8 @@
  */
 package view;
 
-import DAO.PhongBan_DAO;
 import DAO.ToNhom_DAO;
 import Entity.ToNhom;
-
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -20,17 +17,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 /**
  *
@@ -379,6 +370,7 @@ public class ToNhomView extends javax.swing.JPanel implements MouseListener, Act
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
         // TODO add your handling code here:
+        txtTenTo.setEditable(false);
     }//GEN-LAST:event_btnHuyActionPerformed
 
 
@@ -408,7 +400,6 @@ public class ToNhomView extends javax.swing.JPanel implements MouseListener, Act
     public void mouseClicked(MouseEvent e) {
         Object o = e.getSource();
         if (o.equals(tblToNhom)) {
-
             int row = tblToNhom.getSelectedRow();
             if (row != -1) {
                 hienThiDuLieuLenTxt(row);
@@ -419,6 +410,7 @@ public class ToNhomView extends javax.swing.JPanel implements MouseListener, Act
                     btnLuu.setEnabled(false);
                     btnHuy.setEnabled(false);
                     txtTenTo.setEditable(false);
+                    lbErrTenPhongBan.setText("");
                 }
             }
         }
@@ -482,7 +474,7 @@ public class ToNhomView extends javax.swing.JPanel implements MouseListener, Act
                 if (txtTenTo.getText().equals("")) {
                     lbErrTenPhongBan.setText(stErrKhongDeTrong);
                     return;
-                } else if (!txtTenTo.getText().matches("^Tổ [1-9]*$")) {
+                } else if (!txtTenTo.getText().toLowerCase().matches("^tổ [1-9][0-9]*$")) {
                     lbErrTenPhongBan.setText(stTenToTheoMau);
                     return;
                 } else {
@@ -516,6 +508,9 @@ public class ToNhomView extends javax.swing.JPanel implements MouseListener, Act
                 String maToNhom = txtMaToNhom.getText();
                 if (txtTenTo.getText().equals("")) {
                     lbErrTenPhongBan.setText(stErrKhongDeTrong);
+                    return;
+                } else if (!txtTenTo.getText().toLowerCase().matches("^tổ [1-9][0-9]*$")) {
+                    lbErrTenPhongBan.setText(stTenToTheoMau);
                     return;
                 } else {
                     lbErrTenPhongBan.setText("");

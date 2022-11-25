@@ -348,6 +348,35 @@ public class CongDoan_DAO {
         return dsCongDoan;
     }
 
+    public ArrayList<CongDoan> layDanhSachCongDoanDuocPhanCongTheoMaSpMaTN(String maToNhom, String maSanPham) {
+        PreparedStatement stm = null;
+        ArrayList<CongDoan> dsCongDoan = new ArrayList<CongDoan>();
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String truyVan = "SELECT CD.maCongDoan FROM ToNhom TN JOIN PhanCongCongNhan PCCN ON TN.maToNhom = PCCN.maToNhom"
+                    + " JOIN CongDoan CD ON PCCN.maCongDoan = CD.maCongDoan"
+                    + " JOIN SanPham SP ON SP.maSanPham = CD.maSanPham WHERE TN.maToNhom = ? and SP.maSanPham = ? group by CD.maCongDoan";
+            stm = con.prepareStatement(truyVan);
+            stm.setString(1, maToNhom);
+            stm.setString(2, maSanPham);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()){
+                String maCongDoan = rs.getString("maCongDoan");
+                dsCongDoan.add(layMotCongDoanTheoMaCongDoan(maCongDoan));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                stm.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return dsCongDoan;
+    }
+
     public static void main(String[] args) {
         try {
             System.setOut(new PrintStream(System.out, true, "UTF8"));

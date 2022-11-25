@@ -100,9 +100,11 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
         xoaTrangField();
         btnLuu.setEnabled(false);
         btnHuy.setEnabled(false);
+        lblAnhSanPhamOfPnl.setEnabled(false);
 
         // xoa trang các label báo lỗi
         lblErrSoLuong.setText("");
+        lblErrChatLieu.setText("");
         lblErrTenSanPham.setText("");
 
         // 
@@ -219,7 +221,7 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
 
     }
 
-    public void taiDuLieuLenBangSanPham(String maHopDong) {
+        public void taiDuLieuLenBangSanPham(String maHopDong) {
         while (tblDanhSachSanPham.getRowCount() != 0) {
             modelSanPham.removeRow(0);
         }
@@ -248,7 +250,7 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
     }
 
     public void hienThiLenTxt(int row) {
-        txtMaHopDong.setText(tblHopDong.getValueAt(tblHopDong.getSelectedColumnCount(), 1).toString());
+        txtMaHopDong.setText(tblHopDong.getValueAt(tblHopDong.getSelectedRow(), 1).toString());
         txtMaSanPham.setText(tblDanhSachSanPham.getValueAt(row, 1).toString());
         txtTenSanPham.setText(tblDanhSachSanPham.getValueAt(row, 2).toString());
         txtSoLuong.setText(tblDanhSachSanPham.getValueAt(row, 3).toString());
@@ -881,6 +883,7 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
             btnLuu.setEnabled(true);
             btnHuy.setEnabled(true);
             btnThemNhieu.setEnabled(false);
+            lblAnhSanPhamOfPnl.setEnabled(true);
             xoaTrangField();
             txtMaSanPham.setText(sanPham_DAO.layMaSanPhamDeThem());
             moKhoaTextField(true);
@@ -892,6 +895,7 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
             btnCapNhat.setEnabled(false);
             btnLuu.setEnabled(true);
             btnHuy.setEnabled(true);
+            lblAnhSanPhamOfPnl.setEnabled(true);
             txtTenSanPham.requestFocus();
             moKhoaTextField(true);
 
@@ -946,6 +950,7 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
                     btnLuu.setEnabled(false);
                     btnHuy.setEnabled(false);
                     moKhoaTextField(false);
+                    lblAnhSanPhamOfPnl.setEnabled(false);
                     JOptionPane.showMessageDialog(null, stThemThanhCong, stThongbao, JOptionPane.INFORMATION_MESSAGE);
                     oFlag = null;
                 } else {
@@ -989,6 +994,7 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
                     btnLuu.setEnabled(false);
                     btnHuy.setEnabled(false);
                     moKhoaTextField(false);
+                    lblAnhSanPhamOfPnl.setEnabled(false);
                     oFlag = null;
                     JOptionPane.showMessageDialog(null, stCapNhatThanhCong, stThongbao, JOptionPane.INFORMATION_MESSAGE);
                 } else {
@@ -998,6 +1004,7 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
         } else if (o.equals(btnHuy)) {
             moKhoaTextField(false);
             lblErrSoLuong.setText("");
+            lblErrChatLieu.setText("");
             lblErrTenSanPham.setText("");
             if (tblDanhSachSanPham.getRowCount() != 0) {
                 hienThiLenTxt(0);
@@ -1009,6 +1016,7 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
             btnCapNhat.setEnabled(true);
             btnLuu.setEnabled(false);
             btnHuy.setEnabled(false);
+            lblAnhSanPhamOfPnl.setEnabled(false);
             if (tblDanhSachSanPham.getRowCount() == 0) {
                 btnCapNhat.setEnabled(false);
                 btnXoa.setEnabled(false);
@@ -1053,11 +1061,16 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
                 btnThemNhieu.setEnabled(true);
                 btnHuy.setEnabled(false);
                 btnLuu.setEnabled(false);
+                lblErrSoLuong.setText("");
+                lblErrChatLieu.setText("");
+                lblErrTenSanPham.setText("");
+                lblAnhSanPhamOfPnl.setEnabled(false);
             }
         } else if (o.equals(tblHopDong)) {
             int rowSelect = tblHopDong.getSelectedRow();
             if (rowSelect != -1) {
                 taiDuLieuLenBangSanPham(tblHopDong.getValueAt(rowSelect, 1).toString());
+                txtMaHopDong.setText(tblHopDong.getValueAt(tblHopDong.getSelectedRow(), 1).toString());
             }
         }
     }

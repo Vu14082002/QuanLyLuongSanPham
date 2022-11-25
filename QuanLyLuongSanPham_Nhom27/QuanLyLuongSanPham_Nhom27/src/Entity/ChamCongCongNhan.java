@@ -70,14 +70,7 @@ public class ChamCongCongNhan {
     }
 
     private void setTrangThaiDiLam(String trangThaiDiLam) throws Exception {
-        if (trangThaiDiLam.equalsIgnoreCase("Đi làm")
-                || trangThaiDiLam.equalsIgnoreCase("Đi trễ")
-                || trangThaiDiLam.equalsIgnoreCase("Nghỉ Không phép")
-                || trangThaiDiLam.equalsIgnoreCase("Nghỉ có phép")) {
-            this.trangThaiDiLam = trangThaiDiLam;
-        } else {
-            throw new Exception("Trạng thái đi làm phải là 1 trong 3: Đi làm, Đi trễ, Nghỉ");
-        }
+        this.trangThaiDiLam = trangThaiDiLam;
     }
 
     public String getTrangThaiDiLam() {

@@ -7,22 +7,17 @@ package view;
 import DAO.BangLuongCongNhan_DAO;
 import DAO.ChamCongCongNhan_DAO;
 import Entity.BangLuongCongNhan;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.MessageFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,8 +31,6 @@ import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-
 
 /**
  *
@@ -55,7 +48,7 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
      * Creates new form NhanVienView
      */
     public LuongCongNhanView(String fileName) throws IOException {
-        this.fileName=fileName;
+        this.fileName = fileName;
         initComponents();
         excute();
         nf = new DecimalFormat("#,###.00");
@@ -73,11 +66,15 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
         btnTinhLuong.addActionListener(this);
         btnXuatBaoCao.addActionListener(this);
         btnXuatBaoCao.setEnabled(false);
-        setNamChoCmbNam();
+        cmbNamTinh.removeAllItems();
+        LocalDate lcDate = LocalDate.now();
+        for (int i = 2000; i <= lcDate.getYear(); i++) {
+            cmbNamTinh.addItem(i + "");
+        }
+        caiDatNgonNguChoView(fileName);
         cmbThangTinh.addItemListener(this::checkThangChon);
         cmbHienThi.addItemListener(this::hienThiBangLuongTheoNgay);
         taiDuLieuLenBang();
-        caiDatNgonNguChoView(fileName);
     }
 
     public void caiDatNgonNguChoView(String fileName) throws FileNotFoundException, IOException {
@@ -94,7 +91,6 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
         cmbHienThi.addItem(prop.getProperty("lnv_cmb0"));
         cmbHienThi.addItem(prop.getProperty("lnv_cmb1"));
         scrBangLuong.setBorder(new TitledBorder(prop.getProperty("lnv_tieuDe")));
-
         ChangeName(tblBangLuong, 0, prop.getProperty("lnv_stt"));
         ChangeName(tblBangLuong, 1, prop.getProperty("lnv_maLuong"));
         ChangeName(tblBangLuong, 2, prop.getProperty("maCongNhan"));
@@ -104,8 +100,9 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
         ChangeName(tblBangLuong, 6, prop.getProperty("lnv_soPhepNghi"));
         ChangeName(tblBangLuong, 7, prop.getProperty("lcc_nghiKhongPhep"));
         ChangeName(tblBangLuong, 8, prop.getProperty("lnv_donViTien"));
-        ChangeName(tblBangLuong, 9, prop.getProperty("lnv_ngayTinh"));
-        ChangeName(tblBangLuong, 10, prop.getProperty("lnv_tongLuong"));
+        ChangeName(tblBangLuong, 9, prop.getProperty("lnv_luongThang"));
+        ChangeName(tblBangLuong, 10, prop.getProperty("lnv_ngayTinh"));
+        ChangeName(tblBangLuong, 11, prop.getProperty("lnv_tongLuong"));
     }
 
     public void ChangeName(JTable table, int col_index, String col_name) {
@@ -144,7 +141,7 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
         for (BangLuongCongNhan bangLuong : dsBangLuong) {
             String data[] = {(modelTableChamCong.getRowCount() + 1) + "", bangLuong.getMaBangLuong(), bangLuong.getCongNhan().getMaCongNhan(),
                 bangLuong.getCongNhan().getHoTen(), bangLuong.getCongNhan().getMaCCCD(), bangLuong.getSoNgayDiLam() + "",
-                bangLuong.getSoNgayNghi() + "", bangLuong.getSoPhepNghi() + "", bangLuong.getDonViTien(), bangLuong.getNgayTinh().toString(),
+                bangLuong.getSoNgayNghi() + "", bangLuong.getSoPhepNghi() + "", bangLuong.getDonViTien(), bangLuong.getLuongTheoThang(), bangLuong.getNgayTinh().toString(),
                 nf.format(bangLuong.getTongLuong())};
             modelTableChamCong.addRow(data);
         }
@@ -173,27 +170,19 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
         for (BangLuongCongNhan bangLuong : dsBangLuong) {
             String data[] = {(modelTableChamCong.getRowCount() + 1) + "", bangLuong.getMaBangLuong(), bangLuong.getCongNhan().getMaCongNhan(),
                 bangLuong.getCongNhan().getHoTen(), bangLuong.getCongNhan().getMaCCCD(), bangLuong.getSoNgayDiLam() + "",
-                bangLuong.getSoNgayNghi() + "", bangLuong.getSoPhepNghi() + "", bangLuong.getDonViTien(), bangLuong.getNgayTinh().toString(),
-                nf.format(bangLuong.getTongLuong())};
+                bangLuong.getSoNgayNghi() + "", bangLuong.getSoPhepNghi() + "", bangLuong.getDonViTien(), bangLuong.getLuongTheoThang(), bangLuong.getNgayTinh().toString(),
+                (bangLuong.getTongLuong() == 0) ? "0" : nf.format(bangLuong.getTongLuong())};
             modelTableChamCong.addRow(data);
         }
     }
 
     public void excute() {
-//        this.txtMaNhanVien.setText("");
-//        this.txtMaNhanVien.setBackground(new Color(0, 0, 0, 1));
-
-        // custom table
-//        tbDanhSachCanChamCong.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
-//        tbDanhSachCanChamCong.getTableHeader().setOpaque(false);
-//        ((DefaultTableCellRenderer) tbDanhSachCanChamCong.getTableHeader().getDefaultRenderer())
-//                .setHorizontalAlignment(JLabel.CENTER);
-//        tbDanhSachCanChamCong.setRowHeight(25);
         tblBangLuong.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
         tblBangLuong.getTableHeader().setOpaque(false);
         ((DefaultTableCellRenderer) tblBangLuong.getTableHeader().getDefaultRenderer())
                 .setHorizontalAlignment(JLabel.CENTER);
         tblBangLuong.setRowHeight(25);
+
     }
 
     /**
@@ -264,6 +253,11 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
 
         cmbNamTinh.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         cmbNamTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
+        cmbNamTinh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbNamTinhActionPerformed(evt);
+            }
+        });
         jPanel5.add(cmbNamTinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 30, 120, 40));
 
         lblNam.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -302,17 +296,17 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
         tblBangLuong.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         tblBangLuong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "Mã lương", "Mã công nhân", "Tên công Nhân", "Mã CCCD", "Số ngày đi làm", "Số ngày có phép", "Số ngày nghỉ không phép", "Đơn vị tiền", "Ngày tính lương", "Tổng Lương"
+                "STT", "Mã lương", "Mã công nhân", "Tên công Nhân", "Mã CCCD", "Số ngày đi làm", "Số ngày có phép", "Số ngày nghỉ không phép", "Đơn vị tiền", "Ngày tính lương", "Lương tháng", "Tổng Lương"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -334,7 +328,6 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTinhLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTinhLuongActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_btnTinhLuongActionPerformed
 
     private void btnGuiThongTinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiThongTinActionPerformed
@@ -342,7 +335,12 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
     }//GEN-LAST:event_btnGuiThongTinActionPerformed
 
     private void cmbThangTinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbThangTinhActionPerformed
-        // TODO add your handling code here:
+        if (cmbHienThi.getSelectedIndex() == 0) {
+            taiDuLieuLenBang();
+        } else {
+            taiDuLieuLenBangTheoNgayThang();
+            caiDatGuiThongTin();
+        }
     }//GEN-LAST:event_cmbThangTinhActionPerformed
 
     private void btnXuatBaoCaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatBaoCaoActionPerformed
@@ -363,12 +361,11 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
         int row = table.rowAtPoint(point);
         if (evt.getClickCount() == 2 && tblBangLuong.getSelectedRow() != -1) {
             int rowSelected = tblBangLuong.getSelectedRow();
-            LocalDate date = LocalDate.parse(tblBangLuong.getValueAt(row, 9).toString());
+            LocalDate date = LocalDate.parse(tblBangLuong.getValueAt(row, 10).toString());
             int thang = date.getMonthValue();
             int nam = date.getYear();
-
             try {
-                new ChiTietLuongCongNhan(this.fileName,tblBangLuong.getValueAt(row, 2).toString(), thang, nam).setVisible(true);
+                new ChiTietLuongCongNhan(this.fileName, tblBangLuong.getValueAt(row, 2).toString(), thang, nam).setVisible(true);
             } catch (IOException ex) {
                 Logger.getLogger(LuongCongNhanView.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -376,14 +373,39 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
     }//GEN-LAST:event_tblBangLuongMousePressed
 
     private void cmbHienThiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbHienThiActionPerformed
-
+        if (cmbHienThi.getSelectedIndex() == 0) {
+            taiDuLieuLenBang();
+        } else {
+            taiDuLieuLenBangTheoNgayThang();
+        }
     }//GEN-LAST:event_cmbHienThiActionPerformed
 
     private void tblBangLuongMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBangLuongMouseReleased
         // TODO add your handling code here:
     }//GEN-LAST:event_tblBangLuongMouseReleased
 
+    private void cmbNamTinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNamTinhActionPerformed
+        if (cmbHienThi.getSelectedIndex() == 0) {
+            taiDuLieuLenBang();
+            btnGuiThongTin.setEnabled(false);
+            btnXuatBaoCao.setEnabled(false);
+        } else {
+            taiDuLieuLenBangTheoNgayThang();
+            caiDatGuiThongTin();
+        }
+    }//GEN-LAST:event_cmbNamTinhActionPerformed
 
+    public void caiDatGuiThongTin() {
+        if (cmbHienThi.getSelectedIndex() == 1) {
+            if (modelTableChamCong.getRowCount() > 0) {
+                btnXuatBaoCao.setEnabled(true);
+                btnGuiThongTin.setEnabled(true);
+            }
+        } else {
+            btnXuatBaoCao.setEnabled(false);
+            btnGuiThongTin.setEnabled(false);
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuiThongTin;
     private javax.swing.JButton btnTinhLuong;

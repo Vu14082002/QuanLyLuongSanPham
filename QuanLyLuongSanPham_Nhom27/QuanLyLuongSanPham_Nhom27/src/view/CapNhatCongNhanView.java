@@ -97,6 +97,7 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
         // sét default lúc đàu cho 2 btn hủy, lưu
         dongMoBtnEdit(true);
         dongMoTxt(false);
+        lblAnhDaiDienOfPn.setEnabled(false);
         // xóa trắng các err label
         lblErrCCCD.setText("");
         lblErrDiaChi.setText("");
@@ -118,6 +119,7 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
         caiDatNgonNguChoView(fileName);
 
     }
+
     public void caiDatNgonNguChoView(String fileName) throws FileNotFoundException, IOException {
         FileInputStream fis = new FileInputStream(fileName);
         Properties prop = new Properties();
@@ -142,7 +144,7 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
         lblAnhDaiDienOfPn.setText(prop.getProperty("anhDaiDien"));
         rdoNam.setText(prop.getProperty("nam"));
         rdoNu.setText(prop.getProperty("nu"));
-        stCongNhan=prop.getProperty("congNhan");
+        stCongNhan = prop.getProperty("congNhan");
 
         ChangeName(tblCongNhan, 0, prop.getProperty("pcd_stt"));
         ChangeName(tblCongNhan, 1, lblMaCongNhan.getText());
@@ -826,6 +828,7 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
         if (o.equals(btnThem)) {
             dongMoBtnEdit(false);
             dongMoTxt(true);
+            lblAnhDaiDienOfPn.setEnabled(true);
             txtHoTen.requestFocus();
             txtMaCongNhan.setText(congNhan_DAO.layRaMaCongNhanDeThem());
             xoaTrangTxt();
@@ -835,11 +838,13 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
             oFlag = e.getSource();
             dongMoBtnEdit(false);
             dongMoTxt(true);
+            lblAnhDaiDienOfPn.setEnabled(true);
             txtHoTen.requestFocus();
 
         } else if (o.equals(btnHuy)) {
             dongMoBtnEdit(true);
             dongMoTxt(false);
+            lblAnhDaiDienOfPn.setEnabled(false);
             if (tblCongNhan.getRowCount() != 0) {
                 hienThiLenTxt(0);
             }
@@ -880,6 +885,7 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
                     hienThiDuLieuLen();
                     dongMoBtnEdit(true);
                     dongMoTxt(false);
+                    lblAnhDaiDienOfPn.setEnabled(false);
                 } else {
                     JOptionPane.showMessageDialog(null, stThemThatBai, stThongbao, JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -907,10 +913,11 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
                 boolean coSuaDuoc = congNhan_DAO.capNhatMotCongNhan(new CongNhan(txtMaCongNhan.getText(), hoTen, ngaySinh, soCCCD,
                         soDienThoai, email, matKhau, ngayVaoLam, isGioiTinh, lblAnhDaiDien.getIcon().toString().split("Anh/")[1], diaChi, toNhom));
                 if (coSuaDuoc) {
-                    JOptionPane.showMessageDialog(null, stCapNhatThanhCong,stThongbao, JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, stCapNhatThanhCong, stThongbao, JOptionPane.INFORMATION_MESSAGE);
                     hienThiDuLieuLen();
                     dongMoBtnEdit(true);
                     dongMoTxt(false);
+                    lblAnhDaiDienOfPn.setEnabled(false);
                 } else {
                     JOptionPane.showMessageDialog(null, stCapNhatThatBai, stThongbao, JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -923,10 +930,10 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
                 if (coXacNhanXoa == 0) {
                     boolean coXoaDuoc = congNhan_DAO.xoaCongNhanTheoMa(tblCongNhan.getValueAt(row, 1).toString());
                     if (coXoaDuoc) {
-                        JOptionPane.showMessageDialog(null,stXoaThanhCong,stThongbao, JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, stXoaThanhCong, stThongbao, JOptionPane.INFORMATION_MESSAGE);
                         hienThiDuLieuLen();
                     } else {
-                        JOptionPane.showMessageDialog(null,stXoaThatBai,stThongbao, JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, stXoaThatBai, stThongbao, JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
             }
@@ -1038,6 +1045,14 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
                 hienThiLenTxt(row);
                 dongMoTxt(false);
                 dongMoBtnEdit(true);
+                lblErrCCCD.setText("");
+                lblErrDiaChi.setText("");
+                lblErrEmail.setText("");
+                lblErrHoTen.setText("");
+                lblErrNgaySinh.setText("");
+                lblErrNgayVaoLam.setText("");
+                lblErrSoDienThoai.setText("");
+                lblAnhDaiDienOfPn.setEnabled(false);
             }
         }
     }

@@ -102,17 +102,17 @@ public class TimKiemSanPhamView extends javax.swing.JPanel implements ActionList
             if (!ma.equalsIgnoreCase("all") || !ten.equalsIgnoreCase("all")
                     || !kichThuoc.equalsIgnoreCase("all") || !chatLieu.equalsIgnoreCase("all")) {
                 boolean flag = true;
-                if (!ma.equalsIgnoreCase("all") && !sanPham.getMaSanPham().equalsIgnoreCase(ma)) {
+                if (!ma.equalsIgnoreCase("all") && !sanPham.getMaSanPham().toLowerCase().contains(ma.toLowerCase())) {
                     flag = false;
                 }
-                if (!ten.equalsIgnoreCase("all") && !sanPham.getTenSanPham().equalsIgnoreCase(ten)) {
+                if (!ten.equalsIgnoreCase("all") && !sanPham.getTenSanPham().toLowerCase().contains(ten.toLowerCase())) {
                     flag = false;
                 }
-                if (!chatLieu.equalsIgnoreCase("all") && !(sanPham.getChatLieu() + "").equalsIgnoreCase(chatLieu)) {
+                if (!chatLieu.equalsIgnoreCase("all") && !(sanPham.getChatLieu() + "").toLowerCase().contains(chatLieu.toLowerCase())) {
                     flag = false;
 
                 }
-                if (!kichThuoc.equalsIgnoreCase("all") && !(sanPham.getKichThuoc() + "").equalsIgnoreCase(kichThuoc)) {
+                if (!kichThuoc.equalsIgnoreCase("all") && !(sanPham.getKichThuoc() + "").toLowerCase().contains(kichThuoc.toLowerCase())) {
                     flag = false;
                 }
                 if (flag) {

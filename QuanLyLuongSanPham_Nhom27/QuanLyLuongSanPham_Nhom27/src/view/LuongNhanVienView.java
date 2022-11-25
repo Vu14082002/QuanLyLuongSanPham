@@ -8,46 +8,29 @@ import DAO.BangLuongNhanVien_DAO;
 import DAO.ChamCongNhanVien_DAO;
 import DAO.NhanVien_DAO;
 import Entity.BangLuongNhanVien;
-import Entity.ChamCongNhanVien;
 import Entity.NhanVien;
-import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.pdf.PdfAcroForm;
-import com.lowagie.text.pdf.PdfPTable;
-import com.lowagie.text.pdf.PdfTable;
-import com.lowagie.text.pdf.PdfWriter;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.text.MessageFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
-import java.util.Map;
 import java.util.Properties;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 /**
  *
@@ -408,11 +391,30 @@ public class LuongNhanVienView extends javax.swing.JPanel {
         return sundays;
     }
     private void btnGuiThongTinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiThongTinActionPerformed
-        // TODO add your handling code here:
+        try {
+            String username = "admin";
+            String password = "123456";
+            String to = "+84327060328";
+            String message = "Hello Vu";
+
+            String requestUrl = "http://localhost:9710/http/send-message?"
+                    + "username=" + URLEncoder.encode(username, "UTF-8")
+                    + "&password=" + URLEncoder.encode(password, "UTF-8")
+                    + "&to=" + URLEncoder.encode(to, "UTF-8")
+                    + "&message-type=sms.automatic"
+                    + "&message=" + URLEncoder.encode(message, "UTF-8");
+            URL url = new URL(requestUrl);
+            HttpURLConnection uc = (HttpURLConnection) url.openConnection();
+            System.out.println(uc.getResponseMessage());
+            uc.disconnect();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }//GEN-LAST:event_btnGuiThongTinActionPerformed
 
     private void cmbThangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbThangActionPerformed
         taiDuLieuLenBangLuong();
+        caiDatGuiThongTin();
     }//GEN-LAST:event_cmbThangActionPerformed
 
     private void btnXuatBaoCaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatBaoCaoActionPerformed
@@ -427,15 +429,27 @@ public class LuongNhanVienView extends javax.swing.JPanel {
     }//GEN-LAST:event_btnXuatBaoCaoActionPerformed
 
     private void cmbHienThiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbHienThiActionPerformed
+        taiDuLieuLenBangLuong();
         if (cmbHienThi.getSelectedIndex() == 0) {
             btnXuatBaoCao.setEnabled(false);
+            btnGuiThongTin.setEnabled(false);
         } else {
-            btnXuatBaoCao.setEnabled(true);
+
         }
-        taiDuLieuLenBangLuong();
 
     }//GEN-LAST:event_cmbHienThiActionPerformed
+    public void caiDatGuiThongTin() {
+        if (cmbHienThi.getSelectedIndex() == 1) {
+            if (model.getRowCount() > 0) {
+                btnXuatBaoCao.setEnabled(true);
+                btnGuiThongTin.setEnabled(true);
+            }
+        } else {
+            btnXuatBaoCao.setEnabled(false);
+            btnGuiThongTin.setEnabled(false);
+        }
 
+    }
     private void tblBangLuongMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBangLuongMousePressed
         JTable table = (JTable) evt.getSource();
         Point point = evt.getPoint();
@@ -452,6 +466,7 @@ public class LuongNhanVienView extends javax.swing.JPanel {
     }//GEN-LAST:event_tblBangLuongMousePressed
     private void cmbNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNamActionPerformed
         taiDuLieuLenBangLuong();
+        caiDatGuiThongTin();
     }//GEN-LAST:event_cmbNamActionPerformed
 
 

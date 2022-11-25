@@ -7,7 +7,6 @@ package view;
 import DAO.CongDoan_DAO;
 import DAO.SanPham_DAO;
 import Entity.CongDoan;
-import Entity.HopDong;
 import Entity.SanPham;
 import java.awt.Color;
 import java.awt.Font;
@@ -29,7 +28,6 @@ import java.util.Iterator;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -38,7 +36,6 @@ import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -119,7 +116,6 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
         lblErrTenCongDoan1.setText("");
         lblErrThuTuLam.setText("");
         moKhoaTextField(false);
-
         excute();
 
     }
@@ -214,6 +210,7 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
         txtTenCongDoan.setEditable(b);
         txtSoLuongCan.setEditable(b);
         txtGiaTien.setEditable(b);
+        txtSoThuTuLam.setEditable(b);
         dcsThoiHan.setEnabled(b);
     }
 
@@ -249,7 +246,10 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
         ArrayList<CongDoan> dsCongDoan = congDoan_DAO.layDanhSachCongDoanTheoMaSP(maSanPham);
         for (CongDoan congDoan : dsCongDoan) {
             String maCongDoan = congDoan.getMaCongDoan();
-            String data[] = {(modelTableCongDoan.getRowCount() + 1) + "", congDoan.getMaCongDoan(), congDoan.getTenCongDoan(),
+//            String data[] = {(modelTableCongDoan.getRowCount() + 1) + "", congDoan.getMaCongDoan(), congDoan.getTenCongDoan(),
+//                congDoan.getSoLuongCan() + "", congDoan_DAO.laySoLuongLamDuocTheoMaCongDoan(maCongDoan) + "", nf.format(congDoan.getTienLuong()), congDoan.getThoiHan().toString(),
+//                String.format("%.2f", congDoan_DAO.layMucDoHoanThanhCuaMotCongDoan(maCongDoan)) + "%"};
+            String data[] = {congDoan.getThuTuCongDoan()+"", congDoan.getMaCongDoan(), congDoan.getTenCongDoan(),
                 congDoan.getSoLuongCan() + "", congDoan_DAO.laySoLuongLamDuocTheoMaCongDoan(maCongDoan) + "", nf.format(congDoan.getTienLuong()), congDoan.getThoiHan().toString(),
                 String.format("%.2f", congDoan_DAO.layMucDoHoanThanhCuaMotCongDoan(maCongDoan)) + "%"};
             modelTableCongDoan.addRow(data);
@@ -420,7 +420,7 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
         lblMaCongDoan.setText("Mã công đoạn:");
         jPanel5.add(lblMaCongDoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 120, 190, 40));
 
-        lblHienThiMaCongDoan.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
+        lblHienThiMaCongDoan.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lblHienThiMaCongDoan.setText("CD001");
         jPanel5.add(lblHienThiMaCongDoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 120, 180, 40));
         jPanel5.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 190, 180, 10));
@@ -636,7 +636,6 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
                     String tinhTrang = "0%";
                     double tienLuong = 0f;
                     try {
-
                         while (cellItera.hasNext()) {
                             Cell cell = cellItera.next();
                             if (row.getRowNum() == 0) {
@@ -809,7 +808,6 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
                 lblErrSoLuongCan.setText("");
                 lblErrLuongSP.setText("");
                 lblErrThoiHan.setText("");
-
                 int soLuongCan = 0;
                 double tienLuong = 0;
                 int thuTuLam = 0;
@@ -988,7 +986,11 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
                 btnThemNhieu.setEnabled(true);
                 btnHuy.setEnabled(false);
                 btnLuu.setEnabled(false);
-
+                lblErrTenCongDoan1.setText("");
+                lblErrSoLuongCan.setText("");
+                lblErrLuongSP.setText("");
+                lblErrThoiHan.setText("");
+                lblErrThuTuLam.setText("");
             }
         } else if (o.equals(tblDanhSachSanPham)) {
             int rowSelected = tblDanhSachSanPham.getSelectedRow();
