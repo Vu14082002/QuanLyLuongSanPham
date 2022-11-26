@@ -18,13 +18,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.Properties;
-import javax.swing.ComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
@@ -221,7 +217,7 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
 
     }
 
-        public void taiDuLieuLenBangSanPham(String maHopDong) {
+    public void taiDuLieuLenBangSanPham(String maHopDong) {
         while (tblDanhSachSanPham.getRowCount() != 0) {
             modelSanPham.removeRow(0);
         }
@@ -960,7 +956,6 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
             } else if (oFlag.equals(btnCapNhat)) {
                 boolean hopLe = validateForm();
                 int soLuongSanPham = 0, soCongDoan = 0;
-
                 if (!hopLe) {
                     return;
                 }
@@ -1041,6 +1036,7 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
         }
         if (!txtSoLuong.getText().matches("^[1-9][0-9]*$")) {
             lblErrSoLuong.setText(stErrSoLuong);
+            flag = false;
         } else {
             lblErrSoLuong.setText("");
         }

@@ -10,16 +10,13 @@ package DAO;
  */
 import ConnectionDB.ConnectDB;
 import Entity.BangLuongCongNhan;
-import Entity.ChamCongCongNhan;
 import Entity.CongNhan;
-import Entity.ToNhom;
 import java.io.PrintStream;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -86,7 +83,7 @@ public class BangLuongCongNhan_DAO {
                 int soPhepNghi = rs.getInt("soPhepNghi");
                 double tongLuong = rs.getBigDecimal("tongLuong").doubleValue();
                 String donViTien = rs.getString("donViTien");
-                 String luongTheoThang = rs.getString("luongTheoThang");
+                String luongTheoThang = rs.getString("luongTheoThang");
                 CongNhan congNhan = congNhan_DAO.layMotCongNhanTheoMa(maCongNhanOb);
                 dsBangLuong.add(new BangLuongCongNhan(maBangLuong, congNhan,
                         soLuongSanPhamLam, soNgayDiLam, soNgayNghi, soPhepNghi, ngayTinh, tongLuong, donViTien, luongTheoThang));
@@ -124,7 +121,7 @@ public class BangLuongCongNhan_DAO {
                 int soPhepNghi = rs.getInt("soPhepNghi");
                 double tongLuong = rs.getBigDecimal("tongLuong").doubleValue();
                 String donViTien = rs.getString("donViTien");
-                 String luongTheoThang = rs.getString("luongTheoThang");
+                String luongTheoThang = rs.getString("luongTheoThang");
                 CongNhan congNhan = congNhan_DAO.layMotCongNhanTheoMa(maCongNhan);
                 bangLuongCongNhan = new BangLuongCongNhan(maBangLuongOB, congNhan,
                         soLuongSanPhamLam, soNgayDiLam, soNgayNghi, soPhepNghi, ngayTinh, tongLuong, donViTien, luongTheoThang);
@@ -198,7 +195,7 @@ public class BangLuongCongNhan_DAO {
             stm.setString(8, bangLuongCongNhan.getDonViTien());
             stm.setString(9, bangLuongCongNhan.getLuongTheoThang());
             stm.setString(10, bangLuongCongNhan.getMaBangLuong());
-            
+
             soDongSuaDuoc = stm.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -445,11 +442,11 @@ public class BangLuongCongNhan_DAO {
             int soLuongSanPhamLam = layRaTongSoLuongSPLam(congNhan.getMaCongNhan(), thang, nam);
 
             flag = themMotBangLuong(new BangLuongCongNhan(layRaMotMaBangLuongDeThem(), congNhan, soLuongSanPhamLam,
-                    soNgayDiLam, soNgayNghi, soPhepNghi, new Date(), tongLuong, "VND", thang+"-"+nam));
+                    soNgayDiLam, soNgayNghi, soPhepNghi, new Date(), tongLuong, "VND", thang + "-" + nam));
         }
         ArrayList<CongNhan> dsCongNhanKhongDuocChamCong = congNhan_DAO.layDanhSachCongNhanKhongDiLamTrongThang(thang, nam);
-        for (CongNhan congNhan : dsCongNhanKhongDuocChamCong){
-            flag = themMotBangLuong(new BangLuongCongNhan(layRaMotMaBangLuongDeThem(), congNhan, 0, 0, 0, 0, new Date(), 0, "VND", thang+"-"+nam));
+        for (CongNhan congNhan : dsCongNhanKhongDuocChamCong) {
+            flag = themMotBangLuong(new BangLuongCongNhan(layRaMotMaBangLuongDeThem(), congNhan, 0, 0, 0, 0, new Date(), 0, "VND", thang + "-" + nam));
         }
         return flag;
     }
@@ -476,7 +473,7 @@ public class BangLuongCongNhan_DAO {
                 System.out.println(e.getMessage());
             }
         }
-        if (maBangLuong == null || maBangLuong.equals("")){
+        if (maBangLuong == null || maBangLuong.equals("")) {
             return "LC100001";
         }
         String chuoiCanLay = maBangLuong.split("LC")[1];
@@ -490,21 +487,18 @@ public class BangLuongCongNhan_DAO {
         return chuoiCanLay;
     }
 
-    public boolean kiemTraKhaThiChoTinhThangNay(int thang, int nam) {
+    public boolean xoaDiNhungThangDaTinh(int thang, int nam) {
         PreparedStatement stm = null;
-        int soLuongDongTimThay = 0;
+        int soLuongDongXoaDuoc = 0;
+        String theoThangNam = thang + "-" + nam;
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
-            String truyVan = "select * from BangLuongCongNhan"
-                    + " where month(ngayTinh) = ? and year(ngayTinh) = ?";
+            String truyVan = "delete from BangLuongCongNhan"
+                    + " where luongTheoThang = ?";
             stm = con.prepareStatement(truyVan);
-            stm.setInt(1, thang);
-            stm.setInt(2, nam);
-            ResultSet rs = stm.executeQuery();
-            while(rs.next()){
-                ++soLuongDongTimThay;
-            }
+            stm.setString(1, theoThangNam);
+            soLuongDongXoaDuoc = stm.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
@@ -514,22 +508,24 @@ public class BangLuongCongNhan_DAO {
                 System.out.println(e.getMessage());
             }
         }
-        return soLuongDongTimThay == 0;
+        return soLuongDongXoaDuoc != 0;
     }
-    public ArrayList<BangLuongCongNhan> layDanhSachBangLuongTheoThangNam(int thang, int nam){
+
+    public ArrayList<BangLuongCongNhan> layDanhSachBangLuongTheoThangNam(int thang, int nam) {
         PreparedStatement stm = null;
         ArrayList<BangLuongCongNhan> dsBangLuong = new ArrayList<BangLuongCongNhan>();
         CongNhan_DAO congNhan_DAO = new CongNhan_DAO();
+        String ngaySoSanh = thang + "-" + nam;
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
-            String truyVan = "select * from BangLuongCongNhan where MONTH(ngayTinh) = ? and YEAR(ngayTinh) = ?";
+            String truyVan = "select * from BangLuongCongNhan where luongTheoThang = ?";
             stm = con.prepareStatement(truyVan);
-            stm.setInt(1, thang);
-            stm.setInt(2, nam);
+            stm.setString(1, ngaySoSanh);
+
             ResultSet rs = stm.executeQuery();
-            while (rs.next()){
-               String maBangLuong = rs.getString("maBangLuong");
+            while (rs.next()) {
+                String maBangLuong = rs.getString("maBangLuong");
                 String maCongNhanOb = rs.getString("maCongNhan");
                 Date ngayTinh = rs.getDate("ngayTinh");
                 int soLuongSanPhamLam = rs.getInt("soLuongSanPhamLam");
@@ -545,7 +541,7 @@ public class BangLuongCongNhan_DAO {
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
-        } finally{
+        } finally {
             try {
                 stm.close();
             } catch (Exception e) {
@@ -554,6 +550,7 @@ public class BangLuongCongNhan_DAO {
         }
         return dsBangLuong;
     }
+
     public static void main(String[] args) {
         try {
             System.setOut(new PrintStream(System.out, true, "UTF8"));

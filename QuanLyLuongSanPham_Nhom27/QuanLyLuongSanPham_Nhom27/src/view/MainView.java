@@ -186,7 +186,7 @@ public class MainView extends javax.swing.JFrame {
             pnBody.removeAll();
             try {
                 pnBody.add(new LuongCongNhanView(fileName), BorderLayout.CENTER);
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                 Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
             }
             pnBody.repaint();
@@ -223,7 +223,7 @@ public class MainView extends javax.swing.JFrame {
                 pnBody.removeAll();
                 try {
                     pnBody.add(new LuongNhanVienView(fileName), BorderLayout.CENTER);
-                } catch (IOException ex) {
+                } catch (Exception ex) {
                     Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 pnBody.repaint();

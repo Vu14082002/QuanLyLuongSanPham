@@ -5,19 +5,16 @@
 package DAO;
 
 import ConnectionDB.ConnectDB;
-import Entity.CongNhan;
 import Entity.CongDoan;
+import Entity.CongNhan;
 import Entity.NhanVien;
 import Entity.PhanCongCongNhan;
-import Entity.PhongBan;
-import Entity.SanPham;
 import Entity.ToNhom;
 import java.io.PrintStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -109,6 +106,45 @@ public class PhanCongCongNhan_DAO {
         return phanCongCongNhan;
     }
 
+    public ArrayList<PhanCongCongNhan> layDanhSachPhanCongTheoMaCongDoan(String maCongDoanTemp){
+        PreparedStatement stm = null;
+        ArrayList<PhanCongCongNhan> dsPhanCong = new ArrayList<PhanCongCongNhan>();
+        CongNhan_DAO congNhan_DAO = new CongNhan_DAO();
+        NhanVien_DAO nhanVien_DAO = new NhanVien_DAO();
+        CongDoan_DAO congDoan_DAO = new CongDoan_DAO();
+        ToNhom_DAO toNhom_DAO = new ToNhom_DAO();
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String truyVan = "SELECT * FROM PhanCongCongNhan WHERE maCongDoan = ?";
+            stm = con.prepareStatement(truyVan);
+            stm.setString(1, maCongDoanTemp);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                String maPhanCongOb = rs.getString("maPhanCong");
+                String maCongNhan = rs.getString("maCongNhan");
+                String maNguoiPhanCong = rs.getString("maNguoiPhanCong");
+                String maCongDoan = rs.getString("maCongDoan");
+                Date ngayPhanCong = rs.getDate("ngayPhanCong");
+                int soLuongCanLam = rs.getInt("soLuongCanLam");
+                String maToNhom = rs.getString("maToNhom");
+                CongDoan congDoan = congDoan_DAO.layMotCongDoanTheoMaCongDoan(maCongDoan);
+                NhanVien nguoiPhanCong = nhanVien_DAO.layMotNhanVienTheoMaNhanVien(maNguoiPhanCong);
+                CongNhan congNhan = congNhan_DAO.layMotCongNhanTheoMa(maCongNhan);
+                ToNhom toNhom = toNhom_DAO.layMotToNhomTheoMa(maToNhom);
+                dsPhanCong.add(new PhanCongCongNhan(maPhanCongOb, congNhan, congDoan, nguoiPhanCong, ngayPhanCong, soLuongCanLam, toNhom));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                stm.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return dsPhanCong;
+    }
     public boolean themMotPhanCongNhan(PhanCongCongNhan phanCongCongNhan) {
         PreparedStatement stm = null;
         int soDongThemDuoc = 0;

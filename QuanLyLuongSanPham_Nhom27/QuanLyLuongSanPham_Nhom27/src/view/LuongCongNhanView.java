@@ -6,7 +6,9 @@ package view;
 
 import DAO.BangLuongCongNhan_DAO;
 import DAO.ChamCongCongNhan_DAO;
+import DAO.CongNhan_DAO;
 import Entity.BangLuongCongNhan;
+import Entity.CongNhan;
 import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -15,6 +17,9 @@ import java.awt.event.ItemEvent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.text.MessageFormat;
 import java.time.LocalDate;
@@ -37,12 +42,14 @@ import javax.swing.table.DefaultTableModel;
  * @author December
  */
 public class LuongCongNhanView extends javax.swing.JPanel implements ActionListener {
-
+    
     private DefaultTableModel modelTableChamCong;
     private ChamCongCongNhan_DAO chamCongCN_DAO;
     private BangLuongCongNhan_DAO bangLuongCN_DAO;
     private DecimalFormat nf, df;
     private String fileName;
+    private String stTinhLuongThanhCong;
+    private String stTinhLuongThatBai;
 
     /**
      * Creates new form NhanVienView
@@ -56,7 +63,7 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
         modelTableChamCong = (DefaultTableModel) tblBangLuong.getModel();
         try {
             ConnectionDB.ConnectDB.getInstance().connect();
-
+            
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -76,7 +83,7 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
         cmbHienThi.addItemListener(this::hienThiBangLuongTheoNgay);
         taiDuLieuLenBang();
     }
-
+    
     public void caiDatNgonNguChoView(String fileName) throws FileNotFoundException, IOException {
         FileInputStream fis = new FileInputStream(fileName);
         Properties prop = new Properties();
@@ -103,18 +110,20 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
         ChangeName(tblBangLuong, 9, prop.getProperty("lnv_luongThang"));
         ChangeName(tblBangLuong, 10, prop.getProperty("lnv_ngayTinh"));
         ChangeName(tblBangLuong, 11, prop.getProperty("lnv_tongLuong"));
+        stTinhLuongThanhCong = prop.getProperty("tinhLuongThanhCong");
+        stTinhLuongThatBai = prop.getProperty("tinhLuongThatBai");
     }
-
+    
     public void ChangeName(JTable table, int col_index, String col_name) {
         table.getColumnModel().getColumn(col_index).setHeaderValue(col_name);
     }
-
+    
     public void setNamChoCmbNam() {
         cmbNamTinh.removeAllItems();
         cmbNamTinh.addItem(Calendar.getInstance().get(Calendar.YEAR) + "");
         cmbNamTinh.setEnabled(false);
     }
-
+    
     public void hienThiBangLuongTheoNgay(ItemEvent e) {
         if (e.getStateChange() == ItemEvent.SELECTED) {
             String item = e.getItem().toString();
@@ -127,10 +136,10 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
                     btnXuatBaoCao.setEnabled(true);
                 }
             }
-
+            
         }
     }
-
+    
     public void taiDuLieuLenBangTheoNgayThang() {
         int thang = Integer.parseInt((cmbThangTinh.getSelectedItem().toString()));
         int nam = Integer.parseInt(cmbNamTinh.getSelectedItem().toString());
@@ -145,13 +154,13 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
                 nf.format(bangLuong.getTongLuong())};
             modelTableChamCong.addRow(data);
         }
-
+        
     }
-
+    
     public void checkThangChon(ItemEvent e) {
         if (e.getStateChange() == ItemEvent.SELECTED) {
             String thangString = e.getItem().toString();
-
+            
             int thang = Integer.parseInt(thangString);
             int nam = Calendar.getInstance().get(Calendar.YEAR);
             if (LocalDate.of(nam, thang, 1).isAfter(LocalDate.now())) {
@@ -161,7 +170,7 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
             }
         }
     }
-
+    
     public void taiDuLieuLenBang() {
         while (tblBangLuong.getRowCount() != 0) {
             modelTableChamCong.removeRow(0);
@@ -175,14 +184,14 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
             modelTableChamCong.addRow(data);
         }
     }
-
+    
     public void excute() {
         tblBangLuong.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
         tblBangLuong.getTableHeader().setOpaque(false);
         ((DefaultTableCellRenderer) tblBangLuong.getTableHeader().getDefaultRenderer())
                 .setHorizontalAlignment(JLabel.CENTER);
         tblBangLuong.setRowHeight(25);
-
+        
     }
 
     /**
@@ -331,7 +340,30 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
     }//GEN-LAST:event_btnTinhLuongActionPerformed
 
     private void btnGuiThongTinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiThongTinActionPerformed
-        // TODO add your handling code here:
+        String luongTHang = tblBangLuong.getValueAt(0, 9).toString();
+        for (int i = 0; i < tblBangLuong.getRowCount(); i++) {
+            CongNhan_DAO congNhanDao = new CongNhan_DAO();
+            CongNhan congNhan = congNhanDao.layMotCongNhanTheoMa(tblBangLuong.getValueAt(i, 2).toString());
+            try {
+                String username = "admin";
+                String password = "123456";
+                String to = congNhan.getSoDienThoai();
+                String message = "Lương tháng " + luongTHang + " của bạn nhận được là " + tblBangLuong.getValueAt(i, 11);
+                String requestUrl = "http://localhost:9710/http/send-message?"
+                        + "username=" + URLEncoder.encode(username, "UTF-8")
+                        + "&password=" + URLEncoder.encode(password, "UTF-8")
+                        + "&to=" + URLEncoder.encode(to, "UTF-8")
+                        + "&message-type=sms.automatic"
+                        + "&message=" + URLEncoder.encode(message, "UTF-8");
+                URL url = new URL(requestUrl);
+                HttpURLConnection uc = (HttpURLConnection) url.openConnection();
+                System.out.println(uc.getResponseMessage());
+                uc.disconnect();
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+
     }//GEN-LAST:event_btnGuiThongTinActionPerformed
 
     private void cmbThangTinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbThangTinhActionPerformed
@@ -340,6 +372,18 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
         } else {
             taiDuLieuLenBangTheoNgayThang();
             caiDatGuiThongTin();
+        }
+        if (tblBangLuong.getRowCount() < 0) {
+            btnTinhLuong.setEnabled(false);
+        }
+        if (cmbHienThi.getSelectedIndex() == 1) {
+            if (tblBangLuong.getRowCount() > 0) {
+                btnGuiThongTin.setEnabled(true);
+                btnXuatBaoCao.setEnabled(true);
+            } else {
+                btnGuiThongTin.setEnabled(false);
+                btnXuatBaoCao.setEnabled(false);
+            }
         }
     }//GEN-LAST:event_cmbThangTinhActionPerformed
 
@@ -378,6 +422,15 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
         } else {
             taiDuLieuLenBangTheoNgayThang();
         }
+        if (cmbHienThi.getSelectedIndex() == 1) {
+            if (tblBangLuong.getRowCount() > 0) {
+                btnGuiThongTin.setEnabled(true);
+                btnXuatBaoCao.setEnabled(true);
+            }
+        } else {
+            btnGuiThongTin.setEnabled(false);
+            btnXuatBaoCao.setEnabled(false);
+        }
     }//GEN-LAST:event_cmbHienThiActionPerformed
 
     private void tblBangLuongMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBangLuongMouseReleased
@@ -393,8 +446,20 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
             taiDuLieuLenBangTheoNgayThang();
             caiDatGuiThongTin();
         }
+        if (tblBangLuong.getRowCount() < 0) {
+            btnTinhLuong.setEnabled(false);
+        }
+        if (cmbHienThi.getSelectedIndex() == 1) {
+            if (tblBangLuong.getRowCount() > 0) {
+                btnGuiThongTin.setEnabled(true);
+                btnXuatBaoCao.setEnabled(true);
+            } else {
+                btnGuiThongTin.setEnabled(false);
+                btnXuatBaoCao.setEnabled(false);
+            }
+        }
     }//GEN-LAST:event_cmbNamTinhActionPerformed
-
+    
     public void caiDatGuiThongTin() {
         if (cmbHienThi.getSelectedIndex() == 1) {
             if (modelTableChamCong.getRowCount() > 0) {
@@ -427,22 +492,19 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
         if (o.equals(btnTinhLuong)) {
             int thang = Integer.parseInt(cmbThangTinh.getSelectedItem().toString());
             int nam = Integer.parseInt(cmbNamTinh.getSelectedItem().toString());
-            boolean coTinhDuoc = bangLuongCN_DAO.kiemTraKhaThiChoTinhThangNay(thang, nam);
-            if (!coTinhDuoc) {
-                JOptionPane.showMessageDialog(null, "Đã tính lương cho tháng " + cmbThangTinh.getSelectedItem().toString()
-                        + ", năm " + cmbNamTinh.getSelectedItem().toString() + " rồi!");
-                return;
-            }
+            boolean coXoaDuoc = bangLuongCN_DAO.xoaDiNhungThangDaTinh(thang, nam);
             boolean tinhLuong = bangLuongCN_DAO.tinhLuongCongNhan(thang, nam);
             if (tinhLuong) {
-                JOptionPane.showMessageDialog(null, "Tính lương cho tháng " + cmbThangTinh.getSelectedItem().toString()
-                        + ", năm " + cmbNamTinh.getSelectedItem().toString() + " thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+//                JOptionPane.showMessageDialog(null, "Tính lương cho tháng " + cmbThangTinh.getSelectedItem().toString()
+//                        + ", năm " + cmbNamTinh.getSelectedItem().toString() + " thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, stTinhLuongThanhCong);
                 taiDuLieuLenBang();
             } else {
-                JOptionPane.showMessageDialog(null, "Tính lương cho tháng " + cmbThangTinh.getSelectedItem().toString()
-                        + ", năm " + cmbNamTinh.getSelectedItem().toString() + " thất bại!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+//                JOptionPane.showMessageDialog(null, "Tính lương cho tháng " + cmbThangTinh.getSelectedItem().toString()
+//                        + ", năm " + cmbNamTinh.getSelectedItem().toString() + " thất bại!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, stTinhLuongThatBai);
             }
-
+            
         }
     }
 }

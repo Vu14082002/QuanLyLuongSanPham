@@ -5,21 +5,13 @@
 package DAO;
 
 import ConnectionDB.ConnectDB;
-import Entity.BangLuongCongNhan;
 import Entity.ChamCongCongNhan;
-import Entity.CongDoan;
-import Entity.CongNhan;
-import Entity.NhanVien;
 import Entity.PhanCongCongNhan;
-import Entity.PhongBan;
-import Entity.SanPham;
-import Entity.ToNhom;
 import java.io.PrintStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 

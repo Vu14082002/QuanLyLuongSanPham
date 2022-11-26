@@ -6,7 +6,6 @@ package view;
 
 import DAO.CongNhan_DAO;
 import DAO.NhanVien_DAO;
-import Entity.CongNhan;
 import Entity.NhanVien;
 import java.awt.Color;
 import java.io.FileInputStream;
@@ -14,7 +13,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.Preferences;
@@ -276,7 +274,7 @@ public class LoginView extends javax.swing.JFrame {
         });
         jPanel2.add(lblQuenMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 323, 190, -1));
 
-        cmbNgonNgu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "VietNam", "English", "France", "Malagasy" }));
+        cmbNgonNgu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "VietNam", "English" }));
         cmbNgonNgu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbNgonNguActionPerformed(evt);

@@ -609,7 +609,7 @@ public class HopDongView extends javax.swing.JPanel {
         if (txtTenKhachHang.getText().equals("")) {
             lblErrTenKhachHang.setText(stErrKhongDeTrong);
             check = false;
-        } else if (!txtTenKhachHang.getText().matches("^([A-ZĐÂÁƯ][a-zỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổ"
+        } else if (!txtTenKhachHang.getText().matches("^([a-zỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổ"
                 + "ẵẻỡơôưăêâđ]+)((\\s[A-ZĐÂÁƯ][a-zỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]+){0,})$")) {
             lblErrTenKhachHang.setText(stErrTenKhachHangKhongHopLe);
             check = false;

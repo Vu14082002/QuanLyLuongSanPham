@@ -740,10 +740,6 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "ERRO,please Resset (T_T)(T_T)");
-        } finally {
-            setHidden(btnLuu, btnHuy, btnXoa, btnCapNhat);
-            setShow(btnThem, btnThemNhieu);
-            setEnableForInput(false);   
         }
 
     }//GEN-LAST:event_btnLuuActionPerformed

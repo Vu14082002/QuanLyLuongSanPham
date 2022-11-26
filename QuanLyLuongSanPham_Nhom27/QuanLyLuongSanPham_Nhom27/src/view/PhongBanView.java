@@ -55,6 +55,8 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
     private String stCapNhatThanhCong;
     private String stCapNhatThatBai;
     private String stChonMauSacChoSanPham;
+    private String stErrTenPhongBan;
+    
     
     public PhongBanView(NhanVien nhanVienDangNhap, String fileName) throws IOException {
         oFlag = null;
@@ -103,7 +105,7 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
         btnCapNhat.setText(prop.getProperty("btnCapNhat"));
         btnLuu.setText(prop.getProperty("btnLuu"));
         btnHuy.setText(prop.getProperty("btnHuy"));
-        
+        stErrTenPhongBan=prop.getProperty("lblErrTenPhongBan");
         stThongbao = prop.getProperty("thongBao");
         stBanXacNhanXoa = prop.getProperty("banXacNhanXoa");
         stXoaThanhCong = prop.getProperty("xoaThanhCong");
@@ -472,7 +474,7 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
                     lbErrTenPhongBan.setText(stErrKhongDeTrong);
                     return;
                 } else if (!txtTenPhongBan.getText().toLowerCase().matches("^([a-vxyỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]+)((\\s{1}[a-vxyỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]+){0,})$")) {
-                    lbErrTenPhongBan.setText("Chỉ chứa kí tự chữ");
+                    lbErrTenPhongBan.setText(stErrTenPhongBan);
                     return;
                 } else {
                     lbErrTenPhongBan.setText("");

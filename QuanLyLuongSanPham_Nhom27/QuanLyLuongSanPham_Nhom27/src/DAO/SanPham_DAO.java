@@ -6,7 +6,6 @@ package DAO;
 
 import ConnectionDB.ConnectDB;
 import Entity.HopDong;
-import java.util.ArrayList;
 import Entity.SanPham;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
@@ -14,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -253,19 +253,24 @@ public class SanPham_DAO {
     public ArrayList<SanPham> layDanhSachSanPhamDuocPhanCongChoTo(String maToNhom) {
         PreparedStatement stm = null;
         ArrayList<SanPham> dsSanPham = new ArrayList<SanPham>();
-        
+
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
             String truyVan = "SELECT SP.maSanPham FROM ToNhom TN JOIN PhanCongCongNhan PCCN ON TN.maToNhom = PCCN.maToNhom"
                     + " JOIN CongDoan CD ON PCCN.maCongDoan = CD.maCongDoan"
-                    + " JOIN SanPham SP ON SP.maSanPham = CD.maSanPham WHERE TN.maToNhom = ? group by SP.maSanPham";
+                    + " JOIN SanPham SP ON SP.maSanPham = CD.maSanPham WHERE TN.maToNhom = ? and "
+                    + " SP.maSanPham in "
+                    + " (select SP2.maSanPham from SanPham SP2 JOIN CongDoan CD2 ON SP2.maSanPham = CD2.maSanPham"
+                    + " join PhanCongCongNhan PCCC2 ON CD2.maCongDoan = PCCC2.maCongDoan"
+                    + " where tinhTrang != '100,00%')"
+                    + " group by SP.maSanPham";
             stm = con.prepareStatement(truyVan);
             stm.setString(1, maToNhom);
             ResultSet rs = stm.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 String maSanPham = rs.getString("maSanPham");
-               
+
                 dsSanPham.add(layMotSanPhamTheoMa(maSanPham));
             }
         } catch (Exception e) {
@@ -296,13 +301,6 @@ public class SanPham_DAO {
         }
         SanPham_DAO dao = new SanPham_DAO();
         ArrayList<SanPham> dsSanPham = dao.layDanhSachSanPhamDuocPhanCongChoTo("TN100001");
-//        
-//        System.out.println("Thêm: " + dao.themMotSanPham(new SanPham("SP111111", "HD100001", "Giay Nika", 321, "Đỏ", "Poly", 12, "anh1.png", 0)));
-//        System.out.println("\n\n\n Danh sách: " + dao.layDanhSachSanPham().toString());
-//        System.out.println("\n\n\n Sửa: " + dao.suaMotSanPham(new SanPham("SP111111", "Giay Nika", 323, "Đỏ", "Poly", 12, "anh1.png", 0)));
-//        System.out.println("\n\n\n Xóa: " + dao.xoaMotSanPhamTheoMa("SP111111"));
-//        System.out.println("\n\n\n Danh sách: " + dao.layDanhSachSanPham().toString());
-//        System.out.println("\n\n\n Lấy 1: " + dao.layMotSanPhamTheoMa("SP123123").toString());
     }
 
 }

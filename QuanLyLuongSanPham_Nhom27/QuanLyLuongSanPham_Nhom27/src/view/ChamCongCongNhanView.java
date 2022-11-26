@@ -86,6 +86,7 @@ public class ChamCongCongNhanView extends javax.swing.JPanel implements ActionLi
     private String stSoTienLonHonKhong;
     private String stChamCongThanhCong;
     private String stErrNgayChamCong;
+    private String stErrBeHonTongSanPhamCongDoan;
 
     public ChamCongCongNhanView(String fileName) throws IOException {
         initComponents();
@@ -260,6 +261,7 @@ public class ChamCongCongNhanView extends javax.swing.JPanel implements ActionLi
         ChangeName(tblChamCong, 12, lblTenCongDoan.getText());
         ChangeName(tblChamCong, 13, lblSoLuongSanPham.getText());
 
+        stErrBeHonTongSanPhamCongDoan = prop.getProperty("lblErrSoLuongLam");
         stThongbao = prop.getProperty("thongBao");
         stBanXacNhanXoa = prop.getProperty("banXacNhanXoa");
         stXoaThanhCong = prop.getProperty("xoaThanhCong");
@@ -519,6 +521,15 @@ public class ChamCongCongNhanView extends javax.swing.JPanel implements ActionLi
         for (CongDoan cd : dsCongDoan) {
             cmbMaCongDoan.addItem(cd.getMaCongDoan());
             cmbTenCongDoan.addItem(cd.getTenCongDoan());
+        }
+        if (cmbMaCongDoan.getItemCount() == 0 || cmbTenCongDoan.getItemCount() == 0){
+            btnLayDanhSach.setEnabled(false);
+            cmbMaCongDoan.setEnabled(false);
+            cmbTenCongDoan.setEnabled(false);
+        } else {
+            btnLayDanhSach.setEnabled(true);
+            cmbMaCongDoan.setEnabled(true);
+            cmbTenCongDoan.setEnabled(true);
         }
 //        ArrayList<CongDoan> dsCongDoan = congDoan_DAO.layDanhSachCongDoanTheoToNhomLam(maToNhom);
 //
@@ -1082,6 +1093,7 @@ public class ChamCongCongNhanView extends javax.swing.JPanel implements ActionLi
                     }
                     tblChamCong.setRowSelectionInterval(0, 0);
                 }
+                congDoan_DAO.updateTinhTrangHoanThanhCuaCacCongDoan();
             } else {
                 JOptionPane.showMessageDialog(null, stThemThatBai, stThongbao, JOptionPane.INFORMATION_MESSAGE);
             }
@@ -1146,6 +1158,7 @@ public class ChamCongCongNhanView extends javax.swing.JPanel implements ActionLi
                     tblChamCong.setRowSelectionInterval(0, 0);
                 }
                 JOptionPane.showMessageDialog(null, stCapNhatThanhCong, stThongbao, JOptionPane.INFORMATION_MESSAGE);
+                congDoan_DAO.updateTinhTrangHoanThanhCuaCacCongDoan();
                 cmbCaLam.setEnabled(false);
                 cmbTrangThai.setEnabled(false);
                 cmbGioDiLam.setEnabled(false);
@@ -1176,6 +1189,7 @@ public class ChamCongCongNhanView extends javax.swing.JPanel implements ActionLi
                     if (coXoaDuoc) {
                         JOptionPane.showMessageDialog(null, stXoaThanhCong, stThongbao, JOptionPane.INFORMATION_MESSAGE);
                         taiDuLieuChamCongLenBang();
+                        congDoan_DAO.updateTinhTrangHoanThanhCuaCacCongDoan();
                         if (tblChamCong.getRowCount() != 0) {
                             if (tblCongNhan.getSelectedRow() != -1) {
                                 tblCongNhan.removeRowSelectionInterval(tblCongNhan.getSelectedRow(), tblCongNhan.getSelectedRow());
@@ -1194,7 +1208,7 @@ public class ChamCongCongNhanView extends javax.swing.JPanel implements ActionLi
         if (txtSoLuongLam.getText().trim().equals("")) {
             lblErrSoLuongSP.setText(stErrKhongDeTrong);
             return false;
-        }
+        } 
         int soLuong = -1;
         try {
             soLuong = Integer.parseInt(txtSoLuongLam.getText().trim());
@@ -1205,6 +1219,14 @@ public class ChamCongCongNhanView extends javax.swing.JPanel implements ActionLi
         if (soLuong < 0) {
             lblErrSoLuongSP.setText(stErrSoLuong);
             return false;
+        }
+        ArrayList<PhanCongCongNhan> phanCongDS = phanCong_DAO.layDanhSachPhanCongTheoMaCongDoan(maCongDoanFlag);
+        if (phanCongDS.size() > 0){
+            int soLuongLamCuaPhanCong = phanCongDS.get(0).getSoLuongCanLam();
+            if (soLuong > soLuongLamCuaPhanCong){
+                lblErrSoLuongSP.setText(stErrBeHonTongSanPhamCongDoan);
+                return false;
+            }
         }
         lblErrSoLuongSP.setText("");
         return true;
@@ -1269,6 +1291,8 @@ public class ChamCongCongNhanView extends javax.swing.JPanel implements ActionLi
             int row = tblCongNhan.getSelectedRow();
             if (row != -1) {
                 hienThiThongTinCongNhanLenTxt(row);
+                txtSoLuongLam.setText("0");
+                txtSoLuongLam.requestFocus();
                 btnCapNhat.setEnabled(false);
                 btnHuy.setEnabled(false);
                 btnLuu.setEnabled(false);
@@ -1294,6 +1318,7 @@ public class ChamCongCongNhanView extends javax.swing.JPanel implements ActionLi
                 btnHuy.setEnabled(false);
                 btnLuu.setEnabled(false);
                 btnXoa.setEnabled(true);
+                lblErrSoLuongSP.setText("");
 
                 if (btnCapNhat.isEnabled()) {
                     System.out.println("view.ChamCongCongNhanView.mouseClicked()");

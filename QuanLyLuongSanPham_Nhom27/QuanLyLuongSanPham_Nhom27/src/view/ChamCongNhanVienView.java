@@ -614,6 +614,9 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(null, "ERRO, please reset (T_T)(T_T)");
         }
+        if (tblChamCong.getSelectedRow()!=-1) {
+            tblChamCong.removeRowSelectionInterval(tblChamCong.getSelectedRow(), 0);
+        }
     }//GEN-LAST:event_tblNhanVienMouseClicked
 
     public void change() {
@@ -665,6 +668,9 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
             checkChamCong = false;
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(null, "ERRO, please reset (T_T)(T_T)");
+        }
+        if (tblNhanVien.getSelectedRow()!=-1) {
+            tblNhanVien.removeRowSelectionInterval(tblNhanVien.getSelectedRow(), 0);
         }
     }//GEN-LAST:event_tblChamCongMouseClicked
     private void btnLayDanhSachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLayDanhSachActionPerformed
@@ -805,7 +811,7 @@ public class ChamCongNhanVienView extends javax.swing.JPanel {
                     if (modelChamCong.getRowCount() > 0) {
                         setShow(btnChamCongTatCa);
                     }
-                    setHidden(btnLuu, btnHuy, btnCapNhat,btnChamCong);
+                    setHidden(btnLuu, btnHuy, btnCapNhat, btnChamCong);
                     checkChamCong = false;
                 }
             }

@@ -89,7 +89,7 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
         ChangeName(tblSanPham, 2, prop.getProperty("pc_tenSanPham"));
         ChangeName(tblSanPham, 3, prop.getProperty("pc_soLuongCan"));
 
-        ChangeName(tblPhanCong, 0, prop.getProperty("pc_stt"));
+        ChangeName(tblPhanCong, 0, prop.getProperty("pc_maPhanCong"));
         ChangeName(tblPhanCong, 1, prop.getProperty("pc_maSanPham"));
         ChangeName(tblPhanCong, 2, prop.getProperty("pc_tenSanPham"));
         ChangeName(tblPhanCong, 3, prop.getProperty("pc_MaCongDoan"));
@@ -180,7 +180,7 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
         if (listSanPham != null) {
             listSanPham.forEach(e -> {
                 ArrayList<CongDoan> cd = daoCongDoan.layDanhSachCongDoanTheoMaSP(e.getMaSanPham());
-                if (cd.size() > 1) {
+                if (cd.size() > 0) {
                     modelSanPham.addRow(new Object[]{modelSanPham.getRowCount() + 1, e.getMaSanPham(), e.getTenSanPham(), e.getSoLuongSanPham()});
                 }
             });
@@ -213,8 +213,15 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
         ArrayList<CongDoan> listCongDoan = daoCongDoan.layDanhSachCongDoanTheoMaSP(sp.getMaSanPham());
         cmbMaCongDoan.removeAllItems();
         listCongDoan.forEach(e -> {
-            cmbMaCongDoan.addItem(e.getMaCongDoan());
+            if (!e.getTinhTrang().contains("100")) {
+                cmbMaCongDoan.addItem(e.getMaCongDoan());
+            }
         });
+        if (cmbMaCongDoan.getSelectedItem().toString()!=null) {
+            btnPhanCong.setEnabled(true);
+        } else {
+            btnPhanCong.setEnabled(false);
+        }
         if (listPhanCong != null) {
             for (PhanCongCongNhan e : listPhanCong) {
                 if (e.getCongDoan().getSanPham().getMaSanPham().equals(sp.getMaSanPham())) {
@@ -633,7 +640,7 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
             }
         });
         ArrayList<PhanCongCongNhan> listPhanCong = daoPhanCong.layDanhSachPhanCongCongNhan();
-        SanPham sp = daoSanPham.layMotSanPhamTheoMa(tblSanPham.getValueAt(tblSanPham.getSelectedRow(), 1).toString());
+        SanPham sp = daoSanPham.layMotSanPhamTheoMa(tblPhanCong.getValueAt(tblPhanCong.getSelectedRow(), 1).toString());
         ArrayList<CongDoan> listCongDoan = daoCongDoan.layDanhSachCongDoanTheoMaSP(sp.getMaSanPham());
         cmbMaCongDoan.removeAllItems();
         for (CongDoan congDoan : listCongDoan) {

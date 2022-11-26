@@ -27,6 +27,7 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -50,6 +51,8 @@ public class LuongNhanVienView extends javax.swing.JPanel {
 
     private double tongLuong = 0;
     private String fileName;
+    private String stTinhLuongThanhCong;
+    private String stTinhLuongThatBai;
 
     public LuongNhanVienView(String fileName) throws IOException {
         this.fileName = fileName;
@@ -87,7 +90,8 @@ public class LuongNhanVienView extends javax.swing.JPanel {
         ChangeName(tblBangLuong, 10, prop.getProperty("lnv_tongLuong"));
         ChangeName(tblBangLuong, 11, prop.getProperty("lnv_donViTien"));
         ChangeName(tblBangLuong, 12, prop.getProperty("lnv_ngayTinh"));
-
+        stTinhLuongThanhCong = prop.getProperty("tinhLuongThanhCong");
+        stTinhLuongThatBai = prop.getProperty("tinhLuongThatBai");
     }
 
     public void ChangeName(JTable table, int col_index, String col_name) {
@@ -372,6 +376,7 @@ public class LuongNhanVienView extends javax.swing.JPanel {
             double tongTien = nv.getLuongThoaThuan() / 28 * soNgayDiLam + nv.getLuongThoaThuan() / 28 * soNgayChuNhatDiLam;
             bangLuongNhanVienDao.themMotBangLuongString(maBangLuong, nv.getMaNhanVien(), soNgayDiLam, soNgayNghi, soPhepNghi, new Date(), luongTheoThang, tongTien, "VND");
         }
+        JOptionPane.showMessageDialog(this, stTinhLuongThanhCong);
     }
 
     public int sunday(Date d1, Date d2) {
@@ -391,30 +396,41 @@ public class LuongNhanVienView extends javax.swing.JPanel {
         return sundays;
     }
     private void btnGuiThongTinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiThongTinActionPerformed
-        try {
-            String username = "admin";
-            String password = "123456";
-            String to = "+84327060328";
-            String message = "Hello Vu";
-
-            String requestUrl = "http://localhost:9710/http/send-message?"
-                    + "username=" + URLEncoder.encode(username, "UTF-8")
-                    + "&password=" + URLEncoder.encode(password, "UTF-8")
-                    + "&to=" + URLEncoder.encode(to, "UTF-8")
-                    + "&message-type=sms.automatic"
-                    + "&message=" + URLEncoder.encode(message, "UTF-8");
-            URL url = new URL(requestUrl);
-            HttpURLConnection uc = (HttpURLConnection) url.openConnection();
-            System.out.println(uc.getResponseMessage());
-            uc.disconnect();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+        String luongTHang = tblBangLuong.getValueAt(0, 6).toString();
+        for (int i = 0; i < tblBangLuong.getRowCount(); i++) {
+            try {
+                String username = "admin";
+                String password = "123456";
+                String to = tblBangLuong.getValueAt(i, 5).toString();
+                String message = "Lương tháng " + luongTHang + " của bạn nhận được là " + tblBangLuong.getValueAt(i, 11);
+                String requestUrl = "http://localhost:9710/http/send-message?"
+                        + "username=" + URLEncoder.encode(username, "UTF-8")
+                        + "&password=" + URLEncoder.encode(password, "UTF-8")
+                        + "&to=" + URLEncoder.encode(to, "UTF-8")
+                        + "&message-type=sms.automatic"
+                        + "&message=" + URLEncoder.encode(message, "UTF-8");
+                URL url = new URL(requestUrl);
+                HttpURLConnection uc = (HttpURLConnection) url.openConnection();
+                System.out.println(uc.getResponseMessage());
+                uc.disconnect();
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
         }
     }//GEN-LAST:event_btnGuiThongTinActionPerformed
 
     private void cmbThangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbThangActionPerformed
         taiDuLieuLenBangLuong();
         caiDatGuiThongTin();
+        if (cmbHienThi.getSelectedIndex() == 1) {
+            if (tblBangLuong.getRowCount() > 0) {
+                btnGuiThongTin.setEnabled(true);
+                btnXuatBaoCao.setEnabled(true);
+            } else {
+                btnGuiThongTin.setEnabled(false);
+                btnXuatBaoCao.setEnabled(false);
+            }
+        }
     }//GEN-LAST:event_cmbThangActionPerformed
 
     private void btnXuatBaoCaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatBaoCaoActionPerformed
@@ -434,7 +450,15 @@ public class LuongNhanVienView extends javax.swing.JPanel {
             btnXuatBaoCao.setEnabled(false);
             btnGuiThongTin.setEnabled(false);
         } else {
-
+            if (cmbHienThi.getSelectedIndex() == 1) {
+                if (tblBangLuong.getRowCount() > 0) {
+                    btnGuiThongTin.setEnabled(true);
+                    btnXuatBaoCao.setEnabled(true);
+                } else {
+                    btnGuiThongTin.setEnabled(false);
+                    btnXuatBaoCao.setEnabled(false);
+                }
+            }
         }
 
     }//GEN-LAST:event_cmbHienThiActionPerformed
@@ -467,6 +491,15 @@ public class LuongNhanVienView extends javax.swing.JPanel {
     private void cmbNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNamActionPerformed
         taiDuLieuLenBangLuong();
         caiDatGuiThongTin();
+        if (cmbHienThi.getSelectedIndex() == 1) {
+            if (tblBangLuong.getRowCount() > 0) {
+                btnGuiThongTin.setEnabled(true);
+                btnXuatBaoCao.setEnabled(true);
+            } else {
+                btnGuiThongTin.setEnabled(false);
+                btnXuatBaoCao.setEnabled(false);
+            }
+        }
     }//GEN-LAST:event_cmbNamActionPerformed
 
 

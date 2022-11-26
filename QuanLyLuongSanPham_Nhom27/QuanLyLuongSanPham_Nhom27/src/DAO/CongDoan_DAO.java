@@ -6,7 +6,6 @@ package DAO;
 
 import ConnectionDB.ConnectDB;
 import Entity.CongDoan;
-import Entity.PhongBan;
 import Entity.SanPham;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
@@ -15,14 +14,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -244,7 +237,6 @@ public class CongDoan_DAO {
         if (mucDoHoanThanh > 100) {
             mucDoHoanThanh = 100;
         }
-        System.out.println("Mức độ hoàn thành: " + mucDoHoanThanh);
         if (Double.isNaN(mucDoHoanThanh)) {
             updateThoiHan(maCongDoan, "0%");
             return 0;
@@ -252,7 +244,28 @@ public class CongDoan_DAO {
         updateThoiHan(maCongDoan, String.format("%.2f", mucDoHoanThanh) + "%");
         return mucDoHoanThanh;
     }
-
+    public void updateTinhTrangHoanThanhCuaCacCongDoan(){
+        Statement stm = null;
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String truyVan = "SELECT * FROM CongDoan";
+            stm = con.createStatement();
+            ResultSet rs = stm.executeQuery(truyVan);
+            while (rs.next()){
+                String maCongDoan = rs.getString("maCongDoan");
+                layMucDoHoanThanhCuaMotCongDoan(maCongDoan);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally{
+            try {
+                stm.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
     public int laySoLuongLamDuocTheoMaCongDoan(String maCongDoan) {
         PreparedStatement stm = null;
         int soLuongLamDuoc = 0;
@@ -351,15 +364,18 @@ public class CongDoan_DAO {
     public ArrayList<CongDoan> layDanhSachCongDoanDuocPhanCongTheoMaSpMaTN(String maToNhom, String maSanPham) {
         PreparedStatement stm = null;
         ArrayList<CongDoan> dsCongDoan = new ArrayList<CongDoan>();
+        String tinhTrangHoanThanh = "100,00%";
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
             String truyVan = "SELECT CD.maCongDoan FROM ToNhom TN JOIN PhanCongCongNhan PCCN ON TN.maToNhom = PCCN.maToNhom"
                     + " JOIN CongDoan CD ON PCCN.maCongDoan = CD.maCongDoan"
-                    + " JOIN SanPham SP ON SP.maSanPham = CD.maSanPham WHERE TN.maToNhom = ? and SP.maSanPham = ? group by CD.maCongDoan";
+                    + " JOIN SanPham SP ON SP.maSanPham = CD.maSanPham WHERE TN.maToNhom = ? and SP.maSanPham = ? and CD.tinhTrang != ?"
+                    + " group by CD.maCongDoan";
             stm = con.prepareStatement(truyVan);
             stm.setString(1, maToNhom);
             stm.setString(2, maSanPham);
+            stm.setString(3, tinhTrangHoanThanh);
             ResultSet rs = stm.executeQuery();
             while (rs.next()){
                 String maCongDoan = rs.getString("maCongDoan");
