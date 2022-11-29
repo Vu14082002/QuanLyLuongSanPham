@@ -338,7 +338,7 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
         lblErrHoVaTen.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lblErrHoVaTen.setForeground(new java.awt.Color(204, 0, 0));
         lblErrHoVaTen.setText("đây là dòng thông báo lỗi");
-        jPanel5.add(lblErrHoVaTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 70, 200, -1));
+        jPanel5.add(lblErrHoVaTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 70, 290, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel3.setText("_______________________________");
@@ -380,7 +380,7 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
         lblErrSoCCCD.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lblErrSoCCCD.setForeground(new java.awt.Color(204, 0, 0));
         lblErrSoCCCD.setText("đây là dòng thông báo lỗi");
-        jPanel5.add(lblErrSoCCCD, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 130, 280, -1));
+        jPanel5.add(lblErrSoCCCD, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 130, 290, -1));
 
         lblSoCCCD.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lblSoCCCD.setText("Sô CCCD:");
@@ -422,7 +422,7 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
         lblErrDiaChi.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lblErrDiaChi.setForeground(new java.awt.Color(204, 0, 0));
         lblErrDiaChi.setText("đây là dòng thông báo lỗi");
-        jPanel5.add(lblErrDiaChi, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 200, 200, -1));
+        jPanel5.add(lblErrDiaChi, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 200, 280, -1));
 
         txtDiaChi.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         txtDiaChi.setBorder(null);
@@ -499,7 +499,7 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
         lblErrSoDienThoai.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lblErrSoDienThoai.setForeground(new java.awt.Color(204, 0, 0));
         lblErrSoDienThoai.setText("đây là dòng thông báo lỗi");
-        jPanel5.add(lblErrSoDienThoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 190, 200, -1));
+        jPanel5.add(lblErrSoDienThoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 190, 300, -1));
 
         lblPhongBan.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lblPhongBan.setText("Phòng ban:");
@@ -679,7 +679,7 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
                     try {
                         taiDuLieuLenBang();
                     } catch (ParseException ex) {
-                        JOptionPane.showMessageDialog(null, "Erro (T_T)(T_T)", stThongbao, JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Erro (T_T)(T_T) ", stThongbao, JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
             }

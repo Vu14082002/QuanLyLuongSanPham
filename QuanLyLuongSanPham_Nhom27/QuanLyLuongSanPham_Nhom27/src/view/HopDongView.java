@@ -860,7 +860,7 @@ public class HopDongView extends javax.swing.JPanel {
                     }
                 }
                 in.close();
-                JOptionPane.showMessageDialog(null, stThemThanhCong + count + stTren + (--total) + stHopDong);
+                JOptionPane.showMessageDialog(null, stThemThanhCong +" " + count + " "+stTren + (--total) + stHopDong);
             } catch (FileNotFoundException ex) {
                 JOptionPane.showMessageDialog(null, stKhongTimThayFile, stThongbao, JOptionPane.ERROR_MESSAGE);
             } catch (IOException ex) {

@@ -7,9 +7,7 @@ package view;
 import DAO.CongNhan_DAO;
 import DAO.ToNhom_DAO;
 import Entity.CongNhan;
-import Entity.HopDong;
 import Entity.ToNhom;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -395,7 +393,7 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
         lblErrHoTen.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lblErrHoTen.setForeground(new java.awt.Color(204, 0, 0));
         lblErrHoTen.setText("đây là dòng thông báo lỗi");
-        jPanel5.add(lblErrHoTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 70, 200, -1));
+        jPanel5.add(lblErrHoTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 70, 330, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel3.setText("_______________________________");
@@ -420,7 +418,7 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
         lblErrEmail.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lblErrEmail.setForeground(new java.awt.Color(204, 0, 0));
         lblErrEmail.setText("đây là dòng thông báo lỗi");
-        jPanel5.add(lblErrEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 140, 200, -1));
+        jPanel5.add(lblErrEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 140, 330, -1));
 
         lblEmail.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lblEmail.setText("Email:");
@@ -437,7 +435,7 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
         lblErrCCCD.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lblErrCCCD.setForeground(new java.awt.Color(204, 0, 0));
         lblErrCCCD.setText("đây là dòng thông báo lỗi");
-        jPanel5.add(lblErrCCCD, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 130, 200, -1));
+        jPanel5.add(lblErrCCCD, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 130, 320, -1));
 
         lblSoCCCD.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lblSoCCCD.setText("Số CCCD:");
@@ -466,7 +464,7 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
         lblErrNgaySinh.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lblErrNgaySinh.setForeground(new java.awt.Color(204, 0, 0));
         lblErrNgaySinh.setText("đây là dòng thông báo lỗi");
-        jPanel5.add(lblErrNgaySinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 260, 200, -1));
+        jPanel5.add(lblErrNgaySinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 260, 320, -1));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel8.setText("_______________________________");
@@ -475,7 +473,7 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
         lblErrDiaChi.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lblErrDiaChi.setForeground(new java.awt.Color(204, 0, 0));
         lblErrDiaChi.setText("đây là dòng thông báo lỗi");
-        jPanel5.add(lblErrDiaChi, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 200, 200, -1));
+        jPanel5.add(lblErrDiaChi, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 200, 330, -1));
 
         txtDiaChi.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         txtDiaChi.setBorder(null);
@@ -526,7 +524,7 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
         lblErrSoDienThoai.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lblErrSoDienThoai.setForeground(new java.awt.Color(204, 0, 0));
         lblErrSoDienThoai.setText("đây là dòng thông báo lỗi");
-        jPanel5.add(lblErrSoDienThoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 190, 200, -1));
+        jPanel5.add(lblErrSoDienThoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 190, 320, -1));
 
         lblToNhom.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lblToNhom.setText("Tổ/Nhóm");
@@ -542,7 +540,7 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
         lblErrNgayVaoLam.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lblErrNgayVaoLam.setForeground(new java.awt.Color(204, 0, 0));
         lblErrNgayVaoLam.setText("đây là dòng thông báo lỗi");
-        jPanel5.add(lblErrNgayVaoLam, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 330, 200, -1));
+        jPanel5.add(lblErrNgayVaoLam, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 330, 320, -1));
 
         btnThem.setBackground(new java.awt.Color(46, 204, 113));
         btnThem.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -756,7 +754,7 @@ public class CapNhatCongNhanView extends javax.swing.JPanel implements ActionLis
                     }
                 }
                 in.close();
-                JOptionPane.showMessageDialog(null, stThemThanhCong + count + stTren + (--total) + stCongNhan);
+                JOptionPane.showMessageDialog(null, stThemThanhCong +" "+ count +" "+ stTren + (--total) + stCongNhan);
             } catch (FileNotFoundException ex) {
                 JOptionPane.showMessageDialog(null, stKhongTimThayFile, stThongbao, JOptionPane.ERROR_MESSAGE);
             } catch (IOException ex) {

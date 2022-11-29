@@ -68,6 +68,7 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
     private String stErr1;
     private String stErr2;
     private String stErr3;
+    private String stErrPhanCong;
 
     public PhanCongCongViecView(String fileName) throws IOException {
         initComponents();
@@ -127,6 +128,7 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
         stErrSoLuong = prop.getProperty("sp_lblErrSoLuong");
         stErrKhongDeTrong = prop.getProperty("KhongDeTrong");
         stErrChuSo = prop.getProperty("pc_errKytuso");
+        stErrPhanCong = prop.getProperty("pc_errNgayPhanCong");
         stErr1 = prop.getProperty("pc_err1");
         stErr2 = prop.getProperty("pc_err2");
         stErr3 = prop.getProperty("pc_err3");
@@ -212,16 +214,14 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
         SanPham sp = daoSanPham.layMotSanPhamTheoMa(tblSanPham.getValueAt(tblSanPham.getSelectedRow(), 1).toString());
         ArrayList<CongDoan> listCongDoan = daoCongDoan.layDanhSachCongDoanTheoMaSP(sp.getMaSanPham());
         cmbMaCongDoan.removeAllItems();
-        listCongDoan.forEach(e -> {
+        boolean check = false;
+        for (CongDoan e : listCongDoan) {
             if (!e.getTinhTrang().contains("100")) {
                 cmbMaCongDoan.addItem(e.getMaCongDoan());
+                check = true;
             }
-        });
-        if (cmbMaCongDoan.getSelectedItem().toString()!=null) {
-            btnPhanCong.setEnabled(true);
-        } else {
-            btnPhanCong.setEnabled(false);
         }
+        btnPhanCong.setEnabled(check);
         if (listPhanCong != null) {
             for (PhanCongCongNhan e : listPhanCong) {
                 if (e.getCongDoan().getSanPham().getMaSanPham().equals(sp.getMaSanPham())) {
@@ -526,15 +526,21 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
     }
 
     public boolean checkSoLuongCanLam() {
+        boolean flag = true;
+        if (dcsNgayPhanCong.getDate().after(new Date())) {
+            JOptionPane.showMessageDialog(this, stErrPhanCong, stThongbao, JOptionPane.ERROR_MESSAGE);
+            flag = false;
+        }
         if (txtSoLuongCanLam.getText().trim().equals("")) {
             lblErrSoLuongCanLam.setText(stErrKhongDeTrong);
-            return false;
+            flag = false;
         } else if (!txtSoLuongCanLam.getText().matches("^[1-9][0-9]*$")) {
             lblErrSoLuongCanLam.setText(stErrChuSo);
-            return false;
+            flag = false;
+        } else {
+            lblErrSoLuongCanLam.setText("");
         }
-        lblErrSoLuongCanLam.setText("");
-        return true;
+        return flag;
     }
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {
@@ -562,13 +568,13 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
                             int maSo = Integer.parseInt(daoPhanCong.layDanhSachPhanCongCongNhan().get(daoPhanCong.layDanhSachPhanCongCongNhan().size() - 1).getMaPhanCong().split("C")[1]) + 1;
                             maPhanCong = "PC" + maSo;
                         }
-                        if (checkSoLuongCanLam()) {
-                            int soLuongCanLham = Integer.parseInt(txtSoLuongCanLam.getText());
-                            PhanCongCongNhan phanCong = new PhanCongCongNhan(maPhanCong, congNhanTheoToNhom, congDoan, nhanVienChamCong, ngayPhanCong, soLuongCanLham, toNhom);
-                            if (daoPhanCong.themMotPhanCongNhan(phanCong)) {
-                                check = true;
-                            }
+//                        if (checkSoLuongCanLam()) {
+                        int soLuongCanLham = Integer.parseInt(txtSoLuongCanLam.getText());
+                        PhanCongCongNhan phanCong = new PhanCongCongNhan(maPhanCong, congNhanTheoToNhom, congDoan, nhanVienChamCong, ngayPhanCong, soLuongCanLham, toNhom);
+                        if (daoPhanCong.themMotPhanCongNhan(phanCong)) {
+                            check = true;
                         }
+//                        }
                     }
                     if (check) {
                         taiDuLieuLenBangPhanCong();
@@ -585,26 +591,34 @@ public class PhanCongCongViecView extends javax.swing.JPanel {
                         setShow(btnPhanCong);
                         setHidden(btnLuu, btnHuy, btnXoa, btnCapNhat);
                         checkPhanCong = false;
+                        checkPhanCong = false;
+                        dcsNgayPhanCong.setEnabled(false);
+                        cmbMaCongDoan.setEnabled(false);
+                        cmbToNhom.setEnabled(false);
+                        txtSoLuongCanLam.setEditable(false);
                     }
                 } else {
                     JOptionPane.showMessageDialog(this, stErr1 + " " + congDoan.getMaCongDoan() + " " + stErr2 + " " + toNhom.getTenToNhom() + " " + stErr3);
                 }
             } else {
-                daoPhanCong.suaMotPhanCongNhanTheoMaCongDoan(toNhom.getMaToNhom(), Integer.parseInt(txtSoLuongCanLam.getText()), cmbMaCongDoan.getSelectedItem().toString());
-                taiDuLieuLenBangPhanCong();
-                JOptionPane.showMessageDialog(this, stCapNhatThanhCong);
-                setHidden(btnPhanCong, btnLuu, btnHuy, btnCapNhat, btnXoa);
+                if (daoPhanCong.suaMotPhanCongNhanTheoMaCongDoan(toNhom.getMaToNhom(), Integer.parseInt(txtSoLuongCanLam.getText()), cmbMaCongDoan.getSelectedItem().toString())) {
+                    taiDuLieuLenBangPhanCong();
+                    JOptionPane.showMessageDialog(this, stCapNhatThanhCong, stThongbao, JOptionPane.ERROR_MESSAGE);
+                    setHidden(btnPhanCong, btnLuu, btnHuy, btnCapNhat, btnXoa);
+                } else {
+                    JOptionPane.showMessageDialog(this, stCapNhatThatBai, stThongbao, JOptionPane.ERROR_MESSAGE);
+                    setHidden(btnPhanCong, btnLuu, btnHuy, btnCapNhat, btnXoa);
+                }
             }
         }
-
     }
 
     private void tblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {
-        taiDuLieuLenBangPhanCong();
         setShow(btnPhanCong);
         setHidden(btnCapNhat, btnXoa, btnHuy, btnLuu);
         setTblClick(false);
         lblErrSoLuongCanLam.setText("");
+        taiDuLieuLenBangPhanCong();
     }
 
     private void cmbMaCongDoanActionPerformed(java.awt.event.ActionEvent evt) {

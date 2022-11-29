@@ -87,6 +87,7 @@ public class ChamCongCongNhanView extends javax.swing.JPanel implements ActionLi
     private String stChamCongThanhCong;
     private String stErrNgayChamCong;
     private String stErrBeHonTongSanPhamCongDoan;
+    private String stErrChamCong;
 
     public ChamCongCongNhanView(String fileName) throws IOException {
         initComponents();
@@ -286,6 +287,7 @@ public class ChamCongCongNhanView extends javax.swing.JPanel implements ActionLi
         stErrNhanVienKhongDuTuoi = prop.getProperty("nhanVienChuaDuTuoi");
         stErrTienKhongHopLe = prop.getProperty("soTienKhongHople");
         stSoTienLonHonKhong = prop.getProperty("soTienLonHonKhong");
+        stErrChamCong= prop.getProperty("chamCong_errNgayChamCong");
     }
 
     public void ChangeName(JTable table, int col_index, String col_name) {
@@ -935,7 +937,7 @@ public class ChamCongCongNhanView extends javax.swing.JPanel implements ActionLi
         }
         Date ngayChon = dtcNgayChamCong.getDate();
         if (ngayChon.after(new Date())) {
-            JOptionPane.showMessageDialog(null, stErrNgayChamCong, stThongbao, JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, stErrChamCong, stThongbao, JOptionPane.INFORMATION_MESSAGE);
             dtcNgayChamCong.setDate(new Date());
         }
     }//GEN-LAST:event_dtcNgayChamCongPropertyChange

@@ -402,7 +402,7 @@ public class LuongNhanVienView extends javax.swing.JPanel {
                 String username = "admin";
                 String password = "123456";
                 String to = tblBangLuong.getValueAt(i, 5).toString();
-                String message = "Lương tháng " + luongTHang + " của bạn nhận được là " + tblBangLuong.getValueAt(i, 11);
+                String message = "Lương tháng " + luongTHang + " của bạn nhận được là " + tblBangLuong.getValueAt(i, 10) +" "+tblBangLuong.getValueAt(i, 11);
                 String requestUrl = "http://localhost:9710/http/send-message?"
                         + "username=" + URLEncoder.encode(username, "UTF-8")
                         + "&password=" + URLEncoder.encode(password, "UTF-8")

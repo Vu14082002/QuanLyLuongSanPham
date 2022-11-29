@@ -158,7 +158,7 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
         stCapNhatThanhCong = prop.getProperty("capNhatThanhCong");
         stCapNhatThatBai = prop.getProperty("capNhatThatBai");
         stChonMauSacChoSanPham = prop.getProperty("sp_chonMauSacChoSanPham");
-        stErrSoLuong = prop.getProperty("sp_lblErrSoLuong");
+        stErrSoLuong = prop.getProperty("pc_errKytusolonHonKhong");
         stErrKhongDeTrong = prop.getProperty("KhongDeTrong");
     }
 

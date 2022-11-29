@@ -35,6 +35,7 @@ public class ChiTietLuongNhanVien extends javax.swing.JFrame {
         lblTitle.setText("Chi tiết lương nhân viên trong tháng " + thang + "-" + nam);
         taiDuLieuLenBangChiTietLuong(maNhanVien, thang, nam, tongTien);
         caiDatNgonNguChoView(fileName);
+        lblTitle.setText( lblTitle.getText()+" "+ thang + "-" + nam);
     }
 
     private void execute() {
@@ -144,7 +145,7 @@ public class ChiTietLuongNhanVien extends javax.swing.JFrame {
         lblValueMaNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lblValueMaNhanVien.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblValueMaNhanVien.setText("NV001");
-        jPanel2.add(lblValueMaNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 270, 40));
+        jPanel2.add(lblValueMaNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, 270, 40));
 
         lblHoVaTen.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lblHoVaTen.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -154,7 +155,7 @@ public class ChiTietLuongNhanVien extends javax.swing.JFrame {
         lblValueHoVaTen.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lblValueHoVaTen.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblValueHoVaTen.setText("Nguyễn Van A");
-        jPanel2.add(lblValueHoVaTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, 300, 40));
+        jPanel2.add(lblValueHoVaTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 300, 40));
 
         lblMaNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lblMaNhanVien.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -169,7 +170,7 @@ public class ChiTietLuongNhanVien extends javax.swing.JFrame {
         lblValueTongTien.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lblValueTongTien.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblValueTongTien.setText("1000000000000 vnd");
-        jPanel2.add(lblValueTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, 300, 40));
+        jPanel2.add(lblValueTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 190, 300, 40));
 
         btnXuatBaoCao.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         btnXuatBaoCao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/update.png"))); // NOI18N
@@ -192,7 +193,7 @@ public class ChiTietLuongNhanVien extends javax.swing.JFrame {
         lblTitle.setFont(new java.awt.Font("Segoe UI", 0, 32)); // NOI18N
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("Chi tiết lương nhân viên trong tháng");
-        jPanel2.add(lblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, 840, 70));
+        jPanel2.add(lblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 70));
 
         jPanel1.add(jPanel2, java.awt.BorderLayout.PAGE_START);
 

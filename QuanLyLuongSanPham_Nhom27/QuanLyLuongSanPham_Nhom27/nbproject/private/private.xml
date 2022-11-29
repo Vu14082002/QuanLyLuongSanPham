@@ -3,13 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/MonHoc/Nam3_HK1/PTUD/Code/Git/QuanLyLuongSanPham/QuanLyLuongSanPham_Nhom27/QuanLyLuongSanPham_Nhom27/src/DAO/PhanCongCongNhan_DAO.java</file>
-            <file>file:/D:/MonHoc/Nam3_HK1/PTUD/Code/Git/QuanLyLuongSanPham/QuanLyLuongSanPham_Nhom27/QuanLyLuongSanPham_Nhom27/src/view/ChamCongCongNhanView.java</file>
+            <file>file:/D:/MonHoc/Nam3_HK1/PTUD/Code/Git/QuanLyLuongSanPham/QuanLyLuongSanPham_Nhom27/QuanLyLuongSanPham_Nhom27/src/view/CapNhatCongNhanView.java</file>
+            <file>file:/D:/MonHoc/Nam3_HK1/PTUD/Code/Git/QuanLyLuongSanPham/QuanLyLuongSanPham_Nhom27/QuanLyLuongSanPham_Nhom27/src/view/CapNhatNhanVienView.java</file>
+            <file>file:/D:/MonHoc/Nam3_HK1/PTUD/Code/Git/QuanLyLuongSanPham/QuanLyLuongSanPham_Nhom27/QuanLyLuongSanPham_Nhom27/src/view/SanPhamView.java</file>
+            <file>file:/D:/MonHoc/Nam3_HK1/PTUD/Code/Git/QuanLyLuongSanPham/QuanLyLuongSanPham_Nhom27/QuanLyLuongSanPham_Nhom27/src/view/PhanCongCongViecView.java</file>
             <file>file:/D:/MonHoc/Nam3_HK1/PTUD/Code/Git/QuanLyLuongSanPham/QuanLyLuongSanPham_Nhom27/QuanLyLuongSanPham_Nhom27/src/view/ChamCongNhanVienView.java</file>
-            <file>file:/D:/MonHoc/Nam3_HK1/PTUD/Code/Git/QuanLyLuongSanPham/QuanLyLuongSanPham_Nhom27/QuanLyLuongSanPham_Nhom27/src/view/LuongNhanVienView.java</file>
             <file>file:/D:/MonHoc/Nam3_HK1/PTUD/Code/Git/QuanLyLuongSanPham/QuanLyLuongSanPham_Nhom27/QuanLyLuongSanPham_Nhom27/config/VietNam.properties</file>
-            <file>file:/D:/MonHoc/Nam3_HK1/PTUD/Code/Git/QuanLyLuongSanPham/QuanLyLuongSanPham_Nhom27/QuanLyLuongSanPham_Nhom27/src/view/LuongCongNhanView.java</file>
-            <file>file:/D:/MonHoc/Nam3_HK1/PTUD/Code/Git/QuanLyLuongSanPham/QuanLyLuongSanPham_Nhom27/QuanLyLuongSanPham_Nhom27/src/view/MainView.java</file>
             <file>file:/D:/MonHoc/Nam3_HK1/PTUD/Code/Git/QuanLyLuongSanPham/QuanLyLuongSanPham_Nhom27/QuanLyLuongSanPham_Nhom27/config/English.properties</file>
         </group>
     </open-files>

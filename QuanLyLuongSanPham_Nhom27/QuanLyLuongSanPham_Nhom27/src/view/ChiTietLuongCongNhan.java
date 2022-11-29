@@ -18,7 +18,6 @@ import java.text.DecimalFormat;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Properties;
-import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -40,7 +39,7 @@ public class ChiTietLuongCongNhan extends javax.swing.JFrame {
     private DecimalFormat nf, df;
     private DefaultTableModel modelTableChiTiet;
 
-    public ChiTietLuongCongNhan(String fileName,String maCongNhan, int thang, int nam) throws IOException {
+    public ChiTietLuongCongNhan(String fileName, String maCongNhan, int thang, int nam) throws IOException {
         this.maCongNhan = maCongNhan;
         this.thang = thang;
         this.nam = nam;
@@ -58,10 +57,10 @@ public class ChiTietLuongCongNhan extends javax.swing.JFrame {
         bangLuongCN_DAO = new BangLuongCongNhan_DAO();
         chamCongCN_DAO = new ChamCongCongNhan_DAO();
         modelTableChiTiet = (DefaultTableModel) tblBangLuongChiTiet.getModel();
-        lblTitle.setText("Chi tiết Lương trong tháng " + thang + " năm " + nam);
         hienThiLenLabel();
         taiDuLieuLenBang();
         caiDatNgonNguChoView(fileName);
+        lblTitle.setText(lblTitle.getText()+" " + thang + "-" + nam);
     }
 
     public void caiDatNgonNguChoView(String fileName) throws FileNotFoundException, IOException {
@@ -95,6 +94,11 @@ public class ChiTietLuongCongNhan extends javax.swing.JFrame {
         lblMaCongNhanOutput.setText(congNhan.getMaCongNhan());
         lblHoTenOutPut.setText(congNhan.getHoTen());
         String tienLuong = nf.format(tongLuong) + " VND";
+        if (tongLuong == 0) {
+            tienLuong = 0 + "";
+        } else {
+            tienLuong = nf.format(tongLuong) + "VND";
+        }
         lblTongTienNhan.setText(tienLuong);
     }
 
@@ -188,7 +192,7 @@ public class ChiTietLuongCongNhan extends javax.swing.JFrame {
         lblMaCongNhanOutput.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lblMaCongNhanOutput.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblMaCongNhanOutput.setText("CN001");
-        jPanel2.add(lblMaCongNhanOutput, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 270, 40));
+        jPanel2.add(lblMaCongNhanOutput, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 270, 40));
 
         lblTitle.setFont(new java.awt.Font("Segoe UI", 0, 32)); // NOI18N
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -203,7 +207,7 @@ public class ChiTietLuongCongNhan extends javax.swing.JFrame {
         lblHoTenOutPut.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lblHoTenOutPut.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblHoTenOutPut.setText("Nguyễn Van A");
-        jPanel2.add(lblHoTenOutPut, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, 300, 40));
+        jPanel2.add(lblHoTenOutPut, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 300, 40));
 
         lblMaCongNhan.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lblMaCongNhan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -218,7 +222,7 @@ public class ChiTietLuongCongNhan extends javax.swing.JFrame {
         lblTongTienNhan.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lblTongTienNhan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblTongTienNhan.setText("1000000000000 vnd");
-        jPanel2.add(lblTongTienNhan, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, 300, 40));
+        jPanel2.add(lblTongTienNhan, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 190, 300, 40));
 
         btnXuatBaoCao.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         btnXuatBaoCao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon/update.png"))); // NOI18N
