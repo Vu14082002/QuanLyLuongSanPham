@@ -14,7 +14,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DateFormat;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -53,7 +52,6 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
     private NhanVien_DAO daoNhanVien = new NhanVien_DAO();
     private NhanVien nhanvienEntity;
     private DefaultTableModel model;
-    private DecimalFormat dcf;
     private DateFormat df = new SimpleDateFormat("yyy-MM-dd");
     private Date date;
     private boolean isThem = false;
@@ -178,7 +176,7 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
         btnLuu.setEnabled(false);
         btnHuy.setEnabled(false);
         ConnectionDB.ConnectDB.getInstance().connect();
-        dcf = new DecimalFormat("###,###,###,###,###.###");
+//        dcf = new DecimalFormat("###,###,###,###,###.###");
         setEnableForInput(false);
         setInit();
     }
@@ -209,7 +207,7 @@ public class CapNhatNhanVienView extends javax.swing.JPanel {
             for (NhanVien nv : danhSachNhanVien) {
                 String data[] = {(model.getRowCount() + 1) + "", nv.getMaNhanVien(), nv.getHoTen(), nv.getMaCCCD(), nv.isGioiTinh() ? "Nam" : "Nữ", nv.getNgaySinh().toString(),
                     nv.getSoDienThoai(), nv.getDiaChi(), nv.getAnhDaiDien(), nv.getEmail(), nv.getPhongBan().getTenPhongBan(),
-                    nv.getChucVu(), nv.getNgayVaoLam().toString(), dcf.format(nv.getLuongThoaThuan())};
+                    nv.getChucVu(), nv.getNgayVaoLam().toString(), nv.getLuongThoaThuan()+""};
                 model.addRow(data);
             }
             if (tblNhanVien.getRowCount() != 0) {

@@ -407,6 +407,7 @@ public class LoginView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                new splashscreen.SplashScreen(null, true).setVisible(true);
                 new LoginView().setVisible(true);
             }
         });

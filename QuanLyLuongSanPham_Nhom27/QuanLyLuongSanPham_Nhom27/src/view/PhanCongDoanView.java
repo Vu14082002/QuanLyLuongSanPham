@@ -78,6 +78,8 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
     private String stSoNguyen;
     private String stThuTuLam;
     private String stSauNgayHienTai;
+    private String stThuTuLamPhaiLonHon;
+    private String stThuTuCongDoanHienTai;
 
     public PhanCongDoanView(String fileName) throws IOException {
         initComponents();
@@ -174,6 +176,8 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
         stSoNguyen = prop.getProperty("pcd_ErrPhaiLaSoNguyen");
         stThuTuLam = prop.getProperty("pcd_ErrThuTuLam");
         stSauNgayHienTai = prop.getProperty("pcd_ErrPhaiBangHoacSauNgayHienTai");
+        stThuTuLamPhaiLonHon = prop.getProperty("pcd_thuThuTuLamPhaiBeHon");
+        stThuTuCongDoanHienTai = prop.getProperty("pcd_thuThuCongDoanHienTai");
     }
 
     public void ChangeName(JTable table, int col_index, String col_name) {
@@ -249,7 +253,7 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
 //            String data[] = {(modelTableCongDoan.getRowCount() + 1) + "", congDoan.getMaCongDoan(), congDoan.getTenCongDoan(),
 //                congDoan.getSoLuongCan() + "", congDoan_DAO.laySoLuongLamDuocTheoMaCongDoan(maCongDoan) + "", nf.format(congDoan.getTienLuong()), congDoan.getThoiHan().toString(),
 //                String.format("%.2f", congDoan_DAO.layMucDoHoanThanhCuaMotCongDoan(maCongDoan)) + "%"};
-            String data[] = {congDoan.getThuTuCongDoan()+"", congDoan.getMaCongDoan(), congDoan.getTenCongDoan(),
+            String data[] = {congDoan.getThuTuCongDoan() + "", congDoan.getMaCongDoan(), congDoan.getTenCongDoan(),
                 congDoan.getSoLuongCan() + "", congDoan_DAO.laySoLuongLamDuocTheoMaCongDoan(maCongDoan) + "", nf.format(congDoan.getTienLuong()), congDoan.getThoiHan().toString(),
                 String.format("%.2f", congDoan_DAO.layMucDoHoanThanhCuaMotCongDoan(maCongDoan)) + "%"};
             modelTableCongDoan.addRow(data);
@@ -549,7 +553,7 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
         lblErrThuTuLam.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lblErrThuTuLam.setForeground(new java.awt.Color(204, 0, 0));
         lblErrThuTuLam.setText("đây là dòng thông báo lỗi");
-        jPanel5.add(lblErrThuTuLam, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 400, 190, -1));
+        jPanel5.add(lblErrThuTuLam, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 400, 190, 20));
 
         add(jPanel5, java.awt.BorderLayout.PAGE_START);
 
@@ -909,7 +913,6 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
             lblErrSoLuongCan.setText("");
         }
         SanPham sanPham = sanPham_DAO.layMotSanPhamTheoMa(lblHienThiMaSP.getText());
-        System.out.println(sanPham.getSoLuongSanPham());
         if (soLuongCan < sanPham.getSoLuongSanPham()) {
             lblErrSoLuongCan.setText(stSoLuongPhaiLonHonHoacBang + sanPham.getSoLuongSanPham());
             flag = false;
@@ -922,11 +925,37 @@ public class PhanCongDoanView extends javax.swing.JPanel implements ActionListen
             lblErrThuTuLam.setText(stSoNguyen);
             flag = false;
         }
-        if (thuTuLam > 0) {
-            lblErrThuTuLam.setText("");
-        } else {
+        String maSanPham = lblHienThiMaSP.getText().trim();
+        ArrayList<CongDoan> dsCongDoan = congDoan_DAO.layRaThuTuLamLonNhatCuaMotSanPham(maSanPham);
+
+        int thuTuMax = 0;
+        if (dsCongDoan.size() > 0) {
+            thuTuMax = dsCongDoan.get(0).getThuTuCongDoan();
+        }
+        if (thuTuLam <= 0) {
             lblErrThuTuLam.setText(stThuTuLam);
             flag = false;
+        } else if (thuTuLam > thuTuMax + 1 && oFlag.equals(btnThem)) {
+            lblErrThuTuLam.setText(stThuTuLamPhaiLonHon+" " + (thuTuMax + 1));
+            flag = false;
+        } else if (oFlag.equals(btnCapNhat) && thuTuLam > thuTuMax + 1 && dsCongDoan.size() > 1) {
+            lblErrThuTuLam.setText(stThuTuLamPhaiLonHon+" " + (thuTuMax + 1));
+            flag = false;
+        } else if (oFlag.equals(btnCapNhat) && thuTuLam > thuTuMax && dsCongDoan.size() == 1) {
+            lblErrThuTuLam.setText(stThuTuLamPhaiLonHon+" " + (thuTuMax));
+            flag = false;
+        } else {
+            lblErrThuTuLam.setText("");
+        }
+        if (oFlag.equals(btnCapNhat)) {
+            CongDoan congDoanDangCapNhat = congDoan_DAO.layMotCongDoanTheoMaCongDoan(lblHienThiMaCongDoan.getText().trim());
+
+            ArrayList<CongDoan> dsCongDoanCungThuTu = congDoan_DAO.layDanhSachCongDoanTheoThuTuSanPham(congDoanDangCapNhat.getSanPham().getMaSanPham(), congDoanDangCapNhat.getThuTuCongDoan());
+            if (dsCongDoanCungThuTu.size() == 1 && dsCongDoanCungThuTu.get(0).getThuTuCongDoan() != thuTuLam
+                    && dsCongDoanCungThuTu.get(0).getThuTuCongDoan() != thuTuMax) {
+                lblErrThuTuLam.setText(stThuTuCongDoanHienTai);
+                flag = false;
+            }
         }
         if (dcsThoiHan.getDate().before(new Date())) {
             lblErrThoiHan.setText(stSauNgayHienTai);

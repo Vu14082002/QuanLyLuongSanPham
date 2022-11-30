@@ -501,8 +501,8 @@ public class PhongBanView extends javax.swing.JPanel implements MouseListener, A
                 if (txtTenPhongBan.getText().equals("")) {
                     lbErrTenPhongBan.setText(stErrKhongDeTrong);
                     return;
-                } else if (!txtTenPhongBan.getText().toLowerCase().matches("^([a-vxyỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]+)((\\s{1}[a-vxyỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]+){0,})$")) {
-                    lbErrTenPhongBan.setText("Chỉ chứa kí tự chữ");
+                } else if (!txtTenPhongBan.getText().toLowerCase().matches("^([a-vxyỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]+)(\\s{1}[a-vxyỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]+){0,}$")) {
+                    lbErrTenPhongBan.setText(stErrTenPhongBan);
                     return;
                 }else {
                     lbErrTenPhongBan.setText("");

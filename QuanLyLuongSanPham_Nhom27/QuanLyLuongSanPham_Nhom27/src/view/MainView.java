@@ -195,16 +195,19 @@ public class MainView extends javax.swing.JFrame {
         }));
 
         // submenu nhan vien
-        capNhatNhanVien = new MenuItem(iconSubMenuNonSelect, lblCapNhat, (ActionEvent e) -> {
-            pnBody.removeAll();
-            try {
-                pnBody.add(new CapNhatNhanVienView(fileName), BorderLayout.CENTER);
-            } catch (Exception ex) {
-                Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+        capNhatNhanVien = new MenuItem(iconSubMenuNonSelect, lblCapNhat, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pnBody.removeAll();
+                try {
+                    pnBody.add(new CapNhatNhanVienView(fileName), BorderLayout.CENTER);
+                } catch (Exception ex) {
+                    Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                pnBody.repaint();
+                pnBody.revalidate();
+                macDinh((capNhatNhanVien));
             }
-            pnBody.repaint();
-            pnBody.revalidate();
-            macDinh((capNhatNhanVien));
         });
         chamCongNhanVien = new MenuItem(iconSubMenuNonSelect, lblChamCong, (ActionEvent e) -> {
             pnBody.removeAll();
@@ -367,9 +370,7 @@ public class MainView extends javax.swing.JFrame {
             pnBody.removeAll();
             try {
                 pnBody.add(new HopDongView(nhanVienDangNhap, fileName), BorderLayout.CENTER);
-            } catch (ParseException ex) {
-                Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
+            } catch (ParseException | IOException ex) {
                 Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
             }
             pnBody.repaint();

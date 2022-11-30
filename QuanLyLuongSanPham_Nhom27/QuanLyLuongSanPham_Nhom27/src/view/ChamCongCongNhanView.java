@@ -701,7 +701,7 @@ public class ChamCongCongNhanView extends javax.swing.JPanel implements ActionLi
         jPanel5.add(txtSoLuongLam, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 310, 180, 20));
         jPanel5.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 330, 180, 10));
 
-        lblErrSoLuongSP.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lblErrSoLuongSP.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         lblErrSoLuongSP.setForeground(new java.awt.Color(204, 0, 0));
         lblErrSoLuongSP.setText("đây là dòng thông báo lỗi");
         jPanel5.add(lblErrSoLuongSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 330, 190, -1));
@@ -1221,6 +1221,21 @@ public class ChamCongCongNhanView extends javax.swing.JPanel implements ActionLi
         if (soLuong < 0) {
             lblErrSoLuongSP.setText(stErrSoLuong);
             return false;
+        }
+        CongDoan congDoanDangCham = congDoan_DAO.layMotCongDoanTheoMaCongDoan(maCongDoanFlag);
+        
+        if (congDoanDangCham != null){
+            if (congDoanDangCham.getThuTuCongDoan() != 1){
+                int thuTuTruoc = congDoanDangCham.getThuTuCongDoan()-1;
+                String maSanPham = congDoanDangCham.getSanPham().getMaSanPham();
+                ArrayList<CongDoan> dsCongDoan = congDoan_DAO.layDanhSachCongDoanTheoThuTuSanPham(maSanPham, thuTuTruoc);
+                for (CongDoan cd : dsCongDoan){
+                    if (soLuong > congDoan_DAO.laySoLuongLamDuocTheoMaCongDoan(cd.getMaCongDoan())){
+                        lblErrSoLuongSP.setText("Phải <= số lượng làm công đoạn trước");
+                        return false;
+                    }
+                }
+            }
         }
         ArrayList<PhanCongCongNhan> phanCongDS = phanCong_DAO.layDanhSachPhanCongTheoMaCongDoan(maCongDoanFlag);
         if (phanCongDS.size() > 0){

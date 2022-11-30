@@ -102,6 +102,7 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
         lblErrSoLuong.setText("");
         lblErrChatLieu.setText("");
         lblErrTenSanPham.setText("");
+        lblErrKichThuoc.setText("");
 
         // 
         excute();
@@ -172,7 +173,7 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
         txtSoLuong.setText("");
         txtTenSanPham.setText("");
         txtChatLieu.setText("");
-        cmbKichThuoc.setSelectedIndex(0);
+        txtKichThuoc.setText("");
         lblAnhSanPham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/sanPham/icons8-shoes-64(2).png")));
         this.pnlMauSacSanPham.setBackground(new Color(255, 0, 0));
 
@@ -210,7 +211,7 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
             txtTenSanPham.setText("");
             txtMaHopDong.setText("");
             txtChatLieu.setText("");
-            cmbKichThuoc.setSelectedIndex(0);
+            txtKichThuoc.setText("");
             txtSoLuong.setText("");
             txtSoCongDoan.setText("");
         }
@@ -236,7 +237,7 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
             txtMaSanPham.setText("");
             txtTenSanPham.setText("");
             txtChatLieu.setText("");
-            cmbKichThuoc.setSelectedIndex(0);
+            txtKichThuoc.setText("");
             txtSoLuong.setText("");
             txtSoCongDoan.setText("");
             lblAnhSanPham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/sanPham/icons8-shoes-64(2).png")));
@@ -259,7 +260,7 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
 
         this.pnlMauSacSanPham.setBackground(new Color(mau[0], mau[1], mau[2]));
         txtChatLieu.setText(tblDanhSachSanPham.getValueAt(row, 5).toString());
-        cmbKichThuoc.setSelectedItem(tblDanhSachSanPham.getValueAt(row, 6).toString());
+        txtKichThuoc.setText(tblDanhSachSanPham.getValueAt(row, 6).toString());
         System.out.println("/image/sanPham/" + tblDanhSachSanPham.getValueAt(row, 7).toString());
         lblAnhSanPham.
                 setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/sanPham/" + tblDanhSachSanPham.getValueAt(row, 7).toString())));
@@ -277,7 +278,7 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
         txtSoLuong.setEditable(b);
         pnlMauSacSanPham.setEnabled(false);
         txtChatLieu.setEditable(b);
-        cmbKichThuoc.setEnabled(b);
+        txtKichThuoc.setEditable(b);
         pnlAnhSanPham.setEnabled(b);
     }
 
@@ -308,7 +309,6 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
         lblKichThuoc = new javax.swing.JLabel();
         pnlMauSacSanPham = new javax.swing.JPanel();
         lblSoLuong = new javax.swing.JLabel();
-        cmbKichThuoc = new javax.swing.JComboBox<>();
         lblChatLieu = new javax.swing.JLabel();
         pnlAnhSanPham = new javax.swing.JPanel();
         lblAnhSanPhamOfPnl = new javax.swing.JLabel();
@@ -330,6 +330,9 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
         lblMaHopDong = new javax.swing.JLabel();
         txtMaHopDong = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        txtKichThuoc = new javax.swing.JTextField();
+        lblErrKichThuoc = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1200, 700));
         setLayout(new java.awt.BorderLayout());
@@ -389,12 +392,12 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel4.setText("_______________");
-        pnHead.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 50, 140, 20));
+        pnHead.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 190, 140, 20));
 
         txtMaSanPham.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         txtMaSanPham.setText("jTextField1");
         txtMaSanPham.setBorder(null);
-        pnHead.add(txtMaSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 30, 140, 40));
+        pnHead.add(txtMaSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 40, 140, 30));
 
         lblSoLuongCongDoan.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lblSoLuongCongDoan.setText("Số công đoạn:");
@@ -454,11 +457,6 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
         lblSoLuong.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lblSoLuong.setText("Số lượng:");
         pnHead.add(lblSoLuong, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 250, 80, 40));
-
-        cmbKichThuoc.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        cmbKichThuoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", " " }));
-        cmbKichThuoc.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        pnHead.add(cmbKichThuoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 180, 150, 40));
 
         lblChatLieu.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lblChatLieu.setText("Chât liệu:");
@@ -657,6 +655,20 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
         jLabel7.setText("_______________");
         pnHead.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 50, 140, 30));
 
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel8.setText("_______________");
+        pnHead.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 50, 140, 30));
+
+        txtKichThuoc.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtKichThuoc.setText("jTextField1");
+        txtKichThuoc.setBorder(null);
+        pnHead.add(txtKichThuoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 170, 140, 40));
+
+        lblErrKichThuoc.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lblErrKichThuoc.setForeground(new java.awt.Color(204, 0, 0));
+        lblErrKichThuoc.setText("đây là dòng thông báo lỗi");
+        pnHead.add(lblErrKichThuoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 210, 170, 20));
+
         add(pnHead, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -833,17 +845,18 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
     private javax.swing.JButton btnThem1;
     private javax.swing.JButton btnThemNhieu;
     private javax.swing.JButton btnXoa;
-    private javax.swing.JComboBox<String> cmbKichThuoc;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel lblAnhSanPham;
     private javax.swing.JLabel lblAnhSanPhamOfPnl;
     private javax.swing.JLabel lblChatLieu;
     private javax.swing.JLabel lblErrChatLieu;
+    private javax.swing.JLabel lblErrKichThuoc;
     private javax.swing.JLabel lblErrSoLuong;
     private javax.swing.JLabel lblErrTenSanPham;
     private javax.swing.JLabel lblKichThuoc;
@@ -861,6 +874,7 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
     private javax.swing.JTable tblDanhSachSanPham;
     private javax.swing.JTable tblHopDong;
     private javax.swing.JTextField txtChatLieu;
+    private javax.swing.JTextField txtKichThuoc;
     private javax.swing.JTextField txtMaHopDong;
     private javax.swing.JTextField txtMaSanPham;
     private javax.swing.JTextField txtSoCongDoan;
@@ -918,7 +932,7 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
                 }
                 String maSanPham = txtMaSanPham.getText().trim();
                 String tenSanPham = txtTenSanPham.getText().trim();
-                String kichThuocStr = cmbKichThuoc.getSelectedItem().toString();
+                String kichThuocStr = txtKichThuoc.getText().toString();
                 int kichThuoc = 0;
                 try {
                     soLuongSanPham = Integer.parseInt(txtSoLuong.getText().trim());
@@ -961,7 +975,7 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
                 }
                 String maSanPham = txtMaSanPham.getText().trim();
                 String tenSanPham = txtTenSanPham.getText().trim();
-                String kichThuocStr = cmbKichThuoc.getSelectedItem().toString();
+                String kichThuocStr = txtKichThuoc.getText().toString();
                 int kichThuoc = 0;
                 try {
                     soLuongSanPham = Integer.parseInt(txtSoLuong.getText().trim());
@@ -1039,6 +1053,12 @@ public class SanPhamView extends javax.swing.JPanel implements ActionListener, M
             flag = false;
         } else {
             lblErrSoLuong.setText("");
+        }
+        if (!txtKichThuoc.getText().matches("^[1-9][0-9]*$")){
+            lblErrKichThuoc.setText("Là số nguyên và > 0");
+            flag = false;
+        } else {
+            lblErrKichThuoc.setText("");
         }
         return flag;
     }

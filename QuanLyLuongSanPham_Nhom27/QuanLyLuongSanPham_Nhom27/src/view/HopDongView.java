@@ -13,7 +13,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -165,10 +164,7 @@ public class HopDongView extends javax.swing.JPanel {
         ArrayList<HopDong> hopDongList = hopDongDao.layDanhSachHopDong();
         if (hopDongList != null) {
             hopDongList.forEach(e -> {
-                DecimalFormat dcm = new DecimalFormat("###,###,###,###.### VND");
-                String tienCoc = dcm.format(e.getSoTienCoc());
-                String tongTien = dcm.format(e.getTongTien());
-                model.addRow(new Object[]{model.getRowCount() + 1, e.getMaHopDong(), e.getTenHopDong(), e.getTenKhachHang(), tienCoc, tongTien, e.getNgayKyKet(), e.getHanChot()});
+                model.addRow(new Object[]{model.getRowCount() + 1, e.getMaHopDong(), e.getTenHopDong(), e.getTenKhachHang(), e.getSoTienCoc(), e.getTongTien(), e.getNgayKyKet(), e.getHanChot()});
             });
         }
         if (tblHopDong.getRowCount() != 0) {

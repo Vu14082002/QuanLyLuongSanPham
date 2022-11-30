@@ -266,6 +266,76 @@ public class CongDoan_DAO {
             }
         }
     }
+    public ArrayList<CongDoan> layRaThuTuLamLonNhatCuaMotSanPham(String maSanPham){
+        ArrayList<CongDoan> dsCongDoan = new ArrayList<CongDoan>();
+        PreparedStatement stm = null;
+        SanPham_DAO sanPham_DAO = new SanPham_DAO();
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String truyVan = "select top 1 WITH TIES * from CongDoan where maSanPham = ? order by thuTu desc";
+            stm = con.prepareStatement(truyVan);
+            stm.setString(1, maSanPham);
+            
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()){
+                String maCongDoanOb = rs.getString("maCongDoan");
+                int thuTuCongDoan = rs.getInt("thuTu");
+                String tenCongDoan = rs.getString("tenCongDoan");
+                int soLuongCan = rs.getInt("soLuongCan");
+                String tinhTrang = rs.getString("tinhTrang");
+                Date thoiHan = rs.getDate("thoiHan");
+                String maSanPhamOb = rs.getString("maSanPham");
+                double tienLuong = rs.getBigDecimal("tienLuong").doubleValue();
+                SanPham sanPham = sanPham_DAO.layMotSanPhamTheoMa(maSanPhamOb);
+                dsCongDoan.add(new CongDoan(maCongDoanOb, thuTuCongDoan, tenCongDoan, soLuongCan, tinhTrang, thoiHan, sanPham, tienLuong));
+            }
+        }  catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                stm.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return dsCongDoan;
+    }
+    public ArrayList<CongDoan> layDanhSachCongDoanTheoThuTuSanPham(String maSanPham, int thuTu){
+        ArrayList<CongDoan> dsCongDoan = new ArrayList<CongDoan>();
+        PreparedStatement stm = null;
+        SanPham_DAO sanPham_DAO = new SanPham_DAO();
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String truyVan = "select * from CongDoan where maSanPham = ? and thuTu = ?";
+            stm = con.prepareStatement(truyVan);
+            stm.setString(1, maSanPham);
+            stm.setInt(2, thuTu);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()){
+                String maCongDoanOb = rs.getString("maCongDoan");
+                int thuTuCongDoan = rs.getInt("thuTu");
+                String tenCongDoan = rs.getString("tenCongDoan");
+                int soLuongCan = rs.getInt("soLuongCan");
+                String tinhTrang = rs.getString("tinhTrang");
+                Date thoiHan = rs.getDate("thoiHan");
+                String maSanPhamOb = rs.getString("maSanPham");
+                double tienLuong = rs.getBigDecimal("tienLuong").doubleValue();
+                SanPham sanPham = sanPham_DAO.layMotSanPhamTheoMa(maSanPhamOb);
+                dsCongDoan.add(new CongDoan(maCongDoanOb, thuTuCongDoan, tenCongDoan, soLuongCan, tinhTrang, thoiHan, sanPham, tienLuong));
+            }
+        }  catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                stm.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return dsCongDoan;
+    }
     public int laySoLuongLamDuocTheoMaCongDoan(String maCongDoan) {
         PreparedStatement stm = null;
         int soLuongLamDuoc = 0;
