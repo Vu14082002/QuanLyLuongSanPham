@@ -1010,7 +1010,7 @@ public class ChamCongCongNhanView extends javax.swing.JPanel implements ActionLi
     }//GEN-LAST:event_btnHuyActionPerformed
 
     private void tblChamCongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblChamCongMouseClicked
-        setEditTextDateChooser();
+         setEditTextDateChooser();
     }//GEN-LAST:event_tblChamCongMouseClicked
 
     private void cmbCaLamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCaLamActionPerformed
@@ -1407,7 +1407,7 @@ public class ChamCongCongNhanView extends javax.swing.JPanel implements ActionLi
         lblMaCongNhanHienThi.setText(tblChamCong.getValueAt(tblChamCong.getSelectedRow(), 2).toString());
         lblHoVaTenHienThi.setText(tblChamCong.getValueAt(tblChamCong.getSelectedRow(), 3).toString());
         cmbTrangThai.setSelectedItem(tblChamCong.getValueAt(tblChamCong.getSelectedRow(), 7).toString());
-        cmbCaLam.setSelectedItem(tblChamCong.getValueAt(tblChamCong.getSelectedRow(), 6).toString());
+//        cmbCaLam.setSelectedItem(tblChamCong.getValueAt(tblChamCong.getSelectedRow(), 6).toString());
         String times[] = tblChamCong.getValueAt(tblChamCong.getSelectedRow(), 8).toString().split("h");
         if (times.length > 1) {
             cmbGioDiLam.setSelectedItem(times[0]);

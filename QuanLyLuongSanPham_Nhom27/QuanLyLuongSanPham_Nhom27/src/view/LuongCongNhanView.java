@@ -362,14 +362,12 @@ public class LuongCongNhanView extends javax.swing.JPanel implements ActionListe
                 HttpURLConnection uc = (HttpURLConnection) url.openConnection();
                 System.out.println(uc.getResponseMessage());
                 uc.disconnect();
-
             }
             JOptionPane.showMessageDialog(null, "Gửi thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             JOptionPane.showMessageDialog(null, "Gửi thất bại!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         }
-
     }//GEN-LAST:event_btnGuiThongTinActionPerformed
 
     private void cmbThangTinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbThangTinhActionPerformed

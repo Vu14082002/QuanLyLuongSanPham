@@ -33,6 +33,11 @@ public class LoginView extends javax.swing.JFrame {
     private ArrayList<String> ngonNguList;
 
     public LoginView() {
+        try {
+            ConnectionDB.ConnectDB.getInstance().connect();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         congNhan_DAO = new CongNhan_DAO();
         nhanVien_DAO = new NhanVien_DAO();
         ngonNguList = new ArrayList<>();
@@ -52,12 +57,6 @@ public class LoginView extends javax.swing.JFrame {
         } else {
             getDataRemember();
         }
-        try {
-            ConnectionDB.ConnectDB.getInstance().connect();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
     }
 
     public void caiDatNgonNguChoView(String fileName) throws FileNotFoundException, IOException {
